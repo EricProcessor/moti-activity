@@ -37,11 +37,21 @@
 		<img class="comments" :src="'../../static/images/package/' + lastImg">
 		
 		<!-- 提交信息后弹出卡片 -->
-		<!-- <view class="mask-card">
+		<view class="mask-card" v-if="isShowPopupCard">
 			<view class="card-content">
-				<image src="../../static/images/icons/close.png" mode=""></image>
+				<image class="close-icon" src="../../static/images/icons/close.png"></image>
+				<view class="content">
+					<view class="title">
+						<image v-if="submitState === 0" src="../../static/images/icons/failed.png" mode=""></image>
+						<image v-else-if="submitState === 1" src="../../static/images/icons/failed.png" mode=""></image>
+						<text v-if="submitState === 0">订单提交失败</text>
+						<text v-else-if="submitState === 1">订单提交成功</text>
+					</view>
+					<view class="text">{{popupCardText}}</view>
+					<view class="btn">查看更多商品</view>					
+				</view>
 			</view>
-		</view> -->
+		</view>
 	</view>
 </template>
 
@@ -89,13 +99,16 @@
 						checked: false,
 						number: 0
 					}
-				]
+				],
+				isShowPopupCard: false,
+				submitState: 0,
+				popupCardText: '网络问题哦~~'
 			};
 		},
 		created() {
-			const paramVal = Number(location.href.split('?')[1].split('=')[1])
+			const params = location.href.split('?')[1]
+			const paramVal = params ? Number(params.split('=')[1]) : ''
 			console.log(paramVal)
-			if (paramVal < 1 || paramVal > 6) return
 			if (paramVal >= 1 && paramVal <= 6) {
 				this.imgs = this[`imgs${paramVal}`]
 				this.lastImg = this.lastImgs[paramVal - 1]
@@ -287,12 +300,59 @@
 			bottom: 0;
 			// background-color: rgba(0, 0, 0, 0.5);
 			z-index: 100;
+			
 			.card-content {
-				width: 524upx;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				position: relative;
+				width: 523.61upx;
 				height: 455upx;
 				border-radius: 3upx;
 				background: #fff;
 				box-shadow: 5upx 10upx 26upx 0 rgba(0,0,0,0.15);
+				.content {
+					height: 271upx;
+					display: flex;
+					flex-direction: column;
+					justify-content: space-between;
+					align-items: center;
+					.title {
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						color: #333333;
+						font-size: 33upx;
+						image {
+							margin-right: 2upx;
+							width: 40upx;
+							height: 40upx;
+						}
+					}
+					.text {
+						font-size: 26upx;
+						color: #999;
+					}
+					.btn {
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						width: 347upx;
+						height: 68upx;
+						border: 1upx solid #040000;
+						border-radius: 5upx;
+						font-size: 25upx;
+						background: rgba(250,70,80, 0.05);
+					}
+				}
+				
+				.close-icon {
+					position: absolute;
+					top: 20upx;
+					right: 20upx;
+					width: 60upx;
+					height: 60upx;
+				}
 			}
 		}
 	}
