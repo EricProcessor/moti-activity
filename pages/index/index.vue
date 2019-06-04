@@ -2,7 +2,7 @@
 	<view class="introduction-wrapper">
 		<!-- 上半部图片 -->
 		<view class="introductions">
-			<image v-for="(item, index) in imgs" :key="index" :src="item" mode="widthFix"></image>
+			<img v-for="(item, index) in imgs" :key="index" :src="'../../static/images/package/' + item">
 		</view>
 		<!-- 中间表单 -->
 		<view class="form-data">
@@ -34,8 +34,14 @@
 		<view class="submit-btn" @click="submit">货到满意付款</view>
 
 		<!-- 最后一张图片 -->
-		<image class="comments" :src="lastImg" mode="widthFix"></image>
-
+		<img class="comments" :src="'../../static/images/package/' + lastImg">
+		
+		<!-- 提交信息后弹出卡片 -->
+		<!-- <view class="mask-card">
+			<view class="card-content">
+				<image src="../../static/images/icons/close.png" mode=""></image>
+			</view>
+		</view> -->
 	</view>
 </template>
 
@@ -45,24 +51,20 @@
 			return {
 				imgs: [],
 				lastImg: '',
-				imgs1: [
-					'../../static/images/introduction/1.jpg',
-					'../../static/images/introduction/2.jpg',
-					'../../static/images/introduction/3.jpg',
-					'../../static/images/introduction/4.jpg',
-					'../../static/images/introduction/package_1_5.jpg',
-					'../../static/images/introduction/package_1_6.jpg',
+				lastImgs: [
+					'package_1/5.jpg',
+					'package_2/5.jpg',
+					'package_3/6.jpg',
+					'package_4/5.jpg',
+					'package_5/6.jpg',
+					'package_6/6.jpg'
 				],
-				img71: '../../static/images/introduction/package_1_7.jpg', // 第一套图片的第七张
-				imgs2: [
-					'../../static/images/introduction/1.jpg',
-					'../../static/images/introduction/2.jpg',
-					'../../static/images/introduction/3.jpg',
-					'../../static/images/introduction/4.jpg',
-					'../../static/images/introduction/package_2_5.jpg',
-					'../../static/images/introduction/package_2_6.jpg',
-				],
-				img72: '../../static/images/introduction/package_2_7.jpg',
+				imgs1: [ 'package_1/1.jpg', 'package_1/2.jpg', '/package_1/3.jpg', '/package_1/4.jpg' ],
+				imgs2: [ 'package_2/1.jpg', 'package_2/2.jpg', '/package_2/3.jpg', '/package_2/4.jpg' ],
+				imgs3: [ 'package_3/1.jpg', 'package_3/2.jpg', '/package_3/3.jpg', '/package_3/4.jpg', '/package_3/5.jpg' ],
+				imgs4: [ 'package_4/1.jpg', 'package_4/2.jpg', '/package_4/3.jpg', '/package_4/4.jpg' ],
+				imgs5: [ 'package_5/1.jpg', 'package_5/2.jpg', '/package_5/3.jpg', '/package_5/4.jpg', '/package_5/5.jpg' ],
+				imgs6: [ 'package_6/1.jpg', 'package_6/2.jpg', '/package_6/3.jpg', '/package_6/4.jpg', '/package_6/5.jpg' ],
 				userInfo: [{
 						text: '姓名*',
 						value: '',
@@ -91,20 +93,15 @@
 			};
 		},
 		created() {
-			const param = location.href.split('?')[1]
-			switch (param) {
-				case 'type=1':
-					this.imgs = this.imgs1
-					this.lastImg = this.img71
-					break
-				case 'type=2':
-					this.imgs = this.imgs2
-					this.lastImg = this.img72
-					break
-				default:
-					this.imgs = this.imgs1
-					this.lastImg = this.img71
-					break
+			const paramVal = Number(location.href.split('?')[1].split('=')[1])
+			console.log(paramVal)
+			if (paramVal < 1 || paramVal > 6) return
+			if (paramVal >= 1 && paramVal <= 6) {
+				this.imgs = this[`imgs${paramVal}`]
+				this.lastImg = this.lastImgs[paramVal - 1]
+			} else {
+				this.imgs = this.imgs1
+				this.lastImg = this.lastImgs[0]
 			}
 		},
 		methods: {
@@ -160,9 +157,9 @@
 <style lang="scss">
 	.introduction-wrapper {
 		.introductions {
-			image {
+			img {
 				display: block;
-				margin-bottom: -2upx;
+				// margin-bottom: -2upx;
 				width: 100%;
 			}
 		}
@@ -278,6 +275,25 @@
 
 		.comments {
 			width: 100%;
+		}
+		.mask-card {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: fixed;
+			left: 0;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			// background-color: rgba(0, 0, 0, 0.5);
+			z-index: 100;
+			.card-content {
+				width: 524upx;
+				height: 455upx;
+				border-radius: 3upx;
+				background: #fff;
+				box-shadow: 5upx 10upx 26upx 0 rgba(0,0,0,0.15);
+			}
 		}
 	}
 </style>
