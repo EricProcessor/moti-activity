@@ -102,6 +102,8 @@
 					this.lastImg = this.img72
 					break
 				default:
+					this.imgs = this.imgs1
+					this.lastImg = this.img71
 					break
 			}
 		},
