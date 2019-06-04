@@ -37,17 +37,18 @@
 		<img class="comments" :src="'../../static/images/package/' + lastImg">
 		
 		<!-- 提交信息后弹出卡片 -->
-		<view class="mask-card" v-if="isShowPopupCard">
+		<view class="mask-card" v-if="submitState >= 0">
 			<view class="card-content">
-				<image class="close-icon" src="../../static/images/icons/close.png"></image>
+				<image class="close-icon" @click="closePopup" src="../../static/images/icons/close.png"></image>
 				<view class="content">
 					<view class="title">
 						<image v-if="submitState === 0" src="../../static/images/icons/failed.png" mode=""></image>
-						<image v-else-if="submitState === 1" src="../../static/images/icons/failed.png" mode=""></image>
+						<image v-else-if="submitState === 1" src="../../static/images/icons/success.png" mode=""></image>
+						<image v-else-if="submitState === 2" src="../../static/images/icons/success.png" mode=""></image>
 						<text v-if="submitState === 0">订单提交失败</text>
-						<text v-else-if="submitState === 1">订单提交成功</text>
+						<text v-else-if="submitState >= 1" :class="{'red-text': submitState >= 1}">订单提交成功</text>
 					</view>
-					<view class="text">{{popupCardText}}</view>
+					<text class="text">{{popupCardText}}</text>
 					<view class="btn">查看更多商品</view>					
 				</view>
 			</view>
@@ -101,14 +102,13 @@
 					}
 				],
 				isShowPopupCard: false,
-				submitState: 0,
-				popupCardText: '网络问题哦~~'
+				submitState: -1, // -1不显示, 0提交失败, 1货到付款提交成功, 2在线支付提交成功
+				popupCardText: '网络暂时离线, 请重新提交~~'
 			};
 		},
 		created() {
 			const params = location.href.split('?')[1]
 			const paramVal = params ? Number(params.split('=')[1]) : ''
-			console.log(paramVal)
 			if (paramVal >= 1 && paramVal <= 6) {
 				this.imgs = this[`imgs${paramVal}`]
 				this.lastImg = this.lastImgs[paramVal - 1]
@@ -162,6 +162,9 @@
 			numsDown(e) {
 				const index = Number(e.currentTarget.dataset.index)
 				this.typeAndNums[index].number > 0 && (this.typeAndNums[index].number -= 1)
+			},
+			closePopup() {
+				this.submitState = -1
 			}
 		}
 	}
@@ -324,9 +327,12 @@
 						color: #333333;
 						font-size: 33upx;
 						image {
-							margin-right: 2upx;
+							margin-right: 10upx;
 							width: 40upx;
 							height: 40upx;
+						}
+						.red-text {
+							color: #fa4650;
 						}
 					}
 					.text {
@@ -340,7 +346,7 @@
 						width: 347upx;
 						height: 68upx;
 						border: 1upx solid #040000;
-						border-radius: 5upx;
+						border-radius: 10upx;
 						font-size: 25upx;
 						background: rgba(250,70,80, 0.05);
 					}
