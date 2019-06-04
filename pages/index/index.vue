@@ -42,14 +42,11 @@
 				<image class="close-icon" @click="closePopup" src="../../static/images/icons/close.png"></image>
 				<view class="content">
 					<view class="title">
-						<image v-if="submitState === 0" src="../../static/images/icons/failed.png" mode=""></image>
-						<image v-else-if="submitState === 1" src="../../static/images/icons/success.png" mode=""></image>
-						<image v-else-if="submitState === 2" src="../../static/images/icons/success.png" mode=""></image>
-						<text v-if="submitState === 0">订单提交失败</text>
-						<text v-else-if="submitState >= 1" :class="{'red-text': submitState >= 1}">订单提交成功</text>
+						<image :src="submitState > 0 ? '../../static/images/icons/success.png' : '../../static/images/icons/failed.png'"></image>
+						<text :class="{'red-text': submitState > 0}">{{submitState > 0 ? '订单提交成功' : '订单提交失败'}}</text>
 					</view>
 					<text class="text">{{popupCardText}}</text>
-					<view class="btn">查看更多商品</view>					
+					<view class="btn">查看更多商品</view>	
 				</view>
 			</view>
 		</view>
