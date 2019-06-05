@@ -48,7 +48,7 @@
 						<text :class="{'red-text': submitState > 0}">{{submitState > 0 ? '订单提交成功' : '订单提交失败'}}</text>
 					</view>
 					<text class="text">{{popupCardText}}</text>
-					<view class="btn">查看更多商品</view>
+					<view class="btn" @click="goMoti">查看更多商品</view>
 				</view>
 			</view>
 		</view>
@@ -56,9 +56,12 @@
 </template>
 
 <script>
+	import { post, checkMobile } from '../../common/utils.js'
+	
 	export default {
 		data() {
 			return {
+				orderSource: '',
 				imgs: [],
 				lastImg: '',
 				lastImgs: [
@@ -89,14 +92,16 @@
 					placeholder: '请输入'
 				}, ],
 				typeAndNums: [{
-						radioText: '深海蓝套装',
+						radioText: '星辰银',
 						checked: true,
-						number: 0
+						number: 1,
+						skuId: 112492577675
 					},
 					{
-						radioText: '深海蓝套装',
+						radioText: '燕尾黑',
 						checked: false,
-						number: 0
+						number: 0,
+						skuId: 112492575139
 					}
 				],
 				isShowPopupCard: false,
@@ -114,35 +119,73 @@
 				this.imgs = this.imgs1
 				this.lastImg = this.lastImgs[0]
 			}
+			this.orderSource = options.order_source
 		},
 		methods: {
-			submit() {
+			async submit() {
 				if (!this.userInfo[0].value) return uni.showToast({
 					title: '请输入收货人名称',
 					icon: 'none'
 				})
-				if (!this.userInfo[1].value) return uni.showToast({
-					title: '请输入联系电话',
+				if (!checkMobile(this.userInfo[1].value)) return uni.showToast({
+					title: '请输入正确的联系电话',
 					icon: 'none'
 				})
 				if (!this.userInfo[2].value) return uni.showToast({
 					title: '请输入收货地址',
 					icon: 'none'
 				})
-				const data = {}
+				if (this.typeAndNums[0].checked && this.typeAndNums[0].number === 0) return uni.showToast({
+					title: '请选择所选套装数量',
+					icon: 'none'
+				})
+				if (this.typeAndNums[1].checked && this.typeAndNums[1].number === 0) return uni.showToast({
+					title: '请选择所选套装数量',
+					icon: 'none'
+				})
+				const checkRegRes = await this.checkIsReg(this.userInfo[1].value)
+				if (checkRegRes === 0) {
+					// 未注册
+					const regRes = await this.regUser()
+					if (regRes === 0) {
+						// 注册失败
+						this.submitState = 0
+						return
+					}
+				}
+				
+				const data = {
+					pageOrder: {
+						userName: this.userInfo[0].value,
+						address: this.userInfo[2].value,
+						mobile: this.userInfo[1].value
+					}
+				}
+				if (this.orderSource === 'qutoutiao') {
+					data.pageOrder.orderSource = 40
+				} else if (this.orderSource === 'jinritoutiao') {
+					data.pageOrder.orderSource = 41
+				} else {
+					data.pageOrder.orderSource = 43
+				}
+				
 				if (this.typeAndNums[0].checked && this.typeAndNums[0].number > 0) {
-					data.type1 = true
-					data.number1 = this.typeAndNums[0].number
+					data.pageOrder.skuId = this.typeAndNums[0].skuId
+					data.pageOrder.skuNum = this.typeAndNums[0].number
+					data.pageOrder.orderSource = 43
 				}
 				if (this.typeAndNums[1].checked && this.typeAndNums[1].number > 0) {
-					data.type2 = true
-					data.number2 = this.typeAndNums[1].number
+					data.pageOrder.skuId = this.typeAndNums[1].skuId
+					data.pageOrder.skuNum = this.typeAndNums[1].number
+					data.pageOrder.orderSource = 43
 				}
-				console.log(data)
-				// uni.request({
-				// 	url: 'xxx',
-				// 	data,
-				// })
+				const orderRes = await this.submitOrder(data)
+				if (orderRes === 0) {
+					this.popupCardText = '24小时内人工客服会与您联络\n请保持手机通畅'
+					this.isShowPopupCard = 1
+				} else {
+					this.isShowPopupCard = 0
+				}
 			},
 			chooseType(e) {
 				const index = Number(e.currentTarget.dataset.index)
@@ -163,6 +206,31 @@
 			},
 			closePopup() {
 				this.submitState = -1
+			},
+			async checkIsReg(phone) {
+				// 检查是否注册
+				const res = await post('/user/user/checkUserMobile', {
+					mobile: phone
+				})
+				return Number(res.code)
+			},
+			async regUser() {
+				// 注册
+				const res = await post('/user/user/registName', {
+					userName: this.userInfo[0].value,
+					mobile: this.userInfo[1].value,
+					userAddress: this.userInfo[2].value,
+					quickType: 4 // 活动页注册来源
+				})
+				return Number(res.code)
+			},
+			async submitOrder(data) {
+				// 提交订单
+				const res = await post('/m/order/getOrderPagePromotion', data, 'application/json;charset=utf-8')
+				return Number(res.code)
+			},
+			goMoti() {
+				
 			}
 		}
 	}
@@ -225,8 +293,8 @@
 							border-radius: 50%;
 
 							.radio-inner {
-								width: 23upx;
-								height: 23upx;
+								width: 20upx;
+								height: 20upx;
 								border-radius: 50%;
 								background-color: #fa4650;
 							}
