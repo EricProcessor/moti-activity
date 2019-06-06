@@ -56,7 +56,7 @@
 </template>
 
 <script>
-	import { post, checkMobile } from '../../common/utils.js'
+	import { post, checkMobile } from '@/common/utils.js'
 	
 	export default {
 		data() {
@@ -143,16 +143,34 @@
 					title: '请选择所选套装数量',
 					icon: 'none'
 				})
-				const checkRegRes = await this.checkIsReg(this.userInfo[1].value)
-				if (checkRegRes === 0) {
+				let checkRegRes = await post('/user/user/checkUserMobile', {
+					mobile: this.userInfo[1].value
+				})
+				if(checkRegRes.data.code == 0){
 					// 未注册
-					const regRes = await this.regUser()
-					if (regRes === 0) {
-						// 注册失败
-						this.submitState = 0
-						return
+					let regRes = await post('/user/user/registName', {
+						userName: this.userInfo[0].value,
+						mobile: this.userInfo[1].value,
+						userAddress: this.userInfo[2].value,
+						quickType: 4 // 活动页注册来源
+					});
+					if(regRes.data.code == 0){
+						let status = this.submitOrder();
 					}
 				}
+				// const checkRegRes = await this.checkIsReg(this.userInfo[1].value)
+				// console.log(checkRegRes)
+				// if (checkRegRes === 0) {
+				// 	console.log(2)
+				// 	// 未注册
+				// 	const regRes = await this.regUser()
+				// 	console.log(regRes)
+				// 	if (regRes === 0) {
+				// 		// 注册失败
+				// 		this.submitState = 0
+				// 		return
+				// 	}
+				// }
 				
 				const data = {
 					pageOrder: {
@@ -207,30 +225,38 @@
 			closePopup() {
 				this.submitState = -1
 			},
-			async checkIsReg(phone) {
-				// 检查是否注册
-				const res = await post('/user/user/checkUserMobile', {
-					mobile: phone
-				})
-				return Number(res.code)
-			},
-			async regUser() {
-				// 注册
-				const res = await post('/user/user/registName', {
-					userName: this.userInfo[0].value,
-					mobile: this.userInfo[1].value,
-					userAddress: this.userInfo[2].value,
-					quickType: 4 // 活动页注册来源
-				})
-				return Number(res.code)
-			},
+			// async checkIsReg(phone) {
+			// 	// 检查是否注册
+			// 	const res = await post('/user/user/checkUserMobile', {
+			// 		mobile: phone
+			// 	})
+			// 	return res.code
+			// },
+			// async regUser() {
+			// 	// 注册
+			// 	const res = await post('/user/user/registName', {
+			// 		userName: this.userInfo[0].value,
+			// 		mobile: this.userInfo[1].value,
+			// 		userAddress: this.userInfo[2].value,
+			// 		quickType: 4 // 活动页注册来源
+			// 	})
+			// 	return res.code
+			// },
 			async submitOrder(data) {
 				// 提交订单
 				const res = await post('/m/order/getOrderPagePromotion', data, 'application/json;charset=utf-8')
-				return Number(res.code)
+				//return res.code
+				console.log(res)
+				if(res.data.code == 0){
+					this.submitState = 1;
+					this.popupCardText = res.data.msg
+				}
 			},
 			goMoti() {
-				
+				// uni.navigateTo({
+				// 	url: 'http://mall.motivape.cn'
+				// })
+				location.href = 'http://mall.motivape.cn'
 			}
 		}
 	}
