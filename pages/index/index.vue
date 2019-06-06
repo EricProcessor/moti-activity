@@ -190,12 +190,12 @@
 				if (this.typeAndNums[0].checked && this.typeAndNums[0].number > 0) {
 					data.pageOrder.skuId = this.typeAndNums[0].skuId
 					data.pageOrder.skuNum = this.typeAndNums[0].number
-					data.pageOrder.orderSource = 43
+					data.pageOrder.orderSource = this.orderSource
 				}
 				if (this.typeAndNums[1].checked && this.typeAndNums[1].number > 0) {
 					data.pageOrder.skuId = this.typeAndNums[1].skuId
 					data.pageOrder.skuNum = this.typeAndNums[1].number
-					data.pageOrder.orderSource = 43
+					data.pageOrder.orderSource = this.orderSource
 				}
 				const orderRes = await this.submitOrder(data)
 				if (orderRes === 0) {
@@ -207,12 +207,9 @@
 			},
 			chooseType(e) {
 				const index = Number(e.currentTarget.dataset.index)
-				if (index === 0) {
-					this.typeAndNums[0].checked ? this.typeAndNums[0].checked = false : this.typeAndNums[0].checked = true
-				}
-				if (index === 1) {
-					this.typeAndNums[1].checked ? this.typeAndNums[1].checked = false : this.typeAndNums[1].checked = true
-				}
+				this.typeAndNums[0].checked ? this.typeAndNums[0].checked = false : this.typeAndNums[0].checked = true
+				this.typeAndNums[1].checked ? this.typeAndNums[1].checked = false : this.typeAndNums[1].checked = true
+				
 			},
 			numsUp(e) {
 				const index = Number(e.currentTarget.dataset.index)
