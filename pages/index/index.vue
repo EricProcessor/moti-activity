@@ -247,6 +247,8 @@
 				if(res.data.code == 0){
 					this.submitState = 1;
 					this.popupCardText = res.data.msg
+				}else{
+					this.submitState = 0;
 				}
 			},
 			goMoti() {
