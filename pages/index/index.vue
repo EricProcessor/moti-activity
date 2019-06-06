@@ -87,7 +87,7 @@
 					value: '',
 					placeholder: '请输入'
 				}, {
-					text: '收获地址*',
+					text: '收货地址*',
 					value: '',
 					placeholder: '请输入'
 				}, ],
