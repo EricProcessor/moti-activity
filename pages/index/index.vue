@@ -56,7 +56,7 @@
 </template>
 
 <script>
-	import { post, checkMobile } from '../../common/utils.js'
+	import { post, checkMobile } from '@/common/utils.js'
 	
 	export default {
 		data() {
@@ -87,7 +87,7 @@
 					value: '',
 					placeholder: '请输入'
 				}, {
-					text: '收获地址*',
+					text: '收货地址*',
 					value: '',
 					placeholder: '请输入'
 				}, ],
@@ -143,16 +143,34 @@
 					title: '请选择所选套装数量',
 					icon: 'none'
 				})
-				const checkRegRes = await this.checkIsReg(this.userInfo[1].value)
-				if (checkRegRes === 0) {
+				let checkRegRes = await post('/user/user/checkUserMobile', {
+					mobile: this.userInfo[1].value
+				})
+				if(checkRegRes.data.code == 0){
 					// 未注册
-					const regRes = await this.regUser()
-					if (regRes === 0) {
-						// 注册失败
-						this.submitState = 0
-						return
+					let regRes = await post('/user/user/registName', {
+						userName: this.userInfo[0].value,
+						mobile: this.userInfo[1].value,
+						userAddress: this.userInfo[2].value,
+						quickType: 4 // 活动页注册来源
+					});
+					if(regRes.data.code == 0){
+						let status = this.submitOrder();
 					}
 				}
+				// const checkRegRes = await this.checkIsReg(this.userInfo[1].value)
+				// console.log(checkRegRes)
+				// if (checkRegRes === 0) {
+				// 	console.log(2)
+				// 	// 未注册
+				// 	const regRes = await this.regUser()
+				// 	console.log(regRes)
+				// 	if (regRes === 0) {
+				// 		// 注册失败
+				// 		this.submitState = 0
+				// 		return
+				// 	}
+				// }
 				
 				const data = {
 					pageOrder: {
@@ -172,12 +190,12 @@
 				if (this.typeAndNums[0].checked && this.typeAndNums[0].number > 0) {
 					data.pageOrder.skuId = this.typeAndNums[0].skuId
 					data.pageOrder.skuNum = this.typeAndNums[0].number
-					data.pageOrder.orderSource = 43
+					data.pageOrder.orderSource = this.orderSource
 				}
 				if (this.typeAndNums[1].checked && this.typeAndNums[1].number > 0) {
 					data.pageOrder.skuId = this.typeAndNums[1].skuId
 					data.pageOrder.skuNum = this.typeAndNums[1].number
-					data.pageOrder.orderSource = 43
+					data.pageOrder.orderSource = this.orderSource
 				}
 				const orderRes = await this.submitOrder(data)
 				if (orderRes === 0) {
@@ -189,12 +207,9 @@
 			},
 			chooseType(e) {
 				const index = Number(e.currentTarget.dataset.index)
-				if (index === 0) {
-					this.typeAndNums[0].checked ? this.typeAndNums[0].checked = false : this.typeAndNums[0].checked = true
-				}
-				if (index === 1) {
-					this.typeAndNums[1].checked ? this.typeAndNums[1].checked = false : this.typeAndNums[1].checked = true
-				}
+				this.typeAndNums[0].checked ? this.typeAndNums[0].checked = false : this.typeAndNums[0].checked = true
+				this.typeAndNums[1].checked ? this.typeAndNums[1].checked = false : this.typeAndNums[1].checked = true
+				
 			},
 			numsUp(e) {
 				const index = Number(e.currentTarget.dataset.index)
@@ -207,30 +222,40 @@
 			closePopup() {
 				this.submitState = -1
 			},
-			async checkIsReg(phone) {
-				// 检查是否注册
-				const res = await post('/user/user/checkUserMobile', {
-					mobile: phone
-				})
-				return Number(res.code)
-			},
-			async regUser() {
-				// 注册
-				const res = await post('/user/user/registName', {
-					userName: this.userInfo[0].value,
-					mobile: this.userInfo[1].value,
-					userAddress: this.userInfo[2].value,
-					quickType: 4 // 活动页注册来源
-				})
-				return Number(res.code)
-			},
+			// async checkIsReg(phone) {
+			// 	// 检查是否注册
+			// 	const res = await post('/user/user/checkUserMobile', {
+			// 		mobile: phone
+			// 	})
+			// 	return res.code
+			// },
+			// async regUser() {
+			// 	// 注册
+			// 	const res = await post('/user/user/registName', {
+			// 		userName: this.userInfo[0].value,
+			// 		mobile: this.userInfo[1].value,
+			// 		userAddress: this.userInfo[2].value,
+			// 		quickType: 4 // 活动页注册来源
+			// 	})
+			// 	return res.code
+			// },
 			async submitOrder(data) {
 				// 提交订单
 				const res = await post('/m/order/getOrderPagePromotion', data, 'application/json;charset=utf-8')
-				return Number(res.code)
+				//return res.code
+				console.log(res)
+				if(res.data.code == 0){
+					this.submitState = 1;
+					this.popupCardText = res.data.msg
+				}else{
+					this.submitState = 0;
+				}
 			},
 			goMoti() {
-				
+				// uni.navigateTo({
+				// 	url: 'http://mall.motivape.cn'
+				// })
+				location.href = 'http://mall.motivape.cn'
 			}
 		}
 	}
