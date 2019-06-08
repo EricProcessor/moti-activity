@@ -94,7 +94,7 @@
 				typeAndNums: [{
 						radioText: '星辰银',
 						checked: true,
-						number: 1,
+						number: 0,
 						skuId: 112492577675
 					},
 					{
