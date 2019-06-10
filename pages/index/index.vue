@@ -1,11 +1,18 @@
 <template>
-	<view class="introduction-wrapper">
+	<scroll-view class="introduction-wrapper" style="height: 100vh;"
+		:scroll-into-view="intoViewid"
+		scroll-y="true"
+		scroll-with-animation="true"
+		@scroll="pageScroll"
+		>
 		<!-- 上半部图片 -->
 		<view class="introductions">
 			<img v-for="(item, index) in imgs" :key="index" :src="'../../static/images/package/' + item">
 		</view>
 		<!-- 中间表单 -->
+		
 		<view class="form-wrapper">
+			<view id="form-wrapper"></view>
 			<view class="form-data">
 				<view class="input-item" v-for="(item, index) in userInfo" :key="index">
 					<view class="text">{{item.text}}</view>
@@ -31,7 +38,6 @@
 				</view>
 			</view>
 
-			<view class="submit-btn" @click="submit">货到满意付款</view>
 		</view>
 
 
@@ -52,7 +58,10 @@
 				</view>
 			</view>
 		</view>
-	</view>
+		
+		
+		<view class="submit-btn" @click="submit">货到满意付款</view>
+	</scroll-view>
 </template>
 
 <script>
@@ -106,7 +115,8 @@
 				],
 				isShowPopupCard: false,
 				submitState: -1, // -1不显示, 0提交失败, 1货到付款提交成功, 2在线支付提交成功
-				popupCardText: '网络暂时离线, 请重新提交~~'
+				popupCardText: '网络暂时离线, 请重新提交~~',
+				intoViewid: ''
 			};
 		},
 		onLoad(options) {
@@ -123,6 +133,7 @@
 		},
 		methods: {
 			async submit() {
+				this.intoViewid = 'form-wrapper'
 				if (!this.userInfo[0].value) return uni.showToast({
 					title: '请输入收货人名称',
 					icon: 'none'
@@ -205,6 +216,9 @@
 				// }
 				
 			},
+			pageScroll() {
+				this.intoViewid = ''
+			},
 			chooseType(e) {
 				const index = Number(e.currentTarget.dataset.index)
 				this.typeAndNums[0].checked ? this.typeAndNums[0].checked = false : this.typeAndNums[0].checked = true
@@ -264,6 +278,7 @@
 
 <style lang="scss">
 	.introduction-wrapper {
+		padding-bottom: 100upx;
 		.introductions {
 			img {
 				display: block;
@@ -272,8 +287,15 @@
 			}
 		}
 		.form-wrapper {
+			position: relative;
 			background: #fff;
 			padding: 0.1upx 0;
+			#form-wrapper {
+				position: absolute;
+				height: 1upx;
+				top: -160upx;
+				background: transparent;
+			}
 			.form-data {
 				padding: 0 67upx 0 63upx;
 
@@ -370,18 +392,6 @@
 				}
 			}
 
-			.submit-btn {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				margin: 61upx auto 89upx auto;
-				width: 610upx;
-				height: 90upx;
-				background-color: #fa4650;
-				border-radius: 10upx;
-				font-size: 33upx;
-				color: #ffffff;
-			}
 		}
 		
 
@@ -465,6 +475,20 @@
 					height: 60upx;
 				}
 			}
+		}
+		.submit-btn {
+			position: fixed;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			z-index: 100;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 90upx;
+			background-color: #fa4650;
+			font-size: 33upx;
+			color: #ffffff;
 		}
 	}
 </style>
