@@ -7,7 +7,7 @@
 		>
 		<!-- 上半部图片 -->
 		<view class="introductions">
-			<img v-for="(item, index) in imgs" :key="index" :src="'../../static/images/package/' + item">
+			<img v-for="(item, index) in imgs" :key="index" :src="'../../activity/static/images/package/' + item">
 		</view>
 		<!-- 中间表单 -->
 		
@@ -42,7 +42,7 @@
 
 
 		<!-- 最后一张图片 -->
-		<img class="comments" :src="'../../static/images/package/' + lastImg">
+		<img class="comments" :src="'../../activity/static/images/package/' + lastImg">
 
 		<!-- 提交信息后弹出卡片 -->
 		<view class="mask-card" v-if="submitState >= 0">
@@ -255,7 +255,7 @@
 			// },
 			async submitOrder(data) {
 				// 提交订单
-				const res = await post('/m/order/bookingActivityOrder', data, 'application/json;charset=utf-8')
+				const res = await post('/order/activityPage/bookingActivityOrder', data, 'application/json;charset=utf-8')
 				//return res.code
 				console.log(res)
 				if(res.data.code == 0){
