@@ -1,13 +1,14 @@
 <template>
 	<view class="page-wrapper">
-		<scroll-view class="introduction-wrapper" style="height: 90vh;"
+		<scroll-view class="introduction-wrapper" 
+			 style="height: 90vh"
 			:scroll-into-view="intoViewid"
 			scroll-y="true"
 			scroll-with-animation="true"
-			@scroll="pageScroll"
-			>
+			@scroll="pageScroll" >
 			<!-- 上半部图片 -->
 			<view class="introductions">
+				<!-- <img v-for="(item, index) in imgs" :key="index" :src="'../../activity/static/images/package/' + item"> -->
 				<img v-for="(item, index) in imgs" :key="index" :src="'../../static/images/package/' + item">
 			</view>
 			<!-- 中间表单 -->
@@ -18,11 +19,11 @@
 					<view class="input-item" v-for="(item, index) in userInfo" :key="index">
 						<view class="text">{{item.text}}</view>
 						<view class="input">
-							<input type="text" placeholder-style="color: #b6b6b6;" :placeholder="item.placeholder"  v-model="item.value">
+							<input type="text" placeholder-style="color: #b6b6b6;" :placeholder="item.placeholder" v-model="item.value">
 						</view>
 					</view>
 				</view>
-
+		
 				<view class="nums-wrapper">
 					<view class="nums-item" v-for="(item, index) in typeAndNums" :key="index">
 						<view class="radio-wrapper" @click="chooseType" :data-index="index">
@@ -38,13 +39,14 @@
 						</view>
 					</view>
 				</view>
-
+		
 			</view>
-
-
+		
+		
 			<!-- 最后一张图片 -->
+			<!-- <img class="comments" :src="'../../activity/static/images/package/' + lastImg"> -->
 			<img class="comments" :src="'../../static/images/package/' + lastImg">
-
+		
 			<!-- 提交信息后弹出卡片 -->
 			<view class="mask-card" v-if="submitState >= 0">
 				<view class="card-content">
@@ -63,7 +65,9 @@
 			
 		</scroll-view>
 		<view class="submit-btn" @click="submit">货到满意付款</view>
+
 	</view>
+	
 </template>
 
 <script>
@@ -86,12 +90,12 @@
 					'package_5/6.jpg',
 					'package_6/6.jpg'
 				],
-				imgs1: ['package_1/1.jpg', 'package_1/2.jpg', '/package_1/3.jpg', '/package_1/4.jpg'],
-				imgs2: ['package_2/1.jpg', 'package_2/2.jpg', '/package_2/3.jpg', '/package_2/4.jpg'],
-				imgs3: ['package_3/1.jpg', 'package_3/2.jpg', '/package_3/3.jpg', '/package_3/4.jpg', '/package_3/5.jpg'],
-				imgs4: ['package_4/1.jpg', 'package_4/2.jpg', '/package_4/3.jpg', '/package_4/4.jpg'],
-				imgs5: ['package_5/1.jpg', 'package_5/2.jpg', '/package_5/3.jpg', '/package_5/4.jpg', '/package_5/5.jpg'],
-				imgs6: ['package_6/1.jpg', 'package_6/2.jpg', '/package_6/3.jpg', '/package_6/4.jpg', '/package_6/5.jpg'],
+				imgs1: ['package_1/1.jpg', 'package_1/2.jpg', 'package_1/3.jpg', 'package_1/4.jpg'],
+				imgs2: ['package_2/1.jpg', 'package_2/2.jpg', 'package_2/3.jpg', 'package_2/4.jpg'],
+				imgs3: ['package_3/1.jpg', 'package_3/2.jpg', 'package_3/3.jpg', 'package_3/4.jpg', 'package_3/5.jpg'],
+				imgs4: ['package_4/1.jpg', 'package_4/2.jpg', 'package_4/3.jpg', 'package_4/4.jpg'],
+				imgs5: ['package_5/1.jpg', 'package_5/2.jpg', 'package_5/3.jpg', 'package_5/4.jpg', 'package_5/5.jpg'],
+				imgs6: ['package_6/1.jpg', 'package_6/2.jpg', 'package_6/3.jpg', 'package_6/4.jpg', 'package_6/5.jpg'],
 				userInfo: [{
 					text: '姓名*',
 					value: '',
@@ -152,29 +156,53 @@
 					title: '请输入收货地址',
 					icon: 'none'
 				})
-				if (this.typeAndNums[0].checked && this.typeAndNums[0].number === 0) return uni.showToast({
-					title: '请选择所选套装数量',
-					icon: 'none'
-				})
-				if (this.typeAndNums[1].checked && this.typeAndNums[1].number === 0) return uni.showToast({
-					title: '请选择所选套装数量',
-					icon: 'none'
-				})
-				let checkRegRes = await post('/user/user/checkUserMobile', {
-					mobile: this.userInfo[1].value
-				})
-				if(checkRegRes.data.code == 0){
+				// let checkRegRes = await post('/user/user/checkUserMobile', {
+				// 	mobile: this.userInfo[1].value
+				// })
+
 					// 未注册
-					let regRes = await post('/user/user/registName', {
+					let regRes = await post('/user/login/activityH5Regist', {
 						userName: this.userInfo[0].value,
 						mobile: this.userInfo[1].value,
 						userAddress: this.userInfo[2].value,
 						quickType: 4 // 活动页注册来源
 					});
-					if(regRes.data.code == 0){
-						let status = this.submitOrder();
+					if(regRes.data.code == 0){	// 注册登录成功
+						// let status = this.submitOrder();
+						const data = {
+							pageOrder: {
+								userName: this.userInfo[0].value,
+								address: this.userInfo[2].value,
+								mobile: this.userInfo[1].value
+							}
+						}
+						if (this.orderSource === 'qutoutiao') {
+							data.pageOrder.orderSource = 40
+						} else if (this.orderSource === 'jinritoutiao') {
+							data.pageOrder.orderSource = 41
+						} else {
+							data.pageOrder.orderSource = 43
+						}
+						
+						if (this.typeAndNums[0].checked && this.typeAndNums[0].number > 0) {
+							data.pageOrder.skuId = this.typeAndNums[0].skuId
+							data.pageOrder.skuNum = this.typeAndNums[0].number
+							data.pageOrder.orderSource = this.orderSource
+						}
+						if (this.typeAndNums[1].checked && this.typeAndNums[1].number > 0) {
+							data.pageOrder.skuId = this.typeAndNums[1].skuId
+							data.pageOrder.skuNum = this.typeAndNums[1].number
+							data.pageOrder.orderSource = this.orderSource
+						}
+						const orderRes = await this.submitOrder(data)
+						if (orderRes === 0) {
+							this.popupCardText = '24小时内人工客服会与您联络\n请保持手机通畅'
+							this.isShowPopupCard = 1
+						} else {
+							this.isShowPopupCard = 0
+						}
+						
 					}
-				}
 				// const checkRegRes = await this.checkIsReg(this.userInfo[1].value)
 				// console.log(checkRegRes)
 				// if (checkRegRes === 0) {
@@ -189,38 +217,6 @@
 				// 	}
 				// }
 				
-				const data = {
-					pageOrder: {
-						userName: this.userInfo[0].value,
-						address: this.userInfo[2].value,
-						mobile: this.userInfo[1].value
-					}
-				}
-				if (this.orderSource === 'qutoutiao') {
-					data.pageOrder.orderSource = 40
-				} else if (this.orderSource === 'jinritoutiao') {
-					data.pageOrder.orderSource = 41
-				} else {
-					data.pageOrder.orderSource = 43
-				}
-				
-				if (this.typeAndNums[0].checked && this.typeAndNums[0].number > 0) {
-					data.pageOrder.skuId = this.typeAndNums[0].skuId
-					data.pageOrder.skuNum = this.typeAndNums[0].number
-					data.pageOrder.orderSource = this.orderSource
-				}
-				if (this.typeAndNums[1].checked && this.typeAndNums[1].number > 0) {
-					data.pageOrder.skuId = this.typeAndNums[1].skuId
-					data.pageOrder.skuNum = this.typeAndNums[1].number
-					data.pageOrder.orderSource = this.orderSource
-				}
-				const orderRes = await this.submitOrder(data)
-				if (orderRes === 0) {
-					this.popupCardText = '24小时内人工客服会与您联络\n请保持手机通畅'
-					this.isShowPopupCard = 1
-				} else {
-					this.isShowPopupCard = 0
-				}
 			},
 			pageScroll() {
 				this.intoViewid = ''
@@ -261,12 +257,13 @@
 			// },
 			async submitOrder(data) {
 				// 提交订单
-				const res = await post('/m/order/getOrderPagePromotion', data, 'application/json;charset=utf-8')
+				const res = await post('/order/activityPage/bookingActivityOrder', data, 'application/json;charset=utf-8')
 				//return res.code
 				console.log(res)
 				if(res.data.code == 0){
 					this.submitState = 1;
-					this.popupCardText = res.data.msg
+					// this.popupCardText = res.data.msg
+					this.popupCardText = '24小时内人工客服会与您联络请保持手机通畅'
 				}else{
 					this.submitState = 0;
 				}
@@ -316,6 +313,10 @@
 						padding: 27upx 0 15upx 0;
 						border-bottom: 1upx solid #b6b6b6;
 						font-size: 33upx;
+						input{
+							line-height: normal;
+							transform: translateZ(0);
+						}
 					}
 				}
 			}
@@ -454,6 +455,8 @@
 					.text {
 						font-size: 26upx;
 						color: #999;
+						width: 370upx;
+						text-align: center;
 					}
 
 					.btn {
@@ -485,6 +488,20 @@
 		right: 0;
 		bottom: 0;
 		z-index: 10;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 90upx;
+		background-color: #fa4650;
+		font-size: 33upx;
+		color: #ffffff;
+	}
+	.submit-btn {
+		position: fixed;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 100;
 		display: flex;
 		justify-content: center;
 		align-items: center;
