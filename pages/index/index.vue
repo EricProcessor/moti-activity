@@ -1,73 +1,78 @@
 <template>
-	<scroll-view class="introduction-wrapper" style="height: 100vh;"
-		:scroll-into-view="intoViewid"
-		scroll-y="true"
-		scroll-with-animation="true"
-		@scroll="pageScroll"
-		>
-		<!-- 上半部图片 -->
-		<view class="introductions">
-			<img v-for="(item, index) in imgs" :key="index" :src="'../../static/images/package/' + item">
-		</view>
-		<!-- 中间表单 -->
-		
-		<view class="form-wrapper">
-			<view id="form-wrapper"></view>
-			<view class="form-data">
-				<view class="input-item" v-for="(item, index) in userInfo" :key="index">
-					<view class="text">{{item.text}}</view>
-					<view class="input">
-						<input type="text" placeholder-style="color: #b6b6b6;" :placeholder="item.placeholder" v-model="item.value">
-					</view>
-				</view>
+	<view class="page-wrapper">
+		<scroll-view class="introduction-wrapper" style="height: 90vh;"
+			:scroll-into-view="intoViewid"
+			scroll-y="true"
+			scroll-with-animation="true"
+			@scroll="pageScroll"
+			>
+			<!-- 上半部图片 -->
+			<view class="introductions">
+				<img v-for="(item, index) in imgs" :key="index" :src="'../../static/images/package/' + item">
 			</view>
-
-			<view class="nums-wrapper">
-				<view class="nums-item" v-for="(item, index) in typeAndNums" :key="index">
-					<view class="radio-wrapper" @click="chooseType" :data-index="index">
-						<view class="radio">
-							<view class="radio-inner" v-if="item.checked"></view>
+			<!-- 中间表单 -->
+			
+			<view class="form-wrapper">
+				<view id="form-wrapper"></view>
+				<view class="form-data">
+					<view class="input-item" v-for="(item, index) in userInfo" :key="index">
+						<view class="text">{{item.text}}</view>
+						<view class="input">
+							<input type="text" placeholder-style="color: #b6b6b6;" :placeholder="item.placeholder"  v-model="item.value">
 						</view>
-						<text class="text">{{item.radioText}}</text>
 					</view>
-					<view class="nums-handle">
-						<view class="text-icon del" @click="numsDown" :data-index="index">-</view>
-						<view class="text-num">{{item.number}}</view>
-						<view class="text-icon add" @click="numsUp" :data-index="index">+</view>
+				</view>
+
+				<view class="nums-wrapper">
+					<view class="nums-item" v-for="(item, index) in typeAndNums" :key="index">
+						<view class="radio-wrapper" @click="chooseType" :data-index="index">
+							<view class="radio">
+								<view class="radio-inner" v-if="item.checked"></view>
+							</view>
+							<text class="text">{{item.radioText}}</text>
+						</view>
+						<view class="nums-handle">
+							<view class="text-icon del" @click="numsDown" :data-index="index">-</view>
+							<view class="text-num">{{item.number}}</view>
+							<view class="text-icon add" @click="numsUp" :data-index="index">+</view>
+						</view>
+					</view>
+				</view>
+
+			</view>
+
+
+			<!-- 最后一张图片 -->
+			<img class="comments" :src="'../../static/images/package/' + lastImg">
+
+			<!-- 提交信息后弹出卡片 -->
+			<view class="mask-card" v-if="submitState >= 0">
+				<view class="card-content">
+					<image class="close-icon" @click="closePopup" src="../../static/images/icons/close.png"></image>
+					<view class="content">
+						<view class="title">
+							<image :src="submitState > 0 ? '../../static/images/icons/success.png' : '../../static/images/icons/failed.png'"></image>
+							<text :class="{'red-text': submitState > 0}">{{submitState > 0 ? '订单提交成功' : '订单提交失败'}}</text>
+						</view>
+						<text class="text">{{popupCardText}}</text>
+						<view class="btn" @click="goMoti">查看更多商品</view>
 					</view>
 				</view>
 			</view>
-
-		</view>
-
-
-		<!-- 最后一张图片 -->
-		<img class="comments" :src="'../../static/images/package/' + lastImg">
-
-		<!-- 提交信息后弹出卡片 -->
-		<view class="mask-card" v-if="submitState >= 0">
-			<view class="card-content">
-				<image class="close-icon" @click="closePopup" src="../../static/images/icons/close.png"></image>
-				<view class="content">
-					<view class="title">
-						<image :src="submitState > 0 ? '../../static/images/icons/success.png' : '../../static/images/icons/failed.png'"></image>
-						<text :class="{'red-text': submitState > 0}">{{submitState > 0 ? '订单提交成功' : '订单提交失败'}}</text>
-					</view>
-					<text class="text">{{popupCardText}}</text>
-					<view class="btn" @click="goMoti">查看更多商品</view>
-				</view>
-			</view>
-		</view>
-		
-		
+			
+			
+		</scroll-view>
 		<view class="submit-btn" @click="submit">货到满意付款</view>
-	</scroll-view>
+	</view>
 </template>
 
 <script>
 	import { post, checkMobile } from '@/common/utils.js'
 	
 	export default {
+		config: {
+			disableScroll: true
+		},
 		data() {
 			return {
 				orderSource: '',
@@ -120,6 +125,7 @@
 			};
 		},
 		onLoad(options) {
+			console.log('onLoad')
 			const params = options
 			const paramVal = params.type ? Number(params.type) : 0
 			if (paramVal >= 1 && paramVal <= 6) {
@@ -277,7 +283,6 @@
 
 <style lang="scss">
 	.introduction-wrapper {
-		padding-bottom: 100upx;
 		.introductions {
 			img {
 				display: block;
@@ -473,19 +478,19 @@
 				}
 			}
 		}
-		.submit-btn {
-			position: fixed;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			z-index: 100;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			height: 90upx;
-			background-color: #fa4650;
-			font-size: 33upx;
-			color: #ffffff;
-		}
+	}
+	.submit-btn {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 10;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 90upx;
+		background-color: #fa4650;
+		font-size: 33upx;
+		color: #ffffff;
 	}
 </style>
