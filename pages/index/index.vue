@@ -8,8 +8,8 @@
 			@scroll="pageScroll" >
 			<!-- 上半部图片 -->
 			<view class="introductions">
-				<!-- <img v-for="(item, index) in imgs" :key="index" :src="'../../activity/static/images/package/' + item"> -->
-				<img v-for="(item, index) in imgs" :key="index" :src="'../../static/images/package/' + item">
+				<img v-for="(item, index) in imgs" :key="index" :src="'../../activity/static/images/package/' + item">
+				<!-- <img v-for="(item, index) in imgs" :key="index" :src="'../../static/images/package/' + item"> -->
 			</view>
 			<!-- 中间表单 -->
 			
@@ -44,8 +44,8 @@
 		
 		
 			<!-- 最后一张图片 -->
-			<!-- <img class="comments" :src="'../../activity/static/images/package/' + lastImg"> -->
-			<img class="comments" :src="'../../static/images/package/' + lastImg">
+			<img class="comments" :src="'../../activity/static/images/package/' + lastImg">
+			<!-- <img class="comments" :src="'../../static/images/package/' + lastImg"> -->
 		
 			<!-- 提交信息后弹出卡片 -->
 			<view class="mask-card" v-if="submitState >= 0">
@@ -109,13 +109,13 @@
 				typeAndNums: [{
 						radioText: '星辰银',
 						checked: true,
-						number: 0,
+						number: 1,
 						skuId: 112492577675
 					},
 					{
 						radioText: '燕尾黑',
 						checked: false,
-						number: 0,
+						number: 1,
 						skuId: 112492575139
 					}
 				],
