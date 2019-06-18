@@ -8,6 +8,7 @@
 			@scroll="pageScroll" >
 			<!-- 上半部图片 -->
 			<view class="introductions">
+
 				<img v-for="(item, index) in imgs" :key="index" :src="'../../activity/static/images/package/' + item">
 				<!-- <img v-for="(item, index) in imgs" :key="index" :src="'../../static/images/package/' + item"> -->
 			</view>
@@ -44,6 +45,7 @@
 		
 		
 			<!-- 最后一张图片 -->
+
 			<img class="comments" :src="'../../activity/static/images/package/' + lastImg">
 			<!-- <img class="comments" :src="'../../static/images/package/' + lastImg"> -->
 		
@@ -74,6 +76,9 @@
 	import { post, checkMobile } from '@/common/utils.js'
 	
 	export default {
+		config: {
+			disableScroll: true
+		},
 		data() {
 			return {
 				orderSource: '',
@@ -109,12 +114,14 @@
 				typeAndNums: [{
 						radioText: '星辰银',
 						checked: true,
+					
 						number: 1,
 						skuId: 112492577675
 					},
 					{
 						radioText: '燕尾黑',
 						checked: false,
+				
 						number: 1,
 						skuId: 112492575139
 					}
@@ -126,6 +133,7 @@
 			};
 		},
 		onLoad(options) {
+			console.log('onLoad')
 			const params = options
 			const paramVal = params.type ? Number(params.type) : 0
 			if (paramVal >= 1 && paramVal <= 6) {
@@ -150,14 +158,6 @@
 				})
 				if (!this.userInfo[2].value) return uni.showToast({
 					title: '请输入收货地址',
-					icon: 'none'
-				})
-				if (this.typeAndNums[0].checked && this.typeAndNums[0].number === 0) return uni.showToast({
-					title: '请选择所选套装数量',
-					icon: 'none'
-				})
-				if (this.typeAndNums[1].checked && this.typeAndNums[1].number === 0) return uni.showToast({
-					title: '请选择所选套装数量',
 					icon: 'none'
 				})
 				// let checkRegRes = await post('/user/user/checkUserMobile', {
@@ -284,7 +284,6 @@
 
 <style lang="scss">
 	.introduction-wrapper {
-
 		.introductions {
 			img {
 				display: block;
