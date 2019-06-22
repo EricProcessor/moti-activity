@@ -86,7 +86,10 @@
         },
         "router" : {
             "mode" : "history",
-            "base" : "/activity/"
+            "base" : ""
+        },
+        "sdkConfigs" : {
+            "maps" : {}
         }
     }
 }
