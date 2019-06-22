@@ -50,9 +50,9 @@
 			<img class="comments" :src="'../../static/images/package/' + lastImg">
 		
 			<!-- 提交信息后弹出卡片 -->
-			<view class="mask-card" v-if="submitState >= 0">
+			<view class="mask-card" v-if="isShowPopupCard">
 				<view class="card-content">
-					<image class="close-icon" @click="closePopup" src="../../static/images/icons/close.png"></image>
+					<image class="close-icon" @click.prevent="closePopup" src="../../static/images/icons/close.png"></image>
 					<view class="content">
 						<view class="title">
 							<image :src="submitState > 0 ? '../../static/images/icons/success.png' : '../../static/images/icons/failed.png'"></image>
