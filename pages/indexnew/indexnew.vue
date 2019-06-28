@@ -63,7 +63,7 @@
 
 
 			<view style="height: 20upx;background: #eee"></view>
-			
+
 			<!-- 口味属性 -->
 			<!-- <view class="attrs_wrapper">
 				<view class="colors_header" @tap="taggleTaste">
@@ -338,6 +338,9 @@
 				// })
 
 				// 未注册
+				uni.showLoading({
+					title: '加载中'
+				})
 				let regRes = await post('/user/login/activityH5Regist', {
 					userName: this.userInfo[0].value,
 					mobile: this.userInfo[1].value,
@@ -374,12 +377,12 @@
 					// 	data.pageOrder.orderSource = this.orderSource
 					// }
 					const orderRes = await this.submitOrder(data)
-					if (orderRes === 0) {
-						this.popupCardText = '24小时内人工客服会与您联络\n请保持手机通畅'
-						this.isShowPopupCard = 1
-					} else {
-						this.isShowPopupCard = 0
-					}
+					// if (orderRes === 0) {
+					// 	this.popupCardText = '24小时内人工客服会与您联络\n请保持手机通畅'
+					// 	this.isShowPopupCard = 1
+					// } else {
+					// 	this.isShowPopupCard = 0
+					// }
 
 				} else {
 					uni.showToast({
@@ -387,6 +390,7 @@
 						icon: 'none'
 					})
 				}
+				uni.hideLoading()
 				// const checkRegRes = await this.checkIsReg(this.userInfo[1].value)
 				// console.log(checkRegRes)
 				// if (checkRegRes === 0) {
@@ -455,6 +459,7 @@
 				} else {
 					this.submitState = 0;
 				}
+				this.isShowPopupCard = 0
 			},
 			goMoti() {
 				// uni.navigateTo({
