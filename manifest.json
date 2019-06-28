@@ -89,6 +89,7 @@
         },
         "sdkConfigs" : {
             "maps" : {}
-        }
+        },
+        "title" : " "
     }
 }
