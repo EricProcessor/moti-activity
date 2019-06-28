@@ -1,6 +1,5 @@
 <template>
 	<view class="page-wrapper">
-		<button @tap="goPath">跳转</button>
 		<scroll-view class="introduction-wrapper" 
 			 style="height: 90vh"
 			:scroll-into-view="intoViewid"
@@ -147,11 +146,6 @@
 			this.orderSource = options.order_source
 		},
 		methods: {
-			goPath() {
-				uni.navigateTo({
-					url: '/pages/indexnew/indexnew'
-				})
-			},
 			async submit() {
 				this.intoViewid = 'form-wrapper'
 				if (!this.userInfo[0].value) return uni.showToast({
