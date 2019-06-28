@@ -85,8 +85,7 @@
         //     }
         // },
         "router" : {
-            "mode" : "history",
-            "base" : ""
+            "mode" : "hash"
         },
         "sdkConfigs" : {
             "maps" : {}
