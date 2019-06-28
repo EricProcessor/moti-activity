@@ -5,12 +5,26 @@
 		 scroll-with-animation="true" @scroll="pageScroll">
 			<!-- 上半部图片 -->
 			<view class="introductions">
-
+				<block v-for="(item, index) in imgs" :key="index" >
+					<swiper :indicator-dots="true" indicator-active-color="#fff" :autoplay="true" :interval="3000" v-if="index === 0">
+						<swiper-item class="swiper-item">
+								<image :src="'../../static/images/package/' + item"></image>
+						</swiper-item>
+						<swiper-item class="swiper-item">
+								<image :src="'../../static/images/package/' + item"></image>
+						</swiper-item>
+						<swiper-item class="swiper-item">
+								<image :src="'../../static/images/package/' + item"></image>
+						</swiper-item>
+					</swiper>
+					<image v-else :src="'../../static/images/package/' + item" mode="widthFix"></image>
+					<!-- <img> -->
+				</block>
 				<!-- <img v-for="(item, index) in imgs" :key="index" :src="'../../activity/static/images/package/' + item"> -->
-				<img v-for="(item, index) in imgs" :key="index" :src="'../../static/images/package/' + item">
+				
 			</view>
 
-			<!-- 商品属性 -->
+			<!-- 商品信息 -->
 			<view class="goods_info_popup">
 				<view id="anchor"></view>
 				<view class="base_info">
@@ -29,27 +43,29 @@
 				</view>
 
 			</view>
-			<!-- 属性 -->
+			<!-- 颜色属性 -->
 			<view class="attrs_wrapper">
 				<view class="colors_header">选择规格</view>
 				<view class="colors">
-					<view class="color" :class="{active: index == currentSpecIndex, mr0: (index + 1) % 4 === 0}" v-for="(item, index) in goods.spec"
-					 :key="index" @tap="chooseSpec" :data-index="index">{{item}}</view>
+					<view class="color" :class="{active: index == currentSpecIndex, mr0: (index + 1) % 4 === 0}" v-for="(item, index) in spec"
+					 :key="index" @tap="chooseSpec" :data-index="index">{{item.text}}</view>
 				</view>
 
 				<view class="nums_header">
 					<text>数量</text>
 					<view class="nums-handle">
-						<view class="text-icon del" @click="numsDown">-</view>
-						<view class="text-num">{{buyNumbers}}</view>
-						<view class="text-icon add" @click="numsUp">+</view>
+						<view class="text-icon del" @click="numsDownColor">-</view>
+						<view class="text-num">{{buyNumbersColor}}</view>
+						<view class="text-icon add" @click="numsUpColor">+</view>
 					</view>
 				</view>
 			</view>
 
 
 			<view style="height: 20upx;background: #eee"></view>
-			<view class="attrs_wrapper">
+			
+			<!-- 口味属性 -->
+			<!-- <view class="attrs_wrapper">
 				<view class="colors_header" @tap="taggleTaste">
 					<text>选择口味</text>
 					<text class="price" v-show="isShowTastes">
@@ -64,22 +80,20 @@
 					 :key="index" @tap="chooseTaste" :data-index="index">{{item}}</view>
 				</view>
 
-				<!-- <view class="nums_header">
-						<text>数量</text>
-						<view class="nums-handle">
-							<view class="text-icon del" @click="numsDown" :data-index="index">-</view>
-							<view class="text-num">{{item.number}}</view>
-							<view class="text-icon add" @click="numsUp" :data-index="index">+</view>
-						</view>
-					</view> -->
-			</view>
+				<view class="nums_header" v-show="isShowTastes">
+					<text>数量</text>
+					<view class="nums-handle">
+						<view class="text-icon del" @click="numsDownTaste">-</view>
+						<view class="text-num">{{buyNumbersTaste}}</view>
+						<view class="text-icon add" @click="numsUpTaste">+</view>
+					</view>
+				</view>
+			</view> -->
 
 
 			<!-- 中间表单 -->
-			<view style="height: 20upx;background: #eee"></view>
+			<!-- <view style="height: 20upx;background: #eee"></view> -->
 			<view class="form-wrapper">
-
-
 				<view class="form-data">
 					<view class="take_info">
 						<view class="line_1">RECEIVING INFORMATION</view>
@@ -88,7 +102,7 @@
 					</view>
 					<view class="input-item" v-for="(item, index) in userInfo" :key="index">
 						<view class="text">{{item.text}}</view>
-						<view class="choose_location" v-if="index === 2">
+						<!-- <view class="choose_location" v-if="index === 2">
 							<picker class="picker" :range="provinceData" range-key="label" @change="provinceChnage">
 								<view class="picker_text">
 									<view class="text" :class="{choosed: provinceName}">{{provinceName || '请选择'}}</view>
@@ -107,9 +121,9 @@
 									<image src="/static/images/icons/arrow_down.png"></image>
 								</view>
 							</picker>
-						</view>
-						<view class="pay_way" v-if="index === 4">
-							<view class="pay_inline" @tap="choosePayWay('online')" :class="{active: payWay === 'online'}">在线支付</view>
+						</view> -->
+						<view class="pay_way" v-if="index === 3">
+							<!-- <view class="pay_inline" @tap="choosePayWay('online')" :class="{active: payWay === 'online'}">在线支付</view> -->
 							<view class="pay_got" @tap="choosePayWay('offline')" :class="{active: payWay === 'offline'}">货到付款</view>
 						</view>
 						<view class="input" v-else>
@@ -131,7 +145,7 @@
 					<image class="close-icon" @click.prevent="closePopup" src="../../static/images/icons/close.png"></image>
 					<view class="content">
 						<view class="title">
-							<image :src="submitState > 0 ? '../../static/images/icons/success.png' : '../../static/images/icons/failed.png'"></image>
+							<image :src="submitState > 0 ? '../../static/images/icons/success_2.png' : '../../static/images/icons/failed.png'"></image>
 							<text :class="{'red-text': submitState > 0}">{{submitState > 0 ? '订单提交成功' : '订单提交失败'}}</text>
 						</view>
 						<text class="text">{{popupCardText}}</text>
@@ -142,7 +156,7 @@
 
 
 		</scroll-view>
-		<view class="submit-btn" @click="jamp">
+		<view class="submit-btn" @click="submit">
 			<image src="../../static/images/icons/buy.jpg"></image>
 		</view>
 
@@ -169,54 +183,68 @@
 				cityData: cityData,
 				areaData: areaData,
 				goods: {
-					imgUrl: '/static/images/package/package_1/1.jpg',
+					imgUrl: '/static/images/icons/goods_bg.png',
 					price: '199.00',
 					sourcePrice: '399',
-					title: 'MOTI DII 电子烟套装 雾化 换蛋小烟',
-					spec: [
-						'燕尾黑',
-						'燕尾黑',
-						'燕尾黑',
-						'燕尾黑',
-						'燕尾黑',
-						'燕尾黑',
-						'燕尾黑',
-					],
+					title: 'MOTI D11 电子烟套装 雾化 换蛋小烟',
 					taste: [
 						'经典烟草',
-						'极光渐变',
-						'冰镇西瓜',
-						'经典烟草',
-						'极光渐变',
-						'冰镇西瓜',
-						'经典烟草',
-						'极光渐变'
+						'冰镇菠萝',
+						'绿豆冰沙',
+						'风情芒果',
+						'激爽薄荷',
+						'甜心草莓',
+						'清甜西瓜',
+						'清培绿茶'
 					]
 				},
+				spec: [{
+						text: '燕尾黑',
+						sku: '112492575139'
+					}, {
+						text: '极光渐变',
+						sku: '586197169359'
+					}, {
+						text: '深海蓝',
+						sku: '112492578591'
+					}, {
+						text: '星辰银',
+						sku: '112492577675'
+					}, {
+						text: 'C位红',
+						sku: '112492575156'
+					}, {
+						text: '柠檬黄',
+						sku: '112492577641'
+					}, {
+						text: '八重樱',
+						sku: '112492579519'
+					}],
 				orderSource: '',
 				imgs: [],
 				lastImg: '',
 				lastImgs: [
+					'package_7/10.jpg',
 					'package_1/5.jpg',
 					'package_2/5.jpg',
 					'package_3/6.jpg',
 					'package_4/5.jpg',
 					'package_5/6.jpg',
-					'package_6/6.jpg',
-					'package_7/10.jpg'
+					'package_6/6.jpg'
 				],
-				imgs1: ['package_1/1.jpg', 'package_1/2.jpg', 'package_1/3.jpg', 'package_1/4.jpg'],
-				imgs2: ['package_2/1.jpg', 'package_2/2.jpg', 'package_2/3.jpg', 'package_2/4.jpg'],
-				imgs3: ['package_3/1.jpg', 'package_3/2.jpg', 'package_3/3.jpg', 'package_3/4.jpg', 'package_3/5.jpg'],
-				imgs4: ['package_4/1.jpg', 'package_4/2.jpg', 'package_4/3.jpg', 'package_4/4.jpg'],
-				imgs5: ['package_5/1.jpg', 'package_5/2.jpg', 'package_5/3.jpg', 'package_5/4.jpg', 'package_5/5.jpg'],
-				imgs6: ['package_6/1.jpg', 'package_6/2.jpg', 'package_6/3.jpg', 'package_6/4.jpg', 'package_6/5.jpg'],
-				imgs7: ['package_7/1.jpg', 'package_7/2.jpg', 'package_7/3.jpg', 'package_7/4.jpg', 'package_7/5.jpg',
+				imgs1: ['package_7/1.jpg', 'package_7/2.jpg', 'package_7/3.jpg', 'package_7/4.jpg', 'package_7/5.jpg',
 					'package_7/6.jpg',
 					'package_7/7.jpg',
 					'package_7/8.jpg',
 					'package_7/9.jpg',
 				],
+				imgs2: ['package_1/1.jpg', 'package_1/2.jpg', 'package_1/3.jpg', 'package_1/4.jpg'],
+				imgs3: ['package_2/1.jpg', 'package_2/2.jpg', 'package_2/3.jpg', 'package_2/4.jpg'],
+				imgs4: ['package_3/1.jpg', 'package_3/2.jpg', 'package_3/3.jpg', 'package_3/4.jpg', 'package_3/5.jpg'],
+				imgs5: ['package_4/1.jpg', 'package_4/2.jpg', 'package_4/3.jpg', 'package_4/4.jpg'],
+				imgs6: ['package_5/1.jpg', 'package_5/2.jpg', 'package_5/3.jpg', 'package_5/4.jpg', 'package_5/5.jpg'],
+				imgs7: ['package_6/1.jpg', 'package_6/2.jpg', 'package_6/3.jpg', 'package_6/4.jpg', 'package_6/5.jpg'],
+				
 				userInfo: [{
 					text: '收货人 *',
 					value: '',
@@ -225,48 +253,51 @@
 					text: '联系方式 *',
 					value: '',
 					placeholder: '请输入'
-				}, {
-					text: '地区 *',
-					value: '',
-					placeholder: '请输入'
-				}, {
+				},
+				// , {
+				// 	text: '地区 *',
+				// 	value: '',
+				// 	placeholder: '请输入'
+				// }, 
+				{
 					text: '详细地址 *',
 					value: '',
 					placeholder: '请输入'
 				}, {
-					text: '选择支付方式 *',
+					text: '支付方式',
 					value: '',
 					placeholder: '请输入'
 				}],
-				typeAndNums: [{
-						radioText: '星辰银',
-						checked: true,
-
-						number: 1,
-						skuId: 112492577675
-					},
-					{
-						radioText: '燕尾黑',
-						checked: false,
-
-						number: 1,
-						skuId: 112492575139
-					}
-				],
+// 				typeAndNums: [{
+// 						radioText: '星辰银',
+// 						checked: true,
+// 
+// 						number: 1,
+// 						skuId: 112492577675
+// 					},
+// 					{
+// 						radioText: '燕尾黑',
+// 						checked: false,
+// 
+// 						number: 1,
+// 						skuId: 112492575139
+// 					}
+// 				],
 				isShowPopupCard: false,
 				submitState: -1, // -1不显示, 0提交失败, 1货到付款提交成功, 2在线支付提交成功
 				popupCardText: '网络暂时离线, 请重新提交~~',
 				intoViewid: '',
 				currentSpecIndex: 0,
 				currentTasteIndex: 0,
-				buyNumbers: 1,
+				buyNumbersColor: 1,
+				buyNumbersTaste: 1,
 				provinceIndex: 0,
 				cityIndex: 0,
 				areaIndex: 0,
 				provinceName: '',
 				cityName: '',
 				areaName: '',
-				payWay: 'online',
+				payWay: 'offline',
 				isShowTastes: false
 			};
 		},
@@ -288,6 +319,7 @@
 				this.intoViewid = 'anchor'
 			},
 			async submit() {
+				this.intoViewid = 'anchor'
 				if (!this.userInfo[0].value) return uni.showToast({
 					title: '请输入收货人名称',
 					icon: 'none'
@@ -327,17 +359,19 @@
 					} else {
 						data.pageOrder.orderSource = 43
 					}
-
-					if (this.typeAndNums[0].checked && this.typeAndNums[0].number > 0) {
-						data.pageOrder.skuId = this.typeAndNums[0].skuId
-						data.pageOrder.skuNum = this.typeAndNums[0].number
-						data.pageOrder.orderSource = this.orderSource
-					}
-					if (this.typeAndNums[1].checked && this.typeAndNums[1].number > 0) {
-						data.pageOrder.skuId = this.typeAndNums[1].skuId
-						data.pageOrder.skuNum = this.typeAndNums[1].number
-						data.pageOrder.orderSource = this.orderSource
-					}
+					data.pageOrder.skuId = this.spec[this.currentSpecIndex].sku
+					data.pageOrder.skuNum = this.buyNumbersColor
+					data.pageOrder.orderSource = this.orderSource
+					// if (this.typeAndNums[0].checked && this.typeAndNums[0].number > 0) {
+					// 	data.pageOrder.skuId = this.typeAndNums[0].skuId
+					// 	data.pageOrder.skuNum = this.typeAndNums[0].number
+					// 	data.pageOrder.orderSource = this.orderSource
+					// }
+					// if (this.typeAndNums[1].checked && this.typeAndNums[1].number > 0) {
+					// 	data.pageOrder.skuId = this.typeAndNums[1].skuId
+					// 	data.pageOrder.skuNum = this.typeAndNums[1].number
+					// 	data.pageOrder.orderSource = this.orderSource
+					// }
 					const orderRes = await this.submitOrder(data)
 					if (orderRes === 0) {
 						this.popupCardText = '24小时内人工客服会与您联络\n请保持手机通畅'
@@ -346,6 +380,11 @@
 						this.isShowPopupCard = 0
 					}
 
+				} else {
+					uni.showToast({
+						title: '身份信息提交失败',
+						icon: 'none'
+					})
 				}
 				// const checkRegRes = await this.checkIsReg(this.userInfo[1].value)
 				// console.log(checkRegRes)
@@ -371,11 +410,17 @@
 				this.typeAndNums[1].checked ? this.typeAndNums[1].checked = false : this.typeAndNums[1].checked = true
 
 			},
-			numsUp(e) {
-				this.buyNumbers += 1
+			numsUpColor(e) {
+				this.buyNumbersColor += 1
 			},
-			numsDown(e) {
-				this.buyNumbers > 1 && (this.buyNumbers -= 1)
+			numsDownColor(e) {
+				this.buyNumbersColor > 1 && (this.buyNumbersColor -= 1)
+			},
+			numsUpTaste(e) {
+				this.buyNumbersTaste += 1
+			},
+			numsDownColorTaste(e) {
+				this.buyNumbersTaste > 1 && (this.buyNumbersTaste -= 1)
 			},
 			closePopup() {
 				this.submitState = -1
@@ -451,7 +496,21 @@
 <style lang="scss">
 	.introduction-wrapper {
 		.introductions {
-			img {
+			swiper {
+				position: relative;
+				width: 100%;
+				height: 980upx;
+				.swiper-item {
+					width: 100%;
+					height: 100%;
+					image {
+						width: 100%;
+						height: 100%;
+					}
+				}
+				
+			}
+			image {
 				display: block;
 				// margin-bottom: -2upx;
 				width: 100%;
@@ -501,6 +560,7 @@
 						color: #333;
 
 						.desc_text {
+							margin-left: 10upx;
 							font-size: 24upx;
 							color: #999;
 						}
