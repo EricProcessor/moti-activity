@@ -26,7 +26,7 @@
 
 			<!-- 商品信息 -->
 			<view class="goods_info_popup">
-				<view id="anchor"></view>
+				
 				<view class="base_info">
 					<image class="poster" :src="goods.imgUrl"></image>
 					<view class="info_text">
@@ -94,6 +94,7 @@
 			<!-- 中间表单 -->
 			<!-- <view style="height: 20upx;background: #eee"></view> -->
 			<view class="form-wrapper">
+				<view id="anchor"></view>
 				<view class="form-data">
 					<view class="take_info">
 						<view class="line_1">RECEIVING INFORMATION</view>
@@ -520,12 +521,7 @@
 		
 		.goods_info_popup {
 			position: relative;
-			#anchor {
-				position: absolute;
-				height: 1upx;
-				top: -160upx;
-				background: transparent;
-			}
+
 			width: 100%;
 			box-sizing: border-box;
 			padding: 30upx 45upx;
@@ -707,7 +703,12 @@
 			position: relative;
 			// background: #fff;
 			padding: 0.1upx 0;
-
+			#anchor {
+				position: absolute;
+				height: 1upx;
+				top: -160upx;
+				background: transparent;
+			}
 
 
 			.form-data {
