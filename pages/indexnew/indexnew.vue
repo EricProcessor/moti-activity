@@ -459,7 +459,7 @@
 				} else {
 					this.submitState = 0;
 				}
-				this.isShowPopupCard = 0
+				this.isShowPopupCard = true
 			},
 			goMoti() {
 				// uni.navigateTo({
