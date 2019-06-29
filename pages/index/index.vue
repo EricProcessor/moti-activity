@@ -199,28 +199,7 @@
 							data.pageOrder.orderSource = this.orderSource
 						}
 						const orderRes = await this.submitOrder(data)
-						if (orderRes === 0) {
-							this.popupCardText = '24小时内人工客服会与您联络\n请保持手机通畅'
-							this.isShowPopupCard = 1
-						} else {
-							this.isShowPopupCard = 0
-						}
-						
 					}
-				// const checkRegRes = await this.checkIsReg(this.userInfo[1].value)
-				// console.log(checkRegRes)
-				// if (checkRegRes === 0) {
-				// 	console.log(2)
-				// 	// 未注册
-				// 	const regRes = await this.regUser()
-				// 	console.log(regRes)
-				// 	if (regRes === 0) {
-				// 		// 注册失败
-				// 		this.submitState = 0
-				// 		return
-				// 	}
-				// }
-				
 			},
 			pageScroll() {
 				this.intoViewid = ''
@@ -241,6 +220,7 @@
 			},
 			closePopup() {
 				this.submitState = -1
+				this.isShowPopupCard = false
 			},
 			// async checkIsReg(phone) {
 			// 	// 检查是否注册
@@ -262,15 +242,13 @@
 			async submitOrder(data) {
 				// 提交订单
 				const res = await post('/order/activityPage/bookingActivityOrder', data, 'application/json;charset=utf-8')
-				//return res.code
-				console.log(res)
 				if(res.data.code == 0){
 					this.submitState = 1;
-					// this.popupCardText = res.data.msg
 					this.popupCardText = '24小时内人工客服会与您联络请保持手机通畅'
 				}else{
 					this.submitState = 0;
 				}
+				this.isShowPopupCard = true
 			},
 			goMoti() {
 				// uni.navigateTo({

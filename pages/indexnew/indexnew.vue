@@ -45,10 +45,12 @@
 			</view>
 			<!-- 颜色属性 -->
 			<view class="attrs_wrapper">
+				<!-- 改变index时选中的颜色不改变, 只要触发页面任何一次更新才生效 -->
+				<view class="current">{{currentSpecIndex}}</view>
 				<view class="colors_header">选择规格</view>
 				<view class="colors">
-					<view class="color" :class="{active: index == currentSpecIndex, mr0: (index + 1) % 4 === 0}" v-for="(item, index) in spec"
-					 :key="index" @tap="chooseSpec" :data-index="index">{{item.text}}</view>
+					<view class="color" hover-class="none" :class="{active: index == currentSpecIndex, mr0: (index + 1) % 4 === 0}" v-for="(item, index) in spec"
+					 :key="index" @touchend="chooseSpec" :data-index="index">{{item.text}}</view>
 				</view>
 
 				<view class="nums_header">
@@ -143,7 +145,7 @@
 			<!-- 提交信息后弹出卡片 -->
 			<view class="mask-card" v-if="isShowPopupCard">
 				<view class="card-content">
-					<image class="close-icon" @click.prevent="closePopup" src="../../static/images/icons/close.png"></image>
+					<image class="close-icon" @tap="closePopup" src="../../static/images/icons/close.png"></image>
 					<view class="content">
 						<view class="title">
 							<image :src="submitState > 0 ? '../../static/images/icons/success_2.png' : '../../static/images/icons/failed.png'"></image>
@@ -356,6 +358,7 @@
 							mobile: this.userInfo[1].value
 						}
 					}
+					
 					if (this.orderSource === 'qutoutiao') {
 						data.pageOrder.orderSource = 40
 					} else if (this.orderSource === 'jinritoutiao') {
@@ -377,12 +380,6 @@
 					// 	data.pageOrder.orderSource = this.orderSource
 					// }
 					const orderRes = await this.submitOrder(data)
-					// if (orderRes === 0) {
-					// 	this.popupCardText = '24小时内人工客服会与您联络\n请保持手机通畅'
-					// 	this.isShowPopupCard = 1
-					// } else {
-					// 	this.isShowPopupCard = 0
-					// }
 
 				} else {
 					uni.showToast({
@@ -428,6 +425,7 @@
 				this.buyNumbersTaste > 1 && (this.buyNumbersTaste -= 1)
 			},
 			closePopup() {
+				this.isShowPopupCard = false
 				this.submitState = -1
 			},
 			// async checkIsReg(phone) {
@@ -450,11 +448,8 @@
 			async submitOrder(data) {
 				// 提交订单
 				const res = await post('/order/activityPage/bookingActivityOrder', data, 'application/json;charset=utf-8')
-				//return res.code
-				console.log(res)
 				if (res.data.code == 0) {
 					this.submitState = 1;
-					// this.popupCardText = res.data.msg
 					this.popupCardText = '24小时内人工客服会与您联络请保持手机通畅'
 				} else {
 					this.submitState = 0;
@@ -592,10 +587,15 @@
 		}
 
 		.attrs_wrapper {
+			position: relative;
 			padding: 0 45upx 50upx 45upx;
 			text-align: left;
 			margin-top: 50upx;
-
+			.current {
+				position: absolute;
+				top: -100upx;
+				left: -100upx;
+			}
 			.colors_header {
 				display: flex;
 				justify-content: space-between;
@@ -885,7 +885,7 @@
 						}
 
 						.red-text {
-							color: #fa4650;
+							color: #fb8c00;
 						}
 					}
 
