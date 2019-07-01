@@ -6,12 +6,6 @@
 				"navigationBarTitleText": "MOTI"
 			}
 		}
-        ,{
-            "path" : "pages/indexnew/indexnew",
-            "style" : {
-				"navigationBarTitleText": "MOTI"
-			}
-        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

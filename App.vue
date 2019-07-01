@@ -13,7 +13,7 @@
 			// 友盟统计添加
 			const script = document.createElement("script");
 			script.src =
-				"https://s96.cnzz.com/z_stat.php?id=1277686800&web_id=1277686800";
+				"https://s96.cnzz.com/z_stat.php?id=1277768398&web_id=1277768398";
 			script.language = "JavaScript";
 			document.body.appendChild(script);
 		}
