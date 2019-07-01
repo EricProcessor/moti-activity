@@ -345,6 +345,10 @@
 					title: '请输入收货地址',
 					icon: 'none'
 				})
+				if (this.buyNumbersColor < 1) return uni.showToast({
+					title: '请选择数量',
+					icon: 'none'
+				})
 				// let checkRegRes = await post('/user/user/checkUserMobile', {
 				// 	mobile: this.userInfo[1].value
 				// })
