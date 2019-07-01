@@ -28,7 +28,7 @@
 			<view class="goods_info_popup">
 				
 				<view class="base_info">
-					<image class="poster" :src="goods.imgUrl"></image>
+					<image class="poster" :src="backgrounds[currentSpecIndex]"></image>
 					<view class="info_text">
 						<view class="price">
 							<text class="icon_rmb">¥</text>
@@ -194,6 +194,15 @@
 				cityData: cityData,
 				areaData: areaData,
 				totalPrice: 0,
+				backgrounds: [
+					'/static/images/1.jpg',
+					'/static/images/2.jpeg',
+					'/static/images/3.jpg',
+					'/static/images/4.jpg',
+					'/static/images/5.jpg',
+					'/static/images/6.jpg',
+					'/static/images/7.jpeg'
+				],
 				goods: {
 					imgUrl: '/static/images/icons/goods_bg.png',
 					price: '199.00',
@@ -441,6 +450,28 @@
 				this.buyNumbersTaste > 1 && (this.buyNumbersTaste -= 1)
 			},
 			closePopup() {
+				if (this.submitState === 1) {
+					this.currentSpecIndex = 0
+					this.buyNumbersColor = 0
+					this.userInfo = [{
+						text: '收货人 *',
+						value: '',
+						placeholder: '请输入'
+					}, {
+						text: '联系方式 *',
+						value: '',
+						placeholder: '请输入'
+					},
+					{
+						text: '详细地址 *',
+						value: '',
+						placeholder: '请输入'
+					}, {
+						text: '支付方式',
+						value: '',
+						placeholder: '请输入'
+					}]
+				}
 				this.isShowPopupCard = false
 				this.submitState = -1
 			},
