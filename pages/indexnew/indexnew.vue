@@ -61,6 +61,13 @@
 						<view class="text-icon add" @click="numsUpColor">+</view>
 					</view>
 				</view>
+				<view class="nums_header">
+					<text>共计</text>
+					<view class="total_price">
+						<text class="icon_rmb">¥</text>
+						<text class="price">{{totalPrice}}</text>
+					</view>
+				</view>
 			</view>
 
 
@@ -160,7 +167,8 @@
 
 		</scroll-view>
 		<view class="submit-btn" @click="submit">
-			<image src="../../static/images/icons/buy.jpg"></image>
+			<image v-if="buyNumbersColor == 0" src="../../static/images/icons/buy.jpg"></image>
+			<view v-else class="sub_order">提交订单</view>
 		</view>
 
 	</view>
@@ -185,6 +193,7 @@
 				provinceData: provinceData,
 				cityData: cityData,
 				areaData: areaData,
+				totalPrice: 0,
 				goods: {
 					imgUrl: '/static/images/icons/goods_bg.png',
 					price: '199.00',
@@ -292,7 +301,7 @@
 				intoViewid: '',
 				currentSpecIndex: 0,
 				currentTasteIndex: 0,
-				buyNumbersColor: 1,
+				buyNumbersColor: 0,
 				buyNumbersTaste: 1,
 				provinceIndex: 0,
 				cityIndex: 0,
@@ -316,6 +325,7 @@
 				this.lastImg = this.lastImgs[0]
 			}
 			this.orderSource = options.order_source
+			this.sum()
 		},
 		methods: {
 			jamp() {
@@ -414,9 +424,11 @@
 			},
 			numsUpColor(e) {
 				this.buyNumbersColor += 1
+				this.sum()
 			},
 			numsDownColor(e) {
-				this.buyNumbersColor > 1 && (this.buyNumbersColor -= 1)
+				this.buyNumbersColor > 0 && (this.buyNumbersColor -= 1)
+				this.sum()
 			},
 			numsUpTaste(e) {
 				this.buyNumbersTaste += 1
@@ -489,6 +501,9 @@
 			},
 			taggleTaste() {
 				this.isShowTastes = !this.isShowTastes
+			},
+			sum() {
+				this.totalPrice = this.buyNumbersColor * 199
 			}
 		}
 	}
@@ -701,6 +716,17 @@
 						color: #040000;
 					}
 				}
+				
+				.total_price {
+					color: #fb8c00;
+					.icon_rmb {
+						font-size: 24upx;
+					}
+					.price {
+						font-size: 38upx;
+						font-weight: bold;
+					}
+				}
 			}
 		}
 
@@ -806,7 +832,6 @@
 					.pay_way {
 						margin-top: 43upx;
 						display: flex;
-						justify-content: center;
 						align-items: center;
 						view {
 							width: 310upx;
@@ -828,7 +853,7 @@
 						.pay_inline {
 						}
 						.pay_got {
-							margin-left: 39upx;
+							// margin-left: 39upx;
 						}
 					}
 				}
@@ -937,6 +962,16 @@
 		image {
 			width: 100%;
 			height: 100%;
+		}
+		.sub_order {
+			width: 100%;
+			height: 100%;
+			background-color: #fb8c00;
+			color: #fff;
+			font-size: 36upx;
+			display: flex;
+			justify-content: center;
+			align-items: center;
 		}
 	}
 </style>
