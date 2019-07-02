@@ -6,15 +6,9 @@
 			<!-- 上半部图片 -->
 			<view class="introductions">
 				<block v-for="(item, index) in imgs" :key="index" >
-					<swiper :indicator-dots="true" indicator-active-color="#fff" :autoplay="true" :interval="3000" v-if="index === 0">
-						<swiper-item class="swiper-item">
-								<image :src="'../../static/images/package/' + item"></image>
-						</swiper-item>
-						<swiper-item class="swiper-item">
-								<image :src="'../../static/images/package/' + item"></image>
-						</swiper-item>
-						<swiper-item class="swiper-item">
-								<image :src="'../../static/images/package/' + item"></image>
+					<swiper :indicator-dots="false" indicator-active-color="#fff" :autoplay="true" :interval="3000" v-if="index === 0">
+						<swiper-item class="swiper-item" v-for="(item, index) in banners" :key="index">
+								<image :src="item"></image>
 						</swiper-item>
 					</swiper>
 					<image v-else :src="'../../static/images/package/' + item" mode="widthFix"></image>
@@ -190,6 +184,11 @@
 		},
 		data() {
 			return {
+				banners: [
+					'/static/images/banners/swiper_1.jpg',
+					'/static/images/banners/swiper_2.jpg',
+					'/static/images/banners/swiper_3.jpg'
+				],
 				provinceData: provinceData,
 				cityData: cityData,
 				areaData: areaData,
