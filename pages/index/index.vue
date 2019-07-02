@@ -6,22 +6,17 @@
 			<!-- 上半部图片 -->
 			<view class="introductions">
 				<block v-for="(item, index) in imgs" :key="index" >
-					<swiper :indicator-dots="true" indicator-active-color="#fff" :autoplay="true" :interval="3000" v-if="index === 0">
-						<swiper-item class="swiper-item">
-								<image :src="'../../static/images/package/' + item"></image>
-						</swiper-item>
-						<swiper-item class="swiper-item">
-								<image :src="'../../static/images/package/' + item"></image>
-						</swiper-item>
-						<swiper-item class="swiper-item">
-								<image :src="'../../static/images/package/' + item"></image>
+					<swiper :indicator-dots="false" indicator-active-color="#fff" :autoplay="true" :interval="3000" v-if="index === 0">
+						<swiper-item class="swiper-item" v-for="(item, index) in banners" :key="index">
+								<image :src="item"></image>
 						</swiper-item>
 					</swiper>
 					<image v-else :src="'../../static/images/package/' + item" mode="widthFix"></image>
 					<!-- <img> -->
 				</block>
 				<!-- <img v-for="(item, index) in imgs" :key="index" :src="'../../activity/static/images/package/' + item"> -->
-				
+				<!--  -->
+				<view class="dynamic_wrapper"><dynamic></dynamic></view>
 			</view>
 
 			<!-- 商品信息 -->
@@ -183,13 +178,22 @@
 	import provinceData from '@/common/city-data/province.js'
 	import cityData from '@/common/city-data/city.js'
 	import areaData from '@/common/city-data/area.js'
+	import dynamic from './dynamic.vue'
 
 	export default {
 		config: {
 			disableScroll: true
 		},
+		components: {
+			dynamic
+		},
 		data() {
 			return {
+				banners: [
+					'/static/images/banners/swiper_1.jpg',
+					'/static/images/banners/swiper_2.jpg',
+					'/static/images/banners/swiper_3.jpg'
+				],
 				provinceData: provinceData,
 				cityData: cityData,
 				areaData: areaData,
@@ -547,6 +551,15 @@
 <style lang="scss">
 	.introduction-wrapper {
 		.introductions {
+			position: relative;
+			.dynamic_wrapper {
+				position: absolute;
+				top: 930upx;
+				left: 0;
+				right: 0;
+				height: 50upx;
+				z-index: 1000;
+			}
 			swiper {
 				position: relative;
 				width: 100%;
