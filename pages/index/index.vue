@@ -154,7 +154,7 @@
 							<text :class="{'red-text': submitState > 0}">{{submitState > 0 ? '订单提交成功' : '订单提交失败'}}</text>
 						</view>
 						<text class="text">{{popupCardText}}</text>
-						<view class="btn" @click="goMoti">查看更多商品</view>
+						<view class="btn" @click="reload">确定</view>
 					</view>
 				</view>
 			</view>
@@ -507,11 +507,12 @@
 				}
 				this.isShowPopupCard = true
 			},
-			goMoti() {
+			reload() {
 				// uni.navigateTo({
 				// 	url: 'http://mall.motivape.cn'
 				// })
-				location.href = 'http://mall.motivape.cn'
+				Window.reload()
+				// location.href = 'http://mall.motivape.cn'
 			},
 			chooseSpec(e) {
 				this.currentSpecIndex = Number(e.currentTarget.dataset.index)
@@ -878,24 +879,25 @@
 					}
 					
 					.pay_way {
-						margin-top: 43upx;
+						margin-top: 13upx;
 						display: flex;
 						align-items: center;
 						view {
-							width: 310upx;
+							// width: 310upx;
 							height: 76upx;
 							display: flex;
 							justify-content: center;
 							align-items: center;
-							font-size: 34upx;
-							border-radius: 8upx;
-							color: #b6b6b6;
-							border: solid 1px #b6b6b6;
-							box-sizing: border-box;
+							font-size: 30upx;
+							color: #333333;
+							// border-radius: 8upx;
+							// color: #b6b6b6;
+							// border: solid 1px #b6b6b6;
+							// box-sizing: border-box;
 							&.active {
-								color: #fff;
-								border-color:  #fb8c00;
-								background-color: #fb8c00;
+								// color: #fff;
+								// border-color:  #fb8c00;
+								// background-color: #fb8c00;
 							}
 						}
 						.pay_inline {
