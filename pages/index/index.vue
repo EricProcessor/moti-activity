@@ -15,7 +15,8 @@
 					<!-- <img> -->
 				</block>
 				<!-- <img v-for="(item, index) in imgs" :key="index" :src="'../../activity/static/images/package/' + item"> -->
-				
+				<!--  -->
+				<view class="dynamic_wrapper"><dynamic></dynamic></view>
 			</view>
 
 			<!-- 商品信息 -->
@@ -177,10 +178,14 @@
 	import provinceData from '@/common/city-data/province.js'
 	import cityData from '@/common/city-data/city.js'
 	import areaData from '@/common/city-data/area.js'
+	import dynamic from './dynamic.vue'
 
 	export default {
 		config: {
 			disableScroll: true
+		},
+		components: {
+			dynamic
 		},
 		data() {
 			return {
@@ -546,6 +551,15 @@
 <style lang="scss">
 	.introduction-wrapper {
 		.introductions {
+			position: relative;
+			.dynamic_wrapper {
+				position: absolute;
+				top: 930upx;
+				left: 0;
+				right: 0;
+				height: 50upx;
+				z-index: 1000;
+			}
 			swiper {
 				position: relative;
 				width: 100%;
