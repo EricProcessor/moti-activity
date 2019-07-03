@@ -41,11 +41,14 @@
 
 <style lang="scss">
 	.dynamic{
-		position: absolute;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background: rgba(0, 0, 0, .2);
+		position: fixed;
+		top:700upx;
+		width: 50%;
+		// left: 0;
+		// right: 0;
+		// bottom: 0;
+		background: rgba(0, 0, 0, .5);
+		border-radius: 20upx;
 		height: 50upx;
 		line-height: 50upx;
 		padding: 0 30upx;
@@ -54,7 +57,7 @@
 		overflow: hidden;
 		z-index: 100;
 		swiper {
-			overflow: hidden;
+			// overflow: hidden;
 			swiper-item {
 				height: 50upx;
 			}

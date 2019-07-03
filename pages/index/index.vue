@@ -154,7 +154,7 @@
 							<text :class="{'red-text': submitState > 0}">{{submitState > 0 ? '订单提交成功' : '订单提交失败'}}</text>
 						</view>
 						<text class="text">{{popupCardText}}</text>
-						<view class="btn" @click="reload">确定</view>
+						<view class="btn" @click="closePopup">确定</view>
 					</view>
 				</view>
 			</view>
@@ -211,7 +211,7 @@
 					imgUrl: '/static/images/icons/goods_bg.png',
 					price: '199.00',
 					sourcePrice: '399',
-					title: 'MOTI D11 电子烟套装 雾化 换蛋小烟',
+					title: 'MOTI D11 电子烟套装 雾化 换弹小烟',
 					taste: [
 						'经典烟草',
 						'冰镇菠萝',
@@ -474,10 +474,13 @@
 						text: '支付方式',
 						value: '',
 						placeholder: '请输入'
-					}]
+					}],
+					this.isShowPopupCard = false,
+					this.submitState = -1
+				}else{			
+					this.isShowPopupCard = false,
+					this.submitState = -1
 				}
-				this.isShowPopupCard = false
-				this.submitState = -1
 			},
 			// async checkIsReg(phone) {
 			// 	// 检查是否注册
@@ -511,7 +514,7 @@
 				// uni.navigateTo({
 				// 	url: 'http://mall.motivape.cn'
 				// })
-				Window.reload()
+				uni.reload();
 				// location.href = 'http://mall.motivape.cn'
 			},
 			chooseSpec(e) {
@@ -786,7 +789,7 @@
 			#anchor {
 				position: absolute;
 				height: 1upx;
-				top: -160upx;
+				top: -1200upx;
 				background: transparent;
 			}
 
