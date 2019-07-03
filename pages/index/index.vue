@@ -476,7 +476,8 @@
 						placeholder: '请输入'
 					}],
 					this.isShowPopupCard = false,
-					this.submitState = -1
+					this.submitState = -1,
+					this.totalPrice = 0
 				}else{			
 					this.isShowPopupCard = false,
 					this.submitState = -1
@@ -789,7 +790,7 @@
 			#anchor {
 				position: absolute;
 				height: 1upx;
-				top: -1200upx;
+				top: -760upx;
 				background: transparent;
 			}
 
