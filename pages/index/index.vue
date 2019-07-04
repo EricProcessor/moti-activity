@@ -406,11 +406,6 @@
 					// 	data.pageOrder.skuNum = this.typeAndNums[1].number
 					// 	data.pageOrder.orderSource = this.orderSource
 					// }
-					await new Promise((resolve) => {
-						setTimeout(() => {
-							resolve()
-						}, 1000)
-					})
 					const orderRes = await this.submitOrder(data)
 
 				} else {
