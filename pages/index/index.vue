@@ -6,7 +6,7 @@
 			<!-- 上半部图片 -->
 			<view class="introductions">
 				<view class="swiper_wrapper" v-if="imgs.swipers.length > 0">
-					<swiper :indicator-dots="false" indicator-active-color="#fff" :autoplay="true" :interval="30000" @change="swiperChange">
+					<swiper :indicator-dots="false" indicator-active-color="#fff" :autoplay="true" :interval="3000" @change="swiperChange">
 						<swiper-item class="swiper-item" v-for="(item, index) in imgs.swipers" :key="index">
 								<image :src="item"></image>
 						</swiper-item>
