@@ -5,14 +5,21 @@
 		 scroll-with-animation="true" @scroll="pageScroll">
 			<!-- 上半部图片 -->
 			<view class="introductions">
-				<block v-for="(item, index) in imgs" :key="index" >
-					<swiper :indicator-dots="false" indicator-active-color="#fff" :autoplay="true" :interval="3000" v-if="index === 0">
-						<swiper-item class="swiper-item" v-for="(item, index) in banners" :key="index">
+				<view class="swiper_wrapper" v-if="imgs.swipers.length > 0">
+					<swiper :indicator-dots="false" indicator-active-color="#fff" :autoplay="true" :interval="30000" @change="swiperChange">
+						<swiper-item class="swiper-item" v-for="(item, index) in imgs.swipers" :key="index">
 								<image :src="item"></image>
 						</swiper-item>
 					</swiper>
-					<image v-else :src="'../../static/images/package/' + item" mode="widthFix"></image>
 					<!-- <img> -->
+					<view class="custom_dots">
+						<view class="dot_wrapper" v-for="(dot, indexDot) in imgs.swipers" :key="indexDot">
+							<view class="dot" :class="{active: currentSwiperIndex === indexDot}"></view>
+						</view>
+					</view>
+				</view>
+				<block>
+					<image v-for="(item, index) in imgs.imgs" :src="item" mode="widthFix"></image>
 				</block>
 				<!-- <img v-for="(item, index) in imgs" :key="index" :src="'../../activity/static/images/package/' + item"> -->
 				<!--  -->
@@ -142,7 +149,7 @@
 			<!-- 最后一张图片 -->
 
 			<!-- <img class="comments" :src="'../../activity/static/images/package/' + lastImg"> -->
-			<img class="comments" :src="'../../static/images/package/' + lastImg">
+			<img class="comments" :src="lastImg">
 
 			<!-- 提交信息后弹出卡片 -->
 			<view class="mask-card" v-if="isShowPopupCard">
@@ -179,6 +186,7 @@
 	import cityData from '@/common/city-data/city.js'
 	import areaData from '@/common/city-data/area.js'
 	import dynamic from './dynamic.vue'
+	import imgsData from './imgs.js'
 
 	export default {
 		config: {
@@ -189,26 +197,23 @@
 		},
 		data() {
 			return {
-				banners: [
-					'/static/images/banners/swiper_1.jpg',
-					'/static/images/banners/swiper_2.jpg',
-					'/static/images/banners/swiper_3.jpg'
-				],
+				paramType: 0,
+				currentSwiperIndex: 0,
 				provinceData: provinceData,
 				cityData: cityData,
 				areaData: areaData,
 				totalPrice: 0,
 				backgrounds: [
-					'/static/images/1.jpg',
-					'/static/images/2.jpeg',
-					'/static/images/3.jpg',
-					'/static/images/4.jpg',
-					'/static/images/5.jpg',
-					'/static/images/6.jpg',
-					'/static/images/7.jpeg'
+					'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/1.jpg',
+					'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/2.jpg',
+					'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/3.jpg',
+					'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/4.jpg',
+					'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/5.jpg',
+					'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/6.jpg',
+					'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/7.jpg'
 				],
 				goods: {
-					imgUrl: '/static/images/icons/goods_bg.png',
+					imgUrl: '',
 					price: '199.00',
 					sourcePrice: '399',
 					title: 'MOTI D11 电子烟套装 雾化 换弹小烟',
@@ -248,28 +253,6 @@
 				orderSource: '',
 				imgs: [],
 				lastImg: '',
-				lastImgs: [
-					'package_7/10.jpg',
-					'package_1/5.jpg',
-					'package_2/5.jpg',
-					'package_3/6.jpg',
-					'package_4/5.jpg',
-					'package_5/6.jpg',
-					'package_6/6.jpg'
-				],
-				imgs1: ['package_7/1.jpg', 'package_7/2.jpg', 'package_7/3.jpg', 'package_7/4.jpg', 'package_7/5.jpg',
-					'package_7/6.jpg',
-					'package_7/7.jpg',
-					'package_7/8.jpg',
-					'package_7/9.jpg',
-				],
-				imgs2: ['package_1/1.jpg', 'package_1/2.jpg', 'package_1/3.jpg', 'package_1/4.jpg'],
-				imgs3: ['package_2/1.jpg', 'package_2/2.jpg', 'package_2/3.jpg', 'package_2/4.jpg'],
-				imgs4: ['package_3/1.jpg', 'package_3/2.jpg', 'package_3/3.jpg', 'package_3/4.jpg', 'package_3/5.jpg'],
-				imgs5: ['package_4/1.jpg', 'package_4/2.jpg', 'package_4/3.jpg', 'package_4/4.jpg'],
-				imgs6: ['package_5/1.jpg', 'package_5/2.jpg', 'package_5/3.jpg', 'package_5/4.jpg', 'package_5/5.jpg'],
-				imgs7: ['package_6/1.jpg', 'package_6/2.jpg', 'package_6/3.jpg', 'package_6/4.jpg', 'package_6/5.jpg'],
-				
 				userInfo: [{
 					text: '收货人 *',
 					value: '',
@@ -327,20 +310,21 @@
 			};
 		},
 		onLoad(options) {
-			console.log('onLoad')
 			const params = options
-			const paramVal = params.type ? Number(params.type) : 0
-			if (paramVal >= 1 && paramVal <= 7) {
-				this.imgs = this[`imgs${paramVal}`]
-				this.lastImg = this.lastImgs[paramVal - 1]
-			} else {
-				this.imgs = this.imgs1
-				this.lastImg = this.lastImgs[0]
-			}
+			const index = params.type ? Number(params.type) : 7
+			this.paramType = index
+			this.imgs = imgsData[`imgs${index}`]
+			this.lastImg = imgsData.lastImgs[index - 1]
+			console.log(`imgs${index}`)
+			console.log(this.imgs)
+			console.log(this.lastImg)
 			this.orderSource = options.order_source
 			this.sum()
 		},
 		methods: {
+			swiperChange(e) {
+				this.currentSwiperIndex = e.detail.current
+			},
 			jamp() {
 				this.intoViewid = 'anchor'
 			},
@@ -564,6 +548,39 @@
 				height: 50upx;
 				z-index: 1000;
 			}
+			.swiper_wrapper {
+				position: relative;
+				.custom_dots {
+					position: absolute;
+					right: 28upx;
+					bottom: 16upx;
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					.dot_wrapper {
+						flex-shrink: 0;
+						width: 35upx;
+						height: 20upx;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						.dot {
+							flex-shrink: 0;
+							width: 20upx;
+							height: 20upx;
+							border-radius: 50%;
+							background-color: rgba(0, 0, 0, .5);
+							&.active {
+								width: 35upx;
+								height: 20upx;
+								border-radius: 20upx;
+								width: 40upx;
+								background-color: #fff;
+							}
+						}
+					}
+				}
+			}
 			swiper {
 				position: relative;
 				width: 100%;
@@ -572,6 +589,7 @@
 					width: 100%;
 					height: 100%;
 					image {
+						display: block;
 						width: 100%;
 						height: 100%;
 					}
