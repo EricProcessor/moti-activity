@@ -15,10 +15,9 @@ switch (host) {
 		api = "https://hnhd.motivape.cn/api/activity"
 		break
 	default:
-		api = "http://hnhd.gray.motivape.cn/api/activity"
+		api = "http://bolg.test/api/activity"
 		break
 }
-api = "http://bolg.test/api/activity"
 config.host = process.env.NODE_ENV === 'development' ? api : api         // 生产环境/线上环境
 
 export default config

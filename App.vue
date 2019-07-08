@@ -1,4 +1,5 @@
 <script>
+	import {isProdEnv} from "common/js/common/const.js"
 	export default {
 		onLaunch: function() {
 			console.log('App Launch')
@@ -8,6 +9,17 @@
 		},
 		onHide: function() {
 			console.log('App Hide')
+		},
+		mounted() {
+		
+			if(isProdEnv){
+				//友盟统计添加
+				const script = document.createElement("script");
+				script.src = "https://s5.cnzz.com/z_stat.php?id=1277794271&web_id=1277794271";
+				script.language = "JavaScript";
+				document.body.appendChild(script);
+			}
+			
 		}
 	}
 </script>
@@ -26,9 +38,8 @@
 		letter-spacing: 0px;
 		color: #000000;
 	}
-	
-	.uni-picker .uni-picker-action.uni-picker-action-confirm{
+
+	.uni-picker .uni-picker-action.uni-picker-action-confirm {
 		color: #333333 !important;
 	}
-	
 </style>
