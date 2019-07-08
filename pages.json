@@ -1,0 +1,63 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		 	{
+		     "path" : "pages/login/login",
+		     "style" : {
+		 		//"navigationStyle": "custom",
+		 		//"backgroundColor":"#f7f7f7",
+		 		"navigationBarTitleText": "MOTI魔笛7 - 8月限时福利活动"
+		 		//"backgroundColor": "#3D3E4C"
+		 		
+		 	}
+		 }
+		 ,
+		 {
+			"path" : "pages/my-order/my-order",
+		  
+		    "style" : {
+				//"navigationStyle": "custom",
+				"navigationBarTitleText": "MOTI魔笛7 - 8月限时福利活动",
+				"enablePullDownRefresh":true
+			}
+		}
+		,
+	
+	   {
+            "path" : "pages/fill-info/fill-info",
+             "style" : {
+            	//"navigationStyle": "custom",
+				"navigationBarTitleText": "MOTI魔笛7 - 8月限时福利活动"
+            }
+        }
+        ,{
+            "path" : "pages/shop-apply/shop-apply",
+            "style" : {
+				//"navigationStyle": "custom",
+				"navigationBarTitleText": "MOTI魔笛7 - 8月限时福利活动"
+			}
+        }
+        ,{
+            "path" : "pages/goods-info/goods-info",
+            "style" : {
+				//"navigationStyle": "custom",
+				"backgroundColor":"#f7f7f7",
+				"navigationBarTitleText": "MOTI魔笛7 - 8月限时福利活动"
+			}
+        }
+        ,{
+            "path" : "pages/order-detail/order-detail",
+            "style" : {
+				//"navigationStyle": "custom",
+				"navigationBarTitleText": "订单详情"
+				
+				
+			}
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "MOTI魔笛7 - 8月限时福利活动",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#F8F8F8"
+	}
+}
