@@ -515,6 +515,7 @@ export default {
         this.submitState = 0;
       }
       this.isShowPopupCard = true;
+			this.totalPrice = 0
     },
     reload() {
       // uni.navigateTo({
