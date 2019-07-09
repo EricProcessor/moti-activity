@@ -19,15 +19,17 @@
 					</view>
 				</view>
 				<block>
-					<img class="img" v-for="(item, index) in imgs.imgs" :src="item"></img>
+					<view class="img_wrapper" v-for="(item, index) in imgs.imgs" :style="{width: item.width + 'upx', height: item.height + 'upx'}">
+						<img class="img" :src="item.url" v-show="item.isLoaded" @load="imgLoad(index)"></img>
+					</view>
 				</block>
 				<!-- <img v-for="(item, index) in imgs" :key="index" :src="'../../activity/static/images/package/' + item"> -->
 				<!--  -->
 			</view>
 
 			<!-- 商品信息 -->
-			<!-- <view id="anchor"></view> -->
-			<view class="goods_info_popup" id="anchor">
+			<view id="anchor" v-if="isPageReady"></view>
+			<view class="goods_info_popup">
 				
 				<view class="base_info">
 					<image class="poster" :src="backgrounds[currentSpecIndex]"></image>
@@ -168,7 +170,7 @@
 
 
 		</view>
-		<view class="submit-btn" @click="submit">
+		<view class="submit-btn" @tap="submit">
 			<image v-if="buyNumbersColor == 0" src="../../static/images/icons/buy.jpg"></image>
 			<view v-else class="sub_order">提交订单</view>
 		</view>
@@ -194,6 +196,7 @@ export default {
   },
   data() {
     return {
+			isPageReady: false,
 			isFixed: false,
 			isGetAnchor: false,
       paramType: 0,
@@ -212,6 +215,7 @@ export default {
         "https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/6.jpg",
         "https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/7.jpg"
       ],
+			imgLoadedNum: 0,
       goods: {
         imgUrl: "",
         price: "199.00",
@@ -327,11 +331,14 @@ export default {
     this.paramType = index;
     this.imgs = imgsData[`imgs${index}`];
     this.lastImg = imgsData.lastImgs[index - 1];
-    console.log(`imgs${index}`);
-    console.log(this.imgs);
-    console.log(this.lastImg);
+		this.imgsNum = this.imgs.imgs.length
     this.orderSource = options.order_source;
     this.sum();
+		
+		
+		this.$nextTick(function(){
+			this.isPageReady = true
+		})
 		let i = 0;
 		let timer = setInterval(() => {
 			i += 1
@@ -343,17 +350,14 @@ export default {
 				this.scrollTop = anchor.offsetTop
 			}
 		}, 300)
-		
-		// let timer2 = setTimeout(() => {
-		// 	this.isGetAnchor = true
-		// 	const anchor = document.getElementById('anchor')
-		// 	this.scrollTop = anchor.offsetTop
-		// }, 2000)
   },
 	onPageScroll(e) {
 		this.isFixed = e.scrollTop > 400
 	},
   methods: {
+		imgLoad(e) {
+			this.imgs.imgs[e].isLoaded = true
+		},
 		keyborderConfim() {
 			this.intoViewid = 'anchor'
 		},
@@ -364,6 +368,7 @@ export default {
       this.intoViewid = "anchor";
     },
     async submit() {
+			console.log(this.isGetAnchor)
 			if (!this.isGetAnchor) return
 			this.pageSrollTo()
       // this.intoViewid = "anchor";
@@ -593,6 +598,7 @@ export default {
 
 <style lang="scss">
 .introduction-wrapper {
+	
   .introductions {
     position: relative;
     .swiper_wrapper {
@@ -654,12 +660,14 @@ export default {
         }
       }
     }
-    .img {
-      display: block;
-      // margin-bottom: -2upx;
-      width: 100%;
-			height: auto;
-    }
+		.img_wrapper {
+			box-sizing: border-box;
+			.img {
+				display: block;
+				width: 100%;
+				height: 100%;
+			}
+		}
   }
 
   .goods_info_popup {
