@@ -19,15 +19,15 @@
 					</view>
 				</view>
 				<block>
-					<image v-for="(item, index) in imgs.imgs" :src="item" mode="widthFix"></image>
+					<img class="img" v-for="(item, index) in imgs.imgs" :src="item"></img>
 				</block>
 				<!-- <img v-for="(item, index) in imgs" :key="index" :src="'../../activity/static/images/package/' + item"> -->
 				<!--  -->
 			</view>
 
 			<!-- 商品信息 -->
-			<view id="anchor"></view>
-			<view class="goods_info_popup">
+			<!-- <view id="anchor"></view> -->
+			<view class="goods_info_popup" id="anchor">
 				
 				<view class="base_info">
 					<image class="poster" :src="backgrounds[currentSpecIndex]"></image>
@@ -195,6 +195,7 @@ export default {
   data() {
     return {
 			isFixed: false,
+			isGetAnchor: false,
       paramType: 0,
       currentSwiperIndex: 0,
       provinceData: provinceData,
@@ -331,17 +332,23 @@ export default {
     console.log(this.lastImg);
     this.orderSource = options.order_source;
     this.sum();
-		
 		let i = 0;
 		let timer = setInterval(() => {
 			i += 1
 			const anchor = document.getElementById('anchor')
 			if (anchor || i === 10) {
+				this.isGetAnchor = true
 				clearInterval(timer)
 				timer = null
 				this.scrollTop = anchor.offsetTop
 			}
 		}, 300)
+		
+		// let timer2 = setTimeout(() => {
+		// 	this.isGetAnchor = true
+		// 	const anchor = document.getElementById('anchor')
+		// 	this.scrollTop = anchor.offsetTop
+		// }, 2000)
   },
 	onPageScroll(e) {
 		this.isFixed = e.scrollTop > 400
@@ -357,6 +364,7 @@ export default {
       this.intoViewid = "anchor";
     },
     async submit() {
+			if (!this.isGetAnchor) return
 			this.pageSrollTo()
       // this.intoViewid = "anchor";
       if (!this.userInfo[0].value)
@@ -646,10 +654,11 @@ export default {
         }
       }
     }
-    image {
+    .img {
       display: block;
       // margin-bottom: -2upx;
       width: 100%;
+			height: auto;
     }
   }
 

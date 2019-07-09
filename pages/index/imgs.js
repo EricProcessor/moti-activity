@@ -1,4 +1,4 @@
-const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)
+// const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)
 
 export default {
     imgs1: {
@@ -101,7 +101,7 @@ export default {
         imgs: [
             'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_9/1.png',
             'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_9/2.png',
-            isSafari ? 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_9/3.gif' : 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_9/3.gif',
+            'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_9/3.gif',
             'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_9/4.png',
             'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_9/5.png',
             'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_9/6.png',
