@@ -1,8 +1,7 @@
 <template>
 	<view class="page-wrapper">
 		<!-- style="height: cacl(100% - 120upx)" -->
-		<scroll-view class="introduction-wrapper" style="height: 86vh" :scroll-into-view="intoViewid" scroll-y="true"
-		 scroll-with-animation="true" @scroll="pageScroll">
+		<view class="introduction-wrapper">
 			<!-- 上半部图片 -->
 			<view class="introductions">
 				<view class="swiper_wrapper" v-if="imgs.swipers.length > 0">
@@ -11,6 +10,7 @@
 								<image :src="item" mode="widthFix"></image>
 						</swiper-item>
 					</swiper>
+					<view class="dynamic_wrapper" :class="{fixed: isFixed}"><dynamic></dynamic></view>
 					<!-- <img> -->
 					<view class="custom_dots">
 						<view class="dot_wrapper" v-for="(dot, indexDot) in imgs.swipers" :key="indexDot">
@@ -23,7 +23,6 @@
 				</block>
 				<!-- <img v-for="(item, index) in imgs" :key="index" :src="'../../activity/static/images/package/' + item"> -->
 				<!--  -->
-				<view class="dynamic_wrapper"><dynamic></dynamic></view>
 			</view>
 
 			<!-- 商品信息 -->
@@ -140,7 +139,7 @@
 							<view class="pay_got" @tap="choosePayWay('offline')" :class="{active: payWay === 'offline'}">货到付款</view>
 						</view>
 						<view class="input" v-else>
-							<input type="text" placeholder-style="color: #b6b6b6;" :placeholder="item.placeholder" v-model="item.value">
+							<input type="text" placeholder-style="color: #b6b6b6;" :placeholder="item.placeholder" v-model="item.value" @blur="keyborderConfim">
 						</view>
 					</view>
 				</view>
@@ -168,7 +167,7 @@
 			</view>
 
 
-		</scroll-view>
+		</view>
 		<view class="submit-btn" @click="submit">
 			<image v-if="buyNumbersColor == 0" src="../../static/images/icons/buy.jpg"></image>
 			<view v-else class="sub_order">提交订单</view>
@@ -195,12 +194,14 @@ export default {
   },
   data() {
     return {
+			isFixed: false,
       paramType: 0,
       currentSwiperIndex: 0,
       provinceData: provinceData,
       cityData: cityData,
       areaData: areaData,
       totalPrice: 0,
+			scrollTop: 0,
       backgrounds: [
         "https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/1.jpg",
         "https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/2.jpg",
@@ -330,8 +331,25 @@ export default {
     console.log(this.lastImg);
     this.orderSource = options.order_source;
     this.sum();
+		
+		let i = 0;
+		let timer = setInterval(() => {
+			i += 1
+			const anchor = document.getElementById('anchor')
+			if (anchor || i === 10) {
+				clearInterval(timer)
+				timer = null
+				this.scrollTop = anchor.offsetTop
+			}
+		}, 300)
   },
+	onPageScroll(e) {
+		this.isFixed = e.scrollTop > 400
+	},
   methods: {
+		keyborderConfim() {
+			this.intoViewid = 'anchor'
+		},
     swiperChange(e) {
       this.currentSwiperIndex = e.detail.current;
     },
@@ -339,7 +357,8 @@ export default {
       this.intoViewid = "anchor";
     },
     async submit() {
-      this.intoViewid = "anchor";
+			this.pageSrollTo()
+      // this.intoViewid = "anchor";
       if (!this.userInfo[0].value)
         return uni.showToast({
           title: "请输入收货人名称",
@@ -425,9 +444,6 @@ export default {
       // 		return
       // 	}
       // }
-    },
-    pageScroll() {
-      this.intoViewid = "";
     },
     chooseType(e) {
       const index = Number(e.currentTarget.dataset.index);
@@ -556,7 +572,13 @@ export default {
     },
     sum() {
       this.totalPrice = this.buyNumbersColor * 199;
-    }
+    },
+		pageSrollTo() {
+			uni.pageScrollTo({
+				scrollTop: this.scrollTop,
+				 duration: 200
+			})
+		}
   }
 };
 </script>
@@ -565,14 +587,6 @@ export default {
 .introduction-wrapper {
   .introductions {
     position: relative;
-    // .dynamic_wrapper {
-    //   position: absolute;
-    //   top: 0upx;
-    //   left: 0;
-    //   right: 0;
-    //   height: 50upx;
-    //   z-index: 1000;
-    // }
     .swiper_wrapper {
       position: relative;
       .custom_dots {
@@ -605,6 +619,18 @@ export default {
           }
         }
       }
+			.dynamic_wrapper {
+				position: absolute;
+				left: 20upx;
+				right: 0;
+				bottom: 40upx;
+				height: 50upx;
+				z-index: 1000;
+				&.fixed {
+					position: fixed;
+					top: 100upx;
+				}
+			}
     }
     swiper {
       position: relative;

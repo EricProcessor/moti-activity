@@ -41,7 +41,7 @@
 
 <style lang="scss">
 	.dynamic{
-		position: fixed;
+		// position: fixed;
 		top: 90upx;
 		width: 50%;
 		// left: 0;
