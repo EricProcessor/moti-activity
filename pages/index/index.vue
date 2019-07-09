@@ -20,7 +20,7 @@
 				</view>
 				<block>
 					<view class="img_wrapper" v-for="(item, index) in imgs.imgs" :style="{width: item.width + 'upx', height: item.height + 'upx'}">
-						<img class="img" :src="item.url" v-show="item.isLoaded" @load="imgLoad(index)"></img>
+						<img class="img" :src="item.url"></img>
 					</view>
 				</block>
 				<!-- <img v-for="(item, index) in imgs" :key="index" :src="'../../activity/static/images/package/' + item"> -->
@@ -336,20 +336,23 @@ export default {
     this.sum();
 		
 		
-		this.$nextTick(function(){
+		this.$nextTick(() => {
 			this.isPageReady = true
 		})
 		let i = 0;
 		let timer = setInterval(() => {
 			i += 1
 			const anchor = document.getElementById('anchor')
-			if (anchor || i === 10) {
+			if (anchor || i === 30) {
+				this.imgs.imgs.forEach((cur) => {
+					cur.isLoaded = true
+				})
 				this.isGetAnchor = true
 				clearInterval(timer)
 				timer = null
 				this.scrollTop = anchor.offsetTop
 			}
-		}, 300)
+		}, 100)
   },
 	onPageScroll(e) {
 		this.isFixed = e.scrollTop > 400
@@ -866,7 +869,7 @@ export default {
 
   .form-wrapper {
     position: relative;
-    // background: #fff;
+    background: #fff;
     padding: 0.1upx 0;
     #anchor {
       position: absolute;
