@@ -744,6 +744,7 @@ export default {
     padding: 0 45upx 50upx 45upx;
     text-align: left;
     margin-top: 50upx;
+		background-color: #fff;
     .current {
       position: absolute;
       top: -100upx;
