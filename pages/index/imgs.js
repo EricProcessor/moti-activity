@@ -436,6 +436,82 @@ export default {
 			}
         ]
     },
+	imgs10:{
+		 swipers: [
+		    'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_9/swiper_1.png',
+		    'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_9/swiper_2.png',
+		    'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_9/swiper_3.png',
+		],
+		imgs:[
+			{
+				url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_10/1.jpg',
+				width: 750,
+				height: 1048,
+				isLoaded: false
+			},
+			{
+				url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_10/2.jpg',
+				width: 750,
+				height: 303,
+				isLoaded: false
+			},
+			{
+				url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_10/3.jpg',
+				width: 750,
+				height: 766,
+				isLoaded: false
+			},
+			{
+				url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_10/4.jpg',
+				width: 750,
+				height: 1030,
+				isLoaded: false
+			},
+			{
+				url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_10/5.jpg',
+				width: 750,
+				height: 1030,
+				isLoaded: false
+			},
+			{
+				url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_10/6.jpg',
+				width: 750,
+				height: 1022,
+				isLoaded: false
+			},
+			{
+				url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_10/7.jpg',
+				width: 750,
+				height: 1090,
+				isLoaded: false
+			},
+			{
+				url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_10/8.jpg',
+				width: 750,
+				height: 1018,
+				isLoaded: false
+			},
+			{
+				url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_10/9.jpg',
+				width: 750,
+				height: 1160,
+				isLoaded: false
+			},
+			{
+				url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_10/10.jpg',
+				width: 750,
+				height: 1200,
+				isLoaded: false
+			},
+			{
+				url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_10/11.jpg',
+				width: 750,
+				height: 974,
+				isLoaded: false
+			},
+			
+		]
+	},
     lastImgs: [
         'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_1/last.jpg',
         'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_2/last.jpg',
