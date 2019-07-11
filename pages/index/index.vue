@@ -230,28 +230,33 @@
 					title: "MOTI D11 电子烟套装 雾化 换弹小烟",
 					taste: [{
 							text: "经典烟草",
+							sku:"112492581559"
 						},
 						{
 							text: "冰镇菠萝",
+							sku:"112492582394"
 						},
 						{
 							text: "绿豆冰沙",
+							sku:"112492581718"
 						},
 						{
 							text: "风情芒果",
+							sku:"112492581686"
 						},
 						{
 							text: "激爽薄荷",
+							sku:"112492575952"
 						},
 						{
 							text: "甜心草莓",
+							sku:"112492579728"
 						},
 						{
 							text: "清甜西瓜",
+							sku:"112492577833"
 						},
-						{
-							text: "清培绿茶",
-						},
+						
 					],
 				},
 
@@ -358,7 +363,7 @@
 			this.lastImg = imgsData.lastImgs[index - 1];
 			this.imgsNum = this.imgs.imgs.length
 			
-			this.orderSource = options.order_source;
+			this.orderSource = options.source;
 			this.material = options.material 
 			this.channel =  options.channel 
 			this.pageType = options.type 
@@ -462,7 +467,7 @@
 					data.pageOrder.orderSource = this.orderSource; 
 					data.pageOrder.cartridgesSku = this.currentTasteIndex === "" ? "" : this.goods.taste[this.currentTasteIndex].sku
 					data.pageOrder.cartridgesSkuNum = this.currentTasteIndex === "" ? 0 : this.buyNumbersTaste
-					data.pageOrder.paymentType = 6   // 3支付宝  6其他
+					data.pageOrder.paymentType = "6"   // 3支付宝  6其他
 					data.pageOrder.source = this.orderSource
 					data.pageOrder.type = this.pageType
 					data.pageOrder.material = this.material
