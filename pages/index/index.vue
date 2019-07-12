@@ -384,7 +384,7 @@
 			this.lastImg = imgsData.lastImgs[index - 1];
 			this.imgsNum = this.imgs.imgs.length
 			
-			this.orderSource = options.source;
+			this.orderSource = options.orderSource;
 			this.material = options.material 
 			this.channel =  options.channel 
 			this.pageType = options.type 
@@ -450,7 +450,7 @@
 						title: "请选择数量",
 						icon: "none"
 					});
-				if (this.currentTasteIndex !== ""){
+				if (this.currentTasteIndex !== "" && this.buyNumbersTaste < 1){
 					return uni.showToast({
 						title: "请选择口味数量",
 						icon: "none"
@@ -561,8 +561,8 @@
 				if (this.submitState === 1) {
 					this.currentSpecIndex = 0;
 					this.buyNumbersColor = 0;
-					this.currentTasteIndex = ""
-					this.buyNumbersTaste = 0
+					this.currentTasteIndex = "";
+					this.buyNumbersTaste = 0;
 					(this.userInfo = [{
 							text: "收货人 *",
 							value: "",
