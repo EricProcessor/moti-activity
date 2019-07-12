@@ -260,7 +260,8 @@
 					],
 				},
 
-				spec: [{
+				spec: [
+					/* {
 						text: "燕尾黑",
 						sku: "112492575139"
 					},
@@ -287,7 +288,23 @@
 					{
 						text: "八重樱",
 						sku: "112492579519"
-					}
+					} */
+					{
+						text: "星辰银",
+						sku: "112492575750"
+					},
+					{
+						text: "深海蓝",
+						sku: "112492577703"
+					},
+					{
+						text: "燕尾黑",
+						sku: "112492577757"
+					},
+					{
+						text: "极光色",
+						sku: "112492578612"
+					},
 				],
 				orderSource: "",
 				material:"",
@@ -343,7 +360,7 @@
 				currentSpecIndex: 0,
 				currentTasteIndex: "",
 				buyNumbersColor: 0,
-				buyNumbersTaste: 1,
+				buyNumbersTaste: 0,
 				provinceIndex: 0,
 				cityIndex: 0,
 				areaIndex: 0,
@@ -429,6 +446,13 @@
 						title: "请选择数量",
 						icon: "none"
 					});
+				if (this.currentTasteIndex !== ""){
+					return uni.showToast({
+						title: "请选择口味数量",
+						icon: "none"
+					});
+				}
+					
 				// let checkRegRes = await post('/user/user/checkUserMobile', {
 				// 	mobile: this.userInfo[1].value
 				// })
