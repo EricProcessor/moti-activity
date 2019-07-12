@@ -85,7 +85,7 @@
 					<text>选择口味</text>
 					<text class="price" v-show="isShowTastes">
 						<text class="icon_rmb">¥</text>
-						<text class="price_num">39</text>
+						<text class="price_num">35</text>
 					</text>
 					<image src="/static/images/icons/arrow_up.png" v-show="isShowTastes"></image>
 					<image src="/static/images/icons/add.png" v-show="!isShowTastes"></image>
@@ -291,19 +291,19 @@
 					} */
 					{
 						text: "星辰银",
-						sku: "112492575750"
+						sku: "112492577675"
 					},
 					{
 						text: "深海蓝",
-						sku: "112492577703"
+						sku: "112492578591"
 					},
 					{
 						text: "燕尾黑",
-						sku: "112492577757"
+						sku: "112492575139"
 					},
 					{
 						text: "极光色",
-						sku: "112492578612"
+						sku: "586197169359"
 					},
 				],
 				orderSource: "",
@@ -359,7 +359,7 @@
 				intoViewid: "",
 				currentSpecIndex: 0,
 				currentTasteIndex: "",
-				buyNumbersColor: 0,
+				buyNumbersColor: 1,
 				buyNumbersTaste: 0,
 				provinceIndex: 0,
 				cityIndex: 0,
@@ -557,6 +557,8 @@
 				if (this.submitState === 1) {
 					this.currentSpecIndex = 0;
 					this.buyNumbersColor = 0;
+					this.currentTasteIndex = ""
+					this.buyNumbersTaste = 0
 					(this.userInfo = [{
 							text: "收货人 *",
 							value: "",
@@ -626,11 +628,17 @@
 			},
 			chooseSpec(e) {
 				this.currentSpecIndex = Number(e.currentTarget.dataset.index);
+				this.buyNumbersColor < 1 && (this.buyNumbersColor = 1)
 			},
 			chooseTaste(e) {
 				let choicIndex = Number(e.currentTarget.dataset.index)
-				if (this.currentTasteIndex === choicIndex) this.currentTasteIndex = ""
-				else this.currentTasteIndex = Number(e.currentTarget.dataset.index);
+				if (this.currentTasteIndex === choicIndex) {
+					this.currentTasteIndex = ""
+					this.buyNumbersTaste = 0
+					return
+				}
+				this.currentTasteIndex = Number(e.currentTarget.dataset.index);
+			    if(this.buyNumbersTaste < 1)  this.buyNumbersTaste = 1 
 			},
 			provinceChnage(e) {
 				this.provinceIndex = e.detail.value;
@@ -655,6 +663,8 @@
 			},
 			taggleTaste() {
 				this.isShowTastes = !this.isShowTastes;
+				this.currentTasteIndex = ""
+				this.buyNumbersTaste = 0
 			},
 			sum() {
 				this.totalPrice = this.buyNumbersColor * 199;
@@ -825,7 +835,7 @@
 			position: relative;
 			padding: 0 45upx 50upx 45upx;
 			text-align: left;
-			margin-top: 50upx;
+			padding-top: 50upx;
 			background-color: #fff;
 
 			.current {
