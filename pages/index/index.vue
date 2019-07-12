@@ -82,10 +82,10 @@
 			<!-- 口味属性 -->
 			<view class="attrs_wrapper">
 				<view class="colors_header" @tap="taggleTaste">
-					<text>选择口味</text>
+					<text>我要新增其他口味（可选）</text>
 					<text class="price" v-show="isShowTastes">
 						<text class="icon_rmb">¥</text>
-						<text class="price_num">35</text>
+						<text class="price_num">{{tasteTotal}}</text>
 					</text>
 					<image src="/static/images/icons/arrow_up.png" v-show="isShowTastes"></image>
 					<image src="/static/images/icons/add.png" v-show="!isShowTastes"></image>
@@ -200,6 +200,11 @@
 		},
 		components: {
 			dynamic
+		},
+		computed:{
+			tasteTotal(){
+				return this.buyNumbersTaste * 35.00
+			}
 		},
 		data() {
 			return {
@@ -641,7 +646,8 @@
 			},
 			chooseSpec(e) {
 				this.currentSpecIndex = Number(e.currentTarget.dataset.index);
-				this.buyNumbersColor < 1 && (this.buyNumbersColor = 1)
+				this.buyNumbersColor < 1 && (this.buyNumbersColor = 1) && this.sum()
+				
 			},
 			chooseTaste(e) {
 				let choicIndex = Number(e.currentTarget.dataset.index)
@@ -676,8 +682,15 @@
 			},
 			taggleTaste() {
 				this.isShowTastes = !this.isShowTastes;
-				this.currentTasteIndex = ""
-				this.buyNumbersTaste = 0
+				if(!this.isShowTastes){
+					this.currentTasteIndex = ""
+					this.buyNumbersTaste = 0	
+				}
+				if(this.isShowTastes){
+					this.currentTasteIndex = 0
+					this.buyNumbersTaste = 1
+				}
+				
 			},
 			sum() {
 				this.totalPrice = this.buyNumbersColor * 199;
@@ -1117,6 +1130,7 @@
 
 		.comments {
 			width: 100%;
+			margin-bottom: 104upx;
 		}
 
 		.mask-card {
