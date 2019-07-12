@@ -438,17 +438,12 @@ export default {
     },
 	imgs10:{
 		 swipers: [
-		    'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_9/swiper_1.png',
-		    'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_9/swiper_2.png',
-		    'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_9/swiper_3.png',
+			 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_10/1.jpg',
+		    '../../static/type/10/2.jpg',
+		    '../../static/type/10/22.jpg',
 		],
 		imgs:[
-			{
-				url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_10/1.jpg',
-				width: 750,
-				height: 1048,
-				isLoaded: false
-			},
+			
 			{
 				url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_10/2.jpg',
 				width: 750,
@@ -510,6 +505,211 @@ export default {
 				isLoaded: false
 			},
 			
+		]
+	},
+	imgs11:{
+		 swipers: [
+		    '../../static/type/11/1.jpg',
+			'../../static/type/11/1-1.jpg',
+			'../../static/type/11/1-2.jpg',
+		],
+		imgs:[
+			{
+				url: '../../static/type/11/2.jpg',
+				width: 750,
+				height: 280,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/11/3.jpg',
+				width: 750,
+				height: 666,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/11/4.jpg',
+				width: 750,
+				height: 1040,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/11/5.jpg',
+				width: 750,
+				height: 1160,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/11/6.jpg',
+				width: 750,
+				height: 912,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/11/7.jpg',
+				width: 750,
+				height: 1386,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/11/8.jpg',
+				width: 750,
+				height: 1060,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/11/9.jpg',
+				width: 750,
+				height: 1110,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/11/10.jpg',
+				width: 750,
+				height: 940,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/11/11.jpg',
+				width: 750,
+				height: 1200,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/11/12.jpg',
+				width: 750,
+				height: 670,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/11/13.jpg',
+				width: 750,
+				height: 1420,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/11/14.jpg',
+				width: 750,
+				height: 430,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/11/15.jpg',
+				width: 750,
+				height: 970,
+				isLoaded: false
+			},
+			
+		]
+	},
+	imgs12:{
+		 swipers: [
+		    '../../static/type/12/1.jpg',
+			'../../static/type/12/1-1.jpg',
+			'../../static/type/12/1-2.jpg',
+		],
+		imgs:[
+			{
+				url: '../../static/type/12/2.jpg',
+				width: 750,
+				height: 320,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/12/3.jpg',
+				width: 750,
+				height: 1010,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/12/4.jpg',
+				width: 750,
+				height: 866,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/12/5.jpg',
+				width: 750,
+				height: 1550,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/12/6.jpg',
+				width: 750,
+				height: 990,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/12/7.jpg',
+				width: 750,
+				height: 958,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/12/8.jpg',
+				width: 750,
+				height: 1320,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/12/9.jpg',
+				width: 750,
+				height: 1250,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/12/10.jpg',
+				width: 750,
+				height: 1250,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/12/11.jpg',
+				width: 750,
+				height: 1290,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/12/12.jpg',
+				width: 750,
+				height: 1190,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/12/13.jpg',
+				width: 750,
+				height: 1190,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/12/14.jpg',
+				width: 750,
+				height: 1160,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/12/15.jpg',
+				width: 750,
+				height: 2080,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/12/16.jpg',
+				width: 750,
+				height: 1440,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/12/17.jpg',
+				width: 750,
+				height: 1540,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/12/18.jpg',
+				width: 750,
+				height: 220,
+				isLoaded: false
+			},
 		]
 	},
     lastImgs: [

@@ -214,6 +214,13 @@
 				totalPrice: 0,
 				scrollTop: 0,
 				backgrounds: [
+					"https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/4.jpg",
+					"https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/3.jpg",
+					"https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/1.jpg",
+					"https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/2.jpg",
+				],
+				deleBack:[
+					
 					"https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/1.jpg",
 					"https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/2.jpg",
 					"https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/3.jpg",
@@ -221,6 +228,7 @@
 					"https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/5.jpg",
 					"https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/6.jpg",
 					"https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/7.jpg"
+					
 				],
 				imgLoadedNum: 0,
 				goods: {
@@ -232,10 +240,10 @@
 							text: "经典烟草",
 							sku:"112492581559"
 						},
-						{
+						/* {
 							text: "冰镇菠萝",
 							sku:"112492582394"
-						},
+						}, */
 						{
 							text: "绿豆冰沙",
 							sku:"112492581718"
@@ -248,7 +256,7 @@
 							text: "激爽薄荷",
 							sku:"112492575952"
 						},
-						{
+						/* {
 							text: "甜心草莓",
 							sku:"112492579728"
 						},
@@ -259,7 +267,7 @@
 						{
 							text:"青焙绿茶",
 							sku:"112492576935"
-						}
+						} */
 						
 					],
 				},
@@ -363,7 +371,7 @@
 				intoViewid: "",
 				currentSpecIndex: 0,
 				currentTasteIndex: "",
-				buyNumbersColor: 1,
+				buyNumbersColor: 0,
 				buyNumbersTaste: 0,
 				provinceIndex: 0,
 				cityIndex: 0,
@@ -610,13 +618,14 @@
 			async submitOrder(data) {
 				// 提交订单
 				const res = await newOrder(
-					"/activity/advertisement/order/bookingGghdOrder",
+					"/activity1/advertisement/order/bookingGghdOrder",
 					data,
 					"application/json;charset=utf-8"
 				);
 				if (res.data.code == 0) {
 					this.submitState = 1;
-					this.popupCardText = "24小时内人工客服会与您联络请保持手机通畅";
+					//this.popupCardText = "24小时内人工客服会与您联络请保持手机通畅";
+					this.popupCardText = "";
 				} else {
 					this.submitState = 0;
 				}
