@@ -387,7 +387,7 @@
 			this.orderSource = options.orderSource;
 			this.material = options.material 
 			this.channel =  options.channel 
-			this.pageType = options.type 
+			this.pageType = this.paramType 
 			this.sum();
 
 
