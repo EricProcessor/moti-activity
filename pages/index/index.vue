@@ -174,7 +174,7 @@
 
 		</view>
 		<view class="submit-btn" @tap="submit">
-			<image v-if="buyNumbersColor == 0" src="../../static/images/icons/buy.jpg"></image>
+			<image v-if="isShowBuyNow" src="../../static/images/icons/buy.jpg"></image>
 			<view v-else class="sub_order">提交订单</view>
 		</view>
 
@@ -204,10 +204,15 @@
 		computed:{
 			tasteTotal(){
 				return this.buyNumbersTaste * 35.00
+			},
+			isShowBuyNow(){
+				
+				return  !this.scrollTop || ( this.currentScrollY <= (this.scrollTop-400))
 			}
 		},
 		data() {
 			return {
+				currentScrollY:0,
 				isPageReady: false,
 				isFixed: false,
 				isGetAnchor: false,
@@ -376,7 +381,7 @@
 				intoViewid: "",
 				currentSpecIndex: 0,
 				currentTasteIndex: "",
-				buyNumbersColor: 0,
+				buyNumbersColor: 1,
 				buyNumbersTaste: 0,
 				provinceIndex: 0,
 				cityIndex: 0,
@@ -421,6 +426,10 @@
 					this.scrollTop = anchor.offsetTop
 				}
 			}, 100)
+			
+			setInterval(()=>{
+				this.currentScrollY = window.scrollY
+			},500)
 		},
 		onPageScroll(e) {
 			this.isFixed = e.scrollTop > 400
@@ -685,10 +694,6 @@
 				if(!this.isShowTastes){
 					this.currentTasteIndex = ""
 					this.buyNumbersTaste = 0	
-				}
-				if(this.isShowTastes){
-					this.currentTasteIndex = 0
-					this.buyNumbersTaste = 1
 				}
 				
 			},
