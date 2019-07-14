@@ -610,7 +610,7 @@ export default {
 				isLoaded: false
 			},
 			{
-				url: '../../static/type/12/3_1.gif',
+				url: '../../static/type/12/3_2.gif',
 				width: 750,
 				height: 579,
 				isLoaded: false
