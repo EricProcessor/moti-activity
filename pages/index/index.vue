@@ -582,9 +582,10 @@
 			closePopup() {
 				if (this.submitState === 1) {
 					this.currentSpecIndex = 0;
-					this.buyNumbersColor = 0;
+					this.buyNumbersColor = 1;
 					this.currentTasteIndex = "";
 					this.buyNumbersTaste = 0;
+					this.sum();
 					(this.userInfo = [{
 							text: "收货人 *",
 							value: "",
@@ -644,7 +645,7 @@
 					this.submitState = 0;
 				}
 				this.isShowPopupCard = true;
-				this.totalPrice = 0
+				//this.totalPrice = 0
 			},
 			reload() {
 				// uni.navigateTo({
