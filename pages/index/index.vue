@@ -801,7 +801,7 @@
 
 			width: 100%;
 			box-sizing: border-box;
-			padding: 30upx 45upx;
+			padding: 20upx 45upx;
 			border-radius: 12upx 12upx 0 0;
 			background-color: #fff;
 			transition: all 0.2s;
@@ -1197,7 +1197,7 @@
 						display: flex;
 						justify-content: center;
 						align-items: center;
-						width: 347upx;
+						width: 346upx;
 						height: 68upx;
 						border: 1upx solid #040000;
 						border-radius: 10upx;
