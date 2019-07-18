@@ -703,9 +703,9 @@ export default {
 	},
 	imgs13:{
 		swipers: [
-		    '../../static/type/12/1.jpg',
-			'../../static/type/12/1-1.jpg',
-			'../../static/type/12/1-2.jpg',
+		    '../../static/type/13/1.jpg',
+			'../../static/type/13/2.jpg',
+			'../../static/type/13/3.jpg',
 		],
 		imgs:[
 			{
@@ -729,7 +729,7 @@ export default {
 			{
 				url: '../../static/type/13/MOTI-4.jpg',
 				width: 750,
-				height: 2066,
+				height: 2507,
 				isLoaded: false
 			},
 			{
