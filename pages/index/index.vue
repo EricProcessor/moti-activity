@@ -21,7 +21,7 @@
 					</view>
 				</view>
 				<block>
-					<view class="img_wrapper" v-for="(item, index) in imgs.imgs" :style="{width: item.width + 'upx', height: item.height + 'upx'}">
+					<view :key="index" class="img_wrapper" v-for="(item, index) in imgs.imgs" :style="{width: item.width + 'upx', height: item.height + 'upx'}">
 						<img class="img" :src="item.url"></img>
 					</view>
 				</block>
@@ -140,7 +140,9 @@
 						</view> -->
 						<view class="pay_way" v-if="index === 3">
 							<!-- <view class="pay_inline" @tap="choosePayWay('online')" :class="{active: payWay === 'online'}">在线支付</view> -->
-							<view class="pay_got" @tap="choosePayWay('offline')" :class="{active: payWay === 'offline'}">货到付款</view>
+							<!-- <view class="pay_got" @tap="choosePayWay('offline')" :class="{active: payWay === 'offline'}">货到付款</view> -->
+							<PayMethod @choicePay="choosePayWay" :ispolling="ispolling" :paramType="paramType" :payType="payType"
+							 @payCallBack="payCallBackFunc" :urlParams="urlParams" :orderInfo="orderResult" :isOrderSuccess="isOrderSuccess"></PayMethod>
 						</view>
 						<view class="input" v-else>
 							<input type="text" placeholder-style="color: #b6b6b6;" :placeholder="item.placeholder" v-model="item.value"
@@ -193,26 +195,33 @@
 	import areaData from "@/common/city-data/area.js";
 	import dynamic from "./dynamic.vue";
 	import imgsData from "./imgs.js";
+	import PayMethod from "./PayMethod.vue"
 
 	export default {
 		config: {
 			disableScroll: true
 		},
 		components: {
-			dynamic
+			dynamic,
+			PayMethod
 		},
-		computed:{
-			tasteTotal(){
+		computed: {
+			tasteTotal() {
 				return this.buyNumbersTaste * 35.00
 			},
-			isShowBuyNow(){
-				
-				return  !this.scrollTop || ( this.currentScrollY <= (this.scrollTop-400))
+			isShowBuyNow() {
+
+				return !this.scrollTop || (this.currentScrollY <= (this.scrollTop - 400))
 			}
 		},
 		data() {
 			return {
-				currentScrollY:0,
+				urlParams: {},
+				orderResult: {},
+				isOrderSuccess: 0,
+				ispolling: 0,
+				payType: 6,
+				currentScrollY: 0,
 				isPageReady: false,
 				isFixed: false,
 				isGetAnchor: false,
@@ -229,8 +238,8 @@
 					"https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/1.jpg",
 					"https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/2.jpg",
 				],
-				deleBack:[
-					
+				deleBack: [
+
 					"https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/1.jpg",
 					"https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/2.jpg",
 					"https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/3.jpg",
@@ -238,7 +247,7 @@
 					"https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/5.jpg",
 					"https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/6.jpg",
 					"https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/7.jpg"
-					
+
 				],
 				imgLoadedNum: 0,
 				goods: {
@@ -248,7 +257,7 @@
 					title: "MOTI D11 电子烟套装 雾化 换弹小烟",
 					taste: [{
 							text: "经典烟草",
-							sku:"112492581559"
+							sku: "112492581559"
 						},
 						/* {
 							text: "冰镇菠萝",
@@ -256,15 +265,15 @@
 						}, */
 						{
 							text: "绿豆冰沙",
-							sku:"112492581718"
+							sku: "112492581718"
 						},
 						{
 							text: "风情芒果",
-							sku:"112492581686"
+							sku: "112492581686"
 						},
 						{
 							text: "激爽薄荷",
-							sku:"112492575952"
+							sku: "112492575952"
 						},
 						/* {
 							text: "甜心草莓",
@@ -278,7 +287,7 @@
 							text:"青焙绿茶",
 							sku:"112492576935"
 						} */
-						
+
 					],
 				},
 
@@ -328,10 +337,6 @@
 						sku: "586197169359"
 					},
 				],
-				orderSource: "",
-				material:"",
-				channel:"",
-				pageType:"",
 				imgs: [],
 				lastImg: "",
 				userInfo: [{
@@ -355,7 +360,7 @@
 						placeholder: "请输入"
 					},
 					{
-						text: "支付方式",
+						text: "选择支付方式 *",
 						value: "",
 						placeholder: "请输入"
 					}
@@ -376,6 +381,7 @@
 				// 					}
 				// 				],
 				isShowPopupCard: false,
+				popUpCardMsg: "订单提交成功",
 				submitState: -1, // -1不显示, 0提交失败, 1货到付款提交成功, 2在线支付提交成功
 				popupCardText: "网络暂时离线, 请重新提交~~",
 				intoViewid: "",
@@ -394,24 +400,30 @@
 			};
 		},
 		onLoad(options) {
+			let bool = this.nextLocation(options)
+			this.restoreScene()
 			const params = options;
-			const index = params.type ? Number(params.type) : 7;
+			let index = params.type ? Number(params.type) : 7;
+
 			console.log(options)
 			this.paramType = index;
+			if (index === 14) index = 7
 			this.imgs = imgsData[`imgs${index}`];
 			this.lastImg = imgsData.lastImgs[index - 1];
 			this.imgsNum = this.imgs.imgs.length
-			
-			this.orderSource = options.orderSource;
-			this.material = options.material 
-			this.channel =  options.channel 
-			this.pageType = this.paramType 
+			this.urlParams = {
+				orderSource: options.orderSource,
+				material: options.material,
+				channel: options.channel,
+				type: this.paramType,
+			}
 			this.sum();
-
-
 			this.$nextTick(() => {
 				this.isPageReady = true
+				this.setIspolling()
+
 			})
+
 			let i = 0;
 			let timer = setInterval(() => {
 				i += 1
@@ -426,15 +438,54 @@
 					this.scrollTop = anchor.offsetTop
 				}
 			}, 100)
-			
-			setInterval(()=>{
+
+			setInterval(() => {
 				this.currentScrollY = window.scrollY
-			},500)
+			}, 500)
 		},
 		onPageScroll(e) {
 			this.isFixed = e.scrollTop > 400
 		},
+
 		methods: {
+			setIspolling() {//触发定时轮询查支付结果
+				let orderPay = uni.getStorageSync("orderPay")
+				if (!orderPay) return;
+				this.ispolling = 1;
+
+			},
+			payCallBackFunc(data) {//支付回调
+				if (typeof data.submitState !== "undefined") {
+					this.submitState = data.submitState;
+					if (this.submitState === 1) {
+						if(this.payType === 6 ) this.popUpCardMsg = "订单提交成功"
+						else  this.popUpCardMsg = "订单支付成功"
+					} else {
+						if(this.submitState === 6) this.popUpCardMsg = "订单提交失败"
+						else this.popUpCardMsg = "订单支付失败"
+					}
+					this.isShowPopupCard = true
+					uni.removeStorageSync("pageState")
+					this.ispolling = 0
+					uni.hideLoading()
+				}
+				if (typeof data.ispolling !== "undefined") {
+					this.ispolling = 1
+				}
+
+			},
+			nextLocation(options) {
+				let nt = uni.getStorageSync("nextLocation")
+				if (!nt) return false
+				uni.removeStorageSync("nextLocation")
+				if (options.code) uni.setStorageSync("wxcode", options.code)
+				if (options.out_trade_no) uni.setStorageSync("alOptions",options)
+				uni.redirectTo({
+					url: nt,
+				});
+
+				//return true
+			},
 			imgLoad(e) {
 				this.imgs.imgs[e].isLoaded = true
 			},
@@ -451,6 +502,10 @@
 				console.log(this.isGetAnchor)
 				if (!this.isGetAnchor) return
 				this.pageSrollTo()
+				if (this.ispolling === 1) {
+					this.ispolling = 0
+					return
+				}
 				// this.intoViewid = "anchor";
 				if (!this.userInfo[0].value)
 					return uni.showToast({
@@ -472,13 +527,13 @@
 						title: "请选择数量",
 						icon: "none"
 					});
-				if (this.currentTasteIndex !== "" && this.buyNumbersTaste < 1){
+				if (this.currentTasteIndex !== "" && this.buyNumbersTaste < 1) {
 					return uni.showToast({
 						title: "请选择口味数量",
 						icon: "none"
 					});
 				}
-					
+
 				// let checkRegRes = await post('/user/user/checkUserMobile', {
 				// 	mobile: this.userInfo[1].value
 				// })
@@ -487,13 +542,13 @@
 				uni.showLoading({
 					title: "加载中"
 				});
-				let regRes = await post("/user/login/activityH5Regist", {
+				let regRes = await post("/activity1/user/activityH5Regist", {
 					userName: this.userInfo[0].value,
 					mobile: this.userInfo[1].value,
 					userAddress: this.userInfo[2].value,
 					quickType: 4 // 活动页注册来源
 				});
-				
+
 				if (regRes.data.code == 0) {
 					// 注册登录成功
 					// let status = this.submitOrder();
@@ -512,16 +567,17 @@
 					} else {
 						data.pageOrder.orderSource = 43;
 					}
-					data.pageOrder.tobaccoSku = this.spec[this.currentSpecIndex].sku;// 烟杆sku
+					data.pageOrder.tobaccoSku = this.spec[this.currentSpecIndex].sku; // 烟杆sku
 					data.pageOrder.tobaccoSkuNum = this.buyNumbersColor; //烟杆购买数量
-					data.pageOrder.orderSource = this.orderSource; 
+					//data.pageOrder.orderSource = this.orderSource; 
 					data.pageOrder.cartridgesSku = this.currentTasteIndex === "" ? "" : this.goods.taste[this.currentTasteIndex].sku
 					data.pageOrder.cartridgesSkuNum = this.currentTasteIndex === "" ? 0 : this.buyNumbersTaste
-					data.pageOrder.paymentType = "6"   // 3支付宝  6其他
-					data.pageOrder.source = this.orderSource
-					data.pageOrder.type = this.pageType
-					data.pageOrder.material = this.material
-					data.pageOrder.channel = this.channel
+					data.pageOrder.paymentType = this.payType // 3支付宝  6其他
+
+					data.pageOrder.source = this.urlParams.orderSource
+					data.pageOrder.type = this.urlParams.type
+					data.pageOrder.material = this.urlParams.material
+					data.pageOrder.channel = this.urlParams.channel
 					// if (this.typeAndNums[0].checked && this.typeAndNums[0].number > 0) {
 					// 	data.pageOrder.skuId = this.typeAndNums[0].skuId
 					// 	data.pageOrder.skuNum = this.typeAndNums[0].number
@@ -531,6 +587,7 @@
 					// 	data.pageOrder.skuNum = this.typeAndNums[1].number
 					// 	data.pageOrder.orderSource = this.orderSource
 					// }
+					this.orderResult.ip = regRes.data.result
 					const orderRes = await this.submitOrder(data);
 				} else {
 					uni.showToast({
@@ -565,6 +622,7 @@
 			numsUpColor(e) {
 				this.buyNumbersColor += 1;
 				this.sum();
+
 			},
 			numsDownColor(e) {
 				this.buyNumbersColor > 0 && (this.buyNumbersColor -= 1);
@@ -602,7 +660,7 @@
 							placeholder: "请输入"
 						},
 						{
-							text: "支付方式",
+							text: "选择支付方式 *",
 							value: "",
 							placeholder: "请输入"
 						}
@@ -633,19 +691,57 @@
 			async submitOrder(data) {
 				// 提交订单
 				const res = await newOrder(
-					"/activity1/advertisement/order/bookingGghdOrder",
+					"/activity1/ad/order/bookingGghdOrder",
 					data,
 					"application/json;charset=utf-8"
 				);
 				if (res.data.code == 0) {
-					this.submitState = 1;
+					this.preserveScene()
+					this.orderResult = Object.assign(this.orderResult, JSON.parse(res.data.result))
+					this.isOrderSuccess = 1
 					//this.popupCardText = "24小时内人工客服会与您联络请保持手机通畅";
 					this.popupCardText = "";
+
 				} else {
 					this.submitState = 0;
+					this.isShowPopupCard = true;
 				}
-				this.isShowPopupCard = true;
+
 				//this.totalPrice = 0
+			},
+			preserveScene() {
+				let pageState = {
+					payType: this.payType,
+					userInfo: this.userInfo,
+					buyNumbersColor: this.buyNumbersColor,
+					buyNumbersTaste: this.buyNumbersTaste,
+					currentSpecIndex: this.currentSpecIndex,
+					currentTasteIndex: this.currentTasteIndex,
+					currentScrollY: this.currentScrollY,
+					isShowTastes: this.isShowTastes,
+					payType: this.payType
+
+				}
+				uni.setStorageSync("pageState", pageState)
+			},
+			restoreScene() {
+				let pageState = uni.getStorageSync("pageState")
+				if (!pageState) return
+				this.payType = pageState.payType
+				this.userInfo = pageState.userInfo
+				this.buyNumbersColor = pageState.buyNumbersColor
+				this.buyNumbersTaste = pageState.buyNumbersTaste
+				this.currentSpecIndex = pageState.currentSpecIndex
+				this.currentTasteIndex = pageState.currentTasteIndex
+				this.currentScrollY = pageState.currentScrollY
+				this.isShowTastes = pageState.isShowTastes
+				this.payType = pageState.payType
+				/* uni.pageScrollTo({
+					scrollTop: this.currentScrollY,
+					duration: 200
+				}) */
+				uni.removeStorageSync("pageState")
+
 			},
 			reload() {
 				// uni.navigateTo({
@@ -657,7 +753,7 @@
 			chooseSpec(e) {
 				this.currentSpecIndex = Number(e.currentTarget.dataset.index);
 				this.buyNumbersColor < 1 && (this.buyNumbersColor = 1) && this.sum()
-				
+
 			},
 			chooseTaste(e) {
 				let choicIndex = Number(e.currentTarget.dataset.index)
@@ -667,7 +763,7 @@
 					return
 				}
 				this.currentTasteIndex = Number(e.currentTarget.dataset.index);
-			    if(this.buyNumbersTaste < 1)  this.buyNumbersTaste = 1 
+				if (this.buyNumbersTaste < 1) this.buyNumbersTaste = 1
 			},
 			provinceChnage(e) {
 				this.provinceIndex = e.detail.value;
@@ -687,16 +783,18 @@
 					this.areaIndex
 				].label;
 			},
-			choosePayWay(e = "online") {
-				this.payWay = e;
+			choosePayWay(payType) {
+				//this.payWay = e;
+				this.payType = payType
+
 			},
 			taggleTaste() {
 				this.isShowTastes = !this.isShowTastes;
-				if(!this.isShowTastes){
+				if (!this.isShowTastes) {
 					this.currentTasteIndex = ""
-					this.buyNumbersTaste = 0	
+					this.buyNumbersTaste = 0
 				}
-				
+
 			},
 			sum() {
 				this.totalPrice = this.buyNumbersColor * 199;
@@ -1013,7 +1111,7 @@
 			}
 
 			.form-data {
-				padding: 0 67upx 100upx 63upx;
+				padding: 0 45upx 100upx 45upx;
 
 				.take_info {
 					text-align: center;
@@ -1101,28 +1199,6 @@
 
 					.pay_way {
 						margin-top: 13upx;
-						display: flex;
-						align-items: center;
-
-						view {
-							// width: 310upx;
-							height: 76upx;
-							display: flex;
-							justify-content: center;
-							align-items: center;
-							font-size: 30upx;
-							color: #333333;
-
-							// border-radius: 8upx;
-							// color: #b6b6b6;
-							// border: solid 1px #b6b6b6;
-							// box-sizing: border-box;
-							&.active {
-								// color: #fff;
-								// border-color:  #fb8c00;
-								// background-color: #fb8c00;
-							}
-						}
 
 						.pay_inline {}
 
@@ -1136,7 +1212,7 @@
 
 		.comments {
 			width: 100%;
-			margin-bottom: 104upx;
+			margin-bottom: 90upx;
 		}
 
 		.mask-card {

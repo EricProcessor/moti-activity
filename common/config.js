@@ -1,13 +1,18 @@
 const config = {}
 config.host = process.env.NODE_ENV === 'development' 
 	? 
-		"http://gghd.gray.motivape.cn/api" // 开发环境 注册
+		"http://192.168.0.98:8085/api" // 开发环境 注册
 	: 
-		'http://motiactivity.motimall.cn/api'	// 生产环境
+		'http://test.motiactivity.motimall.cn/api'	// 生产环境
 		
 config.hostOrder  = process.env.NODE_ENV === 'development' 
 	? 
-		"http://test.motiactivity.motimall.cn/api" // 开发环境 下单
+		"http://192.168.0.98:8085/api" // 开发环境 下单
 	: 
-		'http://motiactivity.motimall.cn/api'	// 生产环境		
+		'http://test.motiactivity.motimall.cn/api'	// 生产环境		
 export default config
+//"http://192.168.1.198:8085/api"  中转 
+//http://test.motiactivity.motimall.cn/api 测试环境
+//192.168.10.48:8096 北京本地服务注册
+//192.168.10.48:9191 北京本地服务下单 
+//http://motiactivity.motimall.cn/api 正式
