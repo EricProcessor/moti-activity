@@ -165,7 +165,7 @@
 					<view class="content">
 						<view class="title">
 							<image :src="submitState > 0 ? '../../static/images/icons/success_2.png' : '../../static/images/icons/failed.png'"></image>
-							<text :class="{'red-text': submitState > 0}">{{submitState > 0 ? '订单提交成功' : '订单提交失败'}}</text>
+							<text :class="{'red-text': submitState > 0}">{{popUpCardMsg}}</text>
 						</view>
 						<text class="text">{{popupCardText}}</text>
 						<view class="btn" @click="closePopup">确定</view>
@@ -400,7 +400,9 @@
 			};
 		},
 		onLoad(options) {
+			console.log("---------------",JSON.stringify(options));
 			let bool = this.nextLocation(options)
+			console.log("=================",JSON.stringify(options));
 			this.restoreScene()
 			const params = options;
 			let index = params.type ? Number(params.type) : 7;
@@ -460,14 +462,18 @@
 					if (this.submitState === 1) {
 						if(this.payType === 6 ) this.popUpCardMsg = "订单提交成功"
 						else  this.popUpCardMsg = "订单支付成功"
+						this.popupCardText = ""
 					} else {
-						if(this.submitState === 6) this.popUpCardMsg = "订单提交失败"
+						if(this.payType === 6) this.popUpCardMsg = "订单提交失败"
 						else this.popUpCardMsg = "订单支付失败"
+						this.popupCardText = "网络暂时离线, 请重新提交~~"
 					}
+					this.isOrderSuccess = 0
 					this.isShowPopupCard = true
 					uni.removeStorageSync("pageState")
 					this.ispolling = 0
 					uni.hideLoading()
+					uni.removeStorageSync("orderPay")
 				}
 				if (typeof data.ispolling !== "undefined") {
 					this.ispolling = 1
@@ -475,16 +481,15 @@
 
 			},
 			nextLocation(options) {
-				let nt = uni.getStorageSync("nextLocation")
-				if (!nt) return false
-				uni.removeStorageSync("nextLocation")
+				let pageParams = uni.getStorageSync("pageParams")
+				console.log(pageParams)
+				if (!pageParams) return false
+				uni.removeStorageSync("pageParams")
 				if (options.code) uni.setStorageSync("wxcode", options.code)
 				if (options.out_trade_no) uni.setStorageSync("alOptions",options)
-				uni.redirectTo({
-					url: nt,
-				});
+				options = Object.assign(options,pageParams)
 
-				//return true
+				return true
 			},
 			imgLoad(e) {
 				this.imgs.imgs[e].isLoaded = true

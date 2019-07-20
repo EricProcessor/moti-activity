@@ -9,6 +9,10 @@
 		}
       
        
+        ,{
+            "path" : "pages/ddddd/ddddd",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

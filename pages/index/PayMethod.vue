@@ -109,6 +109,7 @@
 						wx.onLoad(wxcode)
 						return 
 					}
+					
 					let timer = setInterval(async ()=>{
 						let res = await this.wxPayStatus(orderPay.id)
 						console.log(res)
@@ -142,13 +143,13 @@
 							this.$emit("payCallBack",{submitState:-1})
 							clearInterval(timer)
 							isCancleInterval = true
-							uni.removeStorageSync(alOptions)
+							uni.removeStorageSync("alOptions")
 						}
 						if(res.data.result == 30) {
 							this.$emit("payCallBack",{submitState:1})
 							clearInterval(timer)
 							isCancleInterval = true
-							uni.removeStorageSync(alOptions)
+							uni.removeStorageSync("alOptions")
 						}
 					},1000)
 				}
@@ -198,24 +199,37 @@
 
 				})
 				if (orderRes.data.code === "0") {
-					this.$emit("payCallBack",{ispolling:1})
+					
+					setTimeout(() => {
+						uni.showModal({
+							content: "是否完成微信支付？",
+							confirmText: "完成",
+							cancelText: "重新支付",
+							success: (res) => {
+								console.log(res)
+								if (res.confirm) { // 如果点击 完成支付，那么跳转到订单详情页面
+									this.$emit("payCallBack",{ispolling:1})
+								}
+								if(res.cancel){
+									this.$emit("payCallBack",{submitState:-1})
+								}
+							}
+						})
+					}, 1000)
 					location.href = orderRes.data.result				
 				}
 			
 			},
 			async alWap() { //支付宝wap支付
+			
 				let order = await newOrder("/activity1/pay/al", {
 					orderNo: this.orderInfo.orderNo,
 					spuName: this.orderInfo.spuName,
 					returnUrl: "http://" + window.location.host  //todo
 				})
 				if (order.data.code === "0") {
-					let arr = []
-					for(let key in this.urlParams){
-						arr.push(key + "=" + this.urlParams[key])
-					}
-					let nl = arr.length > 0 ?  "/?" + arr.join("&") : "/"
-					uni.setStorageSync("nextLocation",nl)
+					
+					uni.setStorageSync("pageParams",this.urlParams)
 					this.$nextTick(() => {
 						const div = document.createElement('div');
 						div.innerHTML = order.data.result;
@@ -237,13 +251,8 @@
 				return res
 			},
 			async jsApi() {
-				let arr = []
-				for(let key in this.urlParams){
-					arr.push(key + "=" + this.urlParams[key])
-				}
-				let nl = arr.length > 0 ?  "/?" + arr.join("&") : "/";
-				console.log(nl)
-				uni.setStorageSync("nextLocation",nl)
+				
+				uni.setStorageSync("pageParams",this.urlParams)
 				let url = window.location.protocol + "//" + window.location.host
 				location.replace(
 					`https://gezi.motivape.cn/auth.html?appid=wx80a7401a02e0f8ec&redirectUri=${encodeURIComponent(url)}&response_type=code&scope=snsapi_base&state=homec`
