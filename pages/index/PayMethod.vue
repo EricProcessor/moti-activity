@@ -78,11 +78,11 @@
 				this.currentPay = this.payType
 				
 			},
-			ispolling(){
+			async ispolling(){
 				
 				if(this.ispolling !== 1) return ;
 				let orderPay = uni.getStorageSync("orderPay")
-				uni.removeStorageSync("orderPay")
+				//uni.removeStorageSync("orderPay")
 				let isCancleInterval = false
 				if(!orderPay ) return ;
 				uni.showLoading({
@@ -128,38 +128,33 @@
 					},1000)
 				}
 				if(orderPay.payType === 3){
-					
-					let timer = setInterval(async ()=>{
-						let aloption = uni.getStorageSync("alOptions")
-						if(!aloption) return ;
-						let res = await this.alPayStatus(orderPay.id)
-						if(res.data.code !== "0") {
-							this.$emit("payCallBack",{submitState:-1})
-							clearInterval(timer)
-							return ;
-						}
-						
-						if(res.data.result == 20) {
-							this.$emit("payCallBack",{submitState:-1})
-							clearInterval(timer)
-							isCancleInterval = true
-							uni.removeStorageSync("alOptions")
-						}
-						if(res.data.result == 30) {
-							this.$emit("payCallBack",{submitState:1})
-							clearInterval(timer)
-							isCancleInterval = true
-							uni.removeStorageSync("alOptions")
-						}
-					},1000)
-				}
-				//15分钟取消定时任务
-				if( ! isCancleInterval ){
-					setTimeout(()=>{
-						clearInterval(timer)
+					let aloption = uni.getStorageSync("alOptions")
+					if(!aloption) {
 						this.$emit("payCallBack",{submitState:-1})
-					}, 1000*60*15);
-				}			
+						return 
+					} 
+					let res = await this.alPayStatus(orderPay.id)
+					if(res.data.code !== "0") {
+						this.$emit("payCallBack",{submitState:-1})
+						
+						return ;
+					}
+					
+					if(res.data.result == 20) {
+						this.$emit("payCallBack",{submitState:-1})
+						
+						isCancleInterval = true
+						uni.removeStorageSync("alOptions")
+					}
+					if(res.data.result == 30) {
+						this.$emit("payCallBack",{submitState:1})
+						
+						isCancleInterval = true
+						uni.removeStorageSync("alOptions")
+					}
+					
+				}
+					
 			},
 			isOrderSuccess() {
 				console.log(this.orderInfo)
