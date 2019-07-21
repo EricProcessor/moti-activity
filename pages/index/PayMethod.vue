@@ -136,20 +136,15 @@
 					let res = await this.alPayStatus(orderPay.id)
 					if(res.data.code !== "0") {
 						this.$emit("payCallBack",{submitState:-1})
-						
 						return ;
 					}
 					
 					if(res.data.result == 20) {
 						this.$emit("payCallBack",{submitState:-1})
-						
-						isCancleInterval = true
 						uni.removeStorageSync("alOptions")
 					}
 					if(res.data.result == 30) {
 						this.$emit("payCallBack",{submitState:1})
-						
-						isCancleInterval = true
 						uni.removeStorageSync("alOptions")
 					}
 					
