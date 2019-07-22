@@ -220,7 +220,7 @@
 				orderResult: {},
 				isOrderSuccess: 0,
 				ispolling: 0,
-				payType: 6,
+				payType: 0,
 				currentScrollY: 0,
 				isPageReady: false,
 				isFixed: false,
@@ -403,13 +403,13 @@
 			console.log("---------------",JSON.stringify(options));
 			let bool = this.nextLocation(options)
 			console.log("=================",JSON.stringify(options));
+			if(options.type === 14) this.payType = 3
+			else this.payType = 6
 			this.restoreScene()
 			const params = options;
 			let index = params.type ? Number(params.type) : 7;
 
-			console.log(options)
 			this.paramType = index;
-			if (index === 14) index = 7
 			this.imgs = imgsData[`imgs${index}`];
 			this.lastImg = imgsData.lastImgs[index - 1];
 			this.imgsNum = this.imgs.imgs.length
@@ -539,6 +539,12 @@
 					});
 				}
 
+				if(!this.payType){
+					return uni.showToast({
+						title: "请选择支付方式",
+						icon: "none"
+					});
+				}
 				// let checkRegRes = await post('/user/user/checkUserMobile', {
 				// 	mobile: this.userInfo[1].value
 				// })
