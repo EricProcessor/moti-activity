@@ -440,13 +440,11 @@
 					this.scrollTop = anchor.offsetTop
 				}
 			}, 100)
-
-			setInterval(() => {
-				this.currentScrollY = window.scrollY
-			}, 500)
 		},
 		onPageScroll(e) {
 			this.isFixed = e.scrollTop > 400
+			this.currentScrollY  = e.scrollTop
+			
 		},
 
 		methods: {
