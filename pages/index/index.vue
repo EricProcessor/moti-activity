@@ -403,7 +403,7 @@
 			console.log("---------------",JSON.stringify(options));
 			let bool = this.nextLocation(options)
 			console.log("=================",JSON.stringify(options));
-			if(options.type === 14) this.payType = 3
+			if(options.type == 14) this.payType = 3
 			else this.payType = 6
 			this.restoreScene()
 			const params = options;
