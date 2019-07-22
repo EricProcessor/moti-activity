@@ -1,6 +1,6 @@
 <template>
 	<view class="">
-		<view class="payment-items" :class={payTwo:!isPayTwo()}>
+		<view class="payment-items" :class="{payTwo:!isPayTwo()}">
 
 			<view class="item" :key="0" v-if="paramType !== 14" @click="choicePay" :class="{active:currentPay === 6,showTow:isPayTwo()}"
 			 :data-index="0">

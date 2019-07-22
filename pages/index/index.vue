@@ -448,7 +448,7 @@
 		},
 
 		methods: {
-			setIspolling() {//触发定时轮询查支付结果
+			setIspolling() {//触发查询支付结果
 				let orderPay = uni.getStorageSync("orderPay")
 				if (!orderPay) return;
 				this.ispolling = 1;
