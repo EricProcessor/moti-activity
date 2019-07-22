@@ -463,7 +463,11 @@
 						if(this.payType === 6 ) this.popUpCardMsg = "订单提交成功"
 						else  this.popUpCardMsg = "订单支付成功"
 						this.popupCardText = ""
-					} else {
+					} else if(this.submitState == -2){
+						this.popUpCardMsg = "订单取消支付"
+						this.popupCardText = "您已手动取消订单，请重新提交支付"
+					}
+					else {
 						if(this.payType === 6) this.popUpCardMsg = "订单提交失败"
 						else this.popUpCardMsg = "订单支付失败"
 						this.popupCardText = "网络暂时离线, 请重新提交~~"
@@ -471,8 +475,8 @@
 					this.isOrderSuccess = 0
 					this.isShowPopupCard = true
 					uni.removeStorageSync("pageState")
-					this.ispolling = 0
-					uni.hideLoading()
+					this.ispolling = 0;
+					uni.hideLoading();
 					uni.removeStorageSync("orderPay")
 				}
 				if (typeof data.ispolling !== "undefined") {

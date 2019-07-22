@@ -81,13 +81,15 @@
 			async ispolling() {
 
 				if (this.ispolling !== 1) return;
+				
 				let orderPay = uni.getStorageSync("orderPay")
 				//uni.removeStorageSync("orderPay")
 				let isCancleInterval = false
 				if (!orderPay) return;
 				uni.showLoading({
-					title: "下单中...."
-				})
+					title: "下单中....",
+					
+				});
 				if (orderPay.payType === 2) {
 					if (this.isWxAgent) {
 						let wxcode = uni.getStorageSync("wxcode")
@@ -110,6 +112,11 @@
 						wx.failBack = () => {
 							this.$emit("payCallBack", {
 								submitState: -1
+							})
+						}
+						wx.cancelBack = () => {
+							this.$emit("payCallBack", {
+								submitState: -2
 							})
 						}
 						wx.onLoad(wxcode)
@@ -141,7 +148,7 @@
 								if (res.data.code !== "0") return;
 								if (res.data.result == 20) {
 									this.$emit("payCallBack", {
-										submitState: -1
+										submitState: -2
 									})
 								}
 								if (res.data.result == 30) {
@@ -156,23 +163,18 @@
 				if (orderPay.payType === 3) {
 					
 					let aloption = uni.getStorageSync("alOptions")
-					if (!aloption) {
-						this.$emit("payCallBack", {
-							submitState: -1
-						})
-						return
-					}
+					
 					let res = await this.alPayStatus(orderPay.id)
 					if (res.data.code !== "0") {
 						this.$emit("payCallBack", {
-							submitState: -1
+							submitState: (aloption && aloption.out_trade_no) ? -1 : -2
 						})
 						return;
 					}
 
 					if (res.data.result == 20) {
 						this.$emit("payCallBack", {
-							submitState: -1
+							submitState: (aloption && aloption.out_trade_no) ? -1 : -2
 						})
 						uni.removeStorageSync("alOptions")
 					}
@@ -182,6 +184,7 @@
 						})
 						uni.removeStorageSync("alOptions")
 					}
+					uni.hideLoading()
 
 				}
 
