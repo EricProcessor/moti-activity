@@ -796,6 +796,47 @@ export default {
 			}
 	    ],
 	},
+	imgs15:{
+		swipers: [
+		    '../../static/type/13/1.jpg',
+			'../../static/type/13/2.jpg',
+			'../../static/type/13/3.jpg',
+		],
+		imgs:[
+			{
+				url: '../../static/type/13/MOTI-5.jpg',
+				width: 750,
+				height: 1391,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/13/MOTI-1.jpg',
+				width: 750,
+				height: 1314,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/13/MOTI-2.jpg',
+				width: 750,
+				height: 1163,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/13/MOTI-3.jpg',
+				width: 750,
+				height: 1126,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/13/MOTI-4.jpg',
+				width: 750,
+				height: 2507,
+				isLoaded: false
+			},
+		
+			
+		]
+	},
     lastImgs: [
         'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_1/last.jpg',
         'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_2/last.jpg',
@@ -811,6 +852,7 @@ export default {
 		'../../static/type/12/18.jpg',
 		'../../static/type/11/15.jpg',
 		'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/last.jpg',
+		'../../static/type/11/15.jpg',
 		
 		
     ]

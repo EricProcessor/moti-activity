@@ -20,7 +20,7 @@
 						</view>
 					</view>
 				</view>
-				<block>
+				<block v-if="paramType != 15">
 					<view :key="index" class="img_wrapper" v-for="(item, index) in imgs.imgs" :style="{width: item.width + 'upx', height: item.height + 'upx'}">
 						<img class="img" :src="item.url"></img>
 					</view>
@@ -47,7 +47,25 @@
 						</view>
 					</view>
 				</view>
-
+				<view class="credible-groups" v-if="paramType == 15">
+					<view class="credible-labels">
+						<view class="item-label">
+							官方发货
+						</view>
+						<view class="item-label">
+							消费者保障服务
+						</view>
+						<view class="item-label">
+							包邮
+						</view>
+						<view class="item-label">
+							假一赔三
+						</view>
+					</view>
+					<view class="saleable-qty">
+						剩余 93
+					</view>
+				</view>
 			</view>
 			<!-- 颜色属性 -->
 			<view class="attrs_wrapper">
@@ -152,11 +170,19 @@
 				</view>
 			</view>
 
-
+			<view  v-if="paramType == 15"  class="introductions">
+				<block>
+					<view :key="index" class="img_wrapper" v-for="(item, index) in imgs.imgs" :style="{width: item.width + 'upx', height: item.height + 'upx'}">
+						<img class="img" :src="item.url"></img>
+					</view>
+				</block>
+			</view>
 			<!-- 最后一张图片 -->
 
 			<!-- <img class="comments" :src="'../../activity/static/images/package/' + lastImg"> -->
 			<img class="comments" :src="lastImg">
+		
+			
 
 			<!-- 提交信息后弹出卡片 -->
 			<view class="mask-card" v-if="isShowPopupCard">
@@ -210,8 +236,10 @@
 				return this.buyNumbersTaste * 35.00
 			},
 			isShowBuyNow() {
-
-				return !this.scrollTop || (this.currentScrollY <= (this.scrollTop - 400))
+				console.log(this.currentScrollY,this.scrollTop)
+				
+				if(this.paramType != 15) return  !this.scrollTop || (this.currentScrollY <= (this.scrollTop - 400))
+				return  !this.scrollTop || (this.currentScrollY > (this.scrollTop + 400))
 			}
 		},
 		data() {
@@ -970,6 +998,34 @@
 							text-decoration-line: line-through;
 						}
 					}
+				}
+			}
+			.credible-groups{
+				margin-top: 38upx;
+				display: flex;
+				justify-content: space-between;
+				.credible-labels{
+					display: flex;
+					.item-label{
+						box-sizing: border-box;
+						border: 1upx solid #fb8c00;
+						color: #fb8c00;
+						font-size:22upx;
+						margin-left: 10upx;
+						border-radius: 4upx;
+						padding:0  12upx;
+						height: 34upx;
+						line-height: 34upx;
+					}
+					:first-child{
+						margin-left: 0upx;
+					}
+				}
+				.saleable-qty{
+					font-size: 26upx;
+					color: #a0a0a0;
+					height: 34upx;
+					line-height: 34upx; 
 				}
 			}
 		}
