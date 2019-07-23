@@ -810,9 +810,9 @@ export default {
 				isLoaded: false
 			},
 			{
-				url: '../../static/type/13/MOTI-1.jpg',
+				url: '../../static/type/15/MOTI-1.jpg',
 				width: 750,
-				height: 1314,
+				height: 1061,
 				isLoaded: false
 			},
 			{

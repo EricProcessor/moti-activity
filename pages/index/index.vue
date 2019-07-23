@@ -236,7 +236,6 @@
 				return this.buyNumbersTaste * 35.00
 			},
 			isShowBuyNow() {
-				console.log(this.currentScrollY,this.scrollTop)
 				
 				if(this.paramType != 15) return  !this.scrollTop || (this.currentScrollY <= (this.scrollTop - 400))
 				return  !this.scrollTop || (this.currentScrollY > (this.scrollTop + 400))
@@ -1013,7 +1012,7 @@
 						font-size:22upx;
 						margin-left: 10upx;
 						border-radius: 4upx;
-						padding:0  12upx;
+						padding:0  6upx;
 						height: 34upx;
 						line-height: 34upx;
 					}
