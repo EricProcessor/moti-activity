@@ -31,154 +31,58 @@
 
 			<!-- 商品信息 -->
 			<view id="anchor" v-if="isPageReady"></view>
-			<view class="goods_info_popup">
-
-				<view class="base_info">
-					<image class="poster" :src="backgrounds[currentSpecIndex]"></image>
-					<view class="info_text">
-						<view class="price">
-							<text class="icon_rmb">¥</text>
-							<text class="number">{{goods.price}}</text>
-							<text class="source_price">原价{{goods.sourcePrice}}</text>
-						</view>
-						<view class="title">
-							<text class="title_text">{{goods.title}}</text>
-							<text class="desc_text">(1烟杆+1经典烟草烟弹)</text>
-						</view>
-					</view>
-				</view>
-
+		
+			<view  v-if="isAB">
+				
+				<EditOrderForm   ref="EditOrderForm"   :initData="pageState.editOrderForm" :isClear="isClearForm"></EditOrderForm>
+						
+				<PayMethod    @choicePay="choosePayWay" :ispolling="ispolling" :paramType="paramType" :payType="payType"
+				 @payCallBack="payCallBackFunc" :urlParams="urlParams" :orderInfo="orderResult" :isOrderSuccess="isOrderSuccess"></PayMethod>
 			</view>
-			<!-- 颜色属性 -->
-			<view class="attrs_wrapper">
-				<!-- 改变index时选中的颜色不改变, 只要触发页面任何一次更新才生效 -->
-				<view class="current">{{currentSpecIndex}}</view>
-				<view class="colors_header">选择规格</view>
-				<view class="colors">
-					<view class="color" hover-class="none" :class="{active: index == currentSpecIndex, mr0: (index + 1) % 4 === 0}"
-					 v-for="(item, index) in spec" :key="index" @touchend="chooseSpec" :data-index="index">{{item.text}}</view>
+			
+			<view  v-if="isC">
+				<view  v-if="!isShowOrderDetail">
+					<EditOrderFormC   ref="EditOrderForm"   :initData="pageState.editOrderForm" :isClear="isClearForm" ></EditOrderFormC>
+					<PayMethodC        @choicePay="choosePayWay" :ispolling="ispolling" :paramType="paramType" :payType="payType"
+					 @payCallBack="payCallBackFunc" :urlParams="urlParams" :orderInfo="orderResult" :isOrderSuccess="isOrderSuccess"></PayMethodC>
 				</view>
-
-				<view class="nums_header">
-					<text>数量</text>
-					<view class="nums-handle">
-						<view class="text-icon del" @click="numsDownColor">-</view>
-						<view class="text-num">{{buyNumbersColor}}</view>
-						<view class="text-icon add" @click="numsUpColor">+</view>
-					</view>
-				</view>
-				<view class="nums_header">
-					<text>共计</text>
-					<view class="total_price">
-						<text class="icon_rmb">¥</text>
-						<text class="price">{{totalPrice}}</text>
-					</view>
-				</view>
+				<OrderDetail  @againBuy="buyAgain"   v-if="isShowOrderDetail"  :initData="propsOrderDetail"></OrderDetail>
 			</view>
-
-
-			<view style="height: 20upx;background: #eee"></view>
-
-			<!-- 口味属性 -->
-			<view class="attrs_wrapper">
-				<view class="colors_header" @tap="taggleTaste">
-					<text>我要新增其他口味（可选）</text>
-					<text class="price" v-show="isShowTastes">
-						<text class="icon_rmb">¥</text>
-						<text class="price_num">{{tasteTotal}}</text>
-					</text>
-					<image src="/static/images/icons/arrow_up.png" v-show="isShowTastes"></image>
-					<image src="/static/images/icons/add.png" v-show="!isShowTastes"></image>
-				</view>
-				<view class="colors" v-show="isShowTastes">
-					<view class="color" :class="{active: index === currentTasteIndex, mr0: (index + 1) % 4 === 0}" v-for="(item, index) in goods.taste"
-					 :key="index" @tap="chooseTaste" :data-index="index">{{item.text}}</view>
-				</view>
-
-				<view class="nums_header" v-show="isShowTastes">
-					<text>数量</text>
-					<view class="nums-handle">
-						<view class="text-icon del" @click="numsDownTaste">-</view>
-						<view class="text-num">{{buyNumbersTaste}}</view>
-						<view class="text-icon add" @click="numsUpTaste">+</view>
-					</view>
-				</view>
-			</view>
-
-
-			<!-- 中间表单 -->
-			<!-- <view style="height: 20upx;background: #eee"></view> -->
-			<view class="form-wrapper">
-				<!-- <view id="anchor"></view> -->
-				<view class="form-data">
-					<view class="take_info">
-						<view class="line_1">RECEIVING INFORMATION</view>
-						<view class="line_2">收货信息</view>
-						<view class="line_3">填写订单后MOTI客服将会与您确认订单</view>
-					</view>
-					<view class="input-item" v-for="(item, index) in userInfo" :key="index">
-						<view class="text">{{item.text}}</view>
-						<!-- <view class="choose_location" v-if="index === 2">
-							<picker class="picker" :range="provinceData" range-key="label" @change="provinceChnage">
-								<view class="picker_text">
-									<view class="text" :class="{choosed: provinceName}">{{provinceName || '请选择'}}</view>
-									<image src="/static/images/icons/arrow_down.png"></image>
-								</view>
-							</picker>
-							<picker class="picker" :range="cityData[provinceIndex]" range-key="label" @change="cityChange">
-								<view class="picker_text">
-									<view class="text" :class="{choosed: cityName}">{{cityName || '请选择'}}</view>
-									<image src="/static/images/icons/arrow_down.png"></image>
-								</view>
-							</picker>
-							<picker class="picker" :range="areaData[provinceIndex][cityIndex]" range-key="label" @change="areaChange">
-								<view class="picker_text">
-									<view class="text" :class="{choosed: areaName}">{{areaName || '请选择'}}</view>
-									<image src="/static/images/icons/arrow_down.png"></image>
-								</view>
-							</picker>
-						</view> -->
-						<view class="pay_way" v-if="index === 3">
-							<!-- <view class="pay_inline" @tap="choosePayWay('online')" :class="{active: payWay === 'online'}">在线支付</view> -->
-							<!-- <view class="pay_got" @tap="choosePayWay('offline')" :class="{active: payWay === 'offline'}">货到付款</view> -->
-							<PayMethod @choicePay="choosePayWay" :ispolling="ispolling" :paramType="paramType" :payType="payType"
-							 @payCallBack="payCallBackFunc" :urlParams="urlParams" :orderInfo="orderResult" :isOrderSuccess="isOrderSuccess"></PayMethod>
-						</view>
-						<view class="input" v-else>
-							<input type="text" placeholder-style="color: #b6b6b6;" :placeholder="item.placeholder" v-model="item.value"
-							 @blur="keyborderConfim">
-						</view>
-					</view>
-				</view>
-			</view>
-
-
+			
 			<!-- 最后一张图片 -->
 
 			<!-- <img class="comments" :src="'../../activity/static/images/package/' + lastImg"> -->
-			<img class="comments" :src="lastImg">
+			<img class="comments" :src="lastImg" v-show="!isShowOrderDetail">
 
 			<!-- 提交信息后弹出卡片 -->
-			<view class="mask-card" v-if="isShowPopupCard">
-				<view class="card-content">
-					<image class="close-icon" @tap="closePopup" src="../../static/images/icons/close.png"></image>
-					<view class="content">
-						<view class="title">
-							<image :src="submitState > 0 ? '../../static/images/icons/success_2.png' : '../../static/images/icons/failed.png'"></image>
-							<text :class="{'red-text': submitState > 0}">{{popUpCardMsg}}</text>
+			<view v-if="isAB">
+				<view class="mask-card" v-if="isShowPopupCard">
+					<view class="card-content">
+						<image class="close-icon" @tap="closePopup" src="../../static/images/icons/close.png"></image>
+						<view class="content">
+							<view class="title">
+								<image :src="submitState > 0 ? '../../static/images/icons/success_2.png' : '../../static/images/icons/failed.png'"></image>
+								<text :class="{'red-text': submitState > 0}">{{popUpCardMsg}}</text>
+							</view>
+							<text class="text">{{popupCardText}}</text>
+							<view class="btn" @click="closePopup">确定</view>
 						</view>
-						<text class="text">{{popupCardText}}</text>
-						<view class="btn" @click="closePopup">确定</view>
 					</view>
 				</view>
 			</view>
+			<view v-if="isC">
+				<popCard   v-if="isShowPopupCard"  @emitClose="closePopup" :submitState="submitState" :payType="payType" ></popCard>
+			</view>
+			
+			
 
 
 		</view>
-		<view class="submit-btn" @tap="submit">
+		<view class="submit-btn" @tap="submit" v-show="!isShowOrderDetail">
 			<image v-if="isShowBuyNow" src="../../static/images/icons/buy.jpg"></image>
 			<view v-else class="sub_order">提交订单</view>
 		</view>
+		
 
 	</view>
 
@@ -196,6 +100,12 @@
 	import dynamic from "./dynamic.vue";
 	import imgsData from "./imgs.js";
 	import PayMethod from "./PayMethod.vue"
+	import PayMethodC from "./PayMethodC.vue"
+	import EditOrderForm from "./EditOrderForm.vue"
+	import EditOrderFormC from "./EditOrderFormC.vue"
+	import OrderDetail from "./OrderDetail.vue"
+	import popCard from "./popCard.vue"
+	import Goods from "./goods.js"
 
 	export default {
 		config: {
@@ -203,19 +113,33 @@
 		},
 		components: {
 			dynamic,
-			PayMethod
+			PayMethod,
+			EditOrderForm,
+			EditOrderFormC,
+			PayMethodC,
+			OrderDetail,
+			popCard
 		},
 		computed: {
-			tasteTotal() {
-				return this.buyNumbersTaste * 35.00
-			},
+		
 			isShowBuyNow() {
 
 				return !this.scrollTop || (this.currentScrollY <= (this.scrollTop - 400))
+			},
+			isC(){
+				if(this.paramType <= 15) return false;
+				return true
+			},
+			isAB(){
+				if(this.paramType >= 15) return true;
+				return false
 			}
 		},
 		data() {
 			return {
+				propsOrderDetail:{},
+				isShowOrderDetail:false,
+				pageState:{},
 				urlParams: {},
 				orderResult: {},
 				isOrderSuccess: 0,
@@ -230,14 +154,9 @@
 				provinceData: provinceData,
 				cityData: cityData,
 				areaData: areaData,
-				totalPrice: 0,
+				
 				scrollTop: 0,
-				backgrounds: [
-					"https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/4.jpg",
-					"https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/3.jpg",
-					"https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/1.jpg",
-					"https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/2.jpg",
-				],
+				
 				deleBack: [
 
 					"https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/1.jpg",
@@ -250,121 +169,11 @@
 
 				],
 				imgLoadedNum: 0,
-				goods: {
-					imgUrl: "",
-					price: "199.00",
-					sourcePrice: "399",
-					title: "MOTI D11 电子烟套装 雾化 换弹小烟",
-					taste: [{
-							text: "经典烟草",
-							sku: "112492581559"
-						},
-						/* {
-							text: "冰镇菠萝",
-							sku:"112492582394"
-						}, */
-						{
-							text: "绿豆冰沙",
-							sku: "112492581718"
-						},
-						{
-							text: "风情芒果",
-							sku: "112492581686"
-						},
-						{
-							text: "激爽薄荷",
-							sku: "112492575952"
-						},
-						/* {
-							text: "甜心草莓",
-							sku:"112492579728"
-						},
-						{
-							text: "清甜西瓜",
-							sku:"112492577833"
-						},
-						{
-							text:"青焙绿茶",
-							sku:"112492576935"
-						} */
+				
 
-					],
-				},
-
-				spec: [
-					/* {
-						text: "燕尾黑",
-						sku: "112492575139"
-					},
-					{
-						text: "极光渐变",
-						sku: "586197169359"
-					},
-					{
-						text: "深海蓝",
-						sku: "112492578591"
-					},
-					{
-						text: "星辰银",
-						sku: "112492577675"
-					},
-					{
-						text: "C位红",
-						sku: "112492575156"
-					},
-					{
-						text: "柠檬黄",
-						sku: "112492577641"
-					},
-					{
-						text: "八重樱",
-						sku: "112492579519"
-					} */
-					{
-						text: "星辰银",
-						sku: "112492577675"
-					},
-					{
-						text: "深海蓝",
-						sku: "112492578591"
-					},
-					{
-						text: "燕尾黑",
-						sku: "112492575139"
-					},
-					{
-						text: "极光色",
-						sku: "586197169359"
-					},
-				],
 				imgs: [],
 				lastImg: "",
-				userInfo: [{
-						text: "收货人 *",
-						value: "",
-						placeholder: "请输入"
-					},
-					{
-						text: "联系方式 *",
-						value: "",
-						placeholder: "请输入"
-					},
-					// , {
-					// 	text: '地区 *',
-					// 	value: '',
-					// 	placeholder: '请输入'
-					// },
-					{
-						text: "详细地址 *",
-						value: "",
-						placeholder: "请输入"
-					},
-					{
-						text: "选择支付方式 *",
-						value: "",
-						placeholder: "请输入"
-					}
-				],
+			
 				// 				typeAndNums: [{
 				// 						radioText: '星辰银',
 				// 						checked: true,
@@ -385,10 +194,7 @@
 				submitState: -1, // -1不显示, 0提交失败, 1货到付款提交成功, 2在线支付提交成功
 				popupCardText: "网络暂时离线, 请重新提交~~",
 				intoViewid: "",
-				currentSpecIndex: 0,
-				currentTasteIndex: "",
-				buyNumbersColor: 1,
-				buyNumbersTaste: 0,
+				
 				provinceIndex: 0,
 				cityIndex: 0,
 				areaIndex: 0,
@@ -396,13 +202,13 @@
 				cityName: "",
 				areaName: "",
 				payWay: "offline",
-				isShowTastes: false
+				isClearForm:false
+				
 			};
 		},
 		onLoad(options) {
-			console.log("---------------",JSON.stringify(options));
+		
 			let bool = this.nextLocation(options)
-			console.log("=================",JSON.stringify(options));
 			if(options.type == 14) this.payType = 3
 			else this.payType = 6
 			this.restoreScene()
@@ -419,7 +225,7 @@
 				channel: options.channel,
 				type: this.paramType,
 			}
-			this.sum();
+		
 			this.$nextTick(() => {
 				this.isPageReady = true
 				this.setIspolling()
@@ -448,6 +254,19 @@
 		},
 
 		methods: {
+			buyAgain(){
+				let userInfo = this.pageState.editOrderForm.userInfo
+				this.pageState.editOrderForm = {
+					isShowTastes:false,
+					buyNumbersColor : 1,
+					buyNumbersTaste : 0,
+					currentSpecIndex : 0,
+					currentTasteIndex : "",
+					userInfo:userInfo
+				}
+				this.isShowOrderDetail = false
+				
+			},
 			setIspolling() {//触发查询支付结果
 				let orderPay = uni.getStorageSync("orderPay")
 				if (!orderPay) return;
@@ -472,10 +291,12 @@
 					}
 					this.isOrderSuccess = 0
 					this.isShowPopupCard = true
+					this.pageState =  this.pageState ?  this.pageState :  uni.getStorageSync("pageState") ;
 					uni.removeStorageSync("pageState")
 					this.ispolling = 0;
 					uni.hideLoading();
 					uni.removeStorageSync("orderPay")
+					this.pageSrollTo()
 				}
 				if (typeof data.ispolling !== "undefined") {
 					this.ispolling = 1
@@ -513,34 +334,15 @@
 					this.ispolling = 0
 					return
 				}
-				// this.intoViewid = "anchor";
-				if (!this.userInfo[0].value)
+				console.log(this.$refs)
+				let vadation = this.$refs.EditOrderForm.checkSubmit()
+				if(vadation.code == 1){
 					return uni.showToast({
-						title: "请输入收货人名称",
-						icon: "none"
-					});
-				if (!checkMobile(this.userInfo[1].value))
-					return uni.showToast({
-						title: "请输入正确的联系电话",
-						icon: "none"
-					});
-				if (!this.userInfo[2].value)
-					return uni.showToast({
-						title: "请输入收货地址",
-						icon: "none"
-					});
-				if (this.buyNumbersColor < 1)
-					return uni.showToast({
-						title: "请选择数量",
-						icon: "none"
-					});
-				if (this.currentTasteIndex !== "" && this.buyNumbersTaste < 1) {
-					return uni.showToast({
-						title: "请选择口味数量",
-						icon: "none"
-					});
+						title:vadation.message,
+						icon:"none"
+					})
 				}
-
+				// this.intoViewid = "anchor";
 				if(!this.payType){
 					return uni.showToast({
 						title: "请选择支付方式",
@@ -551,28 +353,24 @@
 				// 	mobile: this.userInfo[1].value
 				// })
 
+				let userInfo = this.$refs.EditOrderForm.getRegisterParams()
 				// 未注册
+				//getRegisterParams
 				uni.showLoading({
 					title: "加载中"
 				});
-				let regRes = await post("/activity1/user/activityH5Regist", {
-					userName: this.userInfo[0].value,
-					mobile: this.userInfo[1].value,
-					userAddress: this.userInfo[2].value,
-					quickType: 4 // 活动页注册来源
-				});
+				let regRes = await post("/activity1/user/activityH5Regist", userInfo);
 
 				if (regRes.data.code == 0) {
 					// 注册登录成功
 					// let status = this.submitOrder();
+					let orderInfo = this.$refs.EditOrderForm.getOrderParams()
 					const data = {
 						pageOrder: {
-							userName: this.userInfo[0].value,
-							address: this.userInfo[2].value,
-							mobile: this.userInfo[1].value
+							
 						}
 					};
-
+					
 					if (this.orderSource === "qutoutiao") {
 						data.pageOrder.orderSource = 40;
 					} else if (this.orderSource === "jinritoutiao") {
@@ -580,26 +378,15 @@
 					} else {
 						data.pageOrder.orderSource = 43;
 					}
-					data.pageOrder.tobaccoSku = this.spec[this.currentSpecIndex].sku; // 烟杆sku
-					data.pageOrder.tobaccoSkuNum = this.buyNumbersColor; //烟杆购买数量
-					//data.pageOrder.orderSource = this.orderSource; 
-					data.pageOrder.cartridgesSku = this.currentTasteIndex === "" ? "" : this.goods.taste[this.currentTasteIndex].sku
-					data.pageOrder.cartridgesSkuNum = this.currentTasteIndex === "" ? 0 : this.buyNumbersTaste
+					data.pageOrder = Object.assign(data.pageOrder,orderInfo)
 					data.pageOrder.paymentType = this.payType // 3支付宝  6其他
 
 					data.pageOrder.source = this.urlParams.orderSource
 					data.pageOrder.type = this.urlParams.type
 					data.pageOrder.material = this.urlParams.material
 					data.pageOrder.channel = this.urlParams.channel
-					// if (this.typeAndNums[0].checked && this.typeAndNums[0].number > 0) {
-					// 	data.pageOrder.skuId = this.typeAndNums[0].skuId
-					// 	data.pageOrder.skuNum = this.typeAndNums[0].number
-					// 	data.pageOrder.orderSource = this.orderSource
-					// if (this.typeAndNums[1].checked && this.typeAndNums[1].number > 0) {
-					// 	data.pageOrder.skuId = this.typeAndNums[1].skuId
-					// 	data.pageOrder.skuNum = this.typeAndNums[1].number
-					// 	data.pageOrder.orderSource = this.orderSource
-					// }
+					
+					
 					this.orderResult.ip = regRes.data.result
 					const orderRes = await this.submitOrder(data);
 				} else {
@@ -632,57 +419,23 @@
 					(this.typeAndNums[1].checked = false) :
 					(this.typeAndNums[1].checked = true);
 			},
-			numsUpColor(e) {
-				this.buyNumbersColor += 1;
-				this.sum();
-
-			},
-			numsDownColor(e) {
-				this.buyNumbersColor > 0 && (this.buyNumbersColor -= 1);
-				this.sum();
-			},
-			numsUpTaste(e) {
-				this.buyNumbersTaste += 1;
-			},
-			numsDownTaste() {
-				this.buyNumbersTaste > 0 && (this.buyNumbersTaste -= 1)
-			},
-			numsDownColorTaste(e) {
-				this.buyNumbersTaste > 1 && (this.buyNumbersTaste -= 1);
-			},
-			closePopup() {
+			
+			closePopup(data) {
 				if (this.submitState === 1) {
-					this.currentSpecIndex = 0;
-					this.buyNumbersColor = 1;
-					this.currentTasteIndex = "";
-					this.buyNumbersTaste = 0;
-					this.sum();
-					(this.userInfo = [{
-							text: "收货人 *",
-							value: "",
-							placeholder: "请输入"
-						},
-						{
-							text: "联系方式 *",
-							value: "",
-							placeholder: "请输入"
-						},
-						{
-							text: "详细地址 *",
-							value: "",
-							placeholder: "请输入"
-						},
-						{
-							text: "选择支付方式 *",
-							value: "",
-							placeholder: "请输入"
-						}
-					]),
+					
 					(this.isShowPopupCard = false),
 					(this.submitState = -1);
+					if(this.isC && data.showDetail) return this.getOrderDetail();
+					(this.isClearForm = !this.isClearForm);
+					
 				} else {
 					(this.isShowPopupCard = false), (this.submitState = -1);
 				}
+			},
+			async getOrderDetail(){
+				let orderInfo = uni.getStorageSync("OrderDetail")
+				this.propsOrderDetail = orderInfo
+				this.isShowOrderDetail = true
 			},
 			// async checkIsReg(phone) {
 			// 	// 检查是否注册
@@ -701,16 +454,76 @@
 			// 	})
 			// 	return res.code
 			// },
+			storeOrderDetail(data,result){
+				let cartridgesSkuName = ""
+				let tobaccoSkuSrc = ""
+				let totalPrice = 0
+				for(let item of Goods.goods.taste){
+					
+					if(item.sku == data.pageOrder.cartridgesSku){
+						cartridgesSkuName = item.text
+						totalPrice += data.pageOrder.cartridgesSkuNum * 35.00
+						break;
+					}
+				}
+				
+				for(let key in Goods.spec){
+					
+					if(Goods.spec[key].sku === data.pageOrder.tobaccoSku){
+						tobaccoSkuSrc = Goods.backgrounds[key]
+						totalPrice += data.pageOrder.tobaccoSkuNum * 199.00
+						break;
+					}
+				}
+								
+				let OrderDetail = {
+					receiveAddress: data.pageOrder.address,
+					userName:data.pageOrder.userName,
+					mobile:data.pageOrder.mobile,
+					id:this.orderResult.id,
+					result:result,
+					totalPrice: totalPrice,
+					list:[
+						{
+							src:tobaccoSkuSrc,
+							title:"MOTI D11 电子烟套装 雾化 换弹小烟",
+							desc:"(1烟杆+1经典烟草烟弹)",
+							price:"199.00",
+							qty:data.pageOrder.tobaccoSkuNum,
+							id:data.pageOrder.tobaccoSku
+						},
+					],
+				}
+				
+				if(data.pageOrder.cartridgesSku){
+					OrderDetail.list.push(
+					{
+						src:tobaccoSkuSrc,
+						title:"电子烟雾化烟弹 ",
+						desc:"口味:"+cartridgesSkuName,
+						price:"35.00",
+						qty:data.pageOrder.cartridgesSkuNum,	
+						id:data.pageOrder.cartridgesSku
+					}
+					)
+				}
+				uni.setStorageSync("OrderDetail",OrderDetail)
+			},
 			async submitOrder(data) {
 				// 提交订单
+				let apiUrl = "/activity1/ad/order/bookingGghdOrder";
+				if(this.isC){
+					apiUrl = "/activity1/ad/order/bookingGghdOrder2c";
+				}
 				const res = await newOrder(
-					"/activity1/ad/order/bookingGghdOrder",
+					apiUrl,
 					data,
 					"application/json;charset=utf-8"
 				);
 				if (res.data.code == 0) {
 					this.preserveScene()
 					this.orderResult = Object.assign(this.orderResult, JSON.parse(res.data.result))
+					this.storeOrderDetail(data,this.orderResult)	
 					this.isOrderSuccess = 1
 					//this.popupCardText = "24小时内人工客服会与您联络请保持手机通畅";
 					this.popupCardText = "";
@@ -724,36 +537,32 @@
 			},
 			preserveScene() {
 				let pageState = {
+					editOrderForm:{
+						isShowTastes:this.$refs.EditOrderForm.isShowTastes,
+						userInfo:this.$refs.EditOrderForm.userInfo,
+						buyNumbersColor : this.$refs.EditOrderForm.buyNumbersColor,
+						buyNumbersTaste : this.$refs.EditOrderForm.buyNumbersTaste,
+						currentSpecIndex : this.$refs.EditOrderForm.currentSpecIndex,
+						currentTasteIndex : this.$refs.EditOrderForm.currentTasteIndex
+					},	
 					payType: this.payType,
-					userInfo: this.userInfo,
-					buyNumbersColor: this.buyNumbersColor,
-					buyNumbersTaste: this.buyNumbersTaste,
-					currentSpecIndex: this.currentSpecIndex,
-					currentTasteIndex: this.currentTasteIndex,
 					currentScrollY: this.currentScrollY,
-					isShowTastes: this.isShowTastes,
-					payType: this.payType
-
+					isInitIndex:true,
+					isInitForm:true
 				}
+				console.log(pageState,"------------------------")
 				uni.setStorageSync("pageState", pageState)
 			},
 			restoreScene() {
 				let pageState = uni.getStorageSync("pageState")
 				if (!pageState) return
-				this.payType = pageState.payType
-				this.userInfo = pageState.userInfo
-				this.buyNumbersColor = pageState.buyNumbersColor
-				this.buyNumbersTaste = pageState.buyNumbersTaste
-				this.currentSpecIndex = pageState.currentSpecIndex
-				this.currentTasteIndex = pageState.currentTasteIndex
-				this.currentScrollY = pageState.currentScrollY
-				this.isShowTastes = pageState.isShowTastes
-				this.payType = pageState.payType
-				/* uni.pageScrollTo({
-					scrollTop: this.currentScrollY,
-					duration: 200
-				}) */
+				if(pageState.isInitIndex){
+					this.payType = pageState.payType	
+					this.currentScrollY = pageState.currentScrollY
+				}	
+				this.pageState = pageState
 				uni.removeStorageSync("pageState")
+			
 
 			},
 			reload() {
@@ -763,21 +572,7 @@
 				uni.reload();
 				// location.href = 'http://mall.motivape.cn'
 			},
-			chooseSpec(e) {
-				this.currentSpecIndex = Number(e.currentTarget.dataset.index);
-				this.buyNumbersColor < 1 && (this.buyNumbersColor = 1) && this.sum()
-
-			},
-			chooseTaste(e) {
-				let choicIndex = Number(e.currentTarget.dataset.index)
-				if (this.currentTasteIndex === choicIndex) {
-					this.currentTasteIndex = ""
-					this.buyNumbersTaste = 0
-					return
-				}
-				this.currentTasteIndex = Number(e.currentTarget.dataset.index);
-				if (this.buyNumbersTaste < 1) this.buyNumbersTaste = 1
-			},
+			
 			provinceChnage(e) {
 				this.provinceIndex = e.detail.value;
 				this.provinceName = this.provinceData[this.provinceIndex].label;
@@ -801,17 +596,8 @@
 				this.payType = payType
 
 			},
-			taggleTaste() {
-				this.isShowTastes = !this.isShowTastes;
-				if (!this.isShowTastes) {
-					this.currentTasteIndex = ""
-					this.buyNumbersTaste = 0
-				}
-
-			},
-			sum() {
-				this.totalPrice = this.buyNumbersColor * 199;
-			},
+		
+			
 			pageSrollTo() {
 				uni.pageScrollTo({
 					scrollTop: this.scrollTop,
@@ -908,321 +694,7 @@
 			}
 		}
 
-		.goods_info_popup {
-			position: relative;
-
-			width: 100%;
-			box-sizing: border-box;
-			padding: 20upx 45upx;
-			border-radius: 12upx 12upx 0 0;
-			background-color: #fff;
-			transition: all 0.2s;
-			overflow: hidden;
-
-			.base_info {
-				background-color: #fff;
-				display: flex;
-				text-align: left;
-				overflow: hidden;
-
-				.poster {
-					flex-shrink: 0;
-					width: 180upx;
-					height: 180upx;
-					border-radius: 8upx;
-				}
-
-				.info_text {
-					margin-left: 41upx;
-					flex-grow: 1;
-					display: flex;
-					flex-direction: column;
-					justify-content: center;
-
-					.title {
-						font-size: 34upx;
-						line-height: 50upx;
-						color: #333;
-
-						.desc_text {
-							margin-left: 10upx;
-							font-size: 24upx;
-							color: #999;
-						}
-					}
-
-					.price {
-						font-size: 50upx;
-						line-height: 50upx;
-						color: #fb8c00;
-
-						.icon_rmb {
-							font-size: 22upx;
-						}
-
-						.source_price {
-							margin-left: 18upx;
-							font-family: SourceHanSansCN-Normal;
-							font-size: 26upx;
-							line-height: 60upx;
-							letter-spacing: 1px;
-							color: #999999;
-							text-decoration-line: line-through;
-						}
-					}
-				}
-			}
-		}
-
-		.attrs_wrapper {
-			position: relative;
-			padding: 0 45upx 50upx 45upx;
-			text-align: left;
-			padding-top: 50upx;
-			background-color: #fff;
-
-			.current {
-				position: absolute;
-				top: -100upx;
-				left: -100upx;
-			}
-
-			.colors_header {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				font-size: 30upx;
-				line-height: 30upx;
-				color: #323232;
-
-				image {
-					margin-top: -10upx;
-					width: 40upx;
-					height: 40upx;
-				}
-
-				.price {
-					margin-right: 30upx;
-					flex-grow: 1;
-					text-align: right;
-					color: #fb8c00;
-
-					.icon_rmb {
-						font-size: 26upx;
-					}
-
-					.price_num {
-						font-size: 50upx;
-					}
-				}
-			}
-
-			.colors {
-				display: flex;
-				flex-wrap: wrap;
-				margin-top: 41upx;
-
-				.color {
-					display: flex;
-					justify-content: center;
-					align-items: center;
-					width: 146upx;
-					height: 49upx;
-					flex-shrink: 0;
-					margin-bottom: 14upx;
-					margin-right: 25upx;
-					border-radius: 8upx;
-					line-height: 1;
-					font-size: 22upx;
-					border: 2upx solid #333;
-					color: #333;
-					box-sizing: border-box;
-
-					&.mr0 {
-						margin: 0;
-					}
-
-					&.active {
-						background: #fb8c00;
-						color: #fff;
-						border: 2upx solid #fb8c00;
-					}
-				}
-			}
-
-			.nums_header {
-				margin-top: 50upx;
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				font-size: 30upx;
-				line-height: 30upx;
-				color: #323232;
-
-				.nums-handle {
-					display: flex;
-					justify-content: center;
-					align-items: center;
-					width: 296upx;
-					height: 56upx;
-					border: 1upx solid #b6b6b6;
-					border-radius: 6upx;
-					font-size: 40upx;
-					color: #b6b6b6;
-
-					.text-icon {
-						box-sizing: border-box;
-						display: flex;
-						justify-content: center;
-						align-items: center;
-						width: 82upx;
-
-						&.del {
-							height: 100%;
-							border-right: 1upx solid #b6b6b6;
-						}
-
-						&.add {
-							height: 100%;
-							border-left: 1upx solid #b6b6b6;
-						}
-					}
-
-					.text-num {
-						flex-grow: 1;
-						text-align: center;
-						font-size: 29upx;
-						color: #040000;
-					}
-				}
-
-				.total_price {
-					color: #fb8c00;
-
-					.icon_rmb {
-						font-size: 24upx;
-					}
-
-					.price {
-						font-size: 38upx;
-						font-weight: bold;
-					}
-				}
-			}
-		}
-
-		.form-wrapper {
-			position: relative;
-			background: #fff;
-			padding: 0.1upx 0;
-
-			#anchor {
-				position: absolute;
-				height: 1upx;
-				top: -1200upx;
-				background: transparent;
-			}
-
-			.form-data {
-				padding: 0 45upx 100upx 45upx;
-
-				.take_info {
-					text-align: center;
-					line-height: 1;
-
-					.line_1 {
-						margin-top: 106upx;
-						font-size: 45upx;
-					}
-
-					.line_2 {
-						margin-top: 17upx;
-						font-size: 55upx;
-					}
-
-					.line_3 {
-						margin-top: 45upx;
-						font-size: 26upx;
-						color: #999;
-					}
-				}
-
-				.input-item {
-					margin-top: 51upx;
-
-					.text {
-						line-height: 1;
-						font-size: 30upx;
-						color: #323232;
-					}
-
-					.input {
-						padding: 27upx 0 15upx 0;
-						border-bottom: 1upx solid #b6b6b6;
-						font-size: 30upx;
-						color: #323232;
-
-						input {
-							line-height: normal;
-							transform: translateZ(0);
-						}
-					}
-
-					.choose_location {
-						display: flex;
-						justify-content: space-between;
-						align-items: center;
-
-						.picker {
-							margin-top: 23upx;
-							width: 200upx;
-							height: 76upx;
-							border: 1px solid #b6b6b6;
-							border-radius: 8upx;
-
-							.picker_text {
-								padding: 0 21upx;
-								height: 76upx;
-								display: flex;
-								justify-content: space-between;
-								align-items: center;
-
-								.text {
-									max-width: 180upx;
-									text-overflow: ellipsis;
-									overflow: hidden;
-									white-space: nowrap;
-									overflow: hidden;
-									font-size: 34upx;
-									color: #b6b6b6;
-
-									&.choosed {
-										color: #333;
-									}
-								}
-
-								image {
-									flex-shrink: 0;
-									width: 24upx;
-									height: 16upx;
-								}
-							}
-						}
-					}
-
-					.pay_way {
-						margin-top: 13upx;
-
-						.pay_inline {}
-
-						.pay_got {
-							// margin-left: 39upx;
-						}
-					}
-				}
-			}
-		}
-
+	
 		.comments {
 			width: 100%;
 			margin-bottom: 90upx;
@@ -1337,4 +809,5 @@
 			align-items: center;
 		}
 	}
+
 </style>

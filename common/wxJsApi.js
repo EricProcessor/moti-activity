@@ -63,8 +63,9 @@ export default {
 		let apiParams = await this.wxJsPay(code)
 		if(!apiParams) {
 			uni.showModal({
-				title:"网络异常,请刷新后再试"
+				title:"缺少code值"
 			})
+			this.failBack()
 			return ;
 		}
 		if (typeof WeixinJSBridge == "undefined") {

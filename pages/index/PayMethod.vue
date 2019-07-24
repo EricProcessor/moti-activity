@@ -1,17 +1,20 @@
 <template>
-	<view class="">
+	<view class="input-item">
+		<view class="text">选择支付方式 * </view>
+		<view class="pay_way">
 		<view class="payment-items" :class="{payTwo:!isPayTwo()}">
-
+		
 			<view class="item" :key="0" v-if="paramType !== 14" @click="choicePay" :class="{active:currentPay === 6,showTow:isPayTwo()}"
 			 :data-index="0">
 				货到付款
 			</view>
-			<view class="item" :key="1"   v-if="paramType != 7"  @click="choicePay" :class="{active:currentPay === 2}" :data-index="1">
+			<view class="item" :key="1" v-if="paramType != 7" @click="choicePay" :class="{active:currentPay === 2}" :data-index="1">
 				微信支付
 			</view>
-			<view class="item" :key="2"    v-if="paramType != 7"  @click="choicePay" :class="{active:currentPay === 3,showTow:isPayTwo()}" :data-index="2">
+			<view class="item" :key="2" v-if="paramType != 7" @click="choicePay" :class="{active:currentPay === 3,showTow:isPayTwo()}" :data-index="2">
 				支付宝支付
 			</view>
+		</view>
 		</view>
 	</view>
 </template>
@@ -300,6 +303,17 @@
 </script>
 
 <style lang="scss" scoped>
+	.input-item{
+		width: 660upx;
+		margin-top: 28px;
+		padding: 0 45upx 100upx 45upx;
+		
+		.text {
+			line-height: 1;
+			font-size: 30upx;
+			color: #323232;
+		}
+	}
 	.payment-items {
 
 		width: 660upx;
