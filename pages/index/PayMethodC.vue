@@ -335,6 +335,7 @@
 <style lang="scss" scoped>
 	.pay-body {
 		padding: 80upx 40upx;
+		background-color: #FFFFFF;
 
 		.pay-title {
 			font-size: 34upx;

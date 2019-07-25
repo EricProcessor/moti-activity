@@ -371,6 +371,7 @@
 	.panel-body {
 		padding: 0 40upx;
 		margin-top: 20upx;
+		background-color: #FFFFFF;
 	}
 
 	.to-order {

@@ -65,7 +65,7 @@
 			</view>
 			<view class="order-receive-info">
 				<view class="order-rece-title">
-					收货信息
+					订单信息
 				</view>
 
 				<view class="order-receive-line">

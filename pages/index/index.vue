@@ -264,6 +264,7 @@
 		methods: {
 			buyAgain(){
 				let userInfo = this.pageState.editOrderForm.userInfo
+				if(userInfo[3]) userInfo[3].value = ""
 				this.pageState.editOrderForm = {
 					isShowTastes:false,
 					buyNumbersColor : 1,
