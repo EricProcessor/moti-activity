@@ -6,20 +6,24 @@ export default {
 		title: "MOTI D11 电子烟套装 雾化 换弹小烟",
 		taste: [{
 				text: "经典烟草",
-				sku: "112492581559"
+				sku: "112492581559",
+				src:"../../static/images/icons/jdyc.jpg"
 			},
 
 			{
 				text: "绿豆冰沙",
-				sku: "112492581718"
+				sku: "112492581718",
+				src:"../../static/images/icons/ldbs.jpg"
 			},
 			{
 				text: "风情芒果",
-				sku: "112492581686"
+				sku: "112492581686",
+				src:"../../static/images/icons/fqmg.jpg"
 			},
 			{
 				text: "激爽薄荷",
-				sku: "112492575952"
+				sku: "112492575952",
+				src:"../../static/images/icons/jsbh.jpg"
 			},
 		],
 	},

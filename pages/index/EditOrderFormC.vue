@@ -63,14 +63,14 @@
 				
 			<view class="taste-detail">
 				<view class="taste-image">
-					<image src="../../static/images/icons/718.png" mode=""></image>
+					<image :src="defaultShowTaste.src" mode=""></image>
 				</view>
 				<view class="taste-title">
 					<view class="taste-item-title">
 						MOTI 电子烟雾化烟弹
 					</view>
 					<view class="taste-item-spec">
-						口味：经典烟草
+						口味：{{defaultShowTaste.text}}
 					</view>
 					<view class="taste-price">
 						￥<text>35.00</text>
@@ -192,6 +192,10 @@
 			
 			totalPrice() {
 				return this.buyNumbersColor * 199 + this.buyNumbersTaste * 35.00;
+			},
+			defaultShowTaste(){
+				let index = this.currentTasteIndex ? this.currentTasteIndex : 0;
+				return this.goods.taste[index]
 			}
 		},
 		watch: {
@@ -540,8 +544,10 @@
 			.taste-image {
 				width: 120upx;
 				height: 120upx;
-
+			
 				image {
+				/* 	border: 1upx solid #b6b6b6;
+					border-radius: 10upx; */
 					width: 120upx;
 					height: 120upx;
 				}

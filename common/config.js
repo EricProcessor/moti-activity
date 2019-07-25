@@ -1,13 +1,13 @@
 const config = {}
 config.host = process.env.NODE_ENV === 'development' 
 	? 
-		"http://192.168.0.92:8085/api" // 开发环境 注册
+		"http://192.168.0.99:8085/api" // 开发环境 注册
 	: 
 		'http://motiactivity.motimall.cn/api'	// 生产环境
 		
 config.hostOrder  = process.env.NODE_ENV === 'development' 
 	? 
-		"http://192.168.0.92:8085/api" // 开发环境 下单
+		"http://192.168.0.99:8085/api" // 开发环境 下单
 	: 
 		'http://motiactivity.motimall.cn/api'	// 生产环境		
 export default config

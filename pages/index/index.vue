@@ -467,11 +467,13 @@
 				let cartridgesSkuName = ""
 				let tobaccoSkuSrc = ""
 				let totalPrice = 0
+				let cartridgesSkuSrc = ""
 				for(let item of Goods.goods.taste){
 					
 					if(item.sku == data.pageOrder.cartridgesSku){
 						cartridgesSkuName = item.text
 						totalPrice += data.pageOrder.cartridgesSkuNum * 35.00
+						cartridgesSkuSrc = item.src
 						break;
 					}
 				}
@@ -507,7 +509,7 @@
 				if(data.pageOrder.cartridgesSku){
 					OrderDetail.list.push(
 					{
-						src:tobaccoSkuSrc,
+						src:cartridgesSkuSrc,
 						title:"电子烟雾化烟弹 ",
 						desc:"口味:"+cartridgesSkuName,
 						price:"35.00",
