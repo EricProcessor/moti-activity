@@ -937,13 +937,13 @@ export default {
         'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_8/last.jpg',
         'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_9/last.png',
 		'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_10/11.jpg',
-		'../../static/type/11/15.jpg',
-		'../../static/type/12/18.jpg',
-		'../../static/type/11/15.jpg',
 		'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/last.jpg',
-		'../../static/type/11/15.jpg',
-		'../../static/type/11/15.jpg',
-		'../../static/type/11/15.jpg',
+		'../../static/type/12/18.jpg',
+		'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/last.jpg',
+		'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/last.jpg',
+		'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/last.jpg',
+		'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/last.jpg',
+		'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/last.jpg',
 		
 		
     ]
