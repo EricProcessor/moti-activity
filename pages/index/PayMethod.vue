@@ -151,8 +151,10 @@
 								if (res.data.code !== "0") return;
 								if (res.data.result == 20) {
 									this.$emit("payCallBack", {
-										submitState: -2
+										submitState: -3
 									})
+									let res = await this.wxWap()
+									return ;
 								}
 								if (res.data.result == 30) {
 									this.$emit("payCallBack", {
@@ -229,10 +231,11 @@
 				this.$emit("choicePay", this.currentPay)
 			},
 			async wxWap() { //微信map 支付
+		    	let payOrderParam = uni.getStorageSync("payOrderParam")
 				let orderRes = await newOrder("/activity1/pay/wx", {
-					orderNo: this.orderInfo.orderNo,
-					spuName: this.orderInfo.spuName,
-					ip: this.orderInfo.ip
+					orderNo: payOrderParam.orderNo,
+					spuName: payOrderParam.spuName,
+					ip: payOrderParam.ip
 
 				})
 				if (orderRes.data.code === "0") {

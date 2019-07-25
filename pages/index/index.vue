@@ -293,18 +293,27 @@
 						this.popUpCardMsg = "订单取消支付"
 						this.popupCardText = "您已手动取消订单，请重新提交支付"
 					}
+					else if(this.submitState == -3){
+						
+					}
 					else {
 						if(this.payType === 6) this.popUpCardMsg = "订单提交失败"
 						else this.popUpCardMsg = "订单支付失败"
 						this.popupCardText = "网络暂时离线, 请重新提交~~"
 					}
 					this.isOrderSuccess = 0
-					this.isShowPopupCard = true
+					
 					this.pageState =  (!this.pageState || JSON.stringify(this.pageState) == "{}") ?  uni.getStorageSync("pageState") :  this.pageState ;
-					uni.removeStorageSync("pageState")
+					
 					this.ispolling = 0;
 					uni.hideLoading();
-					uni.removeStorageSync("orderPay")
+					if(this.submitState != -3){//重新支付
+						this.isShowPopupCard = true
+						uni.removeStorageSync("pageState")
+						uni.removeStorageSync("orderPay")	
+						uni.removeStorageSync("payOrderParam")
+					}
+					
 					this.pageSrollTo()
 				}
 				if (typeof data.ispolling !== "undefined") {
@@ -536,6 +545,7 @@
 				if (res.data.code == 0) {
 					this.preserveScene()
 					this.orderResult = Object.assign(this.orderResult, JSON.parse(res.data.result))
+					uni.setStorageSync("payOrderParam",this.orderResult)
 					this.storeOrderDetail(data,this.orderResult)	
 					this.isOrderSuccess = 1
 					//this.popupCardText = "24小时内人工客服会与您联络请保持手机通畅";
@@ -574,9 +584,8 @@
 					this.currentScrollY = pageState.currentScrollY
 				}	
 				this.pageState = pageState
-				uni.removeStorageSync("pageState")
-			
-
+				//uni.removeStorageSync("pageState")
+				
 			},
 			reload() {
 				// uni.navigateTo({
