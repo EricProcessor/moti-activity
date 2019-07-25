@@ -92,7 +92,7 @@
 				</view>
 			</view>
 			<view class="order-again">
-				<button @click="$emit('againBuy')" type="primary">再来一单</button>
+				<button @click="$emit('againBuy')" >再来一单</button>
 			</view>
 
 		</view>
@@ -165,7 +165,7 @@
 				display: flex;
 				margin-top: 42upx;
 				align-items: center;
-				margin-bottom: 94upx;
+				margin-bottom: 60upx;
 
 				.order-address-left {
 					width: 56upx;
@@ -282,8 +282,8 @@
 			}
 
 			.order-receive-info {
-				margin-top: 96upx;
-				margin-bottom: 140upx;
+				margin-top: 60upx;
+				padding-bottom: 140upx;
 
 				.order-rece-title {
 					height: 63upx;
@@ -315,7 +315,7 @@
 
 			.order-again {
 				margin-top: 85upx;
-				margin-top: 85upx;
+			
 				position: fixed;
 				left: 0;
 				right: 0;
@@ -326,14 +326,15 @@
 				align-items: center;
 				background-color: #FFFFFF;
 				button {
-					width: 670upx;
+					width: 100%;
 					height: 105upx;
 					background-color: #ff4d3d;
 					color: #FFFFFF;
 					line-height: 105upx;
 					font-size: 42upx;
-					border-radius: 52.5upx;
+					//border-radius: 52.5upx;
 					border: none;
+					border-radius: 0
 				}
 			}
 		}

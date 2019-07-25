@@ -8,10 +8,10 @@
 			 :data-index="0">
 				货到付款
 			</view>
-			<view class="item" :key="1" v-if="paramType != 7" @click="choicePay" :class="{active:currentPay === 2}" :data-index="1">
+			<view class="item" :key="1"  @click="choicePay" :class="{active:currentPay === 2}" :data-index="1">
 				微信支付
 			</view>
-			<view class="item" :key="2" v-if="paramType != 7" @click="choicePay" :class="{active:currentPay === 3,showTow:isPayTwo()}" :data-index="2">
+			<view class="item" :key="2"  @click="choicePay" :class="{active:currentPay === 3,showTow:isPayTwo()}" :data-index="2">
 				支付宝支付
 			</view>
 		</view>

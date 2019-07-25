@@ -1,12 +1,30 @@
 <template>
 	<view class="panel-body">
+		<view class="to-order">
+			<view class="to-order-title">
+				<view class="title-en">
+					<image src="../../static/images/icons/place-an-order.png" mode=""></image>
+				</view>
+				<view class="title-cn">
+					我要下单
+				</view>
+			</view>
+			<view class="broadcast-order">
+
+				<image class="broadcast-icon" src="../../static/images/icons/sound.png" mode=""></image>
+
+				<view class="broadcast-desc">
+					已有<text>668</text>人提交订单
+				</view>
+			</view>
+		</view>
 		<view class="goods_info_popup">
 			<view class="base_info">
 				<image class="poster" :src="backgrounds[currentSpecIndex]"></image>
 				<view class="info_text">
 					<view class="title">
 						<view class="title_text">{{goods.title}} <text class="desc_text"> (1烟杆+1经典烟草烟弹)</text> </view>
-						
+
 					</view>
 					<view class="price">
 						<text class="icon_rmb">¥</text>
@@ -21,10 +39,11 @@
 				请选择烟杆颜色
 			</view>
 			<view class="attrs-group">
-				<view  :key="index" class="item-color" :class="{active: index === currentSpecIndex }"    @touchend="chooseSpec"  :data-index="index"  v-for="(item,index) in spec">
+				<view :key="index" class="item-color" :class="{active: index === currentSpecIndex }" @touchend="chooseSpec"
+				 :data-index="index" v-for="(item,index) in spec">
 					{{item.text}}
 				</view>
-				
+
 			</view>
 		</view>
 		<view class="purchase-wrapper">
@@ -38,12 +57,12 @@
 				<view class="number">
 					{{buyNumbersColor}}
 				</view>
-				<view class="add"  @click="numsUpColor">
+				<view class="add" @click="numsUpColor">
 					+
 				</view>
 			</view>
 		</view>
-		<view class="attrs_groups" :class="{'hide-show-taste':!isShowTastes}" >
+		<view class="attrs_groups" :class="{'hide-show-taste':!isShowTastes}">
 			<view class="taste-header">
 				<view class="taste-header-right">
 					<view class="taste-icon">
@@ -60,45 +79,46 @@
 				</view>
 			</view>
 			<view class="no-show-taste" v-show="isShowTastes">
-				
-			<view class="taste-detail">
-				<view class="taste-image">
-					<image :src="defaultShowTaste.src" mode=""></image>
-				</view>
-				<view class="taste-title">
-					<view class="taste-item-title">
-						MOTI 电子烟雾化烟弹
+
+				<view class="taste-detail">
+					<view class="taste-image">
+						<image :src="defaultShowTaste.src" mode=""></image>
 					</view>
-					<view class="taste-item-spec">
-						口味：{{defaultShowTaste.text}}
-					</view>
-					<view class="taste-price">
-						￥<text>35.00</text>
-					</view>
-				</view>
-			</view>
-			<view class="taste-groups">
-				<view class="taste-item"   :key="index" @tap="chooseTaste" :data-index="index" :class="{active: index === currentTasteIndex, mr0: (index + 1) % 4 === 0}" v-for="(item, index) in goods.taste">
-					{{item.text}}
-				</view>
-				
-			</view>
-			<view class="purchase-wrapper">
-				<view class="purchase-title mini-title">
-					购买烟弹数量
-				</view>
-				<view class="number-handle">
-					<view class="del"  @click="numsDownTaste">
-						-
-					</view>
-					<view class="number">
-						{{buyNumbersTaste}}
-					</view>
-					<view class="add" @click="numsUpTaste">
-						+
+					<view class="taste-title">
+						<view class="taste-item-title">
+							MOTI 电子烟雾化烟弹
+						</view>
+						<view class="taste-item-spec">
+							口味：{{defaultShowTaste.text}}
+						</view>
+						<view class="taste-price">
+							￥<text>35.00</text>
+						</view>
 					</view>
 				</view>
-			</view>
+				<view class="taste-groups">
+					<view class="taste-item" :key="index" @tap="chooseTaste" :data-index="index" :class="{active: index === currentTasteIndex, mr0: (index + 1) % 4 === 0}"
+					 v-for="(item, index) in goods.taste">
+						{{item.text}}
+					</view>
+
+				</view>
+				<view class="purchase-wrapper">
+					<view class="purchase-title mini-title">
+						购买烟弹数量
+					</view>
+					<view class="number-handle">
+						<view class="del" @click="numsDownTaste">
+							-
+						</view>
+						<view class="number">
+							{{buyNumbersTaste}}
+						</view>
+						<view class="add" @click="numsUpTaste">
+							+
+						</view>
+					</view>
+				</view>
 			</view>
 		</view>
 		<view class="total-price">
@@ -110,15 +130,14 @@
 				收货信息
 			</view>
 			<view class="form-group">
-					<view class="input-item" v-for="(item, index) in userInfo" :key="index">
+				<view class="input-item" v-for="(item, index) in userInfo" :key="index">
 					<view class="text">{{item.text}}</view>
-					
+
 					<view class="input">
-						<input type="text" 
-						placeholder-style="color: #b6b6b6;font-size:30upx;height: 30upx;line-height:30upx;" 
-						:placeholder="item.placeholder" v-model="item.value">
+						<input type="text" placeholder-style="color: #b6b6b6;font-size:30upx;height: 30upx;line-height:30upx;"
+						 :placeholder="item.placeholder" v-model="item.value">
 					</view>
-				
+
 				</view>
 			</view>
 		</view>
@@ -171,9 +190,9 @@
 						value: "",
 						placeholder: "如果购买多件商品，可备注留言选择颜色"
 					}
-				
+
 				],
-			
+
 			}
 		},
 		props: {
@@ -181,32 +200,32 @@
 				type: Boolean,
 				default: false,
 			},
-			initData:{
-				type:Object,
-				default:function(){
+			initData: {
+				type: Object,
+				default: function() {
 					return {}
 				}
 			}
 		},
 		computed: {
-			
+
 			totalPrice() {
 				return this.buyNumbersColor * 199 + this.buyNumbersTaste * 35.00;
 			},
-			defaultShowTaste(){
+			defaultShowTaste() {
 				let index = this.currentTasteIndex ? this.currentTasteIndex : 0;
 				return this.goods.taste[index]
 			}
 		},
 		watch: {
 			isClear() {
-				
+
 				this.currentSpecIndex = 0;
 				this.buyNumbersColor = 1;
 				this.currentTasteIndex = "";
 				this.buyNumbersTaste = 0;
 
-				this.userInfo =  [{
+				this.userInfo = [{
 						text: "收货人",
 						value: "",
 						placeholder: "请输入姓名"
@@ -226,21 +245,21 @@
 						value: "",
 						placeholder: "如果购买多件商品，可备注留言选择颜色"
 					}
-				
+
 				]
 			}
 
 		},
 		created() {
-			console.log("child init ..",this.initData)
-			if(!this.initData || JSON.stringify(this.initData) === '{}') return ;
-			this.userInfo = Object.assign(this.userInfo,this.initData.userInfo)
+			console.log("child init ..", this.initData)
+			if (!this.initData || JSON.stringify(this.initData) === '{}') return;
+			this.userInfo = Object.assign(this.userInfo, this.initData.userInfo)
 			this.buyNumbersColor = this.initData.buyNumbersColor
 			this.buyNumbersTaste = this.initData.buyNumbersTaste
 			this.currentSpecIndex = this.initData.currentSpecIndex
 			this.currentTasteIndex = this.initData.currentTasteIndex
 			this.isShowTastes = this.initData.isShowTastes
-			
+
 		},
 		methods: {
 
@@ -338,7 +357,7 @@
 					tobaccoSkuNum: this.buyNumbersColor,
 					cartridgesSku: this.currentTasteIndex === "" ? "" : this.goods.taste[this.currentTasteIndex].sku,
 					cartridgesSkuNum: this.currentTasteIndex === "" ? 0 : this.buyNumbersTaste,
-					remark:this.userInfo[3].value
+					remark: this.userInfo[3].value
 				};
 				return orderInfo
 			}
@@ -354,6 +373,61 @@
 		margin-top: 20upx;
 	}
 
+	.to-order {
+		text-align: center;
+		
+
+		.to-order-title {
+			font-weight: bold;
+			margin-bottom: 71upx;
+
+			.title-en {
+				height: 32upx;
+				text-align: center;
+				margin-bottom: 20upx;
+				image{
+					height: 100%;
+					width: 425upx;
+					display: inline-block;
+				}
+			}
+
+			.title-cn {
+				font-size: 55upx;
+			}
+		}
+
+		.broadcast-order {
+			display: flex;
+			padding: 0 67upx;
+			align-items: center;
+			width: 670upx;
+			height: 88upx;
+			box-sizing: border-box;
+			border-radius: 43.75upx;
+			border: 1upx solid #b6b6b6;
+			line-height: 88upx;
+			font-size: 36upx;
+			margin-bottom: 80upx;
+
+			.broadcast-desc {
+				margin-left: 70upx;
+
+				text {
+					font-weight: bold;
+					color: #ff4e3e;
+
+				}
+			}
+
+			.broadcast-icon {
+				width: 52upx;
+				height: 46upx;
+			}
+
+		}
+	}
+
 	.goods_info_popup {
 
 		.base_info {
@@ -365,7 +439,7 @@
 				box-sizing: border-box;
 				border-radius: 10upx;
 				border: 1upx solid #b6b6b6;
-				flex-shrink:0;
+				flex-shrink: 0;
 			}
 
 			.info_text {
@@ -384,7 +458,7 @@
 						font-weight: normal;
 						margin-left: 10upx;
 
-					
+
 					}
 				}
 
@@ -502,7 +576,7 @@
 			justify-content: space-between;
 			padding-bottom: 16upx;
 			border-bottom: 2upx solid #cccccc;
-			
+
 			.taste-header-right {
 				display: flex;
 
@@ -544,9 +618,9 @@
 			.taste-image {
 				width: 120upx;
 				height: 120upx;
-			
+
 				image {
-				/* 	border: 1upx solid #b6b6b6;
+					/* 	border: 1upx solid #b6b6b6;
 					border-radius: 10upx; */
 					width: 120upx;
 					height: 120upx;
@@ -608,63 +682,68 @@
 			}
 		}
 
-		&.hide-show-taste{
+		&.hide-show-taste {
 			height: 95upx;
 			box-sizing: border-box;
-			.taste-header{
+
+			.taste-header {
 				border: none;
 			}
 		}
-		
+
 	}
-	
+
 	.total-price {
 		text-align: right;
 		font-size: 34upx;
 		margin-top: 50upx;
-	
+
 		.price-type {
 			color: #ff4d3d;
 			font-size: 26upx;
-	
+
 		}
-	
+
 		.price-number {
 			font-size: 50upx;
 			font-weight: bold;
 			color: #ff4d3d;
 		}
-	
+
 	}
-	.form-wrapper{
+
+	.form-wrapper {
 		margin-top: 69upx;
-		.form-title{
+
+		.form-title {
 			font-size: 34upx;
 			//font-weight: bold;
 		}
+
 		.input-item {
 			margin-top: 51upx;
+
 			.text {
 				line-height: 1;
 				font-size: 30upx;
 				color: #323232;
 			}
-		
+
 			.input {
 				//margin-top: 27upx;
 				padding: 27upx 0 15upx 0;
 				border-bottom: 1upx solid #b6b6b6;
 				font-size: 30upx;
 				color: #323232;
-				
-		
+
+
 				input {
 					//line-height: normal;
 					transform: translateZ(0);
 					height: 30upx;
 				}
 			}
-		
+
 		}
 	}
 </style>

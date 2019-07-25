@@ -133,14 +133,14 @@
 		
 			isShowBuyNow() {
 				if(this.paramType != 15) return  !this.scrollTop || (this.currentScrollY <= (this.scrollTop - 400))
-				return  !this.scrollTop || (this.currentScrollY > (this.scrollTop + 400))
+				return  !this.scrollTop || (this.currentScrollY < (this.scrollTop )) || (this.currentScrollY >= uni.upx2px(2480))
 			},
 			isC(){
-				if(this.paramType >12) return true;
+				if(this.paramType >15) return true;
 				return false
 			},
 			isAB(){
-				if(this.paramType <= 12) return true;
+				if(this.paramType <= 15) return true;
 				return false
 			}
 		},
@@ -258,8 +258,7 @@
 		},
 		onPageScroll(e) {
 			this.isFixed = e.scrollTop > 400
-			this.currentScrollY  = e.scrollTop
-			
+			this.currentScrollY  = e.scrollTop		
 		},
 
 		methods: {
@@ -343,6 +342,7 @@
 					this.ispolling = 0
 					return
 				}
+				if(this.isShowBuyNow) return ;
 				console.log(this.$refs)
 				let vadation = this.$refs.EditOrderForm.checkSubmit()
 				if(vadation.code == 1){
@@ -430,11 +430,12 @@
 			},
 			
 			closePopup(data) {
+				console.log(data)
 				if (this.submitState === 1) {
 					
 					(this.isShowPopupCard = false),
 					(this.submitState = -1);
-					if(this.isC && data.showDetail) return this.getOrderDetail();
+					if(this.isC && data && data.showDetail) return this.getOrderDetail();
 					(this.isClearForm = !this.isClearForm);
 					
 				} else {

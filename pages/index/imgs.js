@@ -837,6 +837,95 @@ export default {
 			
 		]
 	},
+	imgs16:{
+		swipers: [
+		    
+		],
+		imgs:[
+			{
+				url: '../../static/type/16/MOTI-01.jpg',
+				width: 750,
+				height: 881,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/16/MOTI-02.jpg',
+				width: 750,
+				height: 1081,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/16/MOTI-03.jpg',
+				width: 750,
+				height: 1181,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/16/MOTI-04.jpg',
+				width: 750,
+				height: 1733,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/16/MOTI-05.jpg',
+				width: 750,
+				height: 1437,
+				isLoaded: false
+			},
+		
+		]
+	},
+	imgs17:{
+		swipers: [
+		    
+		],
+		imgs:[
+			{
+				url: '../../static/type/17/MOTI_01.jpg',
+				width: 750,
+				height: 921,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/17/MOTI_02.jpg',
+				width: 750,
+				height: 940,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/17/MOTI_03.jpg',
+				width: 750,
+				height: 1237,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/17/MOTI_04.jpg',
+				width: 750,
+				height: 1397,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/17/MOTI_05.jpg',
+				width: 750,
+				height: 1233,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/17/MOTI_06.jpg',
+				width: 750,
+				height: 799,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/17/MOTI_07.jpg',
+				width: 750,
+				height: 1819,
+				isLoaded: false
+			},
+			
+			
+		]
+	},
     lastImgs: [
         'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_1/last.jpg',
         'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_2/last.jpg',
@@ -852,6 +941,8 @@ export default {
 		'../../static/type/12/18.jpg',
 		'../../static/type/11/15.jpg',
 		'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/last.jpg',
+		'../../static/type/11/15.jpg',
+		'../../static/type/11/15.jpg',
 		'../../static/type/11/15.jpg',
 		
 		
