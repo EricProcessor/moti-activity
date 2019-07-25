@@ -410,6 +410,8 @@
 			line-height: 88upx;
 			font-size: 36upx;
 			margin-bottom: 80upx;
+			//box-shadow: #ff4d3d;
+			box-shadow:0px 20upx 40upx -25upx #fddbdf;
 
 			.broadcast-desc {
 				margin-left: 70upx;

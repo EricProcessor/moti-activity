@@ -125,8 +125,9 @@
 
 <style lang="scss" scoped>
 	.order-dtail {
-		padding: 0 40upx;
+		padding: 10upx  40upx 0 40upx;
 		letter-spacing: 2upx;
+		margin-top: 36upx;
 		background-color: #FFFFFF;
 
 		.order-header {
@@ -170,6 +171,7 @@
 				.order-address-left {
 					width: 56upx;
 					height: 56upx;
+					flex-shrink: 0;
 
 					image {
 						width: 100%;
@@ -298,7 +300,7 @@
 
 					.order-receive-item {
 						line-height: 56upx;
-						height: 56upx;
+						//height: 56upx;
 
 						.ori-title {
 							font-size: 26upx;

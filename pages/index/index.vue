@@ -136,7 +136,7 @@
 				return  !this.scrollTop || (this.currentScrollY < (this.scrollTop )) || (this.currentScrollY >= uni.upx2px(2480))
 			},
 			isC(){
-				if(this.paramType >15) return true;
+				if(this.paramType == 16 || this.paramType == 17) return true;
 				return false
 			},
 			isAB(){
