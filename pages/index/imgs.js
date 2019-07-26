@@ -17,7 +17,7 @@
 //             'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_2/2.jpg',
 //             'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_2/3.jpg',
 //             'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_2/4.jpg',
-// 
+//
 //         ],
 //     },
 //     imgs3: {
@@ -118,7 +118,7 @@
 //         'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/last.jpg',
 //         'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_8/last.jpg',
 //         'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_9/last.png'
-// 
+//
 //     ]
 // }
 
@@ -254,7 +254,7 @@ export default {
 				width: 750,
 				height: 1101
 			},
-			
+
 			{
 				url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_5/5.jpg',
 				width: 750,
@@ -443,7 +443,7 @@ export default {
 		    '../../static/type/10/22.png',
 		],
 		imgs:[
-			
+
 			{
 				url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_10/2.jpg',
 				width: 750,
@@ -498,8 +498,8 @@ export default {
 				height: 1200,
 				isLoaded: false
 			},
-			
-			
+
+
 		]
 	},
 	imgs11:{
@@ -587,7 +587,7 @@ export default {
 				height: 430,
 				isLoaded: false
 			}
-				
+
 		]
 	},
 	imgs12:{
@@ -698,7 +698,7 @@ export default {
 				width: 750,
 				height: 1540,
 				isLoaded: false
-			}	
+			}
 		]
 	},
 	imgs13:{
@@ -744,7 +744,7 @@ export default {
 				height: 430,
 				isLoaded: false
 			},
-			
+
 		]
 	},
 	 imgs14: {
@@ -833,13 +833,13 @@ export default {
 				height: 2507,
 				isLoaded: false
 			},
-		
-			
+
+
 		]
 	},
 	imgs16:{
 		swipers: [
-		    
+
 		],
 		imgs:[
 			{
@@ -872,12 +872,12 @@ export default {
 				height: 643,
 				isLoaded: false
 			},
-		
+
 		]
 	},
 	imgs17:{
 		swipers: [
-		    
+
 		],
 		imgs:[
 			{
@@ -922,10 +922,370 @@ export default {
 				height: 1819,
 				isLoaded: false
 			},
-			
-			
+
+
 		]
 	},
+    imgs18: {
+        swipers: [
+            'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_8/swiper_1.png',
+            '../../static/type/8/MOTI-02.jpg',
+            'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_8/swiper_3.png'
+        ],
+        imgs: [
+            {
+                url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_8/1.jpg',
+                width: 750,
+                height: 1069
+            },
+            {
+                url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_8/2.jpg',
+                width: 750,
+                height: 900
+            },
+            {
+                url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_8/3.jpg',
+                width: 750,
+                height: 1039
+            },
+            {
+                url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_8/4.jpg',
+                width: 750,
+                height: 1038
+            },
+            {
+                url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_8/5.jpg',
+                width: 750,
+                height: 1040
+            },
+            {
+                url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_8/6.jpg',
+                width: 750,
+                height: 1983
+            },
+            {
+                url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_8/7.jpg',
+                width: 750,
+                height: 1446
+            }
+        ]
+    },
+    imgs19: {
+        swipers: [
+            'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_9/swiper_1.png',
+            'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_9/swiper_2.png',
+            'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_9/swiper_3.png',
+        ],
+        imgs: [
+            {
+                url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_9/1.png',
+                width: 750,
+                height: 2423,
+                isLoaded: false
+            },
+            {
+                url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_9/2.png',
+                width: 750,
+                height: 1351,
+                isLoaded: false
+            },
+            {
+                url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_9/3.gif',
+                width: 750,
+                height: 1291,
+                isLoaded: false
+            },
+            {
+                url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_9/4.png',
+                width: 750,
+                height: 1615,
+                isLoaded: false
+            },
+            {
+                url: '../static/type/9/MOTI-05.png',
+                width: 750,
+                height: 2024,
+                isLoaded: false
+            },
+            {
+                url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_9/6.png',
+                width: 750,
+                height: 3536,
+                isLoaded: false
+            },
+            {
+                url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_9/7.png',
+                width: 750,
+                height: 2101,
+                isLoaded: false
+            }
+        ]
+    },
+    imgs20:{
+        swipers: [
+            'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_10/1.jpg',
+            '../../static/type/10/2.jpg',
+            '../../static/type/10/22.png',
+        ],
+        imgs:[
+
+            {
+                url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_10/2.jpg',
+                width: 750,
+                height: 303,
+                isLoaded: false
+            },
+            {
+                url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_10/3.jpg',
+                width: 750,
+                height: 766,
+                isLoaded: false
+            },
+            {
+                url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_10/4.jpg',
+                width: 750,
+                height: 1030,
+                isLoaded: false
+            },
+            {
+                url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_10/5.jpg',
+                width: 750,
+                height: 1030,
+                isLoaded: false
+            },
+            {
+                url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_10/6.jpg',
+                width: 750,
+                height: 1022,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/10/7.png',
+                width: 750,
+                height: 1090,
+                isLoaded: false
+            },
+            {
+                url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_10/8.jpg',
+                width: 750,
+                height: 1018,
+                isLoaded: false
+            },
+            {
+                url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_10/9.jpg',
+                width: 750,
+                height: 1160,
+                isLoaded: false
+            },
+            {
+                url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_10/10.jpg',
+                width: 750,
+                height: 1200,
+                isLoaded: false
+            },
+
+
+        ]
+    },
+    imgs21:{
+        swipers: [
+            '../../static/type/11/1.jpg',
+            '../../static/type/11/1-1.jpg',
+            '../../static/type/11/1-2.png',
+        ],
+        imgs:[
+            {
+                url: '../../static/type/11/2.jpg',
+                width: 750,
+                height: 280,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/11/3.jpg',
+                width: 750,
+                height: 666,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/11/4.jpg',
+                width: 750,
+                height: 1040,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/11/5.jpg',
+                width: 750,
+                height: 1160,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/11/6.jpg',
+                width: 750,
+                height: 912,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/11/7.jpg',
+                width: 750,
+                height: 1386,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/11/8.jpg',
+                width: 750,
+                height: 1060,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/11/9.jpg',
+                width: 750,
+                height: 1110,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/11/10.jpg',
+                width: 750,
+                height: 940,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/11/11.jpg',
+                width: 750,
+                height: 1200,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/11/12.jpg',
+                width: 750,
+                height: 670,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/11/13.jpg',
+                width: 750,
+                height: 1420,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/11/14.jpg',
+                width: 750,
+                height: 430,
+                isLoaded: false
+            }
+
+        ]
+    },
+    imgs22:{
+        swipers: [
+            '../../static/type/12/1.jpg',
+            '../../static/type/12/1-1.jpg',
+            '../../static/type/12/1-2.jpg',
+        ],
+        imgs:[
+            {
+                url: '../../static/type/12/2.jpg',
+                width: 750,
+                height: 320,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/12/3_1.gif',
+                width: 750,
+                height: 579,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/12/3_2.gif',
+                width: 750,
+                height: 579,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/12/4.jpg',
+                width: 750,
+                height: 866,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/12/5.jpg',
+                width: 750,
+                height: 1550,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/12/6.jpg',
+                width: 750,
+                height: 990,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/12/7.jpg',
+                width: 750,
+                height: 958,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/12/8.jpg',
+                width: 750,
+                height: 1320,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/12/9.jpg',
+                width: 750,
+                height: 1216,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/12/10.jpg',
+                width: 750,
+                height: 1268,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/12/11.jpg',
+                width: 750,
+                height: 1290,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/12/12.jpg',
+                width: 750,
+                height: 1190,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/12/13.jpg',
+                width: 750,
+                height: 1190,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/12/14.jpg',
+                width: 750,
+                height: 1160,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/12/15.jpg',
+                width: 750,
+                height: 2080,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/12/16.jpg',
+                width: 750,
+                height: 1440,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/12/17.jpg',
+                width: 750,
+                height: 1540,
+                isLoaded: false
+            }
+        ]
+    },
     lastImgs: [
         'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_1/last.jpg',
         'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_2/last.jpg',
@@ -944,7 +1304,12 @@ export default {
 		'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/last.jpg',
 		'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/last.jpg',
 		'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/last.jpg',
-		
-		
+		'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/last.jpg',
+		'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/last.jpg',
+		'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/last.jpg',
+		'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/last.jpg',
+		'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/last.jpg',
+
+
     ]
 }
