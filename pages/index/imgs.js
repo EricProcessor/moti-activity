@@ -344,7 +344,7 @@ export default {
     imgs8: {
         swipers: [
             'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_8/swiper_1.png',
-            'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_8/swiper_2.png',
+            '../../static/type/8/MOTI-02.jpg',
 			'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_8/swiper_3.png'
         ],
         imgs: [
@@ -417,7 +417,7 @@ export default {
 				isLoaded: false
 			},
 			{
-				url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_9/5.png',
+				url: '../static/type/9/MOTI-05.png',
 				width: 750,
 				height: 2024,
 				isLoaded: false
@@ -440,7 +440,7 @@ export default {
 		 swipers: [
 			 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_10/1.jpg',
 		    '../../static/type/10/2.jpg',
-		    '../../static/type/10/22.jpg',
+		    '../../static/type/10/22.png',
 		],
 		imgs:[
 			
@@ -475,7 +475,7 @@ export default {
 				isLoaded: false
 			},
 			{
-				url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_10/7.jpg',
+				url: '../../static/type/10/7.png',
 				width: 750,
 				height: 1090,
 				isLoaded: false
@@ -506,7 +506,7 @@ export default {
 		 swipers: [
 		    '../../static/type/11/1.jpg',
 			'../../static/type/11/1-1.jpg',
-			'../../static/type/11/1-2.jpg',
+			'../../static/type/11/1-2.png',
 		],
 		imgs:[
 			{
@@ -648,13 +648,13 @@ export default {
 			{
 				url: '../../static/type/12/9.jpg',
 				width: 750,
-				height: 1250,
+				height: 1216,
 				isLoaded: false
 			},
 			{
 				url: '../../static/type/12/10.jpg',
 				width: 750,
-				height: 1250,
+				height: 1268,
 				isLoaded: false
 			},
 			{

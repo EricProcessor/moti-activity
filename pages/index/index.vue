@@ -144,6 +144,10 @@
 			isAB(){
 				if(this.paramType <= 15 || (this.paramType >=18 && this.paramType <= 22)) return true;
 				return false
+			},
+			pageUniqueID(){
+				
+				return this.urlParams.type + "-" + this.urlParams.orderSource + "-" + this.urlParams.channel + "-" + this.urlParams.material
 			}
 		},
 		data() {
@@ -262,7 +266,7 @@
 			this.isFixed = e.scrollTop > 400
 			this.currentScrollY  = e.scrollTop		
 		},
-
+		
 		methods: {
 			buyAgain(){
 				let userInfo = this.pageState.editOrderForm.userInfo
@@ -276,11 +280,16 @@
 					userInfo:userInfo
 				}
 				this.isShowOrderDetail = false
+				this.pageSrollTo()
 				
 			},
 			setIspolling() {//触发查询支付结果
 				let orderPay = uni.getStorageSync("orderPay")
 				if (!orderPay) return;
+				if(orderPay.pageUniqueID !== this.pageUniqueID) {
+					uni.clearStorageSync()
+					return ;
+				}
 				this.ispolling = 1;
 
 			},
@@ -573,7 +582,7 @@
 					payType: this.payType,
 					currentScrollY: this.currentScrollY,
 					isInitIndex:true,
-					isInitForm:true
+					isInitForm:true,
 				}
 				console.log(pageState,"------------------------")
 				uni.setStorageSync("pageState", pageState)
@@ -583,7 +592,7 @@
 				if (!pageState) return
 				if(pageState.isInitIndex){
 					this.payType = pageState.payType	
-					this.currentScrollY = pageState.currentScrollY
+					//this.currentScrollY = pageState.currentScrollY
 				}	
 				this.pageState = pageState
 				//uni.removeStorageSync("pageState")

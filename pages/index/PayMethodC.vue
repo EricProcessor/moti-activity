@@ -234,7 +234,8 @@
 					uni.setStorageSync("orderPay", {
 						orderNo: this.orderInfo.orderNo,
 						payType: this.currentPay,
-						id: this.orderInfo.id
+						id: this.orderInfo.id,
+						pageUniqueID:this.pageUniqueID
 					})
 
 					if (this.currentPay === 3) this.alWap()
@@ -332,6 +333,10 @@
 				let b = true
 				if(this.paramType === 14 || (this.paramType>=18 && this.paramType <= 22)) b = false
 				return b
+			},
+			pageUniqueID(){
+				
+				return this.urlParams.type + "-" + this.urlParams.orderSource + "-" + this.urlParams.channel + "-" + this.urlParams.material
 			}
 		},
 
