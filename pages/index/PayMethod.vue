@@ -327,8 +327,8 @@
 	.input-item{
 		background-color: #FFFFFF;
 		width: 660upx;
-		margin-top: 28px;
-		padding: 0 45upx 100upx 45upx;
+		
+		padding: 28upx 45upx 100upx 45upx;
 		
 		.text {
 			line-height: 1;
