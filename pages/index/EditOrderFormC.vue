@@ -157,6 +157,7 @@
 	export default {
 		data() {
 			return {
+				formScrolly:1160,
 				currentSpecIndex: 0,
 				currentTasteIndex: "",
 				buyNumbersColor: 1,
@@ -205,6 +206,10 @@
 				default: function() {
 					return {}
 				}
+			},
+			orderScrollTop:{
+				type:Number,
+				default:0
 			}
 		},
 		computed: {
@@ -300,45 +305,56 @@
 				if (!this.isShowTastes) {
 					this.currentTasteIndex = ""
 					this.buyNumbersTaste = 0
+					this.formScrolly = 1160
+				}
+				if(this.isShowTastes){
+					this.formScrolly = 1588
 				}
 			},
 			checkSubmit() {
-
-				if (!this.userInfo[0].value) {
-					return {
-						code: 1,
-						message: "请输入收货人名称"
-					}
-				}
-				if (!checkMobile(this.userInfo[1].value)) {
-					return {
-						code: 1,
-						message: "请输入正确的联系电话"
-					}
-				}
+				let data = {code: 0, message: ""}
 				if (!this.userInfo[2].value) {
-					return {
+					data = {
 						code: 1,
 						message: "请输入收货地址"
 					}
 				}
+				if (!checkMobile(this.userInfo[1].value)) {	
+					data = {
+						code: 1,
+						message: "请输入正确的联系电话"
+					}	
+				}
+				
+				if (!this.userInfo[0].value) {
+					data = {
+						code: 1,
+						message: "请输入收货人名称"
+					};
+				}
+				if(data.code) this.$nextTick(()=>{
+				
+					uni.pageScrollTo({
+						duration:200,
+						scrollTop:uni.upx2px(this.formScrolly) + this.orderScrollTop
+					})
+				})
+				
 				if (this.buyNumbersColor < 1) {
-					return {
+					data = {
 						code: 1,
 						message: "请选择数量"
 					}
 				}
 
 				if (this.currentTasteIndex !== "" && this.buyNumbersTaste < 1) {
-					return {
+					data =  {
 						code: 1,
 						message: "请选择口味数量"
 					}
+				
 				}
-				return {
-					code: 0,
-					message: ""
-				}
+				return data
 			},
 			getRegisterParams() {
 				return {

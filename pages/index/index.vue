@@ -34,7 +34,7 @@
 
 			<view  v-if="isAB">
 				
-				<EditOrderForm   ref="EditOrderForm"   :initData="pageState.editOrderForm" :isClear="isClearForm"  :paramType="paramType"  ></EditOrderForm>
+				<EditOrderForm   ref="EditOrderForm" :orderScrollTop="scrollTop"  :initData="pageState.editOrderForm" :isClear="isClearForm"  :paramType="paramType"  ></EditOrderForm>
 						
 				<PayMethod    @choicePay="choosePayWay" :ispolling="ispolling" :paramType="paramType" :payType="payType"
 				 @payCallBack="payCallBackFunc" :urlParams="urlParams" :orderInfo="orderResult" :isOrderSuccess="isOrderSuccess"></PayMethod>
@@ -43,7 +43,7 @@
 			
 			<view  v-if="isC">
 				<view  v-if="!isShowOrderDetail">
-					<EditOrderFormC   ref="EditOrderForm"   :initData="pageState.editOrderForm" :isClear="isClearForm" ></EditOrderFormC>
+					<EditOrderFormC   ref="EditOrderForm" :orderScrollTop="scrollTop"   :initData="pageState.editOrderForm" :isClear="isClearForm" ></EditOrderFormC>
 					<PayMethodC        @choicePay="choosePayWay" :ispolling="ispolling" :paramType="paramType" :payType="payType"
 					 @payCallBack="payCallBackFunc" :urlParams="urlParams" :orderInfo="orderResult" :isOrderSuccess="isOrderSuccess"></PayMethodC>
 				</view>
@@ -345,15 +345,15 @@
 				this.intoViewid = "anchor";
 			},
 			async submit() {
-				console.log(this.isGetAnchor)
+				
 				if (!this.isGetAnchor) return
-				this.pageSrollTo()
+				if (this.isShowBuyNow) this.pageSrollTo()
 				if (this.ispolling === 1) {
 					this.ispolling = 0
 					return
 				}
 				if(this.isShowBuyNow) return ;
-				console.log(this.$refs)
+				
 				let vadation = this.$refs.EditOrderForm.checkSubmit()
 				if(vadation.code == 1){
 					return uni.showToast({
