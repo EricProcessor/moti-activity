@@ -2,16 +2,16 @@
 	<view class="input-item">
 		<view class="text">选择支付方式 * </view>
 		<view class="pay_way">
-		<view class="payment-items" :class="{payTwo:!isPayTwo()}">
+		<view class="payment-items" :class="{payTwo:isShowCashOnDelivery}">
 		
-			<view class="item" :key="0" v-if="paramType !== 14" @click="choicePay" :class="{active:currentPay === 6,showTow:isPayTwo()}"
+			<view class="item" :key="0" v-if="isShowCashOnDelivery" @click="choicePay" :class="{active:currentPay === 6}"
 			 :data-index="0">
 				货到付款
 			</view>
 			<view class="item" :key="1"  @click="choicePay" :class="{active:currentPay === 2}" :data-index="1">
 				微信支付
 			</view>
-			<view class="item" :key="2"  @click="choicePay" :class="{active:currentPay === 3,showTow:isPayTwo()}" :data-index="2">
+			<view class="item" :key="2" v-if="!isWxAgent" @click="choicePay" :class="{active:currentPay === 3}" :data-index="2">
 				支付宝支付
 			</view>
 		</view>
@@ -74,7 +74,7 @@
 				default: 7
 			}
 		},
-
+		
 		watch: {
 			payType() {
 				this.currentPay = this.payType
@@ -220,9 +220,17 @@
 				}
 			}
 		},
+		mounted() {
+			
+			if(this.isWxAgent && (this.currentPay == 3)){
+				this.currentPay = 2
+				this.$emit("choicePay", this.currentPay)
+			}
+			
+		},
 		methods: {
 			isPayTwo() {
-				console.log(this.paramType)
+				
 				return this.paramType === 14
 			},
 			choicePay(e) {
@@ -295,6 +303,11 @@
 					return true
 				}
 				return false
+			},
+			isShowCashOnDelivery(){
+				let b = true
+				if(this.paramType === 14 || (this.paramType>=18 && this.paramType <= 22)) b = false
+				return b
 			}
 		},
 
@@ -323,11 +336,6 @@
 		width: 660upx;
 		padding-top: 30upx;
 
-		&.payTwo {
-			display: flex;
-			justify-content: space-between;
-		}
-
 		.item {
 			display: inline-block;
 			width: 200upx;
@@ -338,6 +346,8 @@
 			text-align: center;
 			line-height: 76upx;
 			color: #B6B6B6;
+			margin-left: 30upx;
+			box-sizing: border-box;
 
 			&.showTow {
 				margin-left: 30upx;

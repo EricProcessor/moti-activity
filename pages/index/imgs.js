@@ -320,7 +320,7 @@ export default {
 				height: 1401
 			},
 			{
-				url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/5.jpg',
+				url: '../../static/type/7/6.jpg',
 				width: 750,
 				height: 1446
 			},
@@ -775,7 +775,7 @@ export default {
 				height: 1401
 			},
 			{
-				url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/5.jpg',
+				url: '../../static/type/7/6.jpg',
 				width: 750,
 				height: 1446
 			},
@@ -843,33 +843,33 @@ export default {
 		],
 		imgs:[
 			{
-				url: '../../static/type/16/MOTI-01.jpg',
+				url: '../../static/type/16/MOTI_01.jpg',
 				width: 750,
-				height: 881,
+				height: 734,
 				isLoaded: false
 			},
 			{
-				url: '../../static/type/16/MOTI-02.jpg',
+				url: '../../static/type/16/MOTI_02.jpg',
 				width: 750,
-				height: 1081,
+				height: 1080,
 				isLoaded: false
 			},
 			{
-				url: '../../static/type/16/MOTI-03.jpg',
+				url: '../../static/type/16/MOTI_03.jpg',
 				width: 750,
-				height: 1181,
+				height: 1180,
 				isLoaded: false
 			},
 			{
-				url: '../../static/type/16/MOTI-04.jpg',
+				url: '../../static/type/16/MOTI_04.jpg',
 				width: 750,
-				height: 1733,
+				height: 1683,
 				isLoaded: false
 			},
 			{
-				url: '../../static/type/16/MOTI-05.jpg',
+				url: '../../static/type/16/MOTI_05.jpg',
 				width: 750,
-				height: 1437,
+				height: 643,
 				isLoaded: false
 			},
 		

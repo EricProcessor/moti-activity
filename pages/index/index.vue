@@ -87,9 +87,11 @@
 
 
 		</view>
-		<view class="submit-btn" @tap="submit" v-show="!isShowOrderDetail">
-			<image v-if="isShowBuyNow" src="../../static/images/icons/buy.jpg"></image>
-			<view v-else class="sub_order">提交订单</view>
+		<view class="submit-btn" @tap="submit" v-show="!isShowOrderDetail">	
+				 <image v-if="isShowBuyNow && isAB" src="../../static/images/icons/buy.jpg"></image>
+				 <image v-if="isShowBuyNow && isC" src="../../static/images/icons/red-buy.png"></image>
+				
+				<view v-if="!isShowBuyNow" class="sub_order" :class="{active:isC}" >提交订单</view>	
 		</view>
 		
 
@@ -140,7 +142,7 @@
 				return false
 			},
 			isAB(){
-				if(this.paramType <= 15) return true;
+				if(this.paramType <= 15 || (this.paramType >=18 && this.paramType <= 22)) return true;
 				return false
 			}
 		},
@@ -218,7 +220,7 @@
 		onLoad(options) {
 		
 			let bool = this.nextLocation(options)
-			if(options.type == 14) this.payType = 3
+			if(options.type == 14 ||  (options.type >=18 && options.type <=22) ) this.payType = 3
 			else this.payType = 6
 			this.restoreScene()
 			const params = options;
@@ -810,7 +812,7 @@
 		justify-content: center;
 		align-items: center;
 		height: 105upx;
-		background-color: #fa4650;
+		background-color: #ff4d3d;
 		font-size: 33upx;
 		color: #ffffff;
 
@@ -828,6 +830,9 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
+			&.active{
+				background-color: #ff4d3d;
+			}
 		}
 	}
 

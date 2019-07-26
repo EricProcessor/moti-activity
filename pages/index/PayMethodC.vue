@@ -18,7 +18,7 @@
 					<image src="../../static/images/icons/circle-acitve.png"  v-show="currentPay === 2" mode=""></image>
 				</view>
 			</view>
-			<view class="pay-item" @click="choicePay" :data-index="2" >
+			<view class="pay-item" @click="choicePay" :data-index="2" v-if="!isWxAgent">
 				<view class="pay-item-left">
 					<view class="pay-logo">
 						<image src="../../static/images/icons/alipay.png" mode=""></image>
@@ -327,6 +327,11 @@
 					return true
 				}
 				return false
+			},
+			isShowCashOnDelivery(){
+				let b = true
+				if(this.paramType === 14 || (this.paramType>=18 && this.paramType <= 22)) b = false
+				return b
 			}
 		},
 

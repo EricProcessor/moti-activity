@@ -313,6 +313,7 @@
 			},
 			checkSubmit() {
 				let data = {code: 0, message: ""}
+				
 				if (!this.userInfo[2].value) {
 					data = {
 						code: 1,
@@ -385,8 +386,8 @@
 
 <style lang="scss" scoped>
 	.panel-body {
-		padding: 0 40upx;
-		margin-top: 20upx;
+		padding: 20upx  40upx 0upx 40upx;
+		
 		background-color: #FFFFFF;
 	}
 
