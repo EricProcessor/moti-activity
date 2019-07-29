@@ -102,7 +102,7 @@
 				</view>
 				<view class="input-item" v-for="(item, index) in userInfo" :key="index">
 					<view class="text">{{item.text}}</view>
-					<ChoicArea v-if="index === 2"  @pickArea="getAreas"   :initData="areaObj" ></ChoicArea>
+					<ChoicArea v-if="index === 2"  @pickArea="getAreas"   :initData="areaObj"  :isClear = "isClear"></ChoicArea>
 					<view class="input" v-else>
 						<input type="text" placeholder-style="color: #b6b6b6;" :placeholder="item.placeholder" v-model="item.value">
 					</view>
@@ -198,6 +198,7 @@
 				this.buyNumbersColor = 1;
 				this.currentTasteIndex = "";
 				this.buyNumbersTaste = 0;
+				this.areaObj = {}
 
 				this.userInfo = [{
 						text: "收货人 *",
@@ -266,6 +267,10 @@
 
 			},
 			numsUpTaste(e) {
+				if(this.currentTasteIndex === "") return uni.showToast({
+					title:"请选择您喜欢的口味",
+					icon:"none"
+				})
 				this.buyNumbersTaste += 1;
 			},
 			numsDownTaste() {

@@ -259,14 +259,15 @@
 		methods: {
 			buyAgain(){
 				let userInfo = this.pageState.editOrderForm.userInfo
-				if(userInfo[3]) userInfo[3].value = ""
+				if(userInfo[4]) userInfo[4].value = ""
 				this.pageState.editOrderForm = {
 					isShowTastes:false,
 					buyNumbersColor : 1,
 					buyNumbersTaste : 0,
 					currentSpecIndex : 0,
 					currentTasteIndex : "",
-					userInfo:userInfo
+					userInfo:userInfo,
+					areaObj:this.pageState.editOrderForm.areaObj
 				}
 				this.isShowOrderDetail = false
 				this.pageSrollTo()
@@ -440,7 +441,7 @@
 			},
 			
 			closePopup(data) {
-				console.log(data)
+
 				if (this.submitState === 1) {
 					
 					(this.isShowPopupCard = false),
