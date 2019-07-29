@@ -428,7 +428,7 @@
 					tobaccoSkuNum: this.buyNumbersColor,
 					cartridgesSku: this.currentTasteIndex === "" ? "" : this.goods.taste[this.currentTasteIndex].sku,
 					cartridgesSkuNum: this.currentTasteIndex === "" ? 0 : this.buyNumbersTaste,
-					remark: this.userInfo[3].value,
+					remark: this.userInfo[4].value,
 					provinceCode: this.areaObj.province.value,
 					provinceName: this.areaObj.province.label,
 					cityCode: this.areaObj.city.value,
