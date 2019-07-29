@@ -105,9 +105,7 @@
 		checkMobile,
 		newOrder
 	} from "@/common/utils.js";
-	import provinceData from "@/common/city-data/province.js";
-	import cityData from "@/common/city-data/city.js";
-	import areaData from "@/common/city-data/area.js";
+	
 	import dynamic from "./dynamic.vue";
 	import imgsData from "./imgs.js";
 	import PayMethod from "./PayMethod.vue"
@@ -166,9 +164,6 @@
 				isGetAnchor: false,
 				paramType: 0,
 				currentSwiperIndex: 0,
-				provinceData: provinceData,
-				cityData: cityData,
-				areaData: areaData,
 				
 				scrollTop: 0,
 				
@@ -209,13 +204,7 @@
 				submitState: -1, // -1不显示, 0提交失败, 1货到付款提交成功, 2在线支付提交成功
 				popupCardText: "网络暂时离线, 请重新提交~~",
 				intoViewid: "",
-				
-				provinceIndex: 0,
-				cityIndex: 0,
-				areaIndex: 0,
-				provinceName: "",
-				cityName: "",
-				areaName: "",
+			
 				payWay: "offline",
 				isClearForm:false
 				
@@ -510,7 +499,7 @@
 				}
 								
 				let OrderDetail = {
-					receiveAddress: data.pageOrder.address,
+					receiveAddress: data.pageOrder.provinceName + data.pageOrder.cityName + data.pageOrder.districtName + data.pageOrder.address,
 					userName:data.pageOrder.userName,
 					mobile:data.pageOrder.mobile,
 					id:this.orderResult.id,
@@ -577,7 +566,8 @@
 						buyNumbersColor : this.$refs.EditOrderForm.buyNumbersColor,
 						buyNumbersTaste : this.$refs.EditOrderForm.buyNumbersTaste,
 						currentSpecIndex : this.$refs.EditOrderForm.currentSpecIndex,
-						currentTasteIndex : this.$refs.EditOrderForm.currentTasteIndex
+						currentTasteIndex : this.$refs.EditOrderForm.currentTasteIndex,
+						areaObj:this.$refs.EditOrderForm.areaObj
 					},	
 					payType: this.payType,
 					currentScrollY: this.currentScrollY,

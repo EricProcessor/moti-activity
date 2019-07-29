@@ -133,7 +133,8 @@
 				<view class="input-item" v-for="(item, index) in userInfo" :key="index">
 					<view class="text">{{item.text}}</view>
 
-					<view class="input">
+					<ChoicArea v-if="index === 2"    @pickArea="getAreas"  :initData="areaObj" ></ChoicArea>
+					<view  v-else class="input">
 						<input type="text" placeholder-style="color: #b6b6b6;font-size:30upx;height: 30upx;line-height:30upx;"
 						 :placeholder="item.placeholder" v-model="item.value">
 					</view>
@@ -154,6 +155,7 @@
 
 	} from "@/common/utils.js";
 	import Goods from "./goods.js"
+	import ChoicArea from "./ChoicArea.vue"
 	export default {
 		data() {
 			return {
@@ -166,6 +168,7 @@
 				spec: Goods.spec,
 				backgrounds: Goods.backgrounds,
 				goods: Goods.goods,
+				areaObj:{},
 				userInfo: [{
 						text: "收货人",
 						value: "",
@@ -176,11 +179,11 @@
 						value: "",
 						placeholder: "请填写手机号码"
 					},
-					// , {
-					// 	text: '地区 *',
-					// 	value: '',
-					// 	placeholder: '请输入'
-					// },
+					 {
+					 	text: '地区',
+					 	value: '',
+					 	placeholder: '请输入'
+					},
 					{
 						text: "详细地址",
 						value: "",
@@ -241,6 +244,11 @@
 						placeholder: "请填写手机号码"
 					},
 					{
+					 	text: '地区',
+					 	value: '',
+					 	placeholder: '请输入'
+					},
+					{
 						text: "详细地址",
 						value: "",
 						placeholder: "请填写详细地址"
@@ -264,10 +272,16 @@
 			this.currentSpecIndex = this.initData.currentSpecIndex
 			this.currentTasteIndex = this.initData.currentTasteIndex
 			this.isShowTastes = this.initData.isShowTastes
+			this.areaObj = this.initData.areaObj
 
 		},
+		components:{
+			ChoicArea
+		},
 		methods: {
-
+			getAreas(data){
+				this.areaObj = data
+			},
 			chooseSpec(e) {
 				this.currentSpecIndex = Number(e.currentTarget.dataset.index);
 				this.buyNumbersColor < 1 && (this.buyNumbersColor = 1) && this.sum()
@@ -314,12 +328,41 @@
 			checkSubmit() {
 				let data = {code: 0, message: ""}
 				
-				if (!this.userInfo[2].value) {
+				if (!this.userInfo[3].value) {
 					data = {
 						code: 1,
 						message: "请输入收货地址"
 					}
 				}
+				
+					if(!this.areaObj || JSON.stringify(this.areaObj) === "{}"){
+					data = {
+						code:1,
+						message:"请选择省市区"
+					}
+				}else{
+					
+					
+					if(JSON.stringify(this.areaObj.area) === "{}" || !this.areaObj.area ){
+						data = {
+							code:1,
+							message:"请选择区/县"
+						}
+					}
+					if(JSON.stringify(this.areaObj.city) === "{}" || !this.areaObj.city ){
+						data = {
+							code:1,
+							message:"请选择城市"
+						}
+					}
+					if(JSON.stringify(this.areaObj.province) === "{}" || !this.areaObj.province ){
+						data = {
+							code:1,
+							message:"请选择省份"
+						}
+					}
+				}
+				
 				if (!checkMobile(this.userInfo[1].value)) {	
 					data = {
 						code: 1,
@@ -361,20 +404,32 @@
 				return {
 					userName: this.userInfo[0].value,
 					mobile: this.userInfo[1].value,
-					userAddress: this.userInfo[2].value,
-					quickType: 4 // 活动页注册来源
+					userAddress: this.userInfo[3].value,
+					quickType: 4 ,// 活动页注册来源
+					provinceCode: this.areaObj.province.value,
+					provinceName: this.areaObj.province.label,
+					cityCode: this.areaObj.city.value,
+					cityName: this.areaObj.city.label,
+					districtName:this.areaObj.area.value,
+					districtCode:this.areaObj.area.label
 				}
 			},
 			getOrderParams() {
 				const orderInfo = {
 					userName: this.userInfo[0].value,
-					address: this.userInfo[2].value,
+					address: this.userInfo[3].value,
 					mobile: this.userInfo[1].value,
 					tobaccoSku: this.spec[this.currentSpecIndex].sku,
 					tobaccoSkuNum: this.buyNumbersColor,
 					cartridgesSku: this.currentTasteIndex === "" ? "" : this.goods.taste[this.currentTasteIndex].sku,
 					cartridgesSkuNum: this.currentTasteIndex === "" ? 0 : this.buyNumbersTaste,
-					remark: this.userInfo[3].value
+					remark: this.userInfo[3].value,
+					provinceCode: this.areaObj.province.value,
+					provinceName: this.areaObj.province.label,
+					cityCode: this.areaObj.city.value,
+					cityName: this.areaObj.city.label,
+					districtName:this.areaObj.area.label,
+					districtCode:this.areaObj.area.value
 				};
 				return orderInfo
 			}
