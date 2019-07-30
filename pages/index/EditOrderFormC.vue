@@ -324,11 +324,10 @@
 				if (!this.isShowTastes) {
 					this.currentTasteIndex = ""
 					this.buyNumbersTaste = 0
-					this.formScrolly = 1160
 				}
-				if(this.isShowTastes){
-					this.formScrolly = 1588
-				}
+				this.$nextTick(()=>{
+					this.getSrollHeight()
+				})
 			},
 			checkSubmit() {
 				let data = {code: 0, message: ""}
@@ -385,7 +384,7 @@
 				
 					uni.pageScrollTo({
 						duration:200,
-						scrollTop:uni.upx2px(this.formScrolly) + this.orderScrollTop
+						scrollTop:this.formScrolly
 					})
 				})
 				
@@ -437,8 +436,17 @@
 					districtCode:this.areaObj.area.value
 				};
 				return orderInfo
+			},
+			getSrollHeight(){
+				
+				this.formScrolly = document.getElementsByClassName("form-wrapper")[0].offsetTop
 			}
 
+		},
+		mounted() {
+			this.$nextTick(() => {
+				this.getSrollHeight()
+			})
 		}
 	}
 </script>
@@ -793,7 +801,7 @@
 	}
 
 	.form-wrapper {
-		margin-top: 69upx;
+		padding-top: 69upx;
 
 		.form-title {
 			font-size: 34upx;

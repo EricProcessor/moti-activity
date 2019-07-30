@@ -125,7 +125,7 @@
 	export default {
 		data() {
 			return {
-				formScrolly:898,
+				formScrolly:0,
 				currentSpecIndex: 0,
 				currentTasteIndex: "",
 				buyNumbersColor: 1,
@@ -284,12 +284,11 @@
 				if (!this.isShowTastes) {
 					this.currentTasteIndex = ""
 					this.buyNumbersTaste = 0
-					this.formScrolly = 898
+				
 				}
-				if(this.isShowTastes){
-					this.formScrolly = 1114
-				}
-
+				this.$nextTick(()=>{
+					this.getSrollHeight()
+				})
 			},
 			checkSubmit() {
 
@@ -345,7 +344,7 @@
 				if(data.code) this.$nextTick(()=>{
 					uni.pageScrollTo({
 						duration:200,
-						scrollTop:uni.upx2px(this.formScrolly) + this.orderScrollTop
+						scrollTop:this.formScrolly 
 					})
 				})
 				if (this.buyNumbersColor < 1) {
@@ -396,8 +395,19 @@
 					districtCode:this.areaObj.area.value
 				};
 				return orderInfo
+			},
+			getSrollHeight(){
+				
+				this.formScrolly = document.getElementsByClassName("form-wrapper")[0].offsetTop
 			}
 
+		},
+		mounted() {
+		
+			this.$nextTick(()=>{
+				this.getSrollHeight()
+			})
+			
 		}
 	}
 </script>
@@ -662,7 +672,7 @@
 				line-height: 1;
 
 				.line_1 {
-					margin-top: 106upx;
+					margin-top: 40upx;
 					font-size: 45upx;
 				}
 
