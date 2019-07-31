@@ -153,7 +153,8 @@
 					}
 				}, 1000)
 				let res = await loginVerify({
-					phone: this.mobile.toString()
+					phone: this.mobile.toString(),
+					activityId: ActivityId
 				})
 				
 				if (res.code !== '0') {
@@ -246,7 +247,7 @@
 				input {
 					flex: 1;
 					font-size: 32upx;
-					//height: 52.5upx;
+					height: 52.5upx;
 				}
 
 				.input-placeholder {

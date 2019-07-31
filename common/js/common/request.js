@@ -10,7 +10,7 @@ async function request(params){
 			method: params.methods ? params.methods : 'get',
 			header: {
 				"content-type": params.contentType ? params.contentType : 'application/x-www-form-urlencoded',
-				"token":+ token,
+				"token": '' + token,
 			},
 			data: params.data,
 			success:function (data){

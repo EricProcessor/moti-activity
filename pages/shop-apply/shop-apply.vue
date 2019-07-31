@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
 		<view v-if="0" class="header-title">
-			<text>MOTI魔笛6 - 7月限时福利活动</text>
+			<text>MOTI魔笛8-9月限时福利活动</text>
 		</view>
 		<view class="form">
 			<view class="form-title">门店申请</view>
@@ -169,13 +169,13 @@
 			},
 			selectShop(e) {
 				this.index = e.target.value
-				this.form.shopId = this.range[this.index].id
+				this.form.shopId = this.range[this.index].id + '';
 			},
 			selectAgent(e) {
 				this.agentIndex = e.target.value
 				this.form.agentId = this.agents[this.agentIndex].id
 				this.index = 0
-				this.form.shopId = 0
+				this.form.shopId = 0  + '';
 				this.range = [{
 					id: 0,
 					shopName: '请选择门店'
@@ -214,7 +214,7 @@
 				})
 				if (res.code === '0') {
 					uni.setStorageSync("token", res.result.token)
-					uni.setStorageSync("shopId", res.result.shopDetail.shopId)
+					uni.setStorageSync("shopId", res.result.shopDetail.shopId  + '')
 					uni.setStorageSync("managerShopAttId", res.result.shopDetail.id)
 					uni.setStorageSync("manageQrCodeImg", res.result.shopDetail.imageUrl)
 					uni.showToast({
