@@ -300,7 +300,7 @@
 					}
 
 					canvans.toBlob(blob => {
-						saveAs(blob, "MOTI魔笛6 - 7月限时福利活动.png")
+						saveAs(blob, "MOTI魔笛8 - 9月限时福利活动.png")
 					})
 				});
 			},
