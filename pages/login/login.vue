@@ -153,7 +153,8 @@
 					}
 				}, 1000)
 				let res = await loginVerify({
-					phone: this.mobile.toString()
+					phone: this.mobile.toString(),
+					activityId: ActivityId
 				})
 				
 				if (res.code !== '0') {

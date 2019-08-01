@@ -368,7 +368,7 @@
 							phone: this.phone
 						},
 						pageNum: orderListObj.conditions.pageNum,
-						pagesize: 10
+						pageSize: 10
 					},
 				});
 				uni.stopPullDownRefresh();

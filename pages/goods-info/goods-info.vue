@@ -100,7 +100,7 @@
 				h5Top: true,
 				skuId: 0,
 				activityId: 0,
-				shopId: 0,
+				shopId: '0',
 				goods: [],
 				currentGood: 0,
 				hdGoodsSkuModel: [],
@@ -128,7 +128,7 @@
 				let curGood = this.goods[index]
 				for (let key in this.hdGoodsSkuModel) {
 					let so = this.hdGoodsSkuModel[key]
-					if (so.spuId === curGood.id) {
+					if (so.frontId === (curGood.id + '')) {
 						this.skuId = so.id
 						return
 					}
@@ -137,7 +137,7 @@
 			addOrder() {
 				let obj = {
 					id: this.skuId,
-					spuId: this.selectGood.id,
+					frontId: this.selectGood.id + '',
 					buyNum: 1
 				}
 
@@ -149,7 +149,7 @@
 				}
 				for (let key in this.hdGoodsSkuModel) {
 					let so = this.hdGoodsSkuModel[key]
-					if (so.spuId === obj.spuId) {
+					if (so.frontId === obj.frontId) {
 						this.$set(this.hdGoodsSkuModel, key, obj)
 						this.clear()
 						return
@@ -177,7 +177,7 @@
 			async getGoodsInfo() {
 				let res = await goodsInfo({
 					activityid: this.activityId,
-					shopId: this.shopId
+					shopId: this.shopId + ''
 				})
 				if (res.code !== '0') {
 					uni.showToast({
@@ -194,7 +194,7 @@
 			},
 			async getShopInfo() {
 				let res = await getAttDetail({
-					shopId: this.shopId,
+					shopId: this.shopId + '',
 					activityId: this.activityId
 				})
 				this.shopDetail = res.result ? res.result : {}
@@ -230,7 +230,7 @@
 		},
 		onLoad(option) {
 			this.activityId = option.activityid
-			this.shopId = option.shopid
+			this.shopId = option.shopid  + ''
 			uni.setStorageSync("customerActivityId", this.activityId)
 			uni.setStorageSync("customerShopId", this.shopId)
 
