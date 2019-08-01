@@ -176,7 +176,7 @@
 			},
 			async getGoodsInfo() {
 				let res = await goodsInfo({
-					activityid: this.activityId,
+					activityId: this.activityId,
 					shopId: this.shopId + ''
 				})
 				if (res.code !== '0') {
