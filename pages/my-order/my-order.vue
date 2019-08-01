@@ -37,7 +37,7 @@
 						</view>
 					</view>
 					<view class="" v-else>
-						<order-item :key="key" v-for="(order,key) in orderList.AllOrder.data" :data="changePrice(order)" @cancelorder="cancelOrder"
+						<order-item :key="key" v-for="(order,key) in orderList.AllOrder.data" :data="order" @cancelorder="cancelOrder"
 						 @confirmorder="confirmorder"></order-item>
 					</view>
 					
@@ -47,7 +47,7 @@
 			<swiper-item>
 				<view class="swiper-item">
 					<scroll-view :scroll-y="scrollY" :style="{height: scrollViewHeight}" :lower-threshold="threshold" @scrolltolower="loadData('OKPAY')">
-						<order-item :key="key" v-for="(order,key) in orderList.untakeOrder.data" :data="changePrice(order)" @cancelorder="cancelOrder"
+						<order-item :key="key" v-for="(order,key) in orderList.untakeOrder.data" :data="order" @cancelorder="cancelOrder"
 						 @confirmorder="confirmorder"></order-item>
 
 					</scroll-view>
@@ -56,7 +56,7 @@
 			<swiper-item>
 				<view class="swiper-item">
 					<scroll-view :scroll-y="scrollY" :style="{height: scrollViewHeight}" :lower-threshold="threshold" @scrolltolower="loadData('FINISH')">
-						<order-item :key="key" v-for="(order,key) in orderList.complateOrder.data" :data="changePrice(order)" @cancelorder="cancelOrder"
+						<order-item :key="key" v-for="(order,key) in orderList.complateOrder.data" :data="order" @cancelorder="cancelOrder"
 						 @confirmorder="confirmorder"></order-item>
 
 					</scroll-view>
@@ -66,7 +66,7 @@
 			<swiper-item>
 				<view class="swiper-item">
 					<scroll-view :scroll-y="scrollY" :style="{height: scrollViewHeight}" :lower-threshold="threshold" @scrolltolower="loadData('CANCEL')">
-						<order-item :key="key" v-for="(order,key) in orderList.cancelOrder.data" :data="changePrice(order)" @cancelorder="cancelOrder"
+						<order-item :key="key" v-for="(order,key) in orderList.cancelOrder.data" :data="order" @cancelorder="cancelOrder"
 						 @confirmorder="confirmorder"></order-item>
 					</scroll-view>
 				</view>
@@ -216,13 +216,6 @@
 			}
 		},
 		methods: {
-			changePrice(order){
-			  order.totalPrice = 129
-			  for(let item of order.details){
-				  if(parseInt(item.goodsPrice)) item.goodsPrice = 129
-			  }
-			  return order
-			},
 			showQrPupp() {
 				this.showShopQrcode = true;
 				this.scrollY = false;
@@ -368,7 +361,7 @@
 							phone: this.phone
 						},
 						pageNum: orderListObj.conditions.pageNum,
-						pagesize: 10
+						pageSize: 10
 					},
 				});
 				uni.stopPullDownRefresh();
