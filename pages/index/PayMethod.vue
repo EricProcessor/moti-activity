@@ -8,10 +8,10 @@
 			 :data-index="0">
 				货到付款
 			</view>
-			<view class="item" :key="1"  @click="choicePay" :class="{active:currentPay === 2}" :data-index="1">
+			<view class="item" :key="1" v-if="isShowWx" @click="choicePay" :class="{active:currentPay === 2}" :data-index="1">
 				微信支付
 			</view>
-			<view class="item" :key="2" v-if="!isWxAgent" @click="choicePay" :class="{active:currentPay === 3}" :data-index="2">
+			<view class="item" :key="2" v-if="isShowAlPay" @click="choicePay" :class="{active:currentPay === 3}" :data-index="2">
 				支付宝支付
 			</view>
 		</view>
@@ -223,13 +223,19 @@
 		},
 		mounted() {
 			
-			if(this.isWxAgent && (this.currentPay == 3)){
+		/* 	if(this.isWxAgent && (this.currentPay == 3)){
 				this.currentPay = 2
 				this.$emit("choicePay", this.currentPay)
-			}
-			
+			} */
+			this.defaultPayMethod()
 		},
 		methods: {
+			defaultPayMethod(){
+				if(this.isShowWx) this.currentPay = 2
+				if(this.isShowAlPay) this.currentPay = 3
+				if(this.isShowCashOnDelivery) this.currentPay = 6
+				this.$emit("choicePay", this.currentPay)
+			},
 			isPayTwo() {
 				
 				return this.paramType === 14
@@ -304,22 +310,26 @@
 					return true
 				}
 				return false
+			},	
+			pageUniqueID(){
+				
+				return this.urlParams.type + "-" + this.urlParams.orderSource + "-" + this.urlParams.channel + "-" + this.urlParams.material
 			},
 			isShowCashOnDelivery(){
 				let b = true
 				if(this.paramType === 14 || (this.paramType>=18 && this.paramType <= 22)) b = false
 				return b
 			},
-			pageUniqueID(){
+			isShowWx(){
 				
-				return this.urlParams.type + "-" + this.urlParams.orderSource + "-" + this.urlParams.channel + "-" + this.urlParams.material
-			}
+				return true;
+			},
+			isShowAlPay(){
+				if(this.isWxAgent) return false;
+				return true;
+			},
 		},
 
-		created() {
-			console.log(wx)
-
-		}
 	}
 </script>
 

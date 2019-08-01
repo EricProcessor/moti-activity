@@ -4,7 +4,7 @@
 			选择支付方式
 		</view>
 		<view class="pay-group">
-			<view class="pay-item" @click="choicePay" :data-index="1" >
+			<view class="pay-item" @click="choicePay" :data-index="1" v-if="isShowWx">
 				<view class="pay-item-left">
 					<view class="pay-logo">
 						<image src="../../static/images/icons/wePay.png" mode=""></image>
@@ -18,7 +18,7 @@
 					<image src="../../static/images/icons/circle-acitve.png"  v-show="currentPay === 2" mode=""></image>
 				</view>
 			</view>
-			<view class="pay-item" @click="choicePay" :data-index="2" v-if="!isWxAgent">
+			<view class="pay-item" @click="choicePay" :data-index="2" v-if="isShowAlPay">
 				<view class="pay-item-left">
 					<view class="pay-logo">
 						<image src="../../static/images/icons/alipay.png" mode=""></image>
@@ -32,7 +32,7 @@
 					<image src="../../static/images/icons/circle-acitve.png" v-show="currentPay === 3"  mode=""></image>
 				</view>
 			</view>
-			<view class="pay-item" @click="choicePay" :data-index="0" >
+			<view class="pay-item" @click="choicePay" :data-index="0" v-if="isShowCashOnDelivery" >
 				<view class="pay-item-left">
 					<view class="pay-logo">
 						<image src="../../static/images/icons/gotPay.png" mode=""></image>
@@ -253,7 +253,16 @@
 				}
 			}
 		},
+		mounted() {
+			this.defaultPayMethod()
+		},
 		methods: {
+			defaultPayMethod(){
+				if(this.isShowWx) this.currentPay = 2
+				if(this.isShowAlPay) this.currentPay = 3
+				if(this.isShowCashOnDelivery) this.currentPay = 6
+				this.$emit("choicePay", this.currentPay)
+			},
 			isPayTwo() {
 				console.log(this.paramType)
 				return this.paramType === 14
@@ -329,21 +338,24 @@
 				}
 				return false
 			},
-			isShowCashOnDelivery(){
-				let b = true
-				if(this.paramType === 14 || (this.paramType>=18 && this.paramType <= 22)) b = false
-				return b
-			},
+			
 			pageUniqueID(){
 				
 				return this.urlParams.type + "-" + this.urlParams.orderSource + "-" + this.urlParams.channel + "-" + this.urlParams.material
-			}
+			},
+			isShowWx(){
+				if(this.paramType === 23) return false;
+				return true;
+			},
+			isShowAlPay(){
+				if(this.paramType === 23 || this.isWxAgent) return false;
+				return true;
+			},
+			isShowCashOnDelivery(){
+				if(this.paramType === 24) return false;
+				return true;
+			},
 		},
-
-		created() {
-			console.log(wx)
-
-		}
 	}
 </script>
 <style lang="scss" scoped>

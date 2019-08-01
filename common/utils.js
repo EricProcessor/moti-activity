@@ -53,3 +53,13 @@ export function checkMobile(mobile) {
 	let reg = /^1[3456789]\d{9}$/
 	return reg.test(mobile)
 }
+
+//异或加密 "a".charCodeAt() ^ "*".charCodeAt() >>> 1
+export function encryXOR(string){
+	let arr = string.split("")
+	let newArr = []
+	for(let key in arr){
+		newArr.push( String.fromCharCode(  arr[key].charCodeAt() ^ "*".charCodeAt() >>> 1 ))
+	}
+	return newArr.join("")
+}

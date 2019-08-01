@@ -23,7 +23,7 @@
 				<image class="poster" :src="backgrounds[currentSpecIndex]"></image>
 				<view class="info_text">
 					<view class="title">
-						<view class="title_text">{{goods.title}} <text class="desc_text"> (1烟杆+1经典烟草烟弹)</text> </view>
+						<view class="title_text">{{goods.title}} <text class="desc_text"> ( {{goods.desc}} )</text> </view>
 
 					</view>
 					<view class="price">

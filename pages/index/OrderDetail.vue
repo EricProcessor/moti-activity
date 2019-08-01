@@ -40,7 +40,7 @@
 								{{item.title}}
 							</view>
 							<view class="good-right-spec">
-								{{item.desc}}
+								( {{item.desc}} )
 							</view>
 							<view class="good-right-price">
 								<view class="price-left">
