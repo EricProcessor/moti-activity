@@ -128,7 +128,7 @@
 						<image class="moti-logo" src="../../static/moti-logo.png"></image>
 					</view>
 					<view class="ssqc-title">MOTI 魔笛电子烟夏日钜惠 </view>
-					<view class="ssqc-discount">购129元烟弹送<text class="red">199</text>元套装</view>
+					<view class="ssqc-discount">任意商品满99元送装<text class="red">199</text>元套装</view>
 					<view id="qrcode-image" :style="{}">
 
 					</view>
@@ -136,7 +136,7 @@
 						<image class="qrcode-image" :src="qrUrl"></image>
 					</view> -->
 					<view class="tip-one">扫描二维码进店</view>
-					<view class="tip-two">活动时间：7月1日-8月31日</view>
+					<view class="tip-two">活动时间：8月1日-9月30日</view>
 					<view id="ignore-btton">
 						<button class="save-btn" @click="saveImage">保存图片</button>
 					</view>

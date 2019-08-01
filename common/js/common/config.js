@@ -2,13 +2,13 @@ const config = {}
 const host = window.location.host
 let api = ""
 switch (host) {
-	case "test.szhd.motivape.cn":
+	case "testszhd.motivape.cn":
 		api = "http://test.zuul.motivape.cn/activity"
 		break;
-	case "szhd.gray.motivape.cn":
+	case "szhdgray.motivape.cn":
 		api = "http://zuul.gray.motivape.cn/activity"
 		break
-	case "szhd.prod.motivape.cn":
+	case "szhdprod.motivape.cn":
 		api = "http://zuul.prod.motivape.cn/activity"
 		break
 	case "szhd.motivape.cn":
