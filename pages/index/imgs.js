@@ -305,9 +305,9 @@ export default {
 				height: 950
 			},
 			{
-				url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/2.jpg',
+				url: '../../static/type/7/2.jpg',
 				width: 750,
-				height: 1212
+				height: 1211
 			},
 			{
 				url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/3.jpg',
@@ -760,9 +760,9 @@ export default {
 				height: 950
 			},
 			{
-				url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/2.jpg',
+				url: '../../static/type/7/2.jpg',
 				width: 750,
-				height: 1212
+				height: 1211
 			},
 			{
 				url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/3.jpg',
