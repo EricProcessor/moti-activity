@@ -124,7 +124,7 @@
 				//parseFloat()
 				let res = await buyDynamicCode({
 					activityId: parseInt(uni.getStorageSync("customerActivityId")),
-					shopId: uni.getStorageSync("customerShopId"),
+					shopId: uni.getStorageSync("customerShopId") + '',
 					shopAttDetailId: uni.getStorageSync("shopAttDetailId"),
 					phone: this.form.hdActivityUserDto.phone
 				})
