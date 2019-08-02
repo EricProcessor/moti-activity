@@ -6,10 +6,10 @@ switch (host) {
 		api = "http://zuul.gray.motivape.cn/activity"
 		break;
 	case "szhdgray.motivape.cn":
-		api = "http://hnhd.gray.motivape.cn/activity"
+		api = "http://hnhd.gray.motivape.cn/api"
 		break
 	case "szhdprod.motivape.cn":
-		api = "http://hnhd.prod.motivape.cn/activity"
+		api = "http://hnhd.prod.motivape.cn/api"
 		break
 	case "szhd.motivape.cn":
 		api = "//hnhd.prod.motivape.cn/activity"
