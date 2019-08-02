@@ -37,7 +37,7 @@
 			<view class="order-item"  :key="index" v-for="(item,index) in orderDesc.details" >
 				<view class="item-left">
 					<image :src="item.picduceUrl"></image>
-					<view class="gift-tag" v-if="!item.goodsPrice">赠品</view>
+					<view class="gift-tag" v-if="item.goodsPrice === 0">赠品</view>
 				</view>
 				<view class="item-right">
 					<view class="item-right-top">
@@ -50,6 +50,7 @@
 					</view>
 					<view class="item-right-bottom">
 						{{item.goodsSkuName}}
+						<text>x{{item.goodsQuantity}}</text>
 					</view>
 				</view>
 			</view>
@@ -117,13 +118,6 @@
 			}
 		},
 		methods: {
-			changePrice(order){
-			  order.totalPrice = 129
-			  for(let item of order.details){
-				  if(parseInt(item.goodsPrice)) item.goodsPrice = 129
-			  }
-			  return order
-			},
 		 	async shopDetail(){
 				let res = await getAttDetail({
 					shopId:uni.getStorageSync("customerShopId"),
@@ -141,7 +135,6 @@
 				
 				if(res.code === '0'){
 					this.orderDesc = res.result[0]
-					this.changePrice(this.orderDesc)
 					this.getUserInfo(this.orderDesc.buyerPhone)
 				}
 			},
@@ -323,6 +316,11 @@
 						color: #999999;
 						height: 30upx;
 						line-height: 30upx;
+						position: relative;
+						text {
+							position: absolute;
+							right: 0;
+						}
 					}
 
 				}

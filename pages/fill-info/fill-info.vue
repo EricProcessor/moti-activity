@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
 		<view v-if="0" class="header-title">
-			<text>MOTI魔笛6 - 7月限时福利活动</text>
+			<text>MOTI魔笛8 - 9月限时福利活动</text>
 		</view>
 		<view class="form">
 			<view class="form-title">
@@ -24,7 +24,7 @@
 			</view>
 			<view class="form-item">
 				<text class="item-title">年&emsp;龄</text>
-				<input v-model.number="form.hdActivityUserDto.age" placeholder="请输入年龄" placeholder-style="font-size: 32upx;color:#c6c6c6;"></input>
+				<input v-model.number="form.hdActivityUserDto.age" type="number" placeholder="请输入年龄" placeholder-style="font-size: 32upx;color:#c6c6c6;"></input>
 			</view>
 			<view class="form-item">
 				<text class="item-title">手机号</text>
@@ -124,7 +124,7 @@
 				//parseFloat()
 				let res = await buyDynamicCode({
 					activityId: parseInt(uni.getStorageSync("customerActivityId")),
-					shopId: uni.getStorageSync("customerShopId"),
+					shopId: uni.getStorageSync("customerShopId") + '',
 					shopAttDetailId: uni.getStorageSync("shopAttDetailId"),
 					phone: this.form.hdActivityUserDto.phone
 				})
@@ -142,6 +142,16 @@
 						title:res.msg,
 						icon:'none'
 					})
+					if(res.code === '111'){
+						setTimeout(function () {
+							uni.navigateTo({
+								url: '/pages/order-detail/order-detail',
+								success: res => {},
+								fail: () => {},
+								complete: () => {}
+							});
+						}, 2000);
+					}
 				}
 			
 			},
@@ -158,11 +168,11 @@
 				if (!this.matchMobile()) {
 					msg = "请填写正确的手机号"
 				}
-				if(isNaN(this.form.hdActivityUserDto.age)){
+				if(isNaN(this.form.hdActivityUserDto.age || !this.form.hdActivityUserDto.age)){
 					msg = "请填写正确的年龄"
 				}
-				if (this.form.hdActivityUserDto.age <= 0 || this.form.hdActivityUserDto.age > 200 || !this.form.hdActivityUserDto.age) {
-					msg = "请填写正确的年龄"
+				if (this.form.hdActivityUserDto.age < 18 || this.form.hdActivityUserDto.age > 100) {
+					msg = "18岁以上才能购买本产品哦~"
 				}
 				if (this.form.hdActivityUserDto.sex === '') {
 					msg = "请选择性别"

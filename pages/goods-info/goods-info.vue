@@ -29,7 +29,7 @@
 				<view class="goods-item" :key="key" v-for="(item,key) in goods">
 					<view class="item-left">
 						<image :src="item.pictureUrl"></image>
-						<view class="git-tag" v-if="(key+1 === goods.length)">赠品</view>
+						<view class="git-tag" v-if="item.marketPrice === 0">赠品</view>
 					</view>
 					<view class="item-right">
 						<view class="item-right-top">
@@ -42,7 +42,7 @@
 						</view>
 						<view class="item-right-bottom">
 							<view>
-								<view class="specifications" v-if="(key+1 === goods.length)">
+								<view class="specifications" v-if="item.marketPrice === 0">
 									<text v-for="(it, idx) in item.skus" :key="idx" v-if="Number(it.buyNum) > 0">
 										{{it.name}}
 									</text>
@@ -54,7 +54,7 @@
 								</view>
 							</view>
 							<view class="item-right-button">
-								<button v-if="!(key+1 === goods.length)" @click="initSku(key)">选择口味</button>
+								<button v-if="item.marketPrice !== 0" @click="initSku(key)">选择口味</button>
 								<button v-else @click="initSku(key)">选择颜色</button>
 							</view>
 						</view>
@@ -76,7 +76,7 @@
 				<view class="goods-detail">
 					<view class="detail-left">
 						<image :src="selectGood.pictureUrl"></image>
-						<view class="gift-tag" v-if="currentGood === (goods.length - 1)">赠品</view>
+						<view class="gift-tag" v-if="goods[currentGood].marketPrice === 0">赠品</view>
 					</view>
 					<view class="detail-right">
 						<view class="detail-right-top">
@@ -87,7 +87,7 @@
 						</view>
 					</view>
 				</view>
-				<scroll-view scroll-y="true" class="select-list" v-if="currentGood === (goods.length - 1)">
+				<scroll-view scroll-y="true" class="select-list" v-if="goods[currentGood].marketPrice === 0">
 					<view class="sku-title">颜色</view>
 					<view class="goods-skus">
 						<view class="sku-attr" :key="index" v-for="(item,index) in goods[currentGood].skus" :class="{active:skuId === item.id}"
@@ -173,10 +173,6 @@
 				this.skuId = item.id
 				this.isSelect = true
 			},
-			changePrice(good) {
-				if (parseInt(good.marketPrice)) good.marketPrice = 129
-				return good
-			},
 			initSku(index) {
 				this.showSelectSku = true
 				this.currentGood = index
@@ -248,10 +244,6 @@
 					return
 				}
 				this.goods = res.result ? res.result : {}
-				for (let item of this.goods) {
-					this.changePrice(item)
-				}
-
 			},
 			async getShopInfo() {
 				let res = await getAttDetail({
