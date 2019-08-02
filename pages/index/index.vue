@@ -58,7 +58,7 @@
 
 			<view v-if="isC">
 				<view v-if="!isShowOrderDetail">
-					<EditOrderFormC ref="EditOrderForm" :orderScrollTop="scrollTop" :initData="pageState.editOrderForm" :isClear="isClearForm"></EditOrderFormC>
+					<EditOrderFormC ref="EditOrderForm" :orderScrollTop="scrollTop"  :paramType="paramType" :initData="pageState.editOrderForm" :isClear="isClearForm"></EditOrderFormC>
 					<PayMethodC @choicePay="choosePayWay" :ispolling="ispolling" :paramType="paramType" :payType="payType"
 					 @payCallBack="payCallBackFunc" :urlParams="urlParams" :orderInfo="orderResult" :isOrderSuccess="isOrderSuccess"></PayMethodC>
 				</view>
@@ -69,7 +69,7 @@
 
 			<view v-if="isMojo">
 				<view v-if="!isShowOrderDetail">
-					<EditOrderFormMojo ref="EditOrderForm" :orderScrollTop="scrollTop" :initData="pageState.editOrderForm" :isClear="isClearForm"></EditOrderFormMojo>
+					<EditOrderFormMojo ref="EditOrderForm" :orderScrollTop="scrollTop" :paramType="paramType" :initData="pageState.editOrderForm" :isClear="isClearForm"></EditOrderFormMojo>
 					<PayMethodC @choicePay="choosePayWay" :ispolling="ispolling" :paramType="paramType" :payType="payType"
 					 @payCallBack="payCallBackFunc" :urlParams="urlParams" :orderInfo="orderResult" :isOrderSuccess="isOrderSuccess"></PayMethodC>
 				</view>
@@ -121,6 +121,7 @@
 	import popCard from "./popCard.vue"
 	import Goods from "./goods.js"
 	import GoodsMojo from "./goodsMojo.js"
+	import GoodsMojoTwo from "./goodsMojo2.js"
 
 	export default {
 		config: {
@@ -151,7 +152,7 @@
 				return false
 			},
 			isMojo() {
-				if (this.paramType == 23 || this.paramType == 24) return true
+				if (this.paramType == 23 || this.paramType == 24 || this.paramType == 25 || this.paramType == 26) return true
 				return false
 			},
 			isOnShowOrderDetail(){
@@ -165,6 +166,12 @@
 
 				return this.urlParams.type + "-" + this.urlParams.orderSource + "-" + this.urlParams.channel + "-" + this.urlParams
 					.material
+			},
+			goodsInfo(){
+				
+				if (this.paramType == 23 || this.paramType == 24) return GoodsMojo
+				if (this.paramType == 25 || this.paramType == 26) return GoodsMojoTwo
+				return Goods
 			}
 		},
 		data() {
@@ -499,8 +506,8 @@
 				let tobaccoSkuSrc = ""
 				let totalPrice = 0
 				let cartridgesSkuSrc = ""
-				let curGoods = this.isMojo ? GoodsMojo : Goods
-				console.log("curGoods",curGoods);
+				let curGoods = this.goodsInfo
+				
 				for (let item of curGoods.goods.taste) {
 
 					if (item.sku == data.pageOrder.cartridgesSku) {

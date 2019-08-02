@@ -166,9 +166,9 @@
 				buyNumbersColor: 1,
 				buyNumbersTaste: 0,
 				isShowTastes: false,
-				spec: Goods.spec,
-				backgrounds: Goods.backgrounds,
-				goods: Goods.goods,
+				spec: [],
+				backgrounds: [],
+				goods: {},
 				areaObj:{},
 				userInfo: [{
 						text: "收货人",
@@ -228,6 +228,10 @@
 			defaultShowTaste() {
 				let index = this.currentTasteIndex ? this.currentTasteIndex : 0;
 				return this.goods.taste[index]
+			},
+			goodsInfo(){
+				if(this.paramType == 23 || this.paramType == 24) return Goods
+				return GoodsTwo
 			}
 		},
 		watch: {
@@ -271,6 +275,9 @@
 		},
 		created() {
 			console.log("child init ..", this.initData)
+			this.spec = this.goodsInfo.spec
+			this.backgrounds = this.goodsInfo.backgrounds
+			this.goods = this.goodsInfo.goods
 			if (!this.initData || JSON.stringify(this.initData) === '{}') return;
 			this.userInfo = Object.assign(this.userInfo, this.initData.userInfo)
 			this.buyNumbersColor = this.initData.buyNumbersColor

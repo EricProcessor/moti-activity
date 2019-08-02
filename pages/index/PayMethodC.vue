@@ -344,15 +344,15 @@
 				return this.urlParams.type + "-" + this.urlParams.orderSource + "-" + this.urlParams.channel + "-" + this.urlParams.material
 			},
 			isShowWx(){
-				if(this.paramType === 23) return false;
+				if(this.paramType === 23 || this.paramType === 25) return false;
 				return true;
 			},
 			isShowAlPay(){
-				if(this.paramType === 23 || this.isWxAgent) return false;
+				if(this.paramType === 23  || this.paramType === 25 ||  this.isWxAgent) return false;
 				return true;
 			},
 			isShowCashOnDelivery(){
-				if(this.paramType === 24) return false;
+				if(this.paramType === 24  || this.paramType === 26) return false;
 				return true;
 			},
 		},
