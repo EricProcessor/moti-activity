@@ -289,19 +289,19 @@
 					}
 
 				}).then((canvans) => {
-					if (helper.useAgent() == 'wechat') {
+					// if (helper.useAgent() == 'wechat') {
 						uni.showModal({
 							title: '',
 							showCancel: false,
 							content: '请长按图片保存',
 						})
 						this.replaceImage(canvans)
-						return
-					}
-
-					canvans.toBlob(blob => {
-						saveAs(blob, "MOTI魔笛6 - 7月限时福利活动.png")
-					})
+// 						return
+// 					}
+// 
+// 					canvans.toBlob(blob => {
+// 						saveAs(blob, "MOTI魔笛6 - 7月限时福利活动.png")
+// 					})
 				});
 			},
 			checkCode() {
