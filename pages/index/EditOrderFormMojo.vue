@@ -156,6 +156,7 @@
 	} from "@/common/utils.js";
 	import Goods from "./goodsMojo.js"
 	import GoodsTwo from "./goodsMojo2.js"
+	import GoodsMojoFree from "./goodsMojoFree.js"
 	import ChoicArea from "./ChoicArea.vue"
 	export default {
 		data() {
@@ -231,6 +232,7 @@
 			},
 			goodsInfo(){
 				if(this.paramType == 23 || this.paramType == 24) return Goods
+				if(this.paramType == 27) return GoodsMojoFree
 				return GoodsTwo
 			}
 		},
@@ -311,6 +313,10 @@
 				if (this.buyNumbersTaste < 1) this.buyNumbersTaste = 1
 			},
 			numsUpColor(e) {
+				if(this.buyNumbersColor>= 1 && this.paramType == 27) return uni.showToast({
+					title:"每人限购一个哦",
+					icon:"none"
+				})
 				this.buyNumbersColor += 1;
 
 			},
@@ -816,6 +822,7 @@
 
 	.form-wrapper {
 		padding-top: 69upx;
+		margin-bottom: 10upx;
 
 		.form-title {
 			font-size: 34upx;

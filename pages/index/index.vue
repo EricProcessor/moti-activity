@@ -62,7 +62,7 @@
 					<PayMethodC @choicePay="choosePayWay" :ispolling="ispolling" :paramType="paramType" :payType="payType"
 					 @payCallBack="payCallBackFunc" :urlParams="urlParams" :orderInfo="orderResult" :isOrderSuccess="isOrderSuccess"></PayMethodC>
 				</view>
-				<OrderDetail @againBuy="buyAgain" v-if="isShowOrderDetail" :initData="propsOrderDetail"></OrderDetail>
+				<OrderDetail @againBuy="buyAgain" v-if="isShowOrderDetail" :paramType="paramType"  :initData="propsOrderDetail"></OrderDetail>
 				<!-- 提交信息后弹出卡片 -->
 				<popCard v-if="isShowPopupCard" @emitClose="closePopup" :submitState="submitState" :payType="payType"></popCard>
 			</view>
@@ -70,10 +70,10 @@
 			<view v-if="isMojo">
 				<view v-if="!isShowOrderDetail">
 					<EditOrderFormMojo ref="EditOrderForm" :orderScrollTop="scrollTop" :paramType="paramType" :initData="pageState.editOrderForm" :isClear="isClearForm"></EditOrderFormMojo>
-					<PayMethodC @choicePay="choosePayWay" :ispolling="ispolling" :paramType="paramType" :payType="payType"
+					<PayMethodC  v-show="isShowPayMethod" @choicePay="choosePayWay" :ispolling="ispolling" :paramType="paramType" :payType="payType"
 					 @payCallBack="payCallBackFunc" :urlParams="urlParams" :orderInfo="orderResult" :isOrderSuccess="isOrderSuccess"></PayMethodC>
 				</view>
-				<OrderDetail @againBuy="buyAgain" v-if="isShowOrderDetail" :initData="propsOrderDetail"></OrderDetail>
+				<OrderDetail @againBuy="buyAgain" v-if="isShowOrderDetail" :paramType="paramType"  :initData="propsOrderDetail"></OrderDetail>
 				<!-- 提交信息后弹出卡片 -->
 				<popCard v-if="isShowPopupCard" @emitClose="closePopup" :submitState="submitState" :payType="payType"></popCard>
 			</view>
@@ -92,8 +92,8 @@
 		</view>
 		<view class="submit-btn" @tap="submit" v-show="!isShowOrderDetail">
 			<image v-if="isShowBuyNow && isAB" src="../../static/images/icons/buy.jpg"></image>
-			<image v-if="isShowBuyNow && (isC || isMojo)" src="../../static/images/icons/red-buy.png"></image>
-
+			<!-- <image v-if="isShowBuyNow && (isC || isMojo)" src="../../static/images/icons/red-buy.png"></image> -->
+			<view  v-if="isShowBuyNow && (isC || isMojo)"  class="sub_order big active" >{{buttonMsg}}</view> 
 			<view v-if="!isShowBuyNow" class="sub_order" :class="{active:(isC || isMojo)}">提交订单</view>
 		</view>
 
@@ -122,6 +122,7 @@
 	import Goods from "./goods.js"
 	import GoodsMojo from "./goodsMojo.js"
 	import GoodsMojoTwo from "./goodsMojo2.js"
+	import GoodsMojoFree from "./goodsMojoFree.js"
 
 	export default {
 		config: {
@@ -152,7 +153,7 @@
 				return false
 			},
 			isMojo() {
-				if (this.paramType == 23 || this.paramType == 24 || this.paramType == 25 || this.paramType == 26) return true
+				if (this.paramType == 23 || this.paramType == 24 || this.paramType == 25 || this.paramType == 26 || this.paramType == 27) return true
 				return false
 			},
 			isOnShowOrderDetail(){
@@ -160,6 +161,10 @@
 			},
 			isShowDynamic(){
 				if(this.isC ) return false
+				return true
+			},
+			isShowPayMethod(){
+				if(this.paramType == 27) return false;
 				return true
 			},
 			pageUniqueID() {
@@ -171,7 +176,12 @@
 				
 				if (this.paramType == 23 || this.paramType == 24) return GoodsMojo
 				if (this.paramType == 25 || this.paramType == 26) return GoodsMojoTwo
+				if (this.paramType == 27) return GoodsMojoFree
 				return Goods
+			},
+			buttonMsg(){
+				if(this.paramType == 27) return "0元抢购"
+				return "立即抢购"
 			}
 		},
 		data() {
@@ -576,6 +586,10 @@
 					"application/json;charset=utf-8"
 				);
 				if (res.data.code == 0) {
+					if(res.data.result.indexOf("已购买") !== false) return uni.showModal({
+						content:"您已经参与过一次活动了!",
+						
+					})
 					this.preserveScene()
 					this.orderResult = Object.assign(this.orderResult, JSON.parse(res.data.result))
 					uni.setStorageSync("payOrderParam", this.orderResult)
@@ -862,7 +876,10 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
-
+			&.big{
+				font-weight: bold;
+				letter-spacing:4upx;
+			}
 			&.active {
 				background-color: #ff4d3d;
 			}
