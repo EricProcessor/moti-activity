@@ -586,7 +586,8 @@
 					"application/json;charset=utf-8"
 				);
 				if (res.data.code == 0) {
-					if(res.data.result.indexOf("已购买") !== false) return uni.showModal({
+					console.log(res.data)
+					if(res.data.result.indexOf("已购买") > -1) return uni.showModal({
 						content:"您已经参与过一次活动了!",
 						
 					})
