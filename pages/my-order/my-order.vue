@@ -125,7 +125,7 @@
 
 
 					<view>
-						<image class="moti-logo" src="../../static/moti-logo.png"></image>
+						<image class="moti-logo" src="../../static/hn-logo.png"></image>
 					</view>
 					<view class="ssqc-title">MOTI 魔笛电子烟夏日钜惠 </view>
 					<view class="ssqc-discount">购129元烟弹送<text class="red">199</text>元套装</view>
@@ -796,8 +796,8 @@
 			text-align: center;
 
 			.moti-logo {
-				width: 129.3upx;
-				height: 156.7upx;
+				width: 160upx;
+				height: 160upx;
 				margin: 40upx 0 40.3upx 0;
 			}
 
