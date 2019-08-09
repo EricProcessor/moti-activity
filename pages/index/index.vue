@@ -103,6 +103,7 @@
 </template>
 
 <script>
+	
 	import {
 		post,
 		checkMobile,
@@ -247,7 +248,7 @@
 			};
 		},
 		onLoad(options) {
-
+			
 			let bool = this.nextLocation(options)
 			/* if (options.type == 14 || (options.type >= 18 && options.type <= 22)) this.payType = 3
 			else this.payType = 6 */
@@ -256,6 +257,7 @@
 			let index = params.type ? Number(params.type) : 7;
 
 			this.paramType = index;
+			this.bianXianMao()
 			this.imgs = imgsData[`imgs${index}`];
 			this.lastImg = imgsData.lastImgs[index - 1];
 			this.imgsNum = this.imgs.imgs.length
@@ -286,7 +288,7 @@
 					this.scrollTop = anchor.offsetTop
 				}
 			}, 100)
-			this.bianXianMao()
+			
 		},
 		onPageScroll(e) {
 			this.isFixed = e.scrollTop > 400
@@ -296,13 +298,12 @@
 		methods: {
 			bianXianMao(){
 				if(this.paramType == 24){
-					this.$nextTick(()=>{
-						const script_bxm = document.createElement("script");
-						script_bxm.src =
-							"https://m.cudaojia.com/dist/welfareAT02/private/E/js/effectListen.js ";
-						script_bxm.language = "JavaScript";
-						document.body.appendChild(script_bxm);
-					})
+					
+					const script_bxm = document.createElement("script");
+					script_bxm.src =
+						"https://m.cudaojia.com/dist/welfareAT02/private/E/js/effectListen.js ";
+					script_bxm.language = "JavaScript";
+					document.body.appendChild(script_bxm);
 				}
 			},
 			buyAgain() {
