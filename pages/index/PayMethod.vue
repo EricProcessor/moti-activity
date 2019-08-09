@@ -269,7 +269,7 @@
 				let order = await newOrder("/activity1/pay/al", {
 					orderNo: this.orderInfo.orderNo,
 					spuName: this.orderInfo.spuName,
-					returnUrl: "http://" + window.location.host //todo
+					returnUrl:  window.location.origin //todo
 				})
 				if (order.data.code === "0") {
 
