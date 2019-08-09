@@ -295,7 +295,7 @@
 
 		methods: {
 			bianXianMao(){
-				if(this.paramType == 19){
+				if(this.paramType == 24){
 					this.$nextTick(()=>{
 						const script_bxm = document.createElement("script");
 						script_bxm.src =
