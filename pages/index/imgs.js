@@ -1339,15 +1339,15 @@ export default {
         ],
         imgs:[
             {
-                url: '../../static/type/23/2.jpg',
+                url: '../../static/type/24/2.jpg',
                 width: 750,
                 height: 230,
                 isLoaded: false
             },
             {
-                url: '../../static/type/23/3.jpg',
+                url: '../../static/type/24/3.jpg',
                 width: 750,
-                height: 900,
+                height: 667,
                 isLoaded: false
             },
             {
@@ -1369,7 +1369,7 @@ export default {
                 isLoaded: false
             },
             {
-                url: '../../static/type/23/7.jpg',
+                url: '../../static/type/24/7.jpg',
                 width: 750,
                 height: 1620,
                 isLoaded: false
