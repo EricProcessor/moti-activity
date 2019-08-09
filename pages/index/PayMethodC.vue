@@ -352,7 +352,7 @@
 				return true;
 			},
 			isShowCashOnDelivery(){
-				if(this.paramType === 24  || this.paramType === 26) return false;
+				if(this.paramType === 24  || this.paramType === 26 || this.paramType == 28) return false;
 				return true;
 			},
 		},

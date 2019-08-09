@@ -1511,6 +1511,89 @@ export default {
             }
         ]
     },
+    imgs28:{
+        swipers: [
+            '../../static/type/11/1.jpg',
+            '../../static/type/11/1-1.jpg',
+            '../../static/type/11/1-2.png',
+        ],
+        imgs:[
+            {
+                url: '../../static/type/11/2.jpg',
+                width: 750,
+                height: 280,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/11/3.jpg',
+                width: 750,
+                height: 666,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/11/4.jpg',
+                width: 750,
+                height: 1040,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/11/5.jpg',
+                width: 750,
+                height: 1160,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/11/6.jpg',
+                width: 750,
+                height: 912,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/11/7.jpg',
+                width: 750,
+                height: 1386,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/11/8.jpg',
+                width: 750,
+                height: 1060,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/11/9.jpg',
+                width: 750,
+                height: 1110,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/11/10.jpg',
+                width: 750,
+                height: 940,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/11/11.jpg',
+                width: 750,
+                height: 1200,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/11/12.jpg',
+                width: 750,
+                height: 670,
+                isLoaded: false
+            },
+            {
+                url: '../../static/type/11/13.jpg',
+                width: 750,
+                height: 1420,
+                isLoaded: false
+            }
+
+
+        ]
+    },
     lastImgs: [
         'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_1/last.jpg',
         'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_2/last.jpg',
@@ -1524,6 +1607,7 @@ export default {
 		'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_10/11.jpg',
 		'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/last.jpg',
 		'../../static/type/12/18.jpg',
+		'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/last.jpg',
 		'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/last.jpg',
 		'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/last.jpg',
 		'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/last.jpg',

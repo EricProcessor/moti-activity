@@ -157,6 +157,7 @@
 	import Goods from "./goodsMojo.js"
 	import GoodsTwo from "./goodsMojo2.js"
 	import GoodsMojoFree from "./goodsMojoFree.js"
+	import GoodsMojo24 from "./goodsMojo24.js"
 	import ChoicArea from "./ChoicArea.vue"
 	export default {
 		data() {
@@ -231,7 +232,8 @@
 				return this.goods.taste[index]
 			},
 			goodsInfo(){
-				if(this.paramType == 23 || this.paramType == 24) return Goods
+				if(this.paramType == 24) return GoodsMojo24
+				if(this.paramType == 23) return Goods
 				if(this.paramType == 27) return GoodsMojoFree
 				return GoodsTwo
 			}
@@ -605,11 +607,15 @@
 		.attrs-group {
 			margin-top: 50upx;
 			display: flex;
-			justify-content: space-between;
+			flex-wrap: wrap;
+			//justify-content: space-between;
 
 			.item-color {
 				width: 146upx;
 				height: 60upx;
+				
+				margin-right: 27upx;
+				
 				border: 1upx #333333 solid;
 				border-radius: 8upx;
 				text-align: center;
@@ -622,6 +628,9 @@
 					background-color: #ff5041;
 					color: #FFFFFF;
 				}
+			}
+			:last-child{
+				margin-right: 0;
 			}
 		}
 
