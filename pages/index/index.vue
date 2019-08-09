@@ -338,6 +338,9 @@
 						if (this.payType === 6) this.popUpCardMsg = "订单提交成功"
 						else this.popUpCardMsg = "订单支付成功"
 						this.popupCardText = ""
+						this.$nextTick(()=>{
+							this._bxmPlatformFn()
+						})
 					} else if (this.submitState == -2) {
 						this.popUpCardMsg = "订单取消支付"
 						this.popupCardText = "您已手动取消订单，请重新提交支付"
@@ -348,6 +351,7 @@
 						else this.popUpCardMsg = "订单支付失败"
 						this.popupCardText = "网络暂时离线, 请重新提交~~"
 					}
+					
 					this.isOrderSuccess = 0
 
 					this.pageState = (!this.pageState || JSON.stringify(this.pageState) == "{}") ? uni.getStorageSync("pageState") :
