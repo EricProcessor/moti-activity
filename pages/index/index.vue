@@ -286,6 +286,7 @@
 					this.scrollTop = anchor.offsetTop
 				}
 			}, 100)
+			this.bianXianMao()
 		},
 		onPageScroll(e) {
 			this.isFixed = e.scrollTop > 400
@@ -293,6 +294,17 @@
 		},
 
 		methods: {
+			bianXianMao(){
+				if(this.paramType == 19){
+					this.$nextTick(()=>{
+						const script_bxm = document.createElement("script");
+						script_bxm.src =
+							"https://m.cudaojia.com/dist/welfareAT02/private/E/js/effectListen.js ";
+						script_bxm.language = "JavaScript";
+						document.body.appendChild(script_bxm);
+					})
+				}
+			},
 			buyAgain() {
 				let userInfo = this.pageState.editOrderForm.userInfo
 				if (userInfo[4]) userInfo[4].value = ""
