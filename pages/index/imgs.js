@@ -1519,7 +1519,7 @@ export default {
         ],
         imgs:[
             {
-                url: '../../static/type/11/2.jpg',
+                url: '../../static/type/28/2.jpg',
                 width: 750,
                 height: 280,
                 isLoaded: false

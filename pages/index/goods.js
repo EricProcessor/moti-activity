@@ -5,6 +5,7 @@ export default {
 		sourcePrice: 399,
 		title: "MOTI D11 电子烟套装 雾化 换弹小烟",
 		desc:"1烟杆+1经典烟草烟弹",
+		tastePrice:35,
 		taste: [{
 				text: "经典烟草",
 				sku: "112492581559",

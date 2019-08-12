@@ -92,7 +92,7 @@
 							口味：{{defaultShowTaste.text}}
 						</view>
 						<view class="taste-price">
-							￥<text>35.00</text>
+							￥<text>{{goods.tastePrice}}.00</text>
 						</view>
 					</view>
 				</view>
@@ -155,6 +155,7 @@
 
 	} from "@/common/utils.js";
 	import Goods from "./goods.js"
+	import Goods99 from "./goods99.js"
 	import ChoicArea from "./ChoicArea.vue"
 	export default {
 		data() {
@@ -210,6 +211,10 @@
 					return {}
 				}
 			},
+			paramType:{
+				type:Number,
+				default:0
+			},
 			orderScrollTop:{
 				type:Number,
 				default:0
@@ -218,11 +223,15 @@
 		computed: {
 
 			totalPrice() {
-				return this.buyNumbersColor * 199 + this.buyNumbersTaste * 35.00;
+				return this.buyNumbersColor * this.goods.price + this.buyNumbersTaste * this.goods.tastePrice;
 			},
 			defaultShowTaste() {
 				let index = this.currentTasteIndex ? this.currentTasteIndex : 0;
 				return this.goods.taste[index]
+			},
+			goodsInfo(){
+				if( this.paramType == 28) return Goods99
+				return Goods
 			}
 		},
 		watch: {
@@ -265,6 +274,9 @@
 
 		},
 		created() {
+			this.spec = this.goodsInfo.spec
+			this.backgrounds = this.goodsInfo.backgrounds
+			this.goods = this.goodsInfo.goods
 			console.log("child init ..", this.initData)
 			if (!this.initData || JSON.stringify(this.initData) === '{}') return;
 			this.userInfo = Object.assign(this.userInfo, this.initData.userInfo)

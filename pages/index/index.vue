@@ -122,6 +122,7 @@
 	import OrderDetail from "./OrderDetail.vue"
 	import popCard from "./popCard.vue"
 	import Goods from "./goods.js"
+	import Goods99 from "./goods99.js"
 	import GoodsMojo from "./goodsMojo.js"
 	import GoodsMojoTwo from "./goodsMojo2.js"
 	import GoodsMojoFree from "./goodsMojoFree.js"
@@ -180,6 +181,7 @@
 				if (this.paramType == 23 || this.paramType == 24 || this.paramType == 29) return GoodsMojo
 				if (this.paramType == 25 || this.paramType == 26) return GoodsMojoTwo
 				if (this.paramType == 27) return GoodsMojoFree
+				if (this.paramType == 28) return Goods99
 				return Goods
 			},
 			buttonMsg() {
@@ -543,7 +545,7 @@
 
 					if (item.sku == data.pageOrder.cartridgesSku) {
 						cartridgesSkuName = item.text
-						totalPrice += data.pageOrder.cartridgesSkuNum * 35.00
+						totalPrice += data.pageOrder.cartridgesSkuNum * curGoods.goods.tastePrice
 						cartridgesSkuSrc = item.src
 						break;
 					}
@@ -582,7 +584,7 @@
 						src: cartridgesSkuSrc,
 						title: "电子烟雾化烟弹 ",
 						desc: "口味:" + cartridgesSkuName,
-						price: "35.00",
+						price: curGoods.goods.tastePrice + ".00",
 						qty: data.pageOrder.cartridgesSkuNum,
 						id: data.pageOrder.cartridgesSku
 					})
