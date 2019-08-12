@@ -8,22 +8,26 @@ export default {
 		taste: [{
 				text: "经典烟草",
 				sku: "112492581559",
+				price:35,
 				src:"../../static/images/icons/jdyc.jpg"
 			},
 
 			{
 				text: "绿豆冰沙",
 				sku: "112492581718",
+				price:35,
 				src:"../../static/images/icons/ldbs.jpg"
 			},
 			{
 				text: "风情芒果",
 				sku: "112492581686",
+				price:35,
 				src:"../../static/images/icons/fqmg.jpg"
 			},
 			{
 				text: "激爽薄荷",
 				sku: "112492575952",
+				price:35,
 				src:"../../static/images/icons/jsbh.jpg"
 			},
 		],

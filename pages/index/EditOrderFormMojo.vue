@@ -232,7 +232,7 @@
 				return this.goods.taste[index]
 			},
 			goodsInfo(){
-				if(this.paramType == 24) return GoodsMojo24
+				if(this.paramType == 24 || this.paramType == 29) return GoodsMojo24
 				if(this.paramType == 23) return Goods
 				if(this.paramType == 27) return GoodsMojoFree
 				return GoodsTwo

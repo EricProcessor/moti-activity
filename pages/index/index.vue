@@ -35,7 +35,7 @@
 			<view v-if="isAB">
 
 				<EditOrderForm ref="EditOrderForm" :orderScrollTop="scrollTop" :initData="pageState.editOrderForm" :isClear="isClearForm"
-				 :paramType="paramType"></EditOrderForm>
+				 :paramType="paramType" ></EditOrderForm>
 
 				<PayMethod @choicePay="choosePayWay" :ispolling="ispolling" :paramType="paramType" :payType="payType" @payCallBack="payCallBackFunc"
 				 :urlParams="urlParams" :orderInfo="orderResult" :isOrderSuccess="isOrderSuccess"></PayMethod>
@@ -58,22 +58,24 @@
 
 			<view v-if="isC">
 				<view v-if="!isShowOrderDetail">
-					<EditOrderFormC ref="EditOrderForm" :orderScrollTop="scrollTop"  :paramType="paramType" :initData="pageState.editOrderForm" :isClear="isClearForm"></EditOrderFormC>
+					<EditOrderFormC ref="EditOrderForm" :orderScrollTop="scrollTop" :paramType="paramType" :initData="pageState.editOrderForm"
+					 :isClear="isClearForm" ></EditOrderFormC>
 					<PayMethodC @choicePay="choosePayWay" :ispolling="ispolling" :paramType="paramType" :payType="payType"
 					 @payCallBack="payCallBackFunc" :urlParams="urlParams" :orderInfo="orderResult" :isOrderSuccess="isOrderSuccess"></PayMethodC>
 				</view>
-				<OrderDetail @againBuy="buyAgain" v-if="isShowOrderDetail" :paramType="paramType"  :initData="propsOrderDetail"></OrderDetail>
+				<OrderDetail @againBuy="buyAgain" v-if="isShowOrderDetail" :paramType="paramType" :initData="propsOrderDetail"></OrderDetail>
 				<!-- 提交信息后弹出卡片 -->
 				<popCard v-if="isShowPopupCard" @emitClose="closePopup" :submitState="submitState" :payType="payType"></popCard>
 			</view>
 
 			<view v-if="isMojo">
 				<view v-if="!isShowOrderDetail">
-					<EditOrderFormMojo ref="EditOrderForm" :orderScrollTop="scrollTop" :paramType="paramType" :initData="pageState.editOrderForm" :isClear="isClearForm"></EditOrderFormMojo>
-					<PayMethodC  v-show="isShowPayMethod" @choicePay="choosePayWay" :ispolling="ispolling" :paramType="paramType" :payType="payType"
-					 @payCallBack="payCallBackFunc" :urlParams="urlParams" :orderInfo="orderResult" :isOrderSuccess="isOrderSuccess"></PayMethodC>
+					<EditOrderFormMojo ref="EditOrderForm" :orderScrollTop="scrollTop" :paramType="paramType" :initData="pageState.editOrderForm"
+					 :isClear="isClearForm"></EditOrderFormMojo>
+					<PayMethodC v-show="isShowPayMethod" @choicePay="choosePayWay" :ispolling="ispolling" :paramType="paramType"
+					 :payType="payType" @payCallBack="payCallBackFunc" :urlParams="urlParams" :orderInfo="orderResult" :isOrderSuccess="isOrderSuccess"></PayMethodC>
 				</view>
-				<OrderDetail @againBuy="buyAgain" v-if="isShowOrderDetail" :paramType="paramType"  :initData="propsOrderDetail"></OrderDetail>
+				<OrderDetail @againBuy="buyAgain" v-if="isShowOrderDetail" :paramType="paramType" :initData="propsOrderDetail"></OrderDetail>
 				<!-- 提交信息后弹出卡片 -->
 				<popCard v-if="isShowPopupCard" @emitClose="closePopup" :submitState="submitState" :payType="payType"></popCard>
 			</view>
@@ -93,7 +95,7 @@
 		<view class="submit-btn" @tap="submit" v-show="!isShowOrderDetail">
 			<image v-if="isShowBuyNow && isAB" src="../../static/images/icons/buy.jpg"></image>
 			<!-- <image v-if="isShowBuyNow && (isC || isMojo)" src="../../static/images/icons/red-buy.png"></image> -->
-			<view  v-if="isShowBuyNow && (isC || isMojo)"  class="sub_order big active" >{{buttonMsg}}</view> 
+			<view v-if="isShowBuyNow && (isC || isMojo)" class="sub_order big active">{{buttonMsg}}</view>
 			<view v-if="!isShowBuyNow" class="sub_order" :class="{active:(isC || isMojo)}">提交订单</view>
 		</view>
 
@@ -103,7 +105,6 @@
 </template>
 
 <script>
-	
 	import {
 		post,
 		checkMobile,
@@ -142,7 +143,7 @@
 		computed: {
 
 			isShowBuyNow() {
-				if (this.paramType != 15) return !this.scrollTop || (this.currentScrollY < (this.scrollTop ))
+				if (this.paramType != 15) return !this.scrollTop || (this.currentScrollY < (this.scrollTop))
 				return !this.scrollTop || (this.currentScrollY < (this.scrollTop)) || (this.currentScrollY >= uni.upx2px(2480))
 			},
 			isC() {
@@ -154,18 +155,19 @@
 				return false
 			},
 			isMojo() {
-				if (this.paramType == 23 || this.paramType == 24 || this.paramType == 25 || this.paramType == 26 || this.paramType == 27) return true
+				if (this.paramType == 23 || this.paramType == 24 || this.paramType == 25 || this.paramType == 26 || this.paramType ==
+					27 || this.paramType == 29) return true
 				return false
 			},
-			isOnShowOrderDetail(){
+			isOnShowOrderDetail() {
 				return this.isC || this.isMojo
 			},
-			isShowDynamic(){
-				if(this.isC ) return false
+			isShowDynamic() {
+				if (this.isC) return false
 				return true
 			},
-			isShowPayMethod(){
-				if(this.paramType == 27) return false;
+			isShowPayMethod() {
+				if (this.paramType == 27) return false;
 				return true
 			},
 			pageUniqueID() {
@@ -173,15 +175,15 @@
 				return this.urlParams.type + "-" + this.urlParams.orderSource + "-" + this.urlParams.channel + "-" + this.urlParams
 					.material
 			},
-			goodsInfo(){
-				
-				if (this.paramType == 23 || this.paramType == 24) return GoodsMojo
+			goodsInfo() {
+
+				if (this.paramType == 23 || this.paramType == 24 || this.paramType == 29) return GoodsMojo
 				if (this.paramType == 25 || this.paramType == 26) return GoodsMojoTwo
 				if (this.paramType == 27) return GoodsMojoFree
 				return Goods
 			},
-			buttonMsg(){
-				if(this.paramType == 27) return "0元抢购"
+			buttonMsg() {
+				if (this.paramType == 27) return "0元抢购"
 				return "立即抢购"
 			}
 		},
@@ -248,7 +250,7 @@
 			};
 		},
 		onLoad(options) {
-			
+
 			let bool = this.nextLocation(options)
 			/* if (options.type == 14 || (options.type >= 18 && options.type <= 22)) this.payType = 3
 			else this.payType = 6 */
@@ -256,7 +258,9 @@
 			const params = options;
 			let index = params.type ? Number(params.type) : 7;
 
+
 			this.paramType = index;
+			
 			this.bianXianMao()
 			this.imgs = imgsData[`imgs${index}`];
 			this.lastImg = imgsData.lastImgs[index - 1];
@@ -288,7 +292,7 @@
 					this.scrollTop = anchor.offsetTop
 				}
 			}, 100)
-			
+
 		},
 		onPageScroll(e) {
 			this.isFixed = e.scrollTop > 400
@@ -296,9 +300,9 @@
 		},
 
 		methods: {
-			bianXianMao(){
-				if(this.paramType == 24){
-					
+			bianXianMao() {
+				if (this.paramType == 24) {
+
 					const script_bxm = document.createElement("script");
 					script_bxm.src =
 						"https://m.cudaojia.com/dist/welfareAT02/private/E/js/effectListen.js ";
@@ -339,7 +343,7 @@
 						if (this.payType === 6) this.popUpCardMsg = "订单提交成功"
 						else this.popUpCardMsg = "订单支付成功"
 						this.popupCardText = ""
-						this.$nextTick(()=>{
+						this.$nextTick(() => {
 							this._bxmPlatformFn()
 						})
 					} else if (this.submitState == -2) {
@@ -352,7 +356,7 @@
 						else this.popUpCardMsg = "订单支付失败"
 						this.popupCardText = "网络暂时离线, 请重新提交~~"
 					}
-					
+
 					this.isOrderSuccess = 0
 
 					this.pageState = (!this.pageState || JSON.stringify(this.pageState) == "{}") ? uni.getStorageSync("pageState") :
@@ -534,7 +538,7 @@
 				let totalPrice = 0
 				let cartridgesSkuSrc = ""
 				let curGoods = this.goodsInfo
-				
+
 				for (let item of curGoods.goods.taste) {
 
 					if (item.sku == data.pageOrder.cartridgesSku) {
@@ -592,11 +596,13 @@
 				if (this.isC) {
 					apiUrl = "/activity1/ad/order/bookingGghdOrder2c";
 				}
-				if(this.isMojo){
+				if (this.isMojo) {
 					apiUrl = "/activity1/ad/order/bookingGghdOrderLittleSmoke"
-					params = {pageOrder:encryXOR(JSON.stringify(data.pageOrder))}
+					params = {
+						pageOrder: encryXOR(JSON.stringify(data.pageOrder))
+					}
 				}
-				
+
 				const res = await newOrder(
 					apiUrl,
 					params,
@@ -604,9 +610,9 @@
 				);
 				if (res.data.code == 0) {
 					console.log(res.data)
-					if(res.data.result.indexOf("已购买") > -1) return uni.showModal({
-						content:"您已经参与过一次活动了!",
-						
+					if (res.data.result.indexOf("已购买") > -1) return uni.showModal({
+						content: "您已经参与过一次活动了!",
+
 					})
 					this.preserveScene()
 					this.orderResult = Object.assign(this.orderResult, JSON.parse(res.data.result))
@@ -894,10 +900,12 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			&.big{
+
+			&.big {
 				font-weight: bold;
-				letter-spacing:4upx;
+				letter-spacing: 4upx;
 			}
+
 			&.active {
 				background-color: #ff4d3d;
 			}
