@@ -1,7 +1,10 @@
-const config = {}
-config.host = process.env.NODE_ENV === 'development' 
-	? 
-		"http://test.zuul.motivape.cn" // 开发环境
-	: 
-		'http://zuul.prod.motivape.cn'	// 生产环境
+const config = {
+
+}
+
+const origin = location.origin
+
+config.host = process.env.NODE_ENV === 'development' 	? `${origin}/api` : 	`${origin}/api`		// 生产环境/线上环境
+		
+
 export default config

@@ -123,17 +123,17 @@ var provinceData = [{
     "label": "新疆维吾尔自治区",
     "value": "65"
   },
-  {
-    "label": "台湾",
-    "value": "66"
-  },
-  {
-    "label": "香港",
-    "value": "67"
-  },
-  {
-    "label": "澳门",
-    "value": "68"
-  }
+  // {
+  //   "label": "台湾",
+  //   "value": "66"
+  // },
+  // {
+  //   "label": "香港",
+  //   "value": "67"
+  // },
+  // {
+  //   "label": "澳门",
+  //   "value": "68"
+  // }
 ]
 export default provinceData;

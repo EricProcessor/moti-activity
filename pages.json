@@ -1,16 +1,40 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		{
+	/* 	{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "MOTI"
+				"navigationBarTitleText": "MOTI夏日清凉大礼包"
 			}
 		}
+	    , */{
+            "path" : "pages/detail/detail",
+            "style" : {
+				"navigationBarTitleText":"商品购买"
+			}
+        }
+        ,{
+            "path" : "pages/submit/submit",
+            "style" : {
+				"navigationBarTitleText":"下单"
+			}
+        }
+		,{
+		    "path" : "pages/order-pay/order-pay",
+		    "style" : {}
+		}
+        ,{
+            "path" : "pages/pay-success/pay-success",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/my-order/my-order",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
+		"navigationBarTitleText": "MOTI",
+		"navigationBarBackgroundColor": "#FFFFFF",
 		"backgroundColor": "#F8F8F8"
 	}
 }
