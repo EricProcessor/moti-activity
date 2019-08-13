@@ -447,6 +447,10 @@
 					districtName:this.areaObj.area.label,
 					districtCode:this.areaObj.area.value
 				};
+				if(this.paramType == 28){
+					orderInfo.cartridgesSkuPrice = this.goods.tastePrice
+					orderInfo.tobaccoSkuPrice  = this.goods.price
+				}
 				return orderInfo
 			},
 			getSrollHeight(){

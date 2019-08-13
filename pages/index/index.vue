@@ -598,13 +598,13 @@
 				if (this.isC) {
 					apiUrl = "/activity1/ad/order/bookingGghdOrder2c";
 				}
-				if (this.isMojo) {
+				if (this.isMojo || this.paramType == 28) {
 					apiUrl = "/activity1/ad/order/bookingGghdOrderLittleSmoke"
 					params = {
 						pageOrder: encryXOR(JSON.stringify(data.pageOrder))
 					}
 				}
-
+			
 				const res = await newOrder(
 					apiUrl,
 					params,
