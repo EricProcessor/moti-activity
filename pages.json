@@ -53,6 +53,30 @@
 				
 			}
         }
+        ,{
+            "path" : "pages/agent-list/agent-list",
+            "style" : {
+				"navigationStyle": "custom"
+			}
+        }
+        ,{
+            "path" : "pages/add-agent/add-agent",
+            "style" : {
+				"navigationBarTitleText": "新增代理商"
+			}
+        }
+        ,{
+            "path" : "pages/shop-list/shop-list",
+            "style" : {
+				"navigationBarTitleText": "门店列表"
+			}
+        }
+        ,{
+            "path" : "pages/add-shop/add-shop",
+            "style" : {
+				"navigationBarTitleText": "新增门店"
+			}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

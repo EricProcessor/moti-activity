@@ -55,6 +55,15 @@ export function shops(params) {
 		data: {}
 	}).then(res => res.data)
 }
+// 添加门店
+export function addShops(params){
+	return request({
+		url: '/activity/shop/shop',
+		methods: 'POST',
+		contentType: 'application/json',
+		data: params
+	}).then(res => res.data)
+}
 
 export function updateOrderStatus(params){
 	return request({
@@ -137,4 +146,13 @@ export function getAgent(params){
 		contentType: 'application/json',
 		data: params
 	}).then( res => res.data)
+}
+// 添加代理商
+export function addAgent(params){
+	return request({
+		url: '/activity/shop/operator',
+		methods: 'POST',
+		contentType: 'application/json',
+		data: params
+	}).then(res => res.data)
 }

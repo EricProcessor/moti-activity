@@ -16,7 +16,7 @@ switch (host) {
 		break
 	default:
 		// api = "//test.zuul.motivape.cn/activity"
-		api = "//192.168.10.126:8197/activity"
+		api = "//192.168.10.186:8197/activity"
 		break
 }
 config.host = process.env.NODE_ENV === 'development' ? api : api // 生产环境/线上环境
