@@ -157,7 +157,7 @@
 			},
 			isMojo() {
 				if (this.paramType == 23 || this.paramType == 24 || this.paramType == 25 || this.paramType == 26 || this.paramType ==
-					27 || this.paramType == 29) return true
+					27 || this.paramType == 29 || this.paramType == 30) return true
 				return false
 			},
 			isOnShowOrderDetail() {
@@ -168,7 +168,7 @@
 				return true
 			},
 			isShowPayMethod() {
-				if (this.paramType == 27) return false;
+				if (this.paramType == 27 || this.paramType === 30) return false;
 				return true
 			},
 			pageUniqueID() {
@@ -180,7 +180,7 @@
 
 				if (this.paramType == 23 || this.paramType == 24 || this.paramType == 29) return GoodsMojo
 				if (this.paramType == 25 || this.paramType == 26) return GoodsMojoTwo
-				if (this.paramType == 27) return GoodsMojoFree
+				if (this.paramType == 27 || this.paramType == 30) return GoodsMojoFree
 				if (this.paramType == 28) return Goods99
 				return Goods
 			},
@@ -303,8 +303,8 @@
 
 		methods: {
 			bianXianMao() {
-				if (this.paramType == 24) {
-
+				if (this.paramType == 24 || this.paramType == 30) {
+					
 					const script_bxm = document.createElement("script");
 					script_bxm.src =
 						"https://m.cudaojia.com/dist/welfareAT02/private/E/js/effectListen.js ";

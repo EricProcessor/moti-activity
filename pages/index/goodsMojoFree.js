@@ -10,7 +10,7 @@ export default {
 	backgrounds: [
 		"../../static/images/mojo/flbs.jpg",
 		"../../static/images/mojo/jdyc.jpg",
-		"../../static/images/mojo/nmtd.jpg",
+		//"../../static/images/mojo/nmtd.jpg",
 		"../../static/images/mojo/qsbh.jpg"
 	],
 	spec: [
@@ -23,10 +23,10 @@ export default {
 			text: "经典烟草",
 			sku: "112492582466"
 		},
-		{
+	/* 	{
 			text: "柠檬甜点",
 			sku: "112492578019"
-		},
+		}, */
 		{
 			text: "清爽薄荷",
 			sku: "112492576122"
