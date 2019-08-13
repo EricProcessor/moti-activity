@@ -315,8 +315,8 @@
 				if (this.buyNumbersTaste < 1) this.buyNumbersTaste = 1
 			},
 			numsUpColor(e) {
-				if(this.buyNumbersColor>= 1 && this.paramType == 27) return uni.showToast({
-					title:"每人限购一个哦",
+				if(this.buyNumbersColor>= 1 && (this.paramType == 27 || this.paramType == 30)) return uni.showToast({
+					title:"每次只能限购一个哦",
 					icon:"none"
 				})
 				this.buyNumbersColor += 1;
