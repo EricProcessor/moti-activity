@@ -5,6 +5,7 @@
 		<discounts-box></discounts-box>
 		<code-box></code-box>
 		<help-box></help-box>
+		<upload-img></upload-img>
 		<footer-box></footer-box>
 		<button-box></button-box>
 		<pop-up></pop-up>
@@ -20,6 +21,7 @@
 	import discountsBox from '@/components/discounts.vue';
 	import codeBox from "@/components/code.vue";
 	import buttonBox from "@/components/button.vue";
+	import uploadImg from '@/components/uploadImg.vue';
 	export default {
 		components:{
 			headerBox,
@@ -29,7 +31,8 @@
 			popUp,
 			discountsBox,
 			codeBox,
-			buttonBox
+			buttonBox,
+			uploadImg
 		},
 		data() {
 			return {

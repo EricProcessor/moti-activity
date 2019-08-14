@@ -5,7 +5,7 @@
 				<view class='top-lf'>
 					<text>10984</text>人正在参加
 				</view >
-				<view class='top-rg'>什么是MOTIS</view>
+				<view class='top-rg' @tap='aboutMe'>什么是MOTIS</view>
 			</view>
 			<view class="activityNum">活动时间&nbsp;即日起至2019年09月20日</view>
 		</view>
@@ -18,6 +18,13 @@
 			return {
 				
 			};
+		},
+		methods:{
+			aboutMe(){
+				uni.navigateTo({
+					url:'/pages/aboutMoti/aboutMoti'
+				})
+			}
 		}
 	}
 </script>

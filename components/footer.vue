@@ -22,7 +22,7 @@
 			width: 90%;
 			height: 320upx;
 			margin:0 auto;
-			background-image: url('/static/text.png');
+			background-image: url('../static/text.png');
 			background-repeat:no-repeat;
 			background-position:center top;
 			background-size: 100%;

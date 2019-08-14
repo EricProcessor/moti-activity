@@ -16,6 +16,10 @@
             "path" : "pages/userC/userC",
             "style" : {}
         }
+        ,{
+            "path" : "pages/aboutMoti/aboutMoti",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

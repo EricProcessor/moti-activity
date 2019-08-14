@@ -12,6 +12,7 @@
 		</view>
 		<view class='more'>
 			<text>查看更多</text>
+			<view class="jiantou" :class="isDown?'xia':'shang'"></view>
 		</view>
 	</view>
 </template>
@@ -20,6 +21,7 @@
 	export default {
 		data() {
 			return {
+				isDown:true,
 				image:[
 					{
 						url:'/static/mine.png'
@@ -81,6 +83,20 @@
 			font-weight: 400;
 			line-height: 30upx;
 			text-align: center;
+			.jiantou{
+				width:30upx;
+				height:10upx;
+				background-repeat:no-repeat;
+				background-position:center top;
+				background-size: 100%;
+				margin:10upx auto 0;
+			}
+			.xia{
+				background-image: url('../static/xia.png');
+			}
+			.shang{
+				background-image: url('../static/shang.png');
+			}
 		}
 		.imagesBox{
 			display: flex;
