@@ -1,31 +1,23 @@
 <template>
 	<view class="spu-name">
 		<view class="price">
-			<text class="curency">￥</text><text class="price">{{price}}.00</text><text class="market-price">原价￥399</text>
+			<text class="curency">￥</text><text class="price">{{goods.price}}.00</text><text class="market-price">原价￥{{goods.sourcePrice}}</text>
 		</view>
 		<view class="title">
-			MOTI 11 电子烟套装 雾化换弹小烟
+			{{goods.title}}
 		</view>
 		<view class="desc">
-			(1 烟杆 + 1 个经典烟草烟弹)
+			({{goods.desc}})
 		</view>
 		<view class="credible-groups" >
 			<view class="credible-labels">
-				<view class="item-label">
-					官方发货
+				<view class="item-label" v-for="(item,index) in goods.credible" :key="index">
+					{{item}}
 				</view>
-				<view class="item-label">
-					消费者保障服务
-				</view>
-				<view class="item-label">
-					包邮
-				</view>
-				<view class="item-label">
-					假一赔三
-				</view>
+
 			</view>
 			<view class="saleable-qty">
-				剩余 93
+				剩余 {{goods.saleQty}}
 			</view>
 		</view>
 	</view>
@@ -39,9 +31,18 @@
 			}
 		},
 		props:{
-			price:{
-				type:Number,
-				default:199.00
+			goods:{
+				type:Object,
+				default:function () {
+					return {
+						price:69,
+						sourcePrice:169,
+						title:"MO GO 电子烟套装 雾化换弹小烟",
+						desc:"1 烟杆 + 1 个老冰棍儿烟弹",
+						credible:['官方发货','消费者保障服务','包邮','假一赔三'],
+						saleQty:93
+					}
+				}
 			}
 		}
 	}

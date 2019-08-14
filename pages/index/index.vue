@@ -20,7 +20,7 @@
 						</view>
 					</view>
 				</view>
-				<SpuDesc></SpuDesc>
+				<SpuDesc v-if="paramType >= 31"></SpuDesc>
 				<block v-if="paramType != 15">
 					<view :key="index" class="img_wrapper" v-for="(item, index) in imgs.imgs" :style="{width: item.width + 'upx', height: item.height + 'upx'}">
 						<img class="img" :src="item.url"></img>
@@ -152,7 +152,7 @@
 				return !this.scrollTop || (this.currentScrollY < (this.scrollTop)) || (this.currentScrollY >= uni.upx2px(2480))
 			},
 			isC() {
-				if (this.paramType == 16 || this.paramType == 17 || this.paramType == 28) return true;
+				if (this.paramType === 16 || this.paramType === 17 || this.paramType === 28 || this.paramType === 31) return true;
 				return false
 			},
 			isAB() {
@@ -160,8 +160,8 @@
 				return false
 			},
 			isMojo() {
-				if (this.paramType == 23 || this.paramType == 24 || this.paramType == 25 || this.paramType == 26 || this.paramType ==
-					27 || this.paramType == 29 || this.paramType == 30) return true
+				if (this.paramType === 23 || this.paramType === 24 || this.paramType === 25 || this.paramType === 26 || this.paramType ===
+					27 || this.paramType === 29 || this.paramType === 30) return true
 				return false
 			},
 			isOnShowOrderDetail() {
@@ -172,7 +172,7 @@
 				return true
 			},
 			isShowPayMethod() {
-				if (this.paramType == 27 || this.paramType === 30) return false;
+				if (this.paramType === 27 || this.paramType === 30) return false;
 				return true
 			},
 			pageUniqueID() {
@@ -307,7 +307,7 @@
 
 		methods: {
 			bianXianMao() {
-				if (this.paramType == 24 || this.paramType == 30) {
+				if (this.paramType === 24 || this.paramType === 30) {
 					
 					const script_bxm = document.createElement("script");
 					script_bxm.src =
@@ -352,10 +352,10 @@
 						this.$nextTick(() => {
 							this._bxmPlatformFn()
 						})
-					} else if (this.submitState == -2) {
+					} else if (this.submitState === -2) {
 						this.popUpCardMsg = "订单取消支付"
 						this.popupCardText = "您已手动取消订单，请重新提交支付"
-					} else if (this.submitState == -3) {
+					} else if (this.submitState === -3) {
 
 					} else {
 						if (this.payType === 6) this.popUpCardMsg = "订单提交失败"
@@ -418,7 +418,7 @@
 				if (this.isShowBuyNow) return;
 
 				let vadation = this.$refs.EditOrderForm.checkSubmit()
-				if (vadation.code == 1) {
+				if (vadation.code === 1) {
 					return uni.showToast({
 						title: vadation.message,
 						icon: "none"
