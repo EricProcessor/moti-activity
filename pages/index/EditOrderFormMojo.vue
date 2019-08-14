@@ -39,7 +39,7 @@
 				请选择规格
 			</view>
 			<view class="attrs-group">
-				<view :key="index" class="item-color" :class="{active: index === currentSpecIndex }" @touchend="chooseSpec"
+				<view :key="index" class="item-color" :class="{active: index === currentSpecIndex,m4: (index%4 == 3 )}" @touchend="chooseSpec"
 				 :data-index="index" v-for="(item,index) in spec">
 					{{item.text}}
 				</view>
@@ -613,6 +613,7 @@
 			.item-color {
 				width: 146upx;
 				height: 60upx;
+				margin-bottom: 15upx;
 				
 				margin-right: 27upx;
 				
@@ -628,10 +629,11 @@
 					background-color: #ff5041;
 					color: #FFFFFF;
 				}
+				&.m4{
+					margin-right: 0upx;
+				}
 			}
-			:last-child{
-				margin-right: 0;
-			}
+			
 		}
 
 	}

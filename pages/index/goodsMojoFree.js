@@ -11,7 +11,10 @@ export default {
 		"../../static/images/mojo/flbs.jpg",
 		"../../static/images/mojo/jdyc.jpg",
 		//"../../static/images/mojo/nmtd.jpg",
-		"../../static/images/mojo/qsbh.jpg"
+		"../../static/images/mojo/qsbh.jpg",
+		"../../static/images/mojo/moli.jpg",
+		"../../static/images/mojo/miga.jpg",
+		"../../static/images/mojo/lbgr.jpg",
 	],
 	spec: [
 		
@@ -30,6 +33,18 @@ export default {
 		{
 			text: "清爽薄荷",
 			sku: "112492576122"
+		},
+		{
+			text: "茉莉花茶",
+			sku: "112492578023"
+		},
+		{
+			text: "酷爽蜜瓜",
+			sku: "112492576116"
+		},
+		{
+			text: "老冰棍儿",
+			sku: "112492578055"
 		},
 	],
 }
