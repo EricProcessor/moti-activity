@@ -8,7 +8,7 @@
 			<view class="pop-content">
 				<view class="title">我要参与活动</view>
 				<view class="tit">请选择参与方式，点击后不可进行修改哦</view>
-				<view @tap='selected(index,item.url)' :class='{active:id==index}' class="content-li" v-for='(item,index) in activityInfo' :key='index'>
+				<view @tap='selected(item.id)' :class='{active:selectedIndex==item.id}' class="content-li" v-for='(item,index) in activityInfo' :key='index'>
 					<view class="content-top">{{item.title}}</view>
 					 <view class="content">{{item.content}}</view>
 				</view>
@@ -29,22 +29,24 @@
 		data() {
 			return {
 				isJoin:false,
-				id:0,
+				selectedIndex:0,
 				activityInfo:[
 					{
 						title:'我从没使用过电子烟产品',
 						content:'(从未使用过电子烟)',
-						url:'/pages/userA/userA'
+						id:1
 					},
 					{
 						title:'我是MOTI（MT产品）',
 						content:'(有在使用MOTI（MT）换弹式电子烟）',
-						url:'/pages/userB/userB'
+						url:'/pages/userB/userB',
+						id:2
 					},
 					{
 						title:'我有其他品牌的换弹式电子烟',
 						content:'(使用过其他品牌电子烟）',
-						url:'/pages/userC/userC'
+						url:'/pages/userC/userC',
+						id:3
 					}
 				]
 			}
@@ -53,17 +55,39 @@
 
 		},
 		methods: {
-			selected(index,url){
-				this.id=index;
-				uni.navigateTo({
-					url:url
-				})
+			selected(index){
+				this.selectedIndex=index;
 			},
 			joinBtn(){
 				this.isJoin = !this.isJoin;
 			},
 			confirm(){
-				this.isJoin = false;
+				let type = this.selectedIndex;
+				if(type==0){
+					uni.showToast({
+						icon:'none',
+						title:'请选择'
+					})
+				}else{
+					this.isJoin = false;
+					switch(type){
+						case 1:
+							uni.navigateTo({
+								url:'/pages/userA/userA'
+							});
+							break;
+						case 2:
+							uni.navigateTo({
+								url:'/pages/userB/userB'
+							});
+							break;
+						case 3:
+							uni.navigateTo({
+								url:'/pages/userC/userC'
+							});
+							break;
+					}
+				}
 			}
 		}
 	}
@@ -90,7 +114,7 @@
 			background:rgba(0,0,0,.7);
 			position:fixed;
 			top:0;
-			z-index:100;
+			z-index:10;
 			display: flex;
 			flex-direction: column;
 			.pop{
