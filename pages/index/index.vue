@@ -38,11 +38,13 @@
 					},
 					{
 						title:'我是MOTI（MT产品）',
-						content:'(有在使用MOTI（MT）换弹式电子烟）'
+						content:'(有在使用MOTI（MT）换弹式电子烟）',
+						url:'/pages/userB/userB'
 					},
 					{
 						title:'我有其他品牌的换弹式电子烟',
-						content:'(使用过其他品牌电子烟）'
+						content:'(使用过其他品牌电子烟）',
+						url:'/pages/userC/userC'
 					}
 				]
 			}

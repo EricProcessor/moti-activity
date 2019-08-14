@@ -8,6 +8,14 @@
             "path" : "pages/userA/userA",
             "style" : {}
         }
+        ,{
+            "path" : "pages/userB/userB",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/userC/userC",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
