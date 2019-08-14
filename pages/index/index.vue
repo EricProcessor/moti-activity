@@ -20,6 +20,7 @@
 						</view>
 					</view>
 				</view>
+				<SpuDesc></SpuDesc>
 				<block v-if="paramType != 15">
 					<view :key="index" class="img_wrapper" v-for="(item, index) in imgs.imgs" :style="{width: item.width + 'upx', height: item.height + 'upx'}">
 						<img class="img" :src="item.url"></img>
@@ -119,10 +120,12 @@
 	import EditOrderForm from "./EditOrderForm.vue"
 	import EditOrderFormC from "./EditOrderFormC.vue"
 	import EditOrderFormMojo from "./EditOrderFormMojo.vue"
+	import SpuDesc from "./SpuDesc.vue"
 	import OrderDetail from "./OrderDetail.vue"
 	import popCard from "./popCard.vue"
 	import Goods from "./goods.js"
 	import Goods99 from "./goods99.js"
+	import Goods14 from "./goods14.js"
 	import GoodsMojo from "./goodsMojo.js"
 	import GoodsMojoTwo from "./goodsMojo2.js"
 	import GoodsMojoFree from "./goodsMojoFree.js"
@@ -139,12 +142,13 @@
 			PayMethodC,
 			OrderDetail,
 			popCard,
-			EditOrderFormMojo
+			EditOrderFormMojo,
+			SpuDesc
 		},
 		computed: {
 
 			isShowBuyNow() {
-				if (this.paramType != 15) return !this.scrollTop || (this.currentScrollY < (this.scrollTop))
+				if (this.paramType !== 15) return !this.scrollTop || (this.currentScrollY < (this.scrollTop))
 				return !this.scrollTop || (this.currentScrollY < (this.scrollTop)) || (this.currentScrollY >= uni.upx2px(2480))
 			},
 			isC() {
@@ -177,7 +181,7 @@
 					.material
 			},
 			goodsInfo() {
-
+				if(this.paramType == 14) return Goods14
 				if (this.paramType == 23 || this.paramType == 24 || this.paramType == 29) return GoodsMojo
 				if (this.paramType == 25 || this.paramType == 26) return GoodsMojoTwo
 				if (this.paramType == 27 || this.paramType == 30) return GoodsMojoFree
@@ -598,7 +602,7 @@
 				if (this.isC) {
 					apiUrl = "/activity1/ad/order/bookingGghdOrder2c";
 				}
-				if (this.isMojo || this.paramType == 28) {
+				if (this.isMojo || this.paramType == 28  || this.paramType == 14) {
 					apiUrl = "/activity1/ad/order/bookingGghdOrderLittleSmoke"
 					params = {
 						pageOrder: encryXOR(JSON.stringify(data.pageOrder))

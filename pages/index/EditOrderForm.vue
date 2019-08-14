@@ -121,6 +121,7 @@
 
 	} from "@/common/utils.js";
 	import Goods from "./goods.js"
+	import Goods14 from "./goods14.js"
 	import ChoicArea from "./ChoicArea.vue"
 	export default {
 		data() {
@@ -189,6 +190,10 @@
 			},
 			isShowcredible(){
 				return this.paramType == 15
+			},
+			goodsInfo(){
+				if( this.paramType == 14) return Goods14
+				return Goods
 			}
 		},
 		watch: {
@@ -225,6 +230,9 @@
 
 		},
 		created() {
+			this.spec = this.goodsInfo.spec
+			this.backgrounds = this.goodsInfo.backgrounds
+			this.goods = this.goodsInfo.goods
 			console.log("child init ..", this.initData)
 			if (!this.initData || JSON.stringify(this.initData) === '{}') return;
 			this.userInfo = Object.assign(this.userInfo, this.initData.userInfo)
@@ -394,6 +402,10 @@
 					districtName:this.areaObj.area.label,
 					districtCode:this.areaObj.area.value
 				};
+				if(this.paramType == 14){
+					orderInfo.cartridgesSkuPrice = this.goods.tastePrice
+					orderInfo.tobaccoSkuPrice  = this.goods.price
+				}
 				return orderInfo
 			},
 			getSrollHeight(){
