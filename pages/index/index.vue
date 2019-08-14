@@ -57,6 +57,9 @@
 		methods: {
 			selected(index){
 				this.selectedIndex=index;
+				location.replace(
+					`https://gezi.motivape.cn/auth.html?appid=wx80a7401a02e0f8ec&redirectUri=${encodeURIComponent('http://test.hnhd.motivape.cn/bluehd#/pages/userA/userA')}&response_type=code&scope=snsapi_userinfo&state=gfhd`
+				)
 			},
 			joinBtn(){
 				this.isJoin = !this.isJoin;
