@@ -183,16 +183,16 @@
 		},
 		computed: {
 			tasteTotal() {
-				return this.buyNumbersTaste * 35.00
+				return this.buyNumbersTaste * this.goods.tastePrice
 			},
 			totalPrice() {
-				return this.buyNumbersColor * 199;
+				return this.buyNumbersColor * this.goods.price;
 			},
 			isShowcredible(){
-				return this.paramType == 15
+				return this.paramType === 15
 			},
 			goodsInfo(){
-				if( this.paramType == 14) return Goods14
+				if( this.paramType === 32) return Goods14
 				return Goods
 			}
 		},
@@ -402,7 +402,7 @@
 					districtName:this.areaObj.area.label,
 					districtCode:this.areaObj.area.value
 				};
-				if(this.paramType == 14){
+				if(this.paramType === 32){
 					orderInfo.cartridgesSkuPrice = this.goods.tastePrice
 					orderInfo.tobaccoSkuPrice  = this.goods.price
 				}

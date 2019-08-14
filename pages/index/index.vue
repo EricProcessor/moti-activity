@@ -20,7 +20,7 @@
 						</view>
 					</view>
 				</view>
-				<SpuDesc v-if="paramType >= 31"></SpuDesc>
+				<SpuDesc v-if="paramType === 31"></SpuDesc>
 				<block v-if="paramType != 15">
 					<view :key="index" class="img_wrapper" v-for="(item, index) in imgs.imgs" :style="{width: item.width + 'upx', height: item.height + 'upx'}">
 						<img class="img" :src="item.url"></img>
@@ -156,7 +156,7 @@
 				return false
 			},
 			isAB() {
-				if (this.paramType <= 15 || (this.paramType >= 18 && this.paramType <= 22)) return true;
+				if (this.paramType <= 15 || (this.paramType >= 18 && this.paramType <= 22) || this.paramType === 32) return true;
 				return false
 			},
 			isMojo() {
@@ -181,7 +181,7 @@
 					.material
 			},
 			goodsInfo() {
-				if(this.paramType == 14) return Goods14
+				if(this.paramType == 32) return Goods14
 				if (this.paramType == 23 || this.paramType == 24 || this.paramType == 29) return GoodsMojo
 				if (this.paramType == 25 || this.paramType == 26) return GoodsMojoTwo
 				if (this.paramType == 27 || this.paramType == 30) return GoodsMojoFree
@@ -189,7 +189,7 @@
 				return Goods
 			},
 			buttonMsg() {
-				if (this.paramType == 27) return "0元抢购"
+				if (this.paramType === 27) return "0元抢购"
 				return "立即抢购"
 			}
 		},
@@ -312,7 +312,7 @@
 				if (this.paramType === 31) this.isSwiper750 = true
 			},
 			bianXianMao() {
-				if (this.paramType === 24 || this.paramType === 30) {
+				if (this.paramType === 24 || this.paramType === 30 || this.paramType === 32) {
 					
 					const script_bxm = document.createElement("script");
 					script_bxm.src =
@@ -607,7 +607,7 @@
 				if (this.isC) {
 					apiUrl = "/activity1/ad/order/bookingGghdOrder2c";
 				}
-				if (this.isMojo || this.paramType == 28  || this.paramType == 14) {
+				if (this.isMojo || this.paramType === 28  || this.paramType === 32) {
 					apiUrl = "/activity1/ad/order/bookingGghdOrderLittleSmoke"
 					params = {
 						pageOrder: encryXOR(JSON.stringify(data.pageOrder))

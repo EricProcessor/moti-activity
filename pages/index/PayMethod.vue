@@ -317,7 +317,7 @@
 			},
 			isShowCashOnDelivery(){
 				let b = true
-				if(this.paramType === 14 || (this.paramType>=18 && this.paramType <= 22)) b = false
+				if(this.paramType === 14 || (this.paramType>=18 && this.paramType <= 22) || this.paramType === 32) b = false
 				return b
 			},
 			isShowWx(){
