@@ -16,6 +16,6 @@
 
 <style lang="scss" scoped>
 	.code-box{
-		
+		width:93%
 	}
 </style>
