@@ -5,7 +5,7 @@
 			<!-- 上半部图片 -->
 			<view class="introductions">
 				<view class="swiper_wrapper" v-if="imgs.swipers.length > 0">
-					<swiper :indicator-dots="false" indicator-active-color="#fff" :autoplay="true" :interval="3000" @change="swiperChange">
+					<swiper :class="{height750:isSwiper750,height980:!isSwiper750}" :indicator-dots="false" indicator-active-color="#fff" :autoplay="true" :interval="3000" @change="swiperChange">
 						<swiper-item class="swiper-item" v-for="(item, index) in imgs.swipers" :key="index">
 							<image :src="item" mode="widthFix"></image>
 						</swiper-item>
@@ -195,6 +195,7 @@
 		},
 		data() {
 			return {
+				isSwiper750:false,
 				propsOrderDetail: {},
 				isShowOrderDetail: false,
 				pageState: {},
@@ -268,6 +269,7 @@
 			this.paramType = index;
 			
 			this.bianXianMao()
+			this.setIsSwiper750()
 			this.imgs = imgsData[`imgs${index}`];
 			this.lastImg = imgsData.lastImgs[index - 1];
 			this.imgsNum = this.imgs.imgs.length
@@ -306,6 +308,9 @@
 		},
 
 		methods: {
+			setIsSwiper750(){
+				if (this.paramType === 31) this.isSwiper750 = true
+			},
 			bianXianMao() {
 				if (this.paramType === 24 || this.paramType === 30) {
 					
@@ -769,10 +774,8 @@
 			swiper {
 				position: relative;
 				width: 100%;
-				height: 980upx;
-				&.height750{
-					height: 750upx;
-				}
+				
+				
 				.swiper-item {
 					width: 100%;
 					height: 100%;
@@ -784,7 +787,12 @@
 					}
 				}
 			}
-
+			.height750{
+				height: 750upx;
+			}
+			.height980{
+				height: 980upx;
+			}
 			.img_wrapper {
 				box-sizing: border-box;
 
