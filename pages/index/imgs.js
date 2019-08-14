@@ -755,9 +755,9 @@ export default {
 	    ],
 	    imgs: [
 			{
-				url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/1.jpg',
+				url: '../../static/type/14/1.png',
 				width: 750,
-				height: 950
+				height: 898
 			},
 			{
 				url: '../../static/type/7/2.jpg',
