@@ -770,7 +770,9 @@
 				position: relative;
 				width: 100%;
 				height: 980upx;
-
+				&.height750{
+					height: 750upx;
+				}
 				.swiper-item {
 					width: 100%;
 					height: 100%;

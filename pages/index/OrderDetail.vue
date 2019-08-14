@@ -91,7 +91,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="order-again" v-if="this.paramType != 27">
+			<view class="order-again">
 				<button @click="$emit('againBuy')" >再来一单</button>
 			</view>
 
