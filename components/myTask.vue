@@ -12,7 +12,7 @@
 			</view>
 		</view>
 		<view class="taskBox">
-			<view class='task'>任务1:<text class="font-color">36名</text>好友助力</view>
+			<view class='task'>任务1:<text class="font-color">{{master.helpNum}}名</text>好友助力</view>
 			<view v-if='task1' @tap='progress' class="proceed btn">进行中</view>
 			<view v-else class="accomplish btn">已完成</view>
 		</view>
@@ -21,7 +21,7 @@
 			<view class="proceed btn">进行中</view>
 			<!-- <view v-else class="accomplish btn">已完成</view> -->
 		</view>
-		<view class="taskProceed">完成1个任务，即可获得<text class="color">99元换购大礼包</text></view>
+		<view class="taskProceed">{{master.helpText}}<text class="color">{{master.reward}}</text></view>
 	</view>
 </template>
 
@@ -31,6 +31,10 @@
 			taskType:{
 				type:Number,
 				default:Number
+			},
+			master:{
+				type: Object,
+				default: Object
 			}
 		},
 		data() {

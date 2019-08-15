@@ -1,13 +1,14 @@
 <template>
 	<view class='userA'>
 		<header-box></header-box>
-		<my-task></my-task>
+		<my-task :master="master"></my-task>
 		<help-box></help-box>
 		<discounts-box ></discounts-box>
 		<code-box ></code-box>
 		<footer-box></footer-box>
 		<button-box></button-box>
 		<pop-up></pop-up>
+		<invite-help></invite-help>
 	</view>
 </template>
 
@@ -20,8 +21,8 @@
 	import discountsBox from "@/components/discounts.vue";
 	import codeBox from '@/components/code.vue';
 	import buttonBox from '@/components/button.vue';
+	import inviteHelp from '@/components/inviteHelp.vue'
 	export default {
-
 		components: {
 			headerBox,
 			footerBox,
@@ -30,10 +31,16 @@
 			popUp,
 			discountsBox,
 			codeBox,
-			buttonBox
+			buttonBox,
+			inviteHelp
 		},
 		data() {
 			return {
+				master: {
+					helpNum: 36,
+					helpText: '完成1个任务，即可获得',
+					reward: '99元换购资格'
+				}
 			};
 		},
 		onLoad(option) {

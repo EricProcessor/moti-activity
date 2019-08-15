@@ -46,6 +46,24 @@
 			}
         }
         ,{
+            "path" : "pages/help/help",
+            "style" : {
+				"navigationStyle":"custom",
+				"app-plus":{
+					"titleNView":false
+				}
+			}
+        }
+        ,{
+            "path" : "pages/generateImg/generateImg",
+            "style" : {
+				"navigationBarTitleText": "生成专属海报",
+				"navigationStyle":"custom",
+				"app-plus":{
+					"titleNView":false
+				}
+			}
+        },{
             "path" : "pages/qrcode/qrcode",
             "style" : {}
         }

@@ -7,6 +7,7 @@
 </template>
 
 <script>
+	import Bus from '@/common/bus.js'
 	export default {
 		props:{
 			
@@ -19,12 +20,12 @@
 		},
 		methods:{
 			goHelp(){
-				this.isHelp = false;
-				buryPoint('inviteFirend')
+				Bus.$emit('showHelp',true);
+				this.buryPoint('inviteFirend')
 			},
 			completeTask(){
-				console.log(1111111);
-				buryPoint('completeTask')
+				Bus.$emit('showPop',true);
+				this.buryPoint('completeTask')
 			},
 			buryPoint(des) {
 				var _core = new WCore();
