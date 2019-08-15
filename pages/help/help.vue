@@ -19,13 +19,13 @@
 			</view>
 		</view>
 		<view @tap='helpBtn' v-if='isHelp' class="btn">为他助力</view>
-		<view v-else class="btn">我也要参加</view>
+		<view v-else class="btn" @tap="toMaster">我也要参加</view>
 	</view>
 </template>
 
 <script>
 	import headerBox from '@/components/header.vue';
-	import {queryHelpSubByUserId,saveHelpSub} from '@/common/request.js'
+	import {queryHelpSubByOpenId,saveHelpSub,getUserAllInfo} from '@/common/request.js'
 	export default {
 		components:{
 			headerBox
@@ -41,13 +41,68 @@
 			};
 		},
 		methods:{
-			helpBtn(){
-				this.isHelp = false;
+			async init(){
+				let infoData = await getUserAllInfo(_self.code);
+				let jsonData = JSON.parse(infoData.result);
+				console.log("个人信息"+ jsonData.nickname);
+				uni.setStorage({
+					key:'wxUserInfo',
+					data:jsonData,
+					success:function(){
+						console.log("储存成功"+JSON.stringify(jsonData));
+						_self.headImgUrl = jsonData.headImgUrl
+						_self.nickname = jsonData.nickname
+						_self.openId = jsonData.openId
+						_self.sexDesc = jsonData.sexDesc
+					}
+				});
+			},
+			async helpBtn(){
+				let wxUserInfo = uni.getStorageSync('wxUserInfo')
+				let params = {
+					"activityId": this.info.activityId,
+					"masterId": this.helpMasterId,
+					"openId": wxUserInfo.openId,
+					"wechatId": this.info.newWechatId
+				}
+				let {code,msg,result} = await this.saveHelpSub(params);
+				if(code == 0){
+					this.isHelp = false;
+				}else{
+					uni.showToast({
+						icon: 'none',
+						title: msg
+					})
+				}
+				
+			},
+			getWxCode() {
+				return new Promise(function(resolve, reject) {
+					let testUrl = `http://${window.location.host}/bluehd/#/`;
+					location.replace(
+						`https://gezi.motivape.cn/auth.html?appid=wx80a7401a02e0f8ec&redirectUri=${encodeURIComponent(testUrl)}&response_type=code&scope=snsapi_userinfo&state=gfhd`
+					);
+				});
 			},
 			async getHelpSub(params){
-				let {code,msg,result} = await queryHelpSubByUserId(params);
+				let {code,msg,result} = await queryHelpSubByOpenId(params);
 				if(code == 0){
-					console.log(result)
+					let wxUserInfo = uni.getStorageSync('wxUserInfo')
+					let params = {
+						headImgUrl: wxUserInfo.headImgUrl,
+						nickname: wxUserInfo.nickname,
+						openId: wxUserInfo.openId,
+						sexDesc: wxUserInfo.sexDesc
+					};
+					let { code, msg, result } = await addWechatUser(params);
+					if(code == 0){
+						this.info.newWechatId = result.id
+					}else{
+						uni.showToast({
+							icon: 'none',
+							title: msg
+						})
+					}
 				}else{
 					uni.showToast({
 						icon: 'none',
@@ -55,10 +110,10 @@
 					})
 				}
 			},
-			async saveHelpSub(){
-				let params = {masterId:this.helpMasterId};
-				let {code,msg,result} = await saveHelpSub(params);
-				
+			toMaster: function (){
+				uni.navigateTo({
+					url: '/pages/index/index'
+				})
 			}
 		},
 		onLoad(option) {
@@ -70,7 +125,6 @@
 			}
 			console.log(this.info)
 			this.getHelpSub(params);
-			this.saveHelpSub();
 		}
 	}
 </script>
