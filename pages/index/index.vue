@@ -21,6 +21,7 @@
 <script>
 	import headerBox from '@/components/header.vue'
 	import footerBox from '@/components/footer.vue'
+	import {postUserinfo,queryHelpMasterByUserId} from "@/common/request.js";
 	export default {
 		components: {
 			headerBox,
@@ -49,24 +50,39 @@
 						url:'/pages/userC/userC',
 						id:3
 					}
-				]
+				],
+				appId:'',
+				secret:'',
+				code:null,
+				headImgUrl : "http://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLjiahzIqspyAzFbsrHRXQd7WszmXqk0WSf1w16JBrbHBGIgJx3l129lHEicic5jsAm5oTISicWicLPJ3w/132",
+				nickname : "Eric",
+				openId: "oOYP80ZJ9GL-0h94WuZyEm-4EVbk",
+				sexDesc : "1",
+				activityId:"423784446"
 			}
 		},
 		onLoad() {
-
+			
+			postUserinfo(this.headImgUrl,this.nickname,this.openId,this.sexDesc);
+			queryHelpMasterByUserId(this.activityId);
+			
 		},
 		methods: {
 			selected(index,url){
 				this.selectedIndex=index;
 				console.log(url);
+
+			},
+			getWxCode(){
 				// let testUrl = `http://test.hnhd.motivape.cn/bluehd#${url}`
-				let testUrl = `http://192.168.10.37:8080/bluehd/#${url}`
+				let testUrl = `http://192.168.10.37:8080/bluehd/#/`
 				location.replace(
 					`https://gezi.motivape.cn/auth.html?appid=wx80a7401a02e0f8ec&redirectUri=${encodeURIComponent(testUrl)}&response_type=code&scope=snsapi_userinfo&state=gfhd`
 				)
 			},
 			joinBtn(){
 				this.isJoin = !this.isJoin;
+				this.getWxCode();
 			},
 			confirm(){
 				let type = this.selectedIndex;

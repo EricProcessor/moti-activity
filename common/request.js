@@ -55,3 +55,7 @@ export function getAccessToken(appId, secret, code) { // 参数： appId， 公�
 export function postUserinfo(headImgUrl,nickname,openId,sexDesc){
 	return post('/activity/activity/wechat/addWechatUser',{headImgUrl,nickname,openId,sexDesc})
 }
+//查询用户是否参与活动数据
+export function queryHelpMasterByUserId(activityId){
+	return post('/activity/activity/wechat/queryHelpMasterByUserId',activityId)
+}
