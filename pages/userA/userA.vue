@@ -19,7 +19,8 @@
 	import popUp from '@/components/pop-up.vue';
 	import discountsBox from "@/components/discounts.vue";
 	import codeBox from '@/components/code.vue';
-	import buttonBox from '@/components/button.vue'
+	import buttonBox from '@/components/button.vue';
+	import {getToken} from "@/common/request.js";
 	export default {
 		components:{
 			headerBox,
@@ -37,6 +38,15 @@
 					
 				}
 			};
+		},
+		onLoad(option) {
+			let code = option.code;
+			
+		},
+		methods:{
+			async getFun(){
+				let {code,msg,result} = await getToken()
+			}
 		}
 	}
 </script>

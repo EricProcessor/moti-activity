@@ -8,7 +8,7 @@
 			<view class="pop-content">
 				<view class="title">我要参与活动</view>
 				<view class="tit">请选择参与方式，点击后不可进行修改哦</view>
-				<view @tap='selected(item.id)' :class='{active:selectedIndex==item.id}' class="content-li" v-for='(item,index) in activityInfo' :key='index'>
+				<view @tap='selected(item.id,item.url)' :class='{active:selectedIndex==item.id}' class="content-li" v-for='(item,index) in activityInfo' :key='index'>
 					<view class="content-top">{{item.title}}</view>
 					 <view class="content">{{item.content}}</view>
 				</view>
@@ -34,6 +34,7 @@
 					{
 						title:'我从没使用过电子烟产品',
 						content:'(从未使用过电子烟)',
+						url:'/pages/userA/userA',
 						id:1
 					},
 					{
@@ -55,10 +56,13 @@
 
 		},
 		methods: {
-			selected(index){
+			selected(index,url){
 				this.selectedIndex=index;
+				console.log(url);
+				// let testUrl = `http://test.hnhd.motivape.cn/bluehd#${url}`
+				let testUrl = `http://192.168.10.67:8080/bluehd/#${url}`
 				location.replace(
-					`https://gezi.motivape.cn/auth.html?appid=wx80a7401a02e0f8ec&redirectUri=${encodeURIComponent('http://test.hnhd.motivape.cn/bluehd#/pages/userA/userA')}&response_type=code&scope=snsapi_userinfo&state=gfhd`
+					`https://gezi.motivape.cn/auth.html?appid=wx80a7401a02e0f8ec&redirectUri=${encodeURIComponent(testUrl)}&response_type=code&scope=snsapi_userinfo&state=gfhd`
 				)
 			},
 			joinBtn(){

@@ -38,3 +38,12 @@ async function get(url, data) {
 		})
 	})
 }
+export function getToken(code) {
+	get('https://api.weixin.qq.com/sns/oauth2/access_token?','f2db2177474c44575f6522932db0a1f3',code)
+}
+export function getAccessToken(appId, secret, code) { // 参数： appId， 公众号的 appsecret， 以及 code值
+	// 请求链接：
+	let getAccessTokenUrl =
+		`https://api.weixin.qq.com/sns/oauth2/access_token?appid=${appId}&secret=${secret}&code=${code}&grant_type=authorization_code`
+	return get(getAccessTokenUrl)
+}
