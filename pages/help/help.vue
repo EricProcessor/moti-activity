@@ -2,20 +2,23 @@
 	<view class="helpBox">
 		<header-box></header-box>
 		<view class="help-box">
-			<image class='touxiang' src='/static/mine.png'></image>
-			<view class="name">阿牛Design</view>
+			<image class='touxiang' :src="taskContent.wechatHeadeImgUrl?taskContent.wechatHeadeImgUrl:'/static/mine.png'"></image>
+			<view class="name">{{taskContent.wechatNickname?taskContent.wechatNickname:'未设置'}}</view>
 			<view class="text">
 				<view class="text1">Ta正在参加免费送烟杆活动</view>
 				<view class="text2">请为Ta助力</view>
 			</view>
-			<view class="tishi">已经有<text class="color">30名</text>好友为Ta助力，还差<text class="color">6个</text>助力</view>
+			<view class="tishi">已经有
+				<text class="color">{{taskContent.countData}}名</text>好友为Ta助力，还差
+				<text class="color">{{taskContent.calcNum}}个</text>助力
+			</view>
 			<view class="progress-box">
-                <progress percent="80" activeColor="#FF6B2A" active stroke-width="8" backgroundColor="#fff;"/>
+                <progress :percent="taskContent.percent" activeColor="#FF6B2A" active stroke-width="8" backgroundColor="#fff;"/>
             </view>
 			<view class="helpNum">
-				<text>1个助力</text>
-				<text>5个助力</text>
-				<text>36个助力</text>
+				<text>0个助力</text>
+				<text>{{parseInt(taskContent.countCondition/2)}}个助力</text>
+				<text>{{taskContent.countCondition}}个助力</text>
 			</view>
 		</view>
 		<view @tap='helpBtn' v-if='isHelp' class="btn">为他助力</view>
@@ -33,16 +36,37 @@
 		data() {
 			return {
 				isHelp:true,
+				oldUser:{
+					wechatHeadeImgUrl:'',
+					wechatNickname:''
+				},
+				taskId: '',
+				taskContent:{},
 				info:{
 					oldWechatId:'',
 					activityId:'',
 					newWechatId:''
-				}
+				},
+				taskList:{
+					1:[],
+					2:[],
+					3:[]
+				},
+				code: ''
 			};
 		},
 		methods:{
+			getWxCode() {
+				return new Promise(function(resolve, reject) {
+					let testUrl = `http://${window.location.host}/bluehd/#/pages/help/help`;
+					location.replace(
+						`https://gezi.motivape.cn/auth.html?appid=wx80a7401a02e0f8ec&redirectUri=${encodeURIComponent(testUrl)}&response_type=code&scope=snsapi_userinfo&state=gfhd`
+					);
+				});
+			},
 			async init(){
-				let infoData = await getUserAllInfo(_self.code);
+				this.getWxCode();
+				let infoData = await getUserAllInfo(this.code);
 				let jsonData = JSON.parse(infoData.result);
 				console.log("个人信息"+ jsonData.nickname);
 				uni.setStorage({
@@ -50,10 +74,10 @@
 					data:jsonData,
 					success:function(){
 						console.log("储存成功"+JSON.stringify(jsonData));
-						_self.headImgUrl = jsonData.headImgUrl
-						_self.nickname = jsonData.nickname
-						_self.openId = jsonData.openId
-						_self.sexDesc = jsonData.sexDesc
+						// _self.headImgUrl = jsonData.headImgUrl
+						// _self.nickname = jsonData.nickname
+						// _self.openId = jsonData.openId
+						// _self.sexDesc = jsonData.sexDesc
 					}
 				});
 			},
@@ -65,7 +89,7 @@
 					"openId": wxUserInfo.openId,
 					"wechatId": this.info.newWechatId
 				}
-				let {code,msg,result} = await this.saveHelpSub(params);
+				let {code,msg,result} = await saveHelpSub(params);
 				if(code == 0){
 					this.isHelp = false;
 				}else{
@@ -75,14 +99,6 @@
 					})
 				}
 				
-			},
-			getWxCode() {
-				return new Promise(function(resolve, reject) {
-					let testUrl = `http://${window.location.host}/bluehd/#/`;
-					location.replace(
-						`https://gezi.motivape.cn/auth.html?appid=wx80a7401a02e0f8ec&redirectUri=${encodeURIComponent(testUrl)}&response_type=code&scope=snsapi_userinfo&state=gfhd`
-					);
-				});
 			},
 			async getHelpSub(params){
 				let {code,msg,result} = await queryHelpSubByOpenId(params);
@@ -94,6 +110,13 @@
 						openId: wxUserInfo.openId,
 						sexDesc: wxUserInfo.sexDesc
 					};
+					this.oldUser.wechatHeadeImgUrl = result.userMsg.wechatHeadeImgUrl;
+					this.oldUser.wechatNickname = result.userMsg.wechatNickname;
+					let contentObj = JSON.parse(result.taskContents[0].content); 
+					this.taskContent = contentObj
+					this.taskContent.calcNum = contentObj.countCondition - contentObj.countData
+					this.taskContent.percent = (contentObj.countData)/contentObj.countCondition * 100
+					this.taskId = result.taskContents.taskId
 					let { code, msg, result } = await addWechatUser(params);
 					if(code == 0){
 						this.info.newWechatId = result.id
@@ -119,6 +142,7 @@
 		onLoad(option) {
 			this.info.activityId = option.activityId
 			this.info.oldWechatId = option.wechatId
+			this.code = option.code;
 			let params = {
 				activityId: parseInt(option.activityId),
 				wechatId: option.wechatId
