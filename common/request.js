@@ -3,11 +3,15 @@ import config from './config.js'
 async function post(url, data) {
 	return new Promise(function(resolve, reject) {
 		uni.request({
-			url: url,
+			url: `${config.host}${url}`,
 			method: 'POST',
+			header: {
+				"content-type": 'application/json'
+			},
 			data: data,
 			success: function(data) {
 				resolve(data)
+				console.log(data)
 			},
 			fail: function(err) {
 				console.log(err)
@@ -46,4 +50,8 @@ export function getAccessToken(appId, secret, code) { // 参数： appId， 公�
 	let getAccessTokenUrl =
 		`https://api.weixin.qq.com/sns/oauth2/access_token?appid=${appId}&secret=${secret}&code=${code}&grant_type=authorization_code`
 	return get(getAccessTokenUrl)
+}
+//储存用户信息
+export function postUserinfo(headImgUrl,nickname,openId,sexDesc){
+	return post('/activity/activity/wechat/addWechatUser',{headImgUrl,nickname,openId,sexDesc})
 }
