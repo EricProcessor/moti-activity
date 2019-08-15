@@ -2,7 +2,7 @@
 	<view class="code-box" v-if='codeShow'>
 		<view class="text">复制优惠码并添加官方发送后即可获得优惠券购买MOTIS产品</view>
 		<view class="code-border">
-			
+			<image :src="imgUrl?imgUrl:'/static/a.png'" mode=""></image>
 		</view>
 		<view class="footerText">MOTI官方账号</view>
 	</view>
@@ -11,6 +11,12 @@
 <script>
 	import Bus from '@/common/bus.js'
 	export default {
+		props:{
+			imgUrl:{
+				type: String,
+				default: String
+			}
+		},
 		data() {
 			return {
 				codeShow:false
@@ -51,6 +57,10 @@
 			width:220upx;
 			height:220upx;
 			margin:30upx auto 10upx;
+			image{
+				width:100%;
+				height:100%;
+			}
 		}
 	}
 </style>

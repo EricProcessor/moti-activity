@@ -4,9 +4,13 @@
 		<my-task :master="master"></my-task>
 		<help-box :master="master" :helperList="helperList"></help-box>
 		<discounts-box ></discounts-box>
-		<code-box ></code-box>
+		<code-box :imgUrl="imgUrl"></code-box>
 		<footer-box></footer-box>
+<<<<<<< HEAD
 		<button-box :fillIn="fillIn" :isHelp="isHelp"></button-box>
+=======
+		<button-box :isHelp="isHelp"></button-box>
+>>>>>>> c19851452098b1632ab682fb97b47e22405b6fa9
 		<pop-up></pop-up>
 		<invite-help></invite-help>
 	</view>
@@ -44,15 +48,14 @@
 					helpText: '完成1个任务，即可获得',
 					reward: '99元换购资格'
 				},
-				helperList: []
+				helperList: [],
+				isHelp: true,
+				masterInfo:{},
+				imgUrl: '/static/a.png'
 			};
 		},
 		mounted() {
 			this.getInfo();
-		},
-		onLoad(option) {
-
-			// this.saveUser()
 		},
 		methods:{
 			getInfo: async function() {
@@ -80,8 +83,13 @@
 					}
 					this.masterInfo = result.userMsg;
 					let taskStatus = result.userMsg.taskStatus;
+<<<<<<< HEAD
 					if(taskStatus == 1){
 						this.fillIn = true
+=======
+					//taskStatus = 1
+					if(taskStatus == 1){
+>>>>>>> c19851452098b1632ab682fb97b47e22405b6fa9
 						this.isHelp = false
 					}
 				}
