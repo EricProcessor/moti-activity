@@ -20,9 +20,9 @@
 	import discountsBox from "@/components/discounts.vue";
 	import codeBox from '@/components/code.vue';
 	import buttonBox from '@/components/button.vue';
-	import {getToken} from "@/common/request.js";
 	export default {
-		components:{
+
+		components: {
 			headerBox,
 			footerBox,
 			myTask,
@@ -38,12 +38,10 @@
 			};
 		},
 		onLoad(option) {
-			let code = option.code;
+
+			// this.saveUser()
 		},
 		methods:{
-			async getFun(){
-				let {code,msg,result} = await getToken()
-			},
 			popShow(){
 				this.popStatus = true;
 			},
@@ -55,7 +53,7 @@
 </script>
 
 <style lang="scss" scoped>
-	.userA{
+	.userA {
 		display: flex;
 		flex-direction: column;
 		height: 100%;
