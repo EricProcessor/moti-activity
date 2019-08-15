@@ -4,17 +4,19 @@
 		<view class="userInfoBox">
 			<!-- <image class='userImage' src='/static/mine.png'></image> -->
 			<view class="imageBox">
-				<view class='tx'></view>
+				<view class='tx'>
+					<image :src="masterInfo.wechatNickname?masterInfo.wechatNickname:'/static/userImg.png'" mode="scaleToFill"></image>
+				</view>
 			</view>
 			<view class="userInfo">
-				<view class="userName">阿牛</view>
+				<view class="userName">{{masterInfo.wechatNickname?masterInfo.wechatNickname:'未设置'}}</view>
 				<view class="state">我从没使用过电子烟产品</view>
 			</view>
 		</view>
 		<view class="taskBox">
 			<view class='task'>任务1:<text class="font-color">{{master.helpNum}}名</text>好友助力</view>
-			<view v-if='task1' @tap='progress' class="proceed btn">进行中</view>
-			<view v-else class="accomplish btn">已完成</view>
+			<view v-if='masterInfo.taskStatus == 0' @tap='progress' class="proceed btn">进行中</view>
+			<view v-if='masterInfo.taskStatus == 1' class="accomplish btn">已完成</view>
 		</view>
 		<view class="taskBox" v-if='taskType==2'>
 			<view class='task'>任务2:上传<text class="font-color">MOTI照片</text></view>
@@ -33,6 +35,10 @@
 				default:Number
 			},
 			master:{
+				type: Object,
+				default: Object
+			},
+			masterInfo:{
 				type: Object,
 				default: Object
 			}
@@ -123,11 +129,13 @@
 				box-sizing: border-box;
 				background:rgba(199,192,187,1);
 				.tx{
-					width:47upx;
-					height:56upx;
-					background: url('/static/userImg.png') no-repeat center top;
-					background-size: 100%;
+					width:60upx;
+					height:60upx;
 					margin:32upx auto;
+					image{
+						width:100%;
+						height:100%;
+					}
 				}
 			}
 			.userInfo{

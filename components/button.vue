@@ -1,8 +1,8 @@
 <template>
 	<view class="boutton-box">
 		<view v-if='isHelp' @tap='goHelp' class="btn">邀请好友助力</view>
-		<view v-else @tap='completeTask' class="btn">完成任务</view>
-		<view class='btn' v-if='fillIn'>填写表单</view>
+		<view v-if="fillIn" class='btn' @tap="toForm">填写表单</view>
+		<view v-if='!isHelp' @tap='completeTask' class="btn">完成任务</view>
 	</view>
 </template>
 
@@ -10,22 +10,23 @@
 	import Bus from '@/common/bus.js'
 	export default {
 		props:{
-			
-		},
-		data() {
-			return {
-				isHelp:true,
-				fillIn:false
-			};
+			fillIn:{
+				type: Boolean,
+				default: false
+			},
+			isHelp:{
+				type: Boolean,
+				default: true
+			}
 		},
 		methods:{
 			goHelp(){
 				Bus.$emit('showHelp',true);
-				this.buryPoint('inviteFirend')
+				//this.buryPoint('inviteFirend')
 			},
 			completeTask(){
 				Bus.$emit('showPop',true);
-				this.buryPoint('completeTask')
+				//this.buryPoint('completeTask')
 			},
 			buryPoint(des) {
 				var _core = new WCore();
@@ -36,6 +37,9 @@
 				_event.ec = des;
 				_event.ea = 'click';
 				_core.send(_event);
+			},
+			toForm: function (){
+				location.href = 'https://jinshuju.net/f/GlhAAt'
 			}
 		}
 	}

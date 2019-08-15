@@ -46,13 +46,15 @@ export async function upload(params){
 	})
 }
 
-// 暂时不用
-// export function getAccessToken(appId, secret, code) { // 参数： appId， 公众号的 appsecret， 以及 code值
-// 	// 请求链接：
-// 	let getAccessTokenUrl =
-// 		`https://api.weixin.qq.com/sns/oauth2/access_token?appid=${appId}&secret=${secret}&code=${code}&grant_type=authorization_code`
-// 	return get(getAccessTokenUrl)
-// }
+// 获取微信相关信息
+export function getAccessToken(appId, secret, code) { // 参数： appId， 公众号的 appsecret， 以及 code值
+	// 请求链接：
+	let getAccessTokenUrl =
+		`https://api.weixin.qq.com/sns/oauth2/access_token?appid=${appId}&secret=${secret}&code=${code}&grant_type=authorization_code`
+	return get(getAccessTokenUrl)
+}
+// 获取微信相关信息
+
 //储存用户信息
 export function addWechatUser(params) { 
 	return request({

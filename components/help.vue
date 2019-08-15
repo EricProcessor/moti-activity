@@ -20,6 +20,9 @@
 				</view>
 			</template>
 		</view>
+		<view class='showText' v-if="fillIn">
+			<text>点击底部【填写表单】，并由工作人员最终审核通过后，将获得99元换购MOTIS套装资格</text>
+		</view>
 		<view class='more' @tap='showMore' v-if="helperList.length > 5">
 			<text>{{isDown ? '查看更多' : '收起'}}</text>
 			<view class="jiantou" :class='isDown ? "xia" : "shang"'></view>
@@ -41,6 +44,10 @@
 			helperList:{
 				type: Array,
 				default: Array
+			},
+			fillIn: {
+				type: Boolean,
+				default: false
 			}
 		},
 		data() {
@@ -66,6 +73,13 @@
 		box-sizing: border-box;
 		position: relative;
 		margin-bottom:60upx;
+		.showText{
+			font-size:26upx;
+			font-family:PingFang-SC-Regular;
+			font-weight:400;
+			color:rgba(83,65,43,1);
+			text-align: center;
+		}
 		.more{
 			color:#BAB1AC;
 			font-size:22upx;
