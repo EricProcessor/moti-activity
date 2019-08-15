@@ -17,4 +17,10 @@
 		background:#121518;
 		height:100%;
 	}
+	.uni-progress-bar{
+		border-radius: 10upx;
+	}
+	.uni-progress-inner-bar{
+		border-radius: 10upx;
+	}
 </style>
