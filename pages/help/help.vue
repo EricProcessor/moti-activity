@@ -25,7 +25,7 @@
 
 <script>
 	import headerBox from '@/components/header.vue';
-	import {saveHelpSub} from '@/common/request.js'
+	import {queryHelpSubByUserId,saveHelpSub} from '@/common/request.js'
 	export default {
 		components:{
 			headerBox
@@ -33,12 +33,27 @@
 		data() {
 			return {
 				isHelp:true,
-				helpMasterId:'166888271971017'
+				info:{
+					oldWechatId:'',
+					activityId:'',
+					newWechatId:''
+				}
 			};
 		},
 		methods:{
 			helpBtn(){
 				this.isHelp = false;
+			},
+			async getHelpSub(params){
+				let {code,msg,result} = await queryHelpSubByUserId(params);
+				if(code == 0){
+					console.log(result)
+				}else{
+					uni.showToast({
+						icon: 'none',
+						title: msg
+					})
+				}
 			},
 			async saveHelpSub(){
 				let params = {masterId:this.helpMasterId};
@@ -47,7 +62,14 @@
 			}
 		},
 		onLoad(option) {
-			// this.helpMasterId = option.helpMasterId;
+			this.info.activityId = option.activityId
+			this.info.oldWechatId = option.wechatId
+			let params = {
+				activityId: parseInt(option.activityId),
+				wechatId: option.wechatId
+			}
+			console.log(this.info)
+			this.getHelpSub(params);
 			this.saveHelpSub();
 		}
 	}

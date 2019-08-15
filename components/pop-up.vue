@@ -35,7 +35,7 @@
 	export default {
 		data() {
 			return {
-				popShow:true,
+				popShow:false,
 				errMsg:{
 					mobile:false,
 					code:false
