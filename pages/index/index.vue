@@ -20,7 +20,7 @@
 						</view>
 					</view>
 				</view>
-				<SpuDesc v-if="paramType === 31"></SpuDesc>
+				<SpuDesc v-if="pageConfigure.isSpuDesc"></SpuDesc>
 				<block v-if="paramType != 15">
 					<view :key="index" class="img_wrapper" v-for="(item, index) in imgs.imgs" :style="{width: item.width + 'upx', height: item.height + 'upx'}">
 						<img class="img" :src="item.url"></img>
@@ -112,6 +112,7 @@
 		newOrder,
 		encryXOR
 	} from "@/common/utils.js";
+	import typeConfig from "../../common/typeConfig.js"
 
 	import dynamic from "./dynamic.vue";
 	import imgsData from "./imgs.js";
@@ -152,17 +153,20 @@
 				return !this.scrollTop || (this.currentScrollY < (this.scrollTop)) || (this.currentScrollY >= uni.upx2px(2480))
 			},
 			isC() {
-				if (this.paramType === 16 || this.paramType === 17 || this.paramType === 28 || this.paramType === 31) return true;
-				return false
+				return this.pageConfigure.module ===  "EditOrderFormC"
+				/* if (this.paramType === 16 || this.paramType === 17 || this.paramType === 28 || this.paramType === 31) return true;
+				return false */
 			},
 			isAB() {
-				if (this.paramType <= 15 || (this.paramType >= 18 && this.paramType <= 22) || this.paramType === 32) return true;
-				return false
+				return this.pageConfigure.module ===  "EditOrderForm"
+				/* if (this.paramType <= 15 || (this.paramType >= 18 && this.paramType <= 22) || this.paramType === 32) return true;
+				return false */
 			},
 			isMojo() {
-				if (this.paramType === 23 || this.paramType === 24 || this.paramType === 25 || this.paramType === 26 || this.paramType ===
+				return this.pageConfigure.module ===  "EditOrderFormMojo"
+				/* if (this.paramType === 23 || this.paramType === 24 || this.paramType === 25 || this.paramType === 26 || this.paramType ===
 					27 || this.paramType === 29 || this.paramType === 30) return true
-				return false
+				return false */
 			},
 			isOnShowOrderDetail() {
 				return this.isC || this.isMojo
@@ -172,8 +176,9 @@
 				return true
 			},
 			isShowPayMethod() {
-				if (this.paramType === 27 || this.paramType === 30) return false;
-				return true
+				return this.pageConfigure.isShowPayMethod 
+				/* if (this.paramType === 27 || this.paramType === 30) return false;
+				return true */
 			},
 			pageUniqueID() {
 
@@ -190,12 +195,14 @@
 				return Goods */
 			},
 			buttonMsg() {
-				if (this.paramType === 27) return "0元抢购"
-				return "立即抢购"
+				return this.pageConfigure.buttonMsg
+				/* if (this.paramType === 27) return "0元抢购"
+				return "立即抢购" */
 			}
 		},
 		data() {
 			return {
+				pageConfigure:{},
 				isSwiper750:false,
 				propsOrderDetail: {},
 				isShowOrderDetail: false,
@@ -268,11 +275,12 @@
 
 
 			this.paramType = index;
+			this.pageConfigure = typeConfig[this.paramType]
 			
 			this.bianXianMao()
 			this.setIsSwiper750()
-			this.imgs = imgsData[`imgs${index}`];
-			this.lastImg = imgsData.lastImgs[index - 1];
+			this.imgs = imgsData[this.pageConfigure.imgs];
+			this.lastImg = imgsData.lastImgs[this.pageConfigure.lastImg];
 			this.imgsNum = this.imgs.imgs.length
 			this.urlParams = {
 				orderSource: options.orderSource,
@@ -310,17 +318,18 @@
 
 		methods: {
 			setIsSwiper750(){
-				if (this.paramType === 31) this.isSwiper750 = true
+				this.isSwiper750 = this.pageConfigure.swiper750
+				//if (this.paramType === 31) this.isSwiper750 = true
 			},
 			bianXianMao() {
-				if (this.paramType === 24 || this.paramType === 30 || this.paramType === 32 || this.paramType === 31) {
-					
-					const script_bxm = document.createElement("script");
-					script_bxm.src =
-						"https://m.cudaojia.com/dist/welfareAT02/private/E/js/effectListen.js ";
-					script_bxm.language = "JavaScript";
-					document.body.appendChild(script_bxm);
-				}
+				if(!this.pageConfigure.bianXianMao) return 
+				
+				const script_bxm = document.createElement("script");
+				script_bxm.src =
+					"https://m.cudaojia.com/dist/welfareAT02/private/E/js/effectListen.js ";
+				script_bxm.language = "JavaScript";
+				document.body.appendChild(script_bxm);
+				//if (this.paramType === 24 || this.paramType === 30 || this.paramType === 32 || this.paramType === 31) {}
 			},
 			buyAgain() {
 				let userInfo = this.pageState.editOrderForm.userInfo
@@ -392,7 +401,7 @@
 			},
 			nextLocation(options) {
 				let pageParams = uni.getStorageSync("pageParams")
-				console.log(pageParams)
+				//console.log(pageParams)
 				if (!pageParams) return false
 				uni.removeStorageSync("pageParams")
 				if (options.code) uni.setStorageSync("wxcode", options.code)
@@ -603,9 +612,14 @@
 			},
 			async submitOrder(data) {
 				// 提交订单
-				let apiUrl = "/activity1/ad/order/bookingGghdOrder";
+				let apiUrl = this.pageConfigure.submitApi;
 				let params = data
-				if (this.isC) {
+				if(this.pageConfigure.isEncrypted){
+					params = {
+						pageOrder: encryXOR(JSON.stringify(data.pageOrder))
+					}
+				}
+				/* if (this.isC) {
 					apiUrl = "/activity1/ad/order/bookingGghdOrder2c";
 				}
 				if (this.isMojo || this.paramType === 28  || this.paramType === 32 || this.paramType === 31) {
@@ -613,7 +627,7 @@
 					params = {
 						pageOrder: encryXOR(JSON.stringify(data.pageOrder))
 					}
-				}
+				} */
 			
 				const res = await newOrder(
 					apiUrl,
@@ -657,7 +671,7 @@
 					isInitIndex: true,
 					isInitForm: true,
 				}
-				console.log(pageState, "------------------------")
+				//console.log(pageState, "------------------------")
 				uni.setStorageSync("pageState", pageState)
 			},
 			restoreScene() {
