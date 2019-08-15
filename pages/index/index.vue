@@ -21,7 +21,7 @@
 <script>
 import headerBox from '@/components/header.vue';
 import footerBox from '@/components/footer.vue';
-import { addWechatUser, queryHelpMasterByUserId, queryTaskMasterByActiId, saveHelpMaster } from '@/common/request.js';
+import { addWechatUser, queryHelpMasterByUserId, queryTaskMasterByActiId, saveHelpMaster,getUserAllInfo } from '@/common/request.js';
 export default {
 	components: {
 		headerBox,
@@ -54,10 +54,10 @@ export default {
 			appId: '',
 			secret: '',
 			code: null,
-			headImgUrl: 'http://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLjiahzIqspyAzFbsrHRXQd7WszmXqk0WSf1w16JBrbHBGIgJx3l129lHEicic5jsAm5oTISicWicLPJ3w/132',
-			nickname: 'Eric',
-			openId: 'oOYP80ZJ9GL-0h94WuZyEm-4EVbk',
-			sexDesc: '1',
+			headImgUrl: null,
+			nickname: null,
+			openId: null,
+			sexDesc: null,
 			activityId: 423784446,
 			wechatId: 0,
 			isLogin: false //用户是否已经授权
@@ -66,6 +66,7 @@ export default {
 	onLoad(option) {
 		if (option.code) {
 			this.isLogin = true;
+			this.code = option.code;
 		} else {
 			this.isLogin = false;
 		}
@@ -84,11 +85,25 @@ export default {
 			});
 		},
 		async joinBtn() {
-			this.buryPoint();
+			// this.buryPoint();
 			let _self = this;
 			if (this.isLogin) {
 				//{headImgUrl,nickname,openId,sexDesc}
-				//addWechatUser
+				let infoData = await getUserAllInfo(_self.code);
+				let jsonData = JSON.parse(infoData.result);
+				console.log("个人信息"+ jsonData.nickname);
+				uni.setStorage({
+					key:'wxUserInfo',
+					data:jsonData,
+					success:function(){
+						console.log("储存成功"+JSON.stringify(jsonData));
+						_self.headImgUrl = jsonData.headImgUrl
+						_self.nickname = jsonData.nickname
+						_self.openId = jsonData.openId
+						_self.sexDesc = jsonData.sexDesc
+					}
+				});
+				
 				let params = {
 					headImgUrl: this.headImgUrl,
 					nickname: this.nickname,

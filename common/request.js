@@ -147,3 +147,14 @@ export function dynamicCode(params) {
 		return data
 	})
 }
+//获取用户所有信息
+export function getUserAllInfo(code){
+	return request({
+		url:`/open/pub/wechat/jsapi/userInfo?code=${code}`,
+		methods:'get'
+	}).then(function(res){
+		let data = res.data;
+		console.log("请求得到的数据"+ JSON.stringify(data) )
+		return data
+	})
+}
