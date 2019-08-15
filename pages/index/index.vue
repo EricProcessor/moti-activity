@@ -123,12 +123,12 @@
 	import SpuDesc from "./SpuDesc.vue"
 	import OrderDetail from "./OrderDetail.vue"
 	import popCard from "./popCard.vue"
-	import Goods from "./goods.js"
+	/* import Goods from "./goods.js"
 	import Goods99 from "./goods99.js"
 	import Goods14 from "./goods14.js"
 	import GoodsMojo from "./goodsMojo.js"
 	import GoodsMojoTwo from "./goodsMojo2.js"
-	import GoodsMojoFree from "./goodsMojoFree.js"
+	import GoodsMojoFree from "./goodsMojoFree.js" */
 
 	export default {
 		config: {
@@ -181,12 +181,13 @@
 					.material
 			},
 			goodsInfo() {
-				if(this.paramType == 32) return Goods14
+				return this.$refs.EditOrderForm.goodsInfo;
+				/* if(this.paramType == 32) return Goods14
 				if (this.paramType == 23 || this.paramType == 24 || this.paramType == 29) return GoodsMojo
 				if (this.paramType == 25 || this.paramType == 26) return GoodsMojoTwo
 				if (this.paramType == 27 || this.paramType == 30) return GoodsMojoFree
 				if (this.paramType == 28) return Goods99
-				return Goods
+				return Goods */
 			},
 			buttonMsg() {
 				if (this.paramType === 27) return "0元抢购"
