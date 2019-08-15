@@ -85,7 +85,8 @@
 			getWxCode() {
 				return new Promise(function(resolve, reject) {
 					// let testUrl = `http://test.hnhd.motivape.cn/bluehd#${url}`
-					let testUrl = `http://192.168.10.37:8080/bluehd/#/`
+					// let testUrl = `http://192.168.10.67:8080/bluehd/#/`
+					let testUrl = `http://${window.location.host}/bluehd/#/`
 					location.replace(
 						`https://gezi.motivape.cn/auth.html?appid=wx80a7401a02e0f8ec&redirectUri=${encodeURIComponent(testUrl)}&response_type=code&scope=snsapi_userinfo&state=gfhd`
 					)

@@ -9,7 +9,7 @@
 					<view v-if='errMsg.mobile' class="errMsg">请填写正确的手机号</view>
 					<text class="zhanwei"></text>
 					<view class="input-box">
-						<input type="text" placeholder="请输手机号">
+						<input v-model="userInfo.mobile" type="text" placeholder="请输手机号">
 					</view>
 				</view>
 			</view>
@@ -19,12 +19,12 @@
 					<view v-if='errMsg.code' class="errMsg">请输入正确的验证码</view>
 					<text class="zhanwei"></text>
 					<view class="input-box">
-						<input type="text" placeholder="请输入短信验证码">
-						<text class='code'>获取验证码</text>
+						<input v-model='userInfo.code' type="text" placeholder="请输入短信验证码">
+						<text class='code' @tap='getCode'>获取验证码</text>
 					</view>
 				</view>
 			</view>
-			<view class="btn">提交</view>
+			<view class="btn" @tap='submitBtn'>提交</view>
 		</view>
 	</view>
 </template>
@@ -42,10 +42,45 @@
 				errMsg:{
 					mobile:false,
 					code:false
+				},
+				userInfo:{
+					mobile:'',
+					code:''
 				}
 			};
 		},
 		methods:{
+			submitBtn(){
+				if(this.checkMobile() && this.checkCode){
+					console.log('提交');
+				}
+			},
+			getCode(){
+				console.log();
+				if(this.checkMobile()){
+					console.log('获取code码');
+				}
+			},
+			checkMobile() {
+				let reg = /^1[3456789]\d{9}$/;
+				if (reg.test(this.userInfo.mobile)) {
+					this.errMsg.mobile = false;
+					return true;
+				} else {
+					this.errMsg.mobile = true;
+					return false;
+				}
+			},
+			checkCode() {
+				let reg = /^\d{6}$/;
+				if (reg.test(this.userInfo.code)) {
+					this.errMsg.code = false;
+					return true;
+				} else {
+					this.errMsg.code = true;
+					return false;
+				}
+			},
 			closePop(){
 				this.$emit('closePop', false);
 			}
