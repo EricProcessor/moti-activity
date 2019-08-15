@@ -55,10 +55,12 @@
 	import {
 		newOrder
 	} from "@/common/utils.js";
+	import typeConfig from "../../common/typeConfig.js"
 	export default {
 		data() {
 			return {
 				currentPay: this.payType,
+				pageConfigure:{},
 
 				payItems: [{
 						text: "货到付款",
@@ -256,6 +258,9 @@
 		mounted() {
 			this.defaultPayMethod()
 		},
+		created() {
+			this.pageConfigure = typeConfig[this.paramType]
+		},
 		methods: {
 			defaultPayMethod(){
 				if(this.isShowWx) this.currentPay = 2
@@ -344,16 +349,19 @@
 				return this.urlParams.type + "-" + this.urlParams.orderSource + "-" + this.urlParams.channel + "-" + this.urlParams.material
 			},
 			isShowWx(){
-				if(this.paramType === 23 || this.paramType === 25 || this.paramType === 27 || this.paramType === 30) return false;
-				return true;
+				return this.pageConfigure.onWxPay
+				/* if(this.paramType === 23 || this.paramType === 25 || this.paramType === 27 || this.paramType === 30) return false;
+				return true; */
 			},
 			isShowAlPay(){
-				if(this.paramType === 23  || this.paramType === 25 || this.paramType === 27  || this.paramType === 30 ||   this.isWxAgent) return false;
-				return true;
+				return this.pageConfigure.onAlipayPay && !this.isWxAgent
+				/* if(this.paramType === 23  || this.paramType === 25 || this.paramType === 27  || this.paramType === 30 ||   this.isWxAgent) return false;
+				return true; */
 			},
 			isShowCashOnDelivery(){
-				if(this.paramType === 24  || this.paramType === 26 || this.paramType == 28 || this.paramType == 29 || this.paramType === 31) return false;
-				return true;
+				return this.pageConfigure.onArrivePay
+				/* if(this.paramType === 24  || this.paramType === 26 || this.paramType == 28 || this.paramType == 29 || this.paramType === 31) return false;
+				return true; */
 			},
 		},
 	}

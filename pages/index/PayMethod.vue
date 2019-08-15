@@ -24,11 +24,12 @@
 	import {
 		newOrder
 	} from "@/common/utils.js";
+	import typeConfig from "../../common/typeConfig.js"
 	export default {
 		data() {
 			return {
 				currentPay: this.payType,
-
+				pageConfigure:{},
 				payItems: [{
 						text: "货到付款",
 						payType: 6
@@ -229,6 +230,9 @@
 			} */
 			this.defaultPayMethod()
 		},
+		created() {
+			this.pageConfigure = typeConfig[this.paramType]
+		},
 		methods: {
 			defaultPayMethod(){
 				if(this.isShowWx) this.currentPay = 2
@@ -316,17 +320,19 @@
 				return this.urlParams.type + "-" + this.urlParams.orderSource + "-" + this.urlParams.channel + "-" + this.urlParams.material
 			},
 			isShowCashOnDelivery(){
-				let b = true
+				return this.pageConfigure.onArrivePay
+				/* let b = true
 				if(this.paramType === 14 || (this.paramType>=18 && this.paramType <= 22) || this.paramType === 32) b = false
-				return b
+				return b */
 			},
 			isShowWx(){
-				
-				return true;
+				return this.pageConfigure.onWxPay
+				//return true;
 			},
 			isShowAlPay(){
-				if(this.isWxAgent) return false;
-				return true;
+				return this.pageConfigure.onAlipayPay && !this.isWxAgent
+				/* if(this.isWxAgent) return false;
+				return true; */
 			},
 		},
 
