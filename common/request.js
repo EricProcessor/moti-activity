@@ -46,15 +46,13 @@ export async function upload(params){
 	})
 }
 
-// 获取微信相关信息
-export function getAccessToken(appId, secret, code) { // 参数： appId， 公众号的 appsecret， 以及 code值
-	// 请求链接：
-	let getAccessTokenUrl =
-		`https://api.weixin.qq.com/sns/oauth2/access_token?appid=${appId}&secret=${secret}&code=${code}&grant_type=authorization_code`
-	return get(getAccessTokenUrl)
-}
-// 获取微信相关信息
-
+// 暂时不用
+// export function getAccessToken(appId, secret, code) { // 参数： appId， 公众号的 appsecret， 以及 code值
+// 	// 请求链接：
+// 	let getAccessTokenUrl =
+// 		`https://api.weixin.qq.com/sns/oauth2/access_token?appid=${appId}&secret=${secret}&code=${code}&grant_type=authorization_code`
+// 	return get(getAccessTokenUrl)
+// }
 //储存用户信息
 export function addWechatUser(params) { 
 	return request({
@@ -146,10 +144,10 @@ export function dynamicCode(params) {
 		return data
 	})
 }
-//校验手机号和验证码
-export function checkMobileAndCode(params) { 
+//保存助力用户的数据
+export function saveHelpSub(params) { 
 	return request({
-		url:'/activity/activity/wechat/checkMobileAndCode',
+		url:'/activity/activity/wechat/saveHelpSub',
 		methods: 'post',//默认值---不需要则不要填写
 		contentType: 'application/json', //默认值---不需要则不要填写
 		data: params
