@@ -6,11 +6,7 @@
 		<discounts-box ></discounts-box>
 		<code-box :imgUrl="imgUrl"></code-box>
 		<footer-box></footer-box>
-<<<<<<< HEAD
 		<button-box :fillIn="fillIn" :isHelp="isHelp"></button-box>
-=======
-		<button-box :isHelp="isHelp"></button-box>
->>>>>>> c19851452098b1632ab682fb97b47e22405b6fa9
 		<pop-up></pop-up>
 		<invite-help></invite-help>
 	</view>
@@ -83,13 +79,8 @@
 					}
 					this.masterInfo = result.userMsg;
 					let taskStatus = result.userMsg.taskStatus;
-<<<<<<< HEAD
-					if(taskStatus == 1){
-						this.fillIn = true
-=======
 					//taskStatus = 1
 					if(taskStatus == 1){
->>>>>>> c19851452098b1632ab682fb97b47e22405b6fa9
 						this.isHelp = false
 					}
 				}
