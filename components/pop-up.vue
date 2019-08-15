@@ -1,7 +1,7 @@
 <template>
-	<view class="pop-up" v-if='isShow'>
+	<view class="pop-up" v-if='popShow'>
 		<view class="content-box">
-			<view class="close"><text>×</text></view>
+			<view class="close"><text @tap='closePop'>×</text></view>
 			<view class="title">填写手机号即可获取优惠码哦</view>
 			<view class="user-li">
 				<text class="tit">手机号</text>
@@ -31,14 +31,24 @@
 
 <script>
 	export default {
+		props:{
+			popShow:{
+				type:Boolean,
+				default:false
+			}
+		},
 		data() {
 			return {
 				errMsg:{
 					mobile:false,
 					code:false
-				},
-				isShow:false
+				}
 			};
+		},
+		methods:{
+			closePop(){
+				this.$emit('closePop', false);
+			}
 		}
 	}
 </script>

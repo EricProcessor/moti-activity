@@ -3,16 +3,26 @@
 		<image class='helpImage' src='../../static/help.png'></image>
 		<view class="textBox">还差<text>34名</text>好友助力，即可成功哦</view>
 		<view class="imagesBox">
-			<view class='image-li' v-for='(item,index) in image' :key='index'>
-				<image v-if='item.url' class='userImage' src='item.url'></image>
-				<view v-else class="image-border">
-					<view class='tx'></view>
+			<template v-if='isDown'>
+				<view class='image-li' v-if='index<10' v-for='(item,index) in image' :key='index'>
+					<image v-if='item.url' class='userImage' :src='item.url'></image>
+					<view v-else class="image-border">
+						<view class='tx'></view>
+					</view>
 				</view>
-			</view>
+			</template>
+			<template v-else>
+				<view class='image-li' v-for='(item,index) in image' :key='index'>
+					<image v-if='item.url' class='userImage' :src='item.url'></image>
+					<view v-else class="image-border">
+						<view class='tx'></view>
+					</view>
+				</view>
+			</template>
 		</view>
-		<view class='more'>
-			<text>查看更多</text>
-			<view class="jiantou" :class="isDown?'xia':'shang'"></view>
+		<view class='more' @tap='showMore'>
+			<text>{{isDown ? '查看更多' : '收起'}}</text>
+			<view class="jiantou" :class='isDown ? "xia" : "shang"'></view>
 		</view>
 	</view>
 </template>
@@ -63,6 +73,11 @@
 					},
 				]
 			};
+		},
+		methods:{
+			showMore(){
+				this.isDown=!this.isDown;
+			}
 		}
 	}
 </script>
@@ -128,7 +143,9 @@
 					.tx{
 						width:47upx;
 						height:56upx;
-						background: url('/static/userImg.png') no-repeat center top;
+						background-image: url('../static/userImg.png');
+						background-repeat:no-repeat;
+						background-position:center top;
 						background-size: 100%;
 						margin:22upx auto;
 					}

@@ -1,5 +1,5 @@
 <template>
-	<view class="discounts">
+	<view v-if='discountsShow' class="discounts">
 		<image class='disImg' src='../../static/discounts.png'></image>
 		<view class="code">6222ABCD</view>
 	</view>
@@ -7,9 +7,14 @@
 
 <script>
 	export default {
+		props:{
+			discountsShow:{
+				type:Boolean,
+				default:false
+			}
+		},
 		data() {
 			return {
-				
 			};
 		}
 	}

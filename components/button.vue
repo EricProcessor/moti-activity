@@ -1,16 +1,29 @@
 <template>
 	<view class="boutton-box">
-		<view class="btn">邀请好友助力</view>
-		<!-- <view class="btn">完成任务</view> -->
+		<view v-if='isHelp' @tap='goHelp' class="btn">邀请好友助力</view>
+		<view v-else @tap='completeTask' class="btn">完成任务</view>
+		<view class='btn' v-if='fillIn'>填写表单</view>
 	</view>
 </template>
 
 <script>
 	export default {
+		props:{
+			
+		},
 		data() {
 			return {
-				
+				isHelp:true,
+				fillIn:false
 			};
+		},
+		methods:{
+			goHelp(){
+				this.isHelp = false;
+			},
+			completeTask(){
+				this.$emit('popShow',true);
+			}
 		}
 	}
 </script>

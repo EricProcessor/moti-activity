@@ -1,5 +1,5 @@
 <template>
-	<view class="code-box">
+	<view class="code-box" v-if='codeShow'>
 		<view class="text">复制优惠码并添加官方发送后即可获得优惠券购买MOTIS产品</view>
 		<view class="code-border">
 			
@@ -10,6 +10,12 @@
 
 <script>
 	export default {
+		props:{
+			codeShow:{
+				type:Boolean,
+				default:false
+			}
+		},
 		data() {
 			return {
 				

@@ -3,11 +3,11 @@
 		<header-box></header-box>
 		<my-task></my-task>
 		<help-box></help-box>
-		<discounts-box></discounts-box>
-		<code-box></code-box>
+		<discounts-box ></discounts-box>
+		<code-box ></code-box>
 		<footer-box></footer-box>
-		<button-box></button-box>
-		<pop-up></pop-up>
+		<button-box @popShow='popShow'></button-box>
+		<pop-up @closePop='closePop' :popShow='popStatus'></pop-up>
 	</view>
 </template>
 
@@ -34,18 +34,21 @@
 		},
 		data() {
 			return {
-				taskInfo:{
-					
-				}
+				popStatus:false
 			};
 		},
 		onLoad(option) {
 			let code = option.code;
-			
 		},
 		methods:{
 			async getFun(){
 				let {code,msg,result} = await getToken()
+			},
+			popShow(){
+				this.popStatus = true;
+			},
+			closePop(status){
+				this.popStatus = status;
 			}
 		}
 	}

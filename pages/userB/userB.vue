@@ -1,14 +1,14 @@
 <template>
 	<view class="userB">
 		<header-box></header-box>
-		<my-task></my-task>
+		<my-task :taskType="2"></my-task>
 		<discounts-box></discounts-box>
 		<code-box></code-box>
 		<help-box></help-box>
 		<upload-img></upload-img>
 		<footer-box></footer-box>
-		<button-box></button-box>
-		<pop-up></pop-up>
+		<button-box @popShow='popShow'></button-box>
+		<pop-up @closePop='closePop' :popShow='popStatus'></pop-up>
 	</view>
 </template>
 
@@ -36,8 +36,16 @@
 		},
 		data() {
 			return {
-				
+				popStatus:true
 			};
+		},
+		methods:{
+			popShow(){
+				this.popStatus = true;
+			},
+			closePop(status){
+				this.popStatus = status;
+			}
 		}
 	}
 </script>
