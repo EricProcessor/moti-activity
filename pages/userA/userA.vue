@@ -77,7 +77,7 @@
 					}
 					this.masterInfo = result.userMsg;
 					let taskStatus = result.userMsg.taskStatus;
-					taskStatus = 1
+					//taskStatus = 1
 					if(taskStatus == 1){
 						this.isHelp = false
 					}
