@@ -1,3 +1,5 @@
+import config from './config.js'
+
 export function post(url, data) {
 	return new Promise(function(resolve, reject) {
 		uni.request({
