@@ -31,11 +31,11 @@
 
 <script>
 	import Bus from '@/common/bus.js';
-	import {dynamicCode,checkMobileAndCode} from "@/common/request.js";
+	import {dynamicCode,checkMobileAndCode,queryUserCouponCode} from "@/common/request.js";
 	export default {
 		data() {
 			return {
-				popShow:false,
+				popShow:true,
 				errMsg:{
 					mobile:false,
 					code:false
@@ -53,6 +53,23 @@
 			})
 		},
 		methods:{
+			async queryUserCouponCode(){//获取兑换码
+				let userId = uni.getStorageSync('userId');
+				let params = {
+					activityId : userId.activityId,
+					wechatId : userId.wechatId
+				}
+				let {code,msg,result} = await queryUserCouponCode(params);
+				if(code==0){
+					console.log(result);
+					Bus.$emit('couponCode',result);
+				}else{
+					uni.showToast({
+						icon:'none',
+						title:msg
+					})
+				}
+			},
 			async submitBtn(){
 				if(this.checkMobile() && this.checkCode()){
 					let userId = uni.getStorageSync('userId');
@@ -67,6 +84,7 @@
 						this.popShow = false;
 						Bus.$emit('discountsShow',true);
 						Bus.$emit('codeShow',true);
+						this.queryUserCouponCode();
 					}else{
 						uni.showToast({
 							icon: 'none',

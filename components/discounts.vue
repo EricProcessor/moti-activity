@@ -1,7 +1,7 @@
 <template>
 	<view v-if='isShow' class="discounts">
 		<image class='disImg' src='../../static/discounts.png'></image>
-		<view class="code">6222ABCD</view>
+		<view class="code">{{discountsNum}}</view>
 	</view>
 </template>
 
@@ -10,14 +10,18 @@
 	export default {
 		data() {
 			return {
-				isShow:false
+				isShow:false,
+				discountsNum:''
 			};
 		},
 		mounted(){
 			let _this = this;
 			Bus.$on('discountsShow',(data) => {
 				this.isShow = true;
-			})
+			});
+			Bus.$on('couponCode',(data) => {
+				this.discountsNum = data;
+			});
 		},
 		methods:{
 			

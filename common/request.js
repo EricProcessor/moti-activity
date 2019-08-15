@@ -158,3 +158,29 @@ export function saveHelpSub(params) {
 		return data
 	})
 }
+//兑换优惠码
+export function queryUserCouponCode(params) { 
+	return request({
+		url:'/activity/activity/wechat/queryUserCouponCode',
+		methods: 'post',//默认值---不需要则不要填写
+		contentType: 'application/json', //默认值---不需要则不要填写
+		data: params
+	}).then(function (res){
+		let data = res.data;
+		data.result = typeof data.result === 'string' ? JSON.parse(data.result) : data.result;
+		return data
+	})
+}
+//校验手机号和验证码
+export function checkMobileAndCode(params) { 
+	return request({
+		url:'/activity/activity/wechat/checkMobileAndCode',
+		methods: 'post',//默认值---不需要则不要填写
+		contentType: 'application/json', //默认值---不需要则不要填写
+		data: params
+	}).then(function (res){
+		let data = res.data;
+		data.result = typeof data.result === 'string' ? JSON.parse(data.result) : data.result;
+		return data
+	})
+}
