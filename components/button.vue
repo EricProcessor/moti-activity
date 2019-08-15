@@ -22,7 +22,7 @@
 				this.isHelp = false;
 			},
 			completeTask(){
-				this.$emit('popShow',true);
+				console.log(1111111);
 			}
 		}
 	}

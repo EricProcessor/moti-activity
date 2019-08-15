@@ -6,8 +6,8 @@
 		<discounts-box ></discounts-box>
 		<code-box ></code-box>
 		<footer-box></footer-box>
-		<button-box @popShow='popShow'></button-box>
-		<pop-up @closePop='closePop' :popShow='popStatus'></pop-up>
+		<button-box></button-box>
+		<pop-up></pop-up>
 	</view>
 </template>
 
@@ -34,7 +34,6 @@
 		},
 		data() {
 			return {
-				popStatus:false
 			};
 		},
 		onLoad(option) {
@@ -42,12 +41,7 @@
 			// this.saveUser()
 		},
 		methods:{
-			popShow(){
-				this.popStatus = true;
-			},
-			closePop(status){
-				this.popStatus = status;
-			}
+			
 		}
 	}
 </script>
