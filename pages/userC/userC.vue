@@ -2,7 +2,7 @@
 	<view class="userC">
 		<header-box></header-box>
 		<my-task :master="master" :taskType="3"></my-task>
-		<help-box :master="master"></help-box>
+		<help-box :master="master" :helperList="helperList"></help-box>
 		<footer-box></footer-box>
 		<button-box></button-box>
 		<invite-help></invite-help>
@@ -32,7 +32,8 @@ export default {
 				helpNum: 5,
 				helpText: '完成1个任务，即可获得',
 				reward: '99元换购资格'
-			}
+			},
+			helperList: []
 		};
 	},
 	mounted() {
@@ -46,7 +47,23 @@ export default {
 				wechatId: userId.wechatId
 			};
 			let { code, msg, result } = await queryHelpSubByOpenId(params);
-			console.log(result)
+			if(code == 0){
+				let helperNum = JSON.parse(result.task.taskContents[0].content).countCondition;
+				for(let i = 0; i < helperNum; i++){
+					let obj = {
+						wechatHeadeImgUrl: '',
+						wechatNickname: ''
+					}
+					this.helperList.push(obj)
+				}
+				if(result.wechatSubs.length > 0){
+					for(let i = 0; i < result.wechatSubs.length; i++){
+						if(result.wechatSubs[i] != null){
+							this.helperList[i].wechatHeadeImgUrl = result.wechatSubs[i].wechatHeadeImgUrl
+						}
+					}
+				}
+			}
 		}
 	}
 };

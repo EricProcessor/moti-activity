@@ -4,23 +4,23 @@
 		<view class="textBox">还差<text>{{master.helpNum}}名</text>好友助力，即可成功哦</view>
 		<view class="imagesBox">
 			<template v-if='isDown'>
-				<view class='image-li' v-if='index<10' v-for='(item,index) in image' :key='index'>
-					<image v-if='item.url' class='userImage' :src='item.url'></image>
+				<view class='image-li' v-if='index<10' v-for='(item,index) in helperList' :key='index'>
+					<image v-if='item.wechatHeadeImgUrl' class='userImage' :src='item.wechatHeadeImgUrl'></image>
 					<view v-else class="image-border">
 						<view class='tx'></view>
 					</view>
 				</view>
 			</template>
 			<template v-else>
-				<view class='image-li' v-for='(item,index) in image' :key='index'>
-					<image v-if='item.url' class='userImage' :src='item.url'></image>
+				<view class='image-li' v-for='(item,index) in helperList' :key='index'>
+					<image v-if='item.wechatHeadeImgUrl' class='userImage' :src='item.wechatHeadeImgUrl'></image>
 					<view v-else class="image-border">
 						<view class='tx'></view>
 					</view>
 				</view>
 			</template>
 		</view>
-		<view class='more' @tap='showMore' v-if="image.length > 5">
+		<view class='more' @tap='showMore' v-if="helperList.length > 5">
 			<text>{{isDown ? '查看更多' : '收起'}}</text>
 			<view class="jiantou" :class='isDown ? "xia" : "shang"'></view>
 		</view>
@@ -37,19 +37,15 @@
 			master:{
 				type: Object,
 				default: Object
+			},
+			helperList:{
+				type: Array,
+				default: Array
 			}
 		},
 		data() {
 			return {
-				isDown:true,
-				image:[
-					{
-						url:'/static/mine.png'
-					},
-					{
-						url:'/static/mine.png'
-					}
-				]
+				isDown:true
 			};
 		},
 		methods:{

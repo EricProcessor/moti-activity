@@ -114,7 +114,21 @@ export function queryHelpSubByOpenId(params) {
 		data: params
 	}).then(function (res){
 		let data = res.data;
-		data.result = typeof data.result === 'string' ? JSON.parse(data.result) : data.result;
+		// data.result = typeof data.result === 'string' ? JSON.parse(data.result) : data.result;
+		return data
+	})
+}
+//上传moti照片
+export function uploadMoti(params) { 
+	return upload({
+		url:'/activity/activity/wechat/upload',
+		methods: 'post',//默认值---不需要则不要填写
+		contentType: 'application/json', //默认值---不需要则不要填写
+		data: params
+	}).then(function (res){
+		console.log(res.data)
+		let data = res.data;
+		// data.result = typeof data.result === 'string' ? JSON.parse(data.result) : data.result;
 		return data
 	})
 }

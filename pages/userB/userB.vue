@@ -1,12 +1,11 @@
 <template>
 	<view class="userB">
 		<header-box></header-box>
-		<my-task :taskType="2"></my-task>
+		<my-task :taskType="2" :master="master"></my-task>
 		<discounts-box></discounts-box>
 		<code-box></code-box>
-		<help-box></help-box>
+		<help-box :master="master" :helperList="helperList"></help-box>
 		<upload-img></upload-img>
-		
 		<footer-box></footer-box>
 		<button-box></button-box>
 		<pop-up></pop-up>
@@ -25,6 +24,7 @@
 	import uploadImg from '@/components/uploadImg.vue';
 	import popUp from "@/components/pop-up.vue";
 	import inviteHelp from '@/components/inviteHelp.vue'
+	import { queryHelpSubByOpenId } from '@/common/request.js';
 	export default {
 		components:{
 			headerBox,
@@ -40,10 +40,43 @@
 		},
 		data() {
 			return {
+				master: {
+					helpNum: 10,
+					helpText: '完成2个任务，即可获得',
+					reward: '99元换购资格'
+				},
+				helperList: []
 			};
 		},
+		mounted() {
+			this.getInfo();
+		},
 		methods:{
-			
+			getInfo: async function() {
+				let userId = uni.getStorageSync('userId');
+				let params = {
+					activityId: userId.activityId,
+					wechatId: userId.wechatId
+				};
+				let { code, msg, result } = await queryHelpSubByOpenId(params);
+				if(code == 0){
+					let helperNum = JSON.parse(result.task.taskContents[0].content).countCondition;
+					for(let i = 0; i < helperNum; i++){
+						let obj = {
+							wechatHeadeImgUrl: '',
+							wechatNickname: ''
+						}
+						this.helperList.push(obj)
+					}
+					if(result.wechatSubs.length > 0){
+						for(let i = 0; i < result.wechatSubs.length; i++){
+							if(result.wechatSubs[i] != null){
+								this.helperList[i].wechatHeadeImgUrl = result.wechatSubs[i].wechatHeadeImgUrl
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 </script>

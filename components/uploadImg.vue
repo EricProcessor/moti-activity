@@ -1,14 +1,14 @@
 <template>
 	<view class="uploadImg">
-		<image class="img" src="/static/uploadImg.png"></image>
+		<image class="img" src='/static/uploadImg.png'></image>
 		<view class="contentBox">
 			<view class="left-box">
-				<image class='showImg' src='/static/bgimg.jpg'></image>
-				<view class="show">照片示例</view>
+				<image class='showImg' :src="imgSrc" ></image>
+				<view class="show" v-if="isHavePic">照片示例</view>
 			</view>
 			<view class="rg-box">
-				<!-- <view class="btn accomplish">去上传</view> -->
-				<view class="btn achieve">已完成</view>
+				<view class="btn accomplish" @tap="uploadImg" v-if="isHavePic">去上传</view>
+				<view class="btn achieve" v-if="!isHavePic">已完成</view>
 				<view class="text">
 					上传<text>MOTI烟杆</text>照片,<br><text>附带手机号提交</text>,即可完成活动
 				</view>
@@ -18,12 +18,44 @@
 </template>
 
 <script>
+	import { uploadMoti } from '@/common/request.js';
 	export default {
 		data() {
 			return {
-				
+				imgSrc:'/static/bgimgText.jpg',
+				isHavePic: true
 			};
+		},
+		methods:{
+			uploadImg:async function (){
+				let _this = this;
+				uni.chooseImage({
+					count: 1,
+					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+					sourceType: ['album'],//从相册选择
+					success:async (res) => {
+						_this.isHavePic = false;
+						_this.imgSrc = res.tempFilePaths[0];
+						_this.uploadPic()
+					}
+				})
+			},
+			uploadPic:async function (){
+				let params = {
+					file: this.imgSrc 
+				}
+				let {code,msg,result} = await uploadMoti(params);
+				if(code == 0){
+					console.log(result)
+				}else{
+					uni.showToast({
+						icon: 'none',
+						title: msg
+					});
+				}
+			}
 		}
+		
 	}
 </script>
 
