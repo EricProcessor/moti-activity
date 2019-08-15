@@ -6,7 +6,7 @@
 		<discounts-box ></discounts-box>
 		<code-box ></code-box>
 		<footer-box></footer-box>
-		<button-box></button-box>
+		<button-box :fillIn="fillIn" :isHelp="isHelp"></button-box>
 		<pop-up></pop-up>
 		<invite-help></invite-help>
 	</view>
@@ -37,6 +37,8 @@
 		},
 		data() {
 			return {
+				fillIn: false,
+				isHelp: true,
 				master: {
 					helpNum: 36,
 					helpText: '完成1个任务，即可获得',
@@ -75,6 +77,12 @@
 								this.helperList[i].wechatHeadeImgUrl = result.wechatSubs[i].wechatHeadeImgUrl
 							}
 						}
+					}
+					this.masterInfo = result.userMsg;
+					let taskStatus = result.userMsg.taskStatus;
+					if(taskStatus == 1){
+						this.fillIn = true
+						this.isHelp = false
 					}
 				}
 			}

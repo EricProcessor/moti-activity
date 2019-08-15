@@ -24,20 +24,31 @@
 </template>
 
 <script>
-	import headerBox from '@/components/header.vue'
+	import headerBox from '@/components/header.vue';
+	import {saveHelpSub} from '@/common/request.js'
 	export default {
 		components:{
 			headerBox
 		},
 		data() {
 			return {
-				isHelp:true
+				isHelp:true,
+				helpMasterId:'166888271971017'
 			};
 		},
 		methods:{
 			helpBtn(){
 				this.isHelp = false;
+			},
+			async saveHelpSub(){
+				let params = {masterId:this.helpMasterId};
+				let {code,msg,result} = await saveHelpSub(params);
+				
 			}
+		},
+		onLoad(option) {
+			// this.helpMasterId = option.helpMasterId;
+			this.saveHelpSub();
 		}
 	}
 </script>
