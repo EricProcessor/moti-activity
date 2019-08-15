@@ -41,11 +41,26 @@
 		},
 		onLoad(option) {
 			let code = option.code;
+			get_Token(code);
 			
 		},
 		methods:{
-			async getFun(){
-				let {code,msg,result} = await getToken()
+			get_Token (code){
+				uni.request({
+					url:'https://api.weixin.qq.com/sns/oauth2/access_token?',
+					data:{
+						appid:'wx80a7401a02e0f8ec',
+						secret:'f2db2177474c44575f6522932db0a1f3',
+						code:code,
+						grant_type:'authorization_code'
+					},
+					// header:{
+					// 	Content-Type:'application/json'
+					// }
+					success:function(data){
+						console.log(data)
+					}
+				})
 			}
 		}
 	}
