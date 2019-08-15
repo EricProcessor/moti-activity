@@ -57,5 +57,6 @@ export function postUserinfo(headImgUrl,nickname,openId,sexDesc){
 }
 //查询用户是否参与活动数据
 export function queryHelpMasterByUserId(activityId){
+	console.log(activityId)
 	return post('/activity/activity/wechat/queryHelpMasterByUserId',activityId)
 }
