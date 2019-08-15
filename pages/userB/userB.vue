@@ -6,9 +6,11 @@
 		<code-box></code-box>
 		<help-box></help-box>
 		<upload-img></upload-img>
+		
 		<footer-box></footer-box>
 		<button-box></button-box>
 		<pop-up></pop-up>
+		<invite-help></invite-help>
 	</view>
 </template>
 
@@ -17,22 +19,24 @@
 	import myTask from '@/components/myTask.vue';
 	import helpBox from '@/components/help.vue';
 	import footerBox from '@/components/footer.vue';
-	import popUp from '@/components/pop-up.vue';
 	import discountsBox from '@/components/discounts.vue';
 	import codeBox from "@/components/code.vue";
 	import buttonBox from "@/components/button.vue";
 	import uploadImg from '@/components/uploadImg.vue';
+	import popUp from "@/components/pop-up.vue";
+	import inviteHelp from '@/components/inviteHelp.vue'
 	export default {
 		components:{
 			headerBox,
 			myTask,
 			helpBox,
 			footerBox,
-			popUp,
 			discountsBox,
 			codeBox,
 			buttonBox,
-			uploadImg
+			uploadImg,
+			popUp,
+			inviteHelp
 		},
 		data() {
 			return {
@@ -46,6 +50,8 @@
 
 <style lang="scss" scoped>
 	.userB{
-		
+		display: flex;
+		flex-direction: column;
+		height: 100%;
 	}
 </style>

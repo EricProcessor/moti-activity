@@ -5,6 +5,7 @@
 		<help-box :master="master"></help-box>
 		<footer-box></footer-box>
 		<button-box></button-box>
+		<invite-help></invite-help>
 	</view>
 </template>
 
@@ -14,6 +15,7 @@ import myTask from '@/components/myTask.vue';
 import helpBox from '@/components/help.vue';
 import footerBox from '@/components/footer.vue';
 import buttonBox from '@/components/button.vue';
+import inviteHelp from '@/components/inviteHelp.vue'
 import { queryHelpSubByOpenId } from '@/common/request.js';
 export default {
 	components: {
@@ -21,14 +23,15 @@ export default {
 		myTask,
 		helpBox,
 		footerBox,
-		buttonBox
+		buttonBox,
+		inviteHelp
 	},
 	data() {
 		return {
 			master: {
 				helpNum: 5,
-				helpText: 'å®Œæˆ1ä¸ªä»»åŠ¡ï¼Œå³å¯è·å¾—',
-				reward: '99å…ƒæ¢è´­èµ„æ ¼'
+				helpText: 'Íê³É1¸öÈÎÎñ£¬¼´¿É»ñµÃ',
+				reward: '99Ôª»»¹º×Ê¸ñ'
 			}
 		};
 	},
