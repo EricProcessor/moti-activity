@@ -108,7 +108,7 @@ export function saveHelpMaster(params) {
 //根据活动id和openId查询助力数据
 export function queryHelpSubByOpenId(params) { 
 	return request({
-		url:'/activity/activity/wechat/queryHelpSubByOpenId',
+		url:'/activity/activity/wechat/queryHelpSubByUserId',
 		methods: 'post',//默认值---不需要则不要填写
 		contentType: 'application/json', //默认值---不需要则不要填写
 		data: params
