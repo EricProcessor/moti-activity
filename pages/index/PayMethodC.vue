@@ -352,7 +352,7 @@
 				return true;
 			},
 			isShowCashOnDelivery(){
-				if(this.paramType === 24  || this.paramType === 26 || this.paramType == 28 || this.paramType == 29) return false;
+				if(this.paramType === 24  || this.paramType === 26 || this.paramType == 28 || this.paramType == 29 || this.paramType === 31) return false;
 				return true;
 			},
 		},

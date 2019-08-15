@@ -790,9 +790,9 @@ export default {
 				height: 1144
 			},
 			{
-				url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/8.jpg',
+				url: '../../static/type/14/8.jpg',
 				width: 750,
-				height: 810
+				height: 818
 			}
 	    ],
 	},
@@ -1101,9 +1101,9 @@ export default {
                 isLoaded: false
             },
             {
-                url: '../../static/type/11/3.jpg',
+                url: '../../static/type/21/3.jpg',
                 width: 750,
-                height: 666,
+                height: 667,
                 isLoaded: false
             },
             {
@@ -1155,9 +1155,9 @@ export default {
                 isLoaded: false
             },
             {
-                url: '../../static/type/11/12.jpg',
+                url: '../../static/type/21/12.jpg',
                 width: 750,
-                height: 670,
+                height: 608,
                 isLoaded: false
             },
             {
@@ -1778,9 +1778,9 @@ export default {
 				height: 1144
 			},
 			{
-				url: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/8.jpg',
+				url: '../../static/type/14/8.jpg',
 				width: 750,
-				height: 810
+				height: 818
 			}
 		],
 	},

@@ -313,7 +313,7 @@
 				if (this.paramType === 31) this.isSwiper750 = true
 			},
 			bianXianMao() {
-				if (this.paramType === 24 || this.paramType === 30 || this.paramType === 32) {
+				if (this.paramType === 24 || this.paramType === 30 || this.paramType === 32 || this.paramType === 31) {
 					
 					const script_bxm = document.createElement("script");
 					script_bxm.src =

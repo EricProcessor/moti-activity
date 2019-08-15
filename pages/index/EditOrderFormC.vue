@@ -39,7 +39,7 @@
 				请选择烟杆颜色
 			</view>
 			<view class="attrs-group">
-				<view :key="index" class="item-color" :class="{active: index === currentSpecIndex }" @touchend="chooseSpec"
+				<view :key="index" class="item-color" :class="{active: index === currentSpecIndex ,m4: (index%4 === 3)}" @touchend="chooseSpec"
 				 :data-index="index" v-for="(item,index) in spec">
 					{{item.text}}
 				</view>
@@ -156,6 +156,7 @@
 	} from "@/common/utils.js";
 	import Goods from "./goods.js"
 	import Goods99 from "./goods99.js"
+	import GoodsMTGO from "./goodsMTGO.js"
 	import ChoicArea from "./ChoicArea.vue"
 	export default {
 		data() {
@@ -231,6 +232,7 @@
 			},
 			goodsInfo(){
 				if( this.paramType == 28) return Goods99
+				if(this.paramType == 31) return GoodsMTGO
 				return Goods
 			}
 		},
@@ -601,7 +603,7 @@
 		.attrs-group {
 			margin-top: 50upx;
 			display: flex;
-			justify-content: space-between;
+			flex-wrap: wrap;
 
 			.item-color {
 				width: 146upx;
@@ -611,12 +613,18 @@
 				text-align: center;
 				font-size: 26upx;
 				line-height: 60upx;
+				margin-bottom: 15upx;
+				
+				margin-right: 27upx;
 
 
 				&.active {
 					border: none;
 					background-color: #ff5041;
 					color: #FFFFFF;
+				}
+				&.m4{
+					margin-right: 0upx;
 				}
 			}
 		}
