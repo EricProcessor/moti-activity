@@ -7,8 +7,8 @@
 		<help-box></help-box>
 		<upload-img></upload-img>
 		<footer-box></footer-box>
-		<button-box @popShow='popShow'></button-box>
-		<pop-up @closePop='closePop' :popIsShow='popStatus'></pop-up>
+		<button-box></button-box>
+		<pop-up></pop-up>
 	</view>
 </template>
 
@@ -36,16 +36,10 @@
 		},
 		data() {
 			return {
-				popStatus:false
 			};
 		},
 		methods:{
-			popShow(){
-				this.popStatus = true;
-			},
-			closePop(status){
-				this.popStatus = status;
-			}
+			
 		}
 	}
 </script>

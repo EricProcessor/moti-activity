@@ -23,7 +23,7 @@
 				buryPoint('inviteFirend')
 			},
 			completeTask(){
-				this.$emit('popShow',true);
+				console.log(1111111);
 				buryPoint('completeTask')
 			},
 			buryPoint(des) {
