@@ -4,7 +4,7 @@
 		<my-task :master="master" :taskType="3" :masterInfo="masterInfo"></my-task>
 		<help-box :master="master" :helperList="helperList" :fillIn="fillIn"></help-box>
 		<footer-box></footer-box>
-		<button-box :fillIn="fillIn" :isHelp="isHelp"></button-box>
+		<button-box :fillIn="fillIn" :isHelp="isHelp" :noType="noType"></button-box>
 		<invite-help></invite-help>
 	</view>
 </template>
@@ -36,7 +36,8 @@ export default {
 			helperList: [],
 			fillIn: false,
 			isHelp: true,
-			masterInfo:{}
+			masterInfo:{},
+			noType: false
 		};
 	},
 	mounted() {
@@ -71,7 +72,9 @@ export default {
 				if(taskStatus == 1){
 					this.fillIn = true
 					this.isHelp = false
+					this.noType = true
 				}
+				
 			}
 		}
 	}

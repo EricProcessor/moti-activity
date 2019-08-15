@@ -2,7 +2,7 @@
 
 const jweixin = require('jweixin-module')
 import {
-	post
+	request
 } from './request'
 
 export default {

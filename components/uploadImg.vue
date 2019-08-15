@@ -7,8 +7,8 @@
 				<view class="show" v-if="isHavePic">照片示例</view>
 			</view>
 			<view class="rg-box">
-				<view class="btn accomplish" @tap="uploadImg" v-if="isHavePic">去上传</view>
-				<view class="btn achieve" v-if="!isHavePic">已完成</view>
+				<view class="btn accomplish" @tap="uploadImg" v-if="!userImgProgress">去上传</view>
+				<view class="btn achieve" v-if="userImgProgress">已完成</view>
 				<view class="text">
 					上传<text>MOTI烟杆</text>照片,<br><text>附带手机号提交</text>,即可完成活动
 				</view>
@@ -20,6 +20,12 @@
 <script>
 	import { uploadMoti } from '@/common/request.js';
 	export default {
+		props:{
+			userImgProgress:{
+				type: Boolean,
+				default: false
+			}
+		},
 		data() {
 			return {
 				imgSrc:'/static/bgimgText.jpg',
@@ -34,35 +40,22 @@
 					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
 					sourceType: ['album'],//从相册选择
 					success:async (res) => {
-						_this.isHavePic = false;
+						
 						_this.imgSrc = res.tempFilePaths[0];
 						console.log(res.tempFilePaths[0]);
 						this.uploadPic()
 					}
 				})
-				// return new Promise(
-				// 	function (resolve,reject){
-				// 		uni.chooseImage({
-				// 			count: 1,
-				// 			sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-				// 			sourceType: ['album'],//从相册选择
-				// 			success:(res) => {
-				// 				_this.isHavePic = false;
-				// 				_this.imgSrc = res.tempFilePaths[0];
-				// 				console.log(res.tempFilePaths[0]);
-				// 			}
-				// 		})
-				// 	}
-				// )
 			},
 			uploadPic:async function (){
-				console.log(this.imgSrc)
 				let params = {
 					file: this.imgSrc 
 				}
-				let {code,msg,result} = await uploadMoti(params);
-				if(code == 0){
-					console.log(result)
+				let succ = await uploadMoti(params);
+				succ = JSON.parse(succ)
+				if(succ.code == 0){
+					console.log(succ.result)
+					_this.$parent.userImgProgress = true;
 				}else{
 					uni.showToast({
 						icon: 'none',

@@ -1,13 +1,13 @@
 <template>
 	<view class="userB">
 		<header-box></header-box>
-		<my-task :taskType="2" :master="master"></my-task>
+		<my-task :taskType="2" :master="master" :userProgress="userProgress" :userImgProgress="userImgProgress"></my-task>
 		<discounts-box></discounts-box>
-		<code-box></code-box>
+		<code-box :imgUrl="imgUrl"></code-box>
 		<help-box :master="master" :helperList="helperList"></help-box>
-		<upload-img></upload-img>
+		<upload-img :userImgProgress="userImgProgress"></upload-img>
 		<footer-box></footer-box>
-		<button-box></button-box>
+		<button-box :isHelp="isHelp" :noType="noType"></button-box>
 		<pop-up></pop-up>
 		<invite-help></invite-help>
 	</view>
@@ -45,7 +45,12 @@
 					helpText: '完成2个任务，即可获得',
 					reward: '99元换购资格'
 				},
-				helperList: []
+				helperList: [],
+				isHelp: true,
+				userProgress: false,
+				userImgProgress: false,
+				imgUrl: '/static/b.png',
+				noType: false
 			};
 		},
 		mounted() {
@@ -75,6 +80,21 @@
 							}
 						}
 					}
+					let userBStatus = false
+					if(result.task.taskContents[0].status == 1 && result.task.taskContents[1].status == 1){
+						userBStatus = true
+					}
+					if(result.task.taskContents[0].status == 1){
+						this.userProgress = true
+					}
+					if(result.task.taskContents[1].status == 1){
+						this.userImgProgress = true
+					}
+					if(userBStatus){
+						this.isHelp = false
+						this.noType = true
+					}
+					
 				}
 			}
 		}
