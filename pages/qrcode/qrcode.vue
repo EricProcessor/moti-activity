@@ -1,8 +1,12 @@
 <template>
 	<view id="save-qrcode-iamge">
+	
 		<view  id="save-qrcode-iamge-content">
 			<view class="b">
 				
+			</view>
+			<view id="qrcode-image" >
+			
 			</view>
 			<view class="a">
 			<view id="ignore-btton">
@@ -24,6 +28,14 @@
 			return {
 
 			}
+		},
+		onLoad(){
+			
+		},
+		mounted() {
+			this.$nextTick(()=>{
+				this.makeQrCode()
+			})
 		},
 		methods: {
 			replaceImage(canvans) {
@@ -56,20 +68,41 @@
 					this.replaceImage(canvans)
 					
 				});
+			},
+			makeQrCode(){
+				var qrcodeObj = new QRCode('qrcode-image', {
+					text: "www.baidu.com",
+					width: uni.upx2px(259),
+					height: uni.upx2px(259),
+					colorDark: '#000000', //前景色
+					colorLight: '#ffffff', //背景色
+				})
 			}
 		}
 	}
 </script>
 
-<style>
+<style lang="scss" scoped="">
 	.a {
 		background-color: #007AFF;
 		height: 100%;
 		width: 100%;
 	}
 	.b{
-		background: #4CD964;
+		//background: #4CD964;
 		height: 50%;
 		width: 100%;
+	}
+	
+	#qrcode-image {
+		display: inline-block;
+		width: 259upx;
+		height: 259upx;
+		padding: 6upx;
+		//box-sizing: border-box;
+		margin-top: 56upx;
+		margin-bottom: 24upx;
+		border: 1px solid #CCCCCC;
+		text-align: center;
 	}
 </style>
