@@ -1,21 +1,26 @@
 <template>
-	<view v-if='discountsShow' class="discounts">
+	<view v-if='isShow' class="discounts">
 		<image class='disImg' src='../../static/discounts.png'></image>
 		<view class="code">6222ABCD</view>
 	</view>
 </template>
 
 <script>
+	import Bus from '@/common/bus.js'
 	export default {
-		props:{
-			discountsShow:{
-				type:Boolean,
-				default:false
-			}
-		},
 		data() {
 			return {
+				isShow:false
 			};
+		},
+		mounted(){
+			let _this = this;
+			Bus.$on('discountsShow',(data) => {
+				this.isShow = true;
+			})
+		},
+		methods:{
+			
 		}
 	}
 </script>

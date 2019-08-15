@@ -128,7 +128,7 @@
 				}
 				.show{
 					position: absolute;
-					z-index: 50;
+					z-index: 10;
 					width:250upx;
 					color:#fff;
 					background:rgba(0,0,0,0.5);

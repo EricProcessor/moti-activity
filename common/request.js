@@ -132,3 +132,16 @@ export function uploadMoti(params) {
 		return data
 	})
 }
+//发送下单验证码
+export function dynamicCode(params) { 
+	return request({
+		url:'/activity/activity/buyer/dynamicCode',
+		methods: 'post',//默认值---不需要则不要填写
+		contentType: 'application/json', //默认值---不需要则不要填写
+		data: params
+	}).then(function (res){
+		let data = res.data;
+		data.result = typeof data.result === 'string' ? JSON.parse(data.result) : data.result;
+		return data
+	})
+}

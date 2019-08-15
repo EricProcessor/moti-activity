@@ -42,6 +42,9 @@
 				task1:true
 			};
 		},
+		created() {
+			console.log(this.master);
+		},
 		methods:{
 			progress(){
 				this.task1 = false;

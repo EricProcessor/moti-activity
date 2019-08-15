@@ -14,7 +14,7 @@
 		},
 		data() {
 			return {
-				isHelp:true,
+				isHelp:false,
 				fillIn:false
 			};
 		},

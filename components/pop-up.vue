@@ -31,6 +31,7 @@
 
 <script>
 	import Bus from '@/common/bus.js';
+	import {dynamicCode} from "@/common/request.js";
 	export default {
 		data() {
 			return {
@@ -53,14 +54,27 @@
 		},
 		methods:{
 			submitBtn(){
-				if(this.checkMobile() && this.checkCode){
+				if(this.checkMobile() && this.checkCode()){
 					console.log('提交');
+					this.popShow = false;
+					Bus.$emit('discountsShow',true);
+					Bus.$emit('codeShow',true);
 				}
 			},
-			getCode(){
-				console.log(1333333333333);
+			async getCode(){
 				if(this.checkMobile()){
 					console.log('获取code码');
+					let userId = uni.getStorageSync('userId');
+					let params = {
+						activityId: userId.activityId,
+						phone: this.userInfo.mobile,
+						shopAttDetailId:0,
+						shopId:'111'
+					};
+					console.log(params);
+					let {code,msg,result} = await dynamicCode(params);
+					
+					// Bus.$emit('discountsShow',true);
 				}
 			},
 			checkMobile() {
@@ -96,6 +110,7 @@
 		width:100%;
 		height:100%;
 		background:rgba(0,0,0,.7);
+		z-index:50;
 		.content-box{
 			background: #fff;
 			width:93%;

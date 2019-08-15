@@ -9,17 +9,18 @@
 </template>
 
 <script>
+	import Bus from '@/common/bus.js'
 	export default {
-		props:{
-			codeShow:{
-				type:Boolean,
-				default:false
-			}
-		},
 		data() {
 			return {
-				
+				codeShow:false
 			};
+		},
+		mounted() {
+			let _this = this;
+			Bus.$on('codeShow',(data) => {
+				this.codeShow = data;
+			})
 		}
 	}
 </script>
