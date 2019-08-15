@@ -196,19 +196,6 @@ export function checkMobileAndCode(params) {
 		return data
 	})
 }
-//校验手机号和验证码
-export function queryHelpSubByUserId(params) { 
-	return request({
-		url:'/activity/activity/wechat/queryHelpSubByUserId',
-		methods: 'post',//默认值---不需要则不要填写
-		contentType: 'application/json', //默认值---不需要则不要填写
-		data: params
-	}).then(function (res){
-		let data = res.data;
-		data.result = typeof data.result === 'string' ? JSON.parse(data.result) : data.result;
-		return data
-	})
-}
 //获取用户所有信息
 export function getUserAllInfo(code){
 	return request({
@@ -219,6 +206,4 @@ export function getUserAllInfo(code){
 		console.log("请求得到的数据"+ JSON.stringify(data) )
 		return data
 	})
-
-
 }
