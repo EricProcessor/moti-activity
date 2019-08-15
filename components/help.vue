@@ -23,7 +23,7 @@
 		<view class='showText' v-if="fillIn">
 			<text>点击底部【填写表单】，并由工作人员最终审核通过后，将获得99元换购MOTIS套装资格</text>
 		</view>
-		<view class='more' @tap='showMore' v-if="helperList.length > 5">
+		<view class='more' @tap='showMore' v-if="helperList.length > 10">
 			<text>{{isDown ? '查看更多' : '收起'}}</text>
 			<view class="jiantou" :class='isDown ? "xia" : "shang"'></view>
 		</view>
