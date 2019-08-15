@@ -2,7 +2,7 @@
 	<view class="boutton-box">
 		<view v-if='isHelp' @tap='goHelp' class="btn">邀请好友助力</view>
 		<view v-if="fillIn" class='btn' @tap="toForm">填写表单</view>
-		<view v-if='!isHelp' @tap='completeTask' class="btn">完成任务</view>
+		<view v-if='!isHelp' @tap='completeTask' class="btn" v-show="!noType">完成任务</view>
 	</view>
 </template>
 
@@ -15,6 +15,10 @@
 				default: false
 			},
 			isHelp:{
+				type: Boolean,
+				default: true
+			},
+			noType:{
 				type: Boolean,
 				default: true
 			}

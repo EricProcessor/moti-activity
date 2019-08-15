@@ -6,7 +6,7 @@
 		<discounts-box ></discounts-box>
 		<code-box :imgUrl="imgUrl"></code-box>
 		<footer-box></footer-box>
-		<button-box :isHelp="isHelp"></button-box>
+		<button-box :isHelp="isHelp" :noType="noType"></button-box>
 		<pop-up></pop-up>
 		<invite-help></invite-help>
 	</view>
@@ -45,7 +45,8 @@
 				helperList: [],
 				isHelp: true,
 				masterInfo:{},
-				imgUrl: '/static/a.png'
+				imgUrl: '/static/a.png',
+				noType: false
 			};
 		},
 		mounted() {
@@ -77,10 +78,11 @@
 					}
 					this.masterInfo = result.userMsg;
 					let taskStatus = result.userMsg.taskStatus;
-					//taskStatus = 1
 					if(taskStatus == 1){
 						this.isHelp = false
+						this.noType = true
 					}
+					
 				}
 			}
 		}
