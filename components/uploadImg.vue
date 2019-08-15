@@ -29,18 +29,34 @@
 		methods:{
 			uploadImg:async function (){
 				let _this = this;
-				uni.chooseImage({
+				await uni.chooseImage({
 					count: 1,
 					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
 					sourceType: ['album'],//从相册选择
 					success:async (res) => {
 						_this.isHavePic = false;
 						_this.imgSrc = res.tempFilePaths[0];
-						_this.uploadPic()
+						console.log(res.tempFilePaths[0]);
+						this.uploadPic()
 					}
 				})
+				// return new Promise(
+				// 	function (resolve,reject){
+				// 		uni.chooseImage({
+				// 			count: 1,
+				// 			sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+				// 			sourceType: ['album'],//从相册选择
+				// 			success:(res) => {
+				// 				_this.isHavePic = false;
+				// 				_this.imgSrc = res.tempFilePaths[0];
+				// 				console.log(res.tempFilePaths[0]);
+				// 			}
+				// 		})
+				// 	}
+				// )
 			},
 			uploadPic:async function (){
+				console.log(this.imgSrc)
 				let params = {
 					file: this.imgSrc 
 				}
