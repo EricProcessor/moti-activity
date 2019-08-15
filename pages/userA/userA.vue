@@ -1,7 +1,7 @@
 <template>
 	<view class='userA'>
 		<header-box></header-box>
-		<my-task></my-task>
+		<my-task :master="master"></my-task>
 		<help-box></help-box>
 		<discounts-box ></discounts-box>
 		<code-box ></code-box>
@@ -34,6 +34,11 @@
 		},
 		data() {
 			return {
+				master: {
+					helpNum: 36,
+					helpText: '完成1个任务，即可获得',
+					reward: '99元换购资格'
+				}
 			};
 		},
 		onLoad(option) {

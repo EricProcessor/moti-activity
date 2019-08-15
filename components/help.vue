@@ -1,7 +1,7 @@
 <template>
 	<view class="help-box">
 		<image class='helpImage' src='../../static/help.png'></image>
-		<view class="textBox">还差<text>34名</text>好友助力，即可成功哦</view>
+		<view class="textBox">还差<text>{{master.helpNum}}名</text>好友助力，即可成功哦</view>
 		<view class="imagesBox">
 			<template v-if='isDown'>
 				<view class='image-li' v-if='index<10' v-for='(item,index) in image' :key='index'>
@@ -20,7 +20,7 @@
 				</view>
 			</template>
 		</view>
-		<view class='more' @tap='showMore'>
+		<view class='more' @tap='showMore' v-if="image.length > 5">
 			<text>{{isDown ? '查看更多' : '收起'}}</text>
 			<view class="jiantou" :class='isDown ? "xia" : "shang"'></view>
 		</view>
@@ -29,6 +29,16 @@
 
 <script>
 	export default {
+		props:{
+			taskType:{
+				type:Number,
+				default:Number
+			},
+			master:{
+				type: Object,
+				default: Object
+			}
+		},
 		data() {
 			return {
 				isDown:true,
@@ -38,39 +48,7 @@
 					},
 					{
 						url:'/static/mine.png'
-					},
-					{
-						url:'/static/mine.png'
-					},
-					{
-						url:'/static/mine.png'
-					},
-					{
-						url:'/static/mine.png'
-					},
-					{
-						url:'/static/mine.png'
-					},
-					{
-						url:'/static/mine.png'
-					},{
-						url:'/static/mine.png'
-					},{
-						url:'/static/mine.png'
-					},{
-						url:'/static/mine.png'
-					},{
-						url:'/static/mine.png'
-					},{
-						url:'/static/mine.png'
-					},{
-					},{
-					},{
-					},{
-					},{
-					},{
-					},{
-					},
+					}
 				]
 			};
 		},
