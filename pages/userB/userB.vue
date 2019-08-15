@@ -8,7 +8,7 @@
 		<upload-img></upload-img>
 		<footer-box></footer-box>
 		<button-box @popShow='popShow'></button-box>
-		<pop-up @closePop='closePop' :popShow='popStatus'></pop-up>
+		<pop-up @closePop='closePop' :popIsShow='popStatus'></pop-up>
 	</view>
 </template>
 
@@ -36,7 +36,7 @@
 		},
 		data() {
 			return {
-				popStatus:true
+				popStatus:false
 			};
 		},
 		methods:{
