@@ -1,62 +1,120 @@
 import config from './config.js'
 
-async function post(url, data) {
-	return new Promise(function(resolve, reject) {
+//封装request方法
+export async function request(params){
+	return new Promise(function (resolve,reject){
+		uni.showLoading({title: ''});
+		const {...rest} = params.data;
 		uni.request({
-			url: `${config.host}${url}`,
-			method: 'POST',
+			url: config.host + params.url,
+			method: params.methods ? params.methods : 'get',
 			header: {
-				"content-type": 'application/json'
+				"content-type": params.contentType ? params.contentType : 'application/x-www-form-urlencoded'
 			},
-			data: data,
-			success: function(data) {
-				resolve(data)
-				console.log(data)
-			},
-			fail: function(err) {
-				console.log(err)
-			}
-		})
-
-	})
-}
-
-async function get(url, data) {
-	return new Promise(function(resolve, reject) {
-		uni.request({
-			url: url,
-			method: 'GET',
-			data,
-			success: function(data) {
+			data: rest,
+			success:function (data){
+				uni.hideLoading();
 				resolve(data)
 			},
-			fail: function(err) {
-				// 回调失败时
-				console.log(err)
-				if (typeof reject == 'function') {
-					reject(data);
-				} else {
-					console.log(data);
-				}
+			fail: function (err){
+				uni.hideLoading();
+				reject(err)
 			}
 		})
 	})
 }
-export function getToken(code) {
-	get('https://api.weixin.qq.com/sns/oauth2/access_token?','f2db2177474c44575f6522932db0a1f3',code)
+
+//封装upload方法
+export async function upload(params){
+	return new Promise(function (resolve,reject){
+		const { file, ...rest} = params.data;
+		uni.showLoading({title: ''});
+		uni.uploadFile({
+			url: config.host + params.url,
+			filePath: file,
+			name: 'file',
+            formData: rest,
+			success:function (data){
+				uni.hideLoading();
+				resolve(data)
+			},
+			fail: function (err){
+				uni.hideLoading();
+				reject(err)
+			}
+		})
+	})
 }
-export function getAccessToken(appId, secret, code) { // 参数： appId， 公众号的 appsecret， 以及 code值
-	// 请求链接：
-	let getAccessTokenUrl =
-		`https://api.weixin.qq.com/sns/oauth2/access_token?appid=${appId}&secret=${secret}&code=${code}&grant_type=authorization_code`
-	return get(getAccessTokenUrl)
-}
+
+// 暂时不用
+// export function getAccessToken(appId, secret, code) { // 参数： appId， 公众号的 appsecret， 以及 code值
+// 	// 请求链接：
+// 	let getAccessTokenUrl =
+// 		`https://api.weixin.qq.com/sns/oauth2/access_token?appid=${appId}&secret=${secret}&code=${code}&grant_type=authorization_code`
+// 	return get(getAccessTokenUrl)
+// }
 //储存用户信息
-export function postUserinfo(headImgUrl,nickname,openId,sexDesc){
-	return post('/activity/activity/wechat/addWechatUser',{headImgUrl,nickname,openId,sexDesc})
+export function addWechatUser(params) { 
+	return request({
+		url:'/activity/activity/wechat/addWechatUser',
+		methods: 'post',//默认值---不需要则不要填写
+		contentType: 'application/json', //默认值---不需要则不要填写
+		data: params
+	}).then(function (res){
+		let data = res.data;
+		data.result = typeof data.result === 'string' ? JSON.parse(data.result) : data.result;
+		return data
+	})
 }
 //查询用户是否参与活动数据
-export function queryHelpMasterByUserId(activityId){
-	console.log(activityId)
-	return post('/activity/activity/wechat/queryHelpMasterByUserId',activityId)
+export function queryHelpMasterByUserId(params) { 
+	return request({
+		url:'/activity/activity/wechat/queryHelpMasterByUserId',
+		methods: 'post',//默认值---不需要则不要填写
+		contentType: 'application/json', //默认值---不需要则不要填写
+		data: params
+	}).then(function (res){
+		let data = res.data;
+		data.result = typeof data.result === 'string' ? JSON.parse(data.result) : data.result;
+		return data
+	})
+}
+//根据活动id，查询活动任务主表数据
+export function queryTaskMasterByActiId(params) { 
+	return request({
+		url:'/activity/activity/wechat/queryTaskMasterByActiId',
+		methods: 'post',//默认值---不需要则不要填写
+		contentType: 'application/json', //默认值---不需要则不要填写
+		data: params
+	}).then(function (res){
+		let data = res.data;
+		data.result = typeof data.result === 'string' ? JSON.parse(data.result) : data.result;
+		return data
+	})
+}
+//保存用户选择的活动类型
+export function saveHelpMaster(params) { 
+	return request({
+		url:'/activity/activity/wechat/saveHelpMaster',
+		methods: 'post',//默认值---不需要则不要填写
+		contentType: 'application/json', //默认值---不需要则不要填写
+		data: params
+	}).then(function (res){
+		let data = res.data;
+		data.result = typeof data.result === 'string' ? JSON.parse(data.result) : data.result;
+		return data
+	})
+}
+//根据活动id和openId查询助力数据
+export function queryHelpSubByOpenId(params) { 
+	return request({
+		url:'/activity/activity/wechat/queryHelpSubByOpenId',
+		methods: 'post',//默认值---不需要则不要填写
+		contentType: 'application/json', //默认值---不需要则不要填写
+		data: params
+	}).then(function (res){
+		let data = res.data;
+		data.result = typeof data.result === 'string' ? JSON.parse(data.result) : data.result;
+		return data
+	})
 }
