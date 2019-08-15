@@ -75,6 +75,7 @@
         "domain" : "",
         "router" : {
             "base" : "/bluehd/"
-        }
+        },
+        "template" : "index.html"
     }
 }

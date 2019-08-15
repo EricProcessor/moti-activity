@@ -61,15 +61,15 @@
 				nickname: "Eric",
 				openId: "oOYP80ZJ9GL-0h94WuZyEm-4EVbk",
 				sexDesc: "1",
-				activityId: "423784446",
-				isLogin:false      //用户是否已经授权
+				activityId: 423784446,
+				isLogin: false //用户是否已经授权
 			}
 		},
 		onLoad(option) {
 			console.log(option)
-			if(option.code){
+			if (option.code) {
 				this.isLogin = true
-			}else{
+			} else {
 				this.isLogin = false
 			}
 			//postUserinfo(this.headImgUrl, this.nickname, this.openId, this.sexDesc).then(queryHelpMasterByUserId(this.activityId));
@@ -92,13 +92,23 @@
 				})
 			},
 			joinBtn() {
-				
-				if(this.isLogin){
+				this.buryPoint();
+				let _self = this
+				if (this.isLogin) {
+
+					postUserinfo(this.headImgUrl, this.nickname, this.openId, this.sexDesc).then(function(data) {
+						if (data.data.code == 0) {
+							console.log("用户添加成功")
+							queryHelpMasterByUserId({activityId:_self.activityId})
+						}
+					})
+
+					// postUserinfo(this.headImgUrl, this.nickname, this.openId, this.sexDesc)
 					this.isJoin = !this.isJoin;
-				}else{
+				} else {
 					this.getWxCode();
 				}
-				
+
 			},
 			confirm() {
 				let type = this.selectedIndex;
@@ -127,6 +137,16 @@
 							break;
 					}
 				}
+			},
+			buryPoint() {
+				var _core = new WCore();
+				var _user = new WCore.inputs.User();
+				_user.uid = '#';
+				var _pv = new WCore.inputs.PV(_user);
+				var _event = new WCore.inputs.Event(_pv);
+				_event.ec = 'Loginnnnnng';
+				_event.ea = 'click';
+				_core.send(_event);
 			}
 		}
 	}
