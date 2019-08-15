@@ -20,14 +20,12 @@
 		},
 		methods:{
 			goHelp(){
-				console.log('fggg');
 				Bus.$emit('showHelp',true);
-				buryPoint('inviteFirend')
+				this.buryPoint('inviteFirend')
 			},
 			completeTask(){
-				console.log(1111111);				Bus.$emit('showPop',true);
-				
-				buryPoint('completeTask')
+				Bus.$emit('showPop',true);
+				this.buryPoint('completeTask')
 			},
 			buryPoint(des) {
 				var _core = new WCore();
