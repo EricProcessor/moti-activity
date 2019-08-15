@@ -30,8 +30,8 @@ export default {
 		return {
 			master: {
 				helpNum: 5,
-				helpText: 'Íê³É1¸öÈÎÎñ£¬¼´¿É»ñµÃ',
-				reward: '99Ôª»»¹º×Ê¸ñ'
+				helpText: 'å®Œæˆ1ä¸ªä»»åŠ¡ï¼Œå³å¯è·å¾—',
+				reward: '99å…ƒæ¢è´­èµ„æ ¼'
 			}
 		};
 	},

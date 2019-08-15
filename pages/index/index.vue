@@ -7,7 +7,7 @@
 			<view class="pop"></view>
 			<view class="pop-content">
 				<view class="title">我要参与活动</view>
-				<view class="tit">请选择参与方式，点击后不可进行修改哦</view
+				<view class="tit">请选择参与方式，点击后不可进行修改哦</view>
 				<view @tap="selected(item.id, item.url)" :class="{ active: selectedIndex == item.id }" class="content-li" v-for="(item, index) in activityInfo" :key="index">
 					<view class="content-top">{{ item.title }}</view>
 					<view class="content">{{ item.content }}</view>
@@ -104,6 +104,7 @@ export default {
 					};
 					let { code, msg, result } = await queryHelpMasterByUserId(params);
 					if (code == 0) {
+						console.log(result)
 						if (result != undefined) {
 							uni.showToast({
 								icon: 'none',
