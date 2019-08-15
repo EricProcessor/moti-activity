@@ -61,11 +61,17 @@
 				nickname: "Eric",
 				openId: "oOYP80ZJ9GL-0h94WuZyEm-4EVbk",
 				sexDesc: "1",
-				activityId: "423784446"
+				activityId: "423784446",
+				isLogin:false      //用户是否已经授权
 			}
 		},
-		onLoad() {
-
+		onLoad(option) {
+			console.log(option)
+			if(option.code){
+				this.isLogin = true
+			}else{
+				this.isLogin = false
+			}
 			//postUserinfo(this.headImgUrl, this.nickname, this.openId, this.sexDesc).then(queryHelpMasterByUserId(this.activityId));
 			// queryHelpMasterByUserId(this.activityId);
 
@@ -86,8 +92,13 @@
 				})
 			},
 			joinBtn() {
-				this.isJoin = !this.isJoin;
-				this.getWxCode();
+				
+				if(this.isLogin){
+					this.isJoin = !this.isJoin;
+				}else{
+					this.getWxCode();
+				}
+				
 			},
 			confirm() {
 				let type = this.selectedIndex;
