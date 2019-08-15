@@ -40,8 +40,6 @@
 			font-weight:400;
 			position: relative;
 			height:700upx;
-			// background-image: url('/static/bgimg.jpg') no-repeat center top;
-			
 			background-image: url('../static/bgimg.jpg');
 			background-repeat:no-repeat;
 			background-position:center top;
