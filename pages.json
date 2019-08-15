@@ -45,6 +45,10 @@
 				}
 			}
         }
+        ,{
+            "path" : "pages/qrcode/qrcode",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
