@@ -4,9 +4,9 @@
 		<my-task :master="master"></my-task>
 		<help-box :master="master" :helperList="helperList"></help-box>
 		<discounts-box ></discounts-box>
-		<code-box ></code-box>
+		<code-box :imgUrl="imgUrl"></code-box>
 		<footer-box></footer-box>
-		<button-box></button-box>
+		<button-box :isHelp="isHelp"></button-box>
 		<pop-up></pop-up>
 		<invite-help></invite-help>
 	</view>
@@ -42,15 +42,14 @@
 					helpText: '完成1个任务，即可获得',
 					reward: '99元换购资格'
 				},
-				helperList: []
+				helperList: [],
+				isHelp: true,
+				masterInfo:{},
+				imgUrl: '/static/a.png'
 			};
 		},
 		mounted() {
 			this.getInfo();
-		},
-		onLoad(option) {
-
-			// this.saveUser()
 		},
 		methods:{
 			getInfo: async function() {
@@ -75,6 +74,12 @@
 								this.helperList[i].wechatHeadeImgUrl = result.wechatSubs[i].wechatHeadeImgUrl
 							}
 						}
+					}
+					this.masterInfo = result.userMsg;
+					let taskStatus = result.userMsg.taskStatus;
+					taskStatus = 1
+					if(taskStatus == 1){
+						this.isHelp = false
 					}
 				}
 			}

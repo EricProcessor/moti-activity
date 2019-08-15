@@ -9,7 +9,7 @@
 					<view v-if='errMsg.mobile' class="errMsg">请填写正确的手机号</view>
 					<text class="zhanwei"></text>
 					<view class="input-box">
-						<input v-model="userInfo.mobile" type="text" placeholder="请输手机号">
+						<input v-model="userInfo.mobile" type="text" maxlength="11" placeholder="请输手机号">
 					</view>
 				</view>
 			</view>
@@ -31,7 +31,7 @@
 
 <script>
 	import Bus from '@/common/bus.js';
-	import {dynamicCode} from "@/common/request.js";
+	import {dynamicCode,checkMobileAndCode} from "@/common/request.js";
 	export default {
 		data() {
 			return {
@@ -53,17 +53,30 @@
 			})
 		},
 		methods:{
-			submitBtn(){
+			async submitBtn(){
 				if(this.checkMobile() && this.checkCode()){
-					console.log('提交');
-					this.popShow = false;
-					Bus.$emit('discountsShow',true);
-					Bus.$emit('codeShow',true);
+					let userId = uni.getStorageSync('userId');
+					let params = {
+						"activityId": userId.activityId,
+						"code": this.userInfo.code,
+						"phone": this.userInfo.mobile,
+						"wechatId": userId.wechatId
+					}
+					let {code,msg,result} = await checkMobileAndCode(params);
+					if(code == 0){
+						this.popShow = false;
+						Bus.$emit('discountsShow',true);
+						Bus.$emit('codeShow',true);
+					}else{
+						uni.showToast({
+							icon: 'none',
+							title: msg
+						})
+					}
 				}
 			},
 			async getCode(){
 				if(this.checkMobile()){
-					console.log('获取code码');
 					let userId = uni.getStorageSync('userId');
 					let params = {
 						activityId: userId.activityId,
@@ -73,8 +86,17 @@
 					};
 					console.log(params);
 					let {code,msg,result} = await dynamicCode(params);
-					
-					// Bus.$emit('discountsShow',true);
+					if(code == 0){
+						uni.showToast({
+							icon: 'none',
+							title: '验证码已发送'
+						})
+					}else{
+						uni.showToast({
+							icon: 'none',
+							title: msg
+						})
+					}
 				}
 			},
 			checkMobile() {

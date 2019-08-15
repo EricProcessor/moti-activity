@@ -106,15 +106,14 @@ export default {
 					if (code == 0) {
 						console.log(result)
 						if (result != undefined) {
-							uni.showToast({
-								icon: 'none',
-								title: '该用户已经参加过该活动！'
-							});
-							setTimeout(function() {
-								uni.navigateTo({
-									url: '/'
-								});
-							}, 1000);
+							let userId = {
+								activityId: result.activityId,
+								helpMasterId: result.id,
+								wechatId: result.wechatId
+							}
+							uni.setStorageSync('userId', userId);
+							let taskId = parseInt(result.taskId);
+							this.toPath(taskId)
 						} else {
 							this.isJoin = !this.isJoin;
 						}
@@ -155,29 +154,32 @@ export default {
 					}
 					uni.setStorageSync('userId', userId);
 					this.isJoin = false;
-					switch (type) {
-						case 1:
-							uni.navigateTo({
-								url: '/pages/userA/userA'
-							});
-							break;
-						case 2:
-							uni.navigateTo({
-								url: '/pages/userB/userB'
-							});
-							break;
-						case 3:
-							uni.navigateTo({
-								url: '/pages/userC/userC'
-							});
-							break;
-					}
+					this.toPath(type)
 				} else {
 					uni.showToast({
 						icon: 'none',
 						title: msg
 					});
 				}
+			}
+		},
+		toPath: function (type){
+			switch (type) {
+				case 1:
+					uni.navigateTo({
+						url: '/pages/userA/userA'
+					});
+					break;
+				case 2:
+					uni.navigateTo({
+						url: '/pages/userB/userB'
+					});
+					break;
+				case 3:
+					uni.navigateTo({
+						url: '/pages/userC/userC'
+					});
+					break;
 			}
 		},
 		buryPoint() {
