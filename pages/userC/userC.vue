@@ -5,6 +5,7 @@
 		<help-box></help-box>
 		<footer-box></footer-box>
 		<button-box></button-box>
+		<invite-help></invite-help>
 	</view>
 </template>
 
@@ -14,13 +15,15 @@
 	import helpBox from '@/components/help.vue';
 	import footerBox from '@/components/footer.vue';
 	import buttonBox from '@/components/button.vue';
+	import inviteHelp from '@/components/inviteHelp.vue'
 	export default {
 		components:{
 			headerBox,
 			myTask,
 			helpBox,
 			footerBox,
-			buttonBox
+			buttonBox,
+			inviteHelp
 		},
 		data() {
 			return {

@@ -8,6 +8,7 @@
 		<footer-box></footer-box>
 		<button-box></button-box>
 		<pop-up></pop-up>
+		<invite-help></invite-help>
 	</view>
 </template>
 
@@ -20,8 +21,8 @@
 	import discountsBox from "@/components/discounts.vue";
 	import codeBox from '@/components/code.vue';
 	import buttonBox from '@/components/button.vue';
+	import inviteHelp from '@/components/inviteHelp.vue'
 	export default {
-
 		components: {
 			headerBox,
 			footerBox,
@@ -30,7 +31,8 @@
 			popUp,
 			discountsBox,
 			codeBox,
-			buttonBox
+			buttonBox,
+			inviteHelp
 		},
 		data() {
 			return {

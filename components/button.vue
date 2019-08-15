@@ -7,6 +7,7 @@
 </template>
 
 <script>
+	import Bus from '@/common/bus.js'
 	export default {
 		props:{
 			
@@ -19,10 +20,12 @@
 		},
 		methods:{
 			goHelp(){
-				this.isHelp = false;
+				console.log('fggg');
+				Bus.$emit('showHelp',true);
 			},
 			completeTask(){
 				console.log(1111111);
+				Bus.$emit('showPop',true);
 			}
 		}
 	}

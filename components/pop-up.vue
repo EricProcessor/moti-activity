@@ -30,15 +30,11 @@
 </template>
 
 <script>
+	import Bus from '@/common/bus.js';
 	export default {
-		props:{
-			popShow:{
-				type:Boolean,
-				default:false
-			}
-		},
 		data() {
 			return {
+				popShow:false,
 				errMsg:{
 					mobile:false,
 					code:false
@@ -49,6 +45,12 @@
 				}
 			};
 		},
+		mounted() {
+			var _this = this;
+			Bus.$on('showPop',(data) => {
+				this.popShow = data;
+			})
+		},
 		methods:{
 			submitBtn(){
 				if(this.checkMobile() && this.checkCode){
@@ -56,7 +58,7 @@
 				}
 			},
 			getCode(){
-				console.log();
+				console.log(1333333333333);
 				if(this.checkMobile()){
 					console.log('获取code码');
 				}
@@ -82,7 +84,7 @@
 				}
 			},
 			closePop(){
-				this.$emit('closePop', false);
+				this.popShow = false;
 			}
 		}
 	}
@@ -119,7 +121,7 @@
 				font-size:28upx;
 			}
 			.user-li{
-				height:92upx;
+				height:140upx;
 				border-bottom:2upx solid #C2C2C2;
 				padding-bottom:29upx;
 				font-size:30upx;
@@ -135,12 +137,13 @@
 				.middle-box{
 					margin-left:22upx;
 					flex-grow: 1;
-					height:80upx;
+					height:100upx;
 					box-sizing: border-box;
 					display: flex;
 					flex-direction: column;
 					.errMsg{
-						font-size:20upx;
+						// font-size:20upx;
+						font-size:24upx;
 						color:#F93822;
 						flex: 0 0 auto;
 					}
