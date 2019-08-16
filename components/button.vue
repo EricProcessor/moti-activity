@@ -26,7 +26,6 @@
 		methods:{
 			goHelp(){
 				Bus.$emit('showHelp',true);
-				
 				//this.buryPoint('inviteFirend')
 			},
 			completeTask(){

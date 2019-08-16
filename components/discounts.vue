@@ -1,6 +1,6 @@
 <template>
 	<view v-if='isShow' class="discounts">
-		<image class='disImg' src='../../static/discounts.png'></image>
+		<image class='disImg' src='../../static/duihuan.png'></image>
 		<view class="code">{{discountsNum}}</view>
 	</view>
 </template>
@@ -20,7 +20,7 @@
 				this.isShow = true;
 			});
 			Bus.$on('couponCode',(data) => {
-				this.discountsNum = data;f
+				this.discountsNum = data;
 			});
 		},
 		methods:{
