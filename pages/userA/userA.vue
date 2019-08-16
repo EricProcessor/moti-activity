@@ -56,7 +56,7 @@
 		onLoad() {
 			if (this.$wechat && this.$wechat.isWechat()) {
 			     this.$wechat.share({
-					 title: 'MOTI',
+					 title: 'MOTI222',
 					 img: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/activity/bluetoothzhuli/611694820796133376.png'
 				}, location.href);  
 			} 
