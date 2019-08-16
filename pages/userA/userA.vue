@@ -2,7 +2,7 @@
 	<view class='userA'>
 		<header-box></header-box>
 		<my-task :master="master" :masterInfo="masterInfo"></my-task>
-		<help-box :master="master" :helperList="helperList"></help-box>
+		<help-box :master="master" :helperList="helperList" :taskContents="taskContents"></help-box>
 		<discounts-box ></discounts-box>
 		<code-box :imgUrl="imgUrl"></code-box>
 		<footer-box></footer-box>
@@ -46,7 +46,8 @@
 				isHelp: true,
 				masterInfo:{},
 				imgUrl: '/static/a.png',
-				noType: false
+				noType: false,
+				taskContents:{}
 			};
 		},
 		mounted() {
@@ -69,7 +70,9 @@
 				};
 				let { code, msg, result } = await queryHelpSubByOpenId(params);
 				if(code == 0){
-					let helperNum = JSON.parse(result.task.taskContents[0].content).countCondition;
+					this.taskContents = JSON.parse(result.task.taskContents[0].content)
+					uni.setStorageSync('taskContents',this.taskContents)
+					let helperNum = this.taskContents.countCondition;
 					for(let i = 0; i < helperNum; i++){
 						let obj = {
 							wechatHeadeImgUrl: '',

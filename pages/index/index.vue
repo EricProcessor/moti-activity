@@ -74,7 +74,6 @@ export default {
 	methods: {
 		selected(index, url) {
 			this.selectedIndex = index;
-			console.log(url);
 		},
 		getWxCode() {
 			return new Promise(function(resolve, reject) {
@@ -88,15 +87,12 @@ export default {
 			// this.buryPoint();
 			let _self = this;
 			if (this.isLogin) {
-				//{headImgUrl,nickname,openId,sexDesc}
 				let infoData = await getUserAllInfo(_self.code);
 				let jsonData = JSON.parse(infoData.result);
-				console.log("个人信息"+ jsonData.nickname);
 				uni.setStorage({
 					key:'wxUserInfo',
 					data:jsonData,
 					success:function(){
-						console.log("储存成功"+JSON.stringify(jsonData));
 						_self.headImgUrl = jsonData.headImgUrl
 						_self.nickname = jsonData.nickname
 						_self.openId = jsonData.openId
@@ -119,7 +115,6 @@ export default {
 					};
 					let { code, msg, result } = await queryHelpMasterByUserId(params);
 					if (code == 0) {
-						console.log(result)
 						if (result != undefined) {
 							let userId = {
 								activityId: result.activityId,

@@ -5,7 +5,7 @@
 			<!-- <image class='userImage' src='/static/mine.png'></image> -->
 			<view class="imageBox">
 				<view class='tx'>
-					<image :src="masterInfo.wechatNickname?masterInfo.wechatNickname:'/static/userImg.png'" mode="scaleToFill"></image>
+					<image :src="masterInfo.wechatHeadeImgUrl?masterInfo.wechatHeadeImgUrl:'/static/userImg.png'" mode="scaleToFill"></image>
 				</view>
 			</view>
 			<view class="userInfo">

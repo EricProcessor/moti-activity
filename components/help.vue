@@ -1,7 +1,7 @@
 <template>
 	<view class="help-box">
 		<image class='helpImage' src='../../static/help.png'></image>
-		<view class="textBox">还差<text>{{master.helpNum}}名</text>好友助力，即可成功哦</view>
+		<view class="textBox">还差<text>{{taskContents.countCondition - taskContents.countData}}名</text>好友助力，即可成功哦</view>
 		<view class="imagesBox">
 			<template v-if='isDown'>
 				<view class='image-li' v-if='index<10' v-for='(item,index) in helperList' :key='index'>
@@ -48,6 +48,10 @@
 			fillIn: {
 				type: Boolean,
 				default: false
+			},
+			taskContents:{
+				type: Object,
+				default: Object
 			}
 		},
 		data() {
