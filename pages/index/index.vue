@@ -64,10 +64,12 @@ export default {
 			sexDesc: null,
 			activityId: 423784446,
 			wechatId: 0,
-			isLogin: false //用户是否已经授权
+			isLogin: false, //用户是否已经授权
+			option: null
 		};
 	},
-	async onShow(option) {
+	onLoad(option) {
+		this.option = option
 		const activityType = uni.getStorageSync('activityType')
 		if (activityType) {
 			return this.toPath(parseInt(activityType))
@@ -79,6 +81,12 @@ export default {
 			this.isLogin = false;
 		}
 		this.userCount()
+	},
+	async onShow() {
+		const activityType = uni.getStorageSync('activityType')
+		if (activityType) {
+			return this.toPath(parseInt(activityType))
+		}
 	},
 	methods: {
 		selected(index, url) {
