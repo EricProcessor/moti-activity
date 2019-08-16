@@ -52,20 +52,22 @@
 					2:[],
 					3:[]
 				},
-				code: ''
+				code: null
 			};
 		},
 		methods:{
 			getWxCode() {
 				return new Promise(function(resolve, reject) {
-					let testUrl = `http://${window.location.host}/bluehd/#/pages/help/help`;
+					let testUrl = `http://${window.location.host}/bluehd/#/pages/help/help?activityId={this.info.activityId}&wechatId={this.info.oldWechatId}`;
 					location.replace(
 						`https://gezi.motivape.cn/auth.html?appid=wx80a7401a02e0f8ec&redirectUri=${encodeURIComponent(testUrl)}&response_type=code&scope=snsapi_userinfo&state=gfhd`
 					);
 				});
 			},
 			async init(){
-				this.getWxCode();
+				if(!code){
+					this.getWxCode();
+				}
 				let infoData = await getUserAllInfo(this.code);
 				let jsonData = JSON.parse(infoData.result);
 				console.log("个人信息"+ jsonData.nickname);
@@ -140,11 +142,11 @@
 			this.info.oldWechatId = option.wechatId
 			this.code = option.code;
 			let params = {
-				activityId: parseInt(option.activityId),
+				activityId: option.activityId,
 				wechatId: option.wechatId
 			}
 			console.log(this.info)
-			this.init()
+			//this.init()
 			this.getHelpSub(params);
 			this.init();
 		}
