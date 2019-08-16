@@ -174,7 +174,7 @@
 			console.log(this.info)
 			//this.init()
 			this.getHelpSub(params);
-			// this.init();
+			this.init();
 		}
 	}
 </script>
