@@ -23,7 +23,7 @@
 import headerBox from '@/components/header.vue';
 import footerBox from '@/components/footer.vue';
 import qrcodeImg from '@/components/qrcodeimg.vue';
-import { addWechatUser, queryHelpMasterByUserId, queryTaskMasterByActiId, saveHelpMaster,getUserAllInfo } from '@/common/request.js';
+import { addWechatUser, queryHelpMasterByUserId, queryTaskMasterByActiId, saveHelpMaster,getUserAllInfo, userCount } from '@/common/request.js';
 export default {
 	components: {
 		headerBox,
@@ -67,10 +67,9 @@ export default {
 			isLogin: false //用户是否已经授权
 		};
 	},
-	async onLoad(option) {
+	async onShow(option) {
 		const activityType = uni.getStorageSync('activityType')
-		let wxUserInfo = uni.getStorageSync('wxUserInfo');
-		if (userId && activityType) {
+		if (activityType) {
 			return this.toPath(parseInt(activityType))
 		}
 		if (option.code) {
