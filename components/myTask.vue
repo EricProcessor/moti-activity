@@ -9,7 +9,7 @@
 				</view>
 			</view> -->
 			<view class="userInfo">
-				<view class="userName">{{masterInfo.wechatNickname?masterInfo.wechatNickname:'未设置'}}</view>
+				<view class="userName">{{wechatNickname?wechatNickname:'未设置'}}</view>
 				<view class="state">我从没使用过电子烟产品</view>
 			</view>
 		</view>
@@ -53,11 +53,13 @@
 		},
 		data() {
 			return {
-				task1:true
+				task1:true,
+				wechatNickname: ''
 			};
 		},
 		created() {
 			console.log(this.master);
+			this.wechatNickname = decodeURIComponent(masterInfo.wechatNickname)
 		},
 		methods:{
 			progress(){
@@ -151,14 +153,18 @@
 				}
 			}
 			.userInfo{
-				flex-grow: 1;
 				margin-left:21upx;
 				color:#53412B;
+				max-width: 400upx;
+
 				.userName{
 					font-size: 30upx;
 					font-weight: 500;
 					line-height: 42upx;
 					margin:21upx 0 10upx;
+					text-overflow: ellipsis;
+					overflow: hidden;
+					white-space: nowrap;
 				}
 				.state{
 					font-size:24upx;
