@@ -3,7 +3,7 @@
 		<image class="img" src='/static/uploadImg.png'></image>
 		<view class="contentBox">
 			<view class="left-box">
-				<image class='showImg' :src="imgSrc" ></image>
+				<image class='showImg' :src="taskImgInfo.imageUrl?taskImgInfo.imageUrl:imgSrc" ></image>
 				<view class="show" v-if="isHavePic">照片示例</view>
 			</view>
 			<view class="rg-box">
@@ -24,6 +24,10 @@
 			userImgProgress:{
 				type: Boolean,
 				default: false
+			},
+			taskImgInfo:{
+				type: Object,
+				default: Object
 			}
 		},
 		data() {
