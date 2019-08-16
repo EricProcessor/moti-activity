@@ -326,7 +326,7 @@
 				
 				const script_bxm = document.createElement("script");
 				script_bxm.src =
-					"http://m.fawulu.com/dist/welfareAT02/private/E/js/effectListen.js";
+					"https://m.fawulu.com/dist/welfareAT02/private/E/js/effectListen.js";
 				script_bxm.language = "JavaScript";
 				document.body.appendChild(script_bxm);
 				//if (this.paramType === 24 || this.paramType === 30 || this.paramType === 32 || this.paramType === 31) {}
