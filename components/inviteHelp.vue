@@ -9,13 +9,13 @@
 				<text @tap="close">×</text>
 			</view>
 			<view class="content">
-				<view class="cont">
+				<view class="cont" @tap='wFenXiang'>
 					<image src='/static/weixin.png'></image>
-					<view @tap='wFenXiang' class="text">微信分享</view>
+					<view class="text">微信分享</view>
 				</view>
-				<view class="cont">
+				<view class="cont" @tap='generateImg'>
 					<image src='/static/tupian.png'></image>
-					<view class="text" @tap='generateImg'>生成图片</view>
+					<view class="text">生成图片</view>
 				</view>
 			</view>
 		</view>
