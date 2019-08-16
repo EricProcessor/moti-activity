@@ -2,12 +2,12 @@
 	<view class="myTask">
 		<image class='taskImage' src="/static/myTask.png"></image>
 		<view class="userInfoBox">
-			<!-- <image class='userImage' src='/static/mine.png'></image> -->
-			<view class="imageBox">
+			<image class='userImage' :src="masterInfo.wechatHeadeImgUrl?masterInfo.wechatHeadeImgUrl:'/static/userImg.png'" mode="scaleToFill"></image>
+			<!-- <view class="imageBox">
 				<view class='tx'>
 					<image :src="masterInfo.wechatHeadeImgUrl?masterInfo.wechatHeadeImgUrl:'/static/userImg.png'" mode="scaleToFill"></image>
 				</view>
-			</view>
+			</view> -->
 			<view class="userInfo">
 				<view class="userName">{{masterInfo.wechatNickname?masterInfo.wechatNickname:'未设置'}}</view>
 				<view class="state">我从没使用过电子烟产品</view>
