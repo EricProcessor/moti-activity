@@ -2,7 +2,7 @@
 	<view class="header-box">
 		<view class="banner">
 		</view>
-		<view class="txt">扫码即可参加活动</view>
+		<view class="txt">微信扫码即可参加活动</view>
 	</view>
 </template>
 
