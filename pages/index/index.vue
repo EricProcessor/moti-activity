@@ -38,19 +38,19 @@ export default {
 			activityInfo: [
 				{
 					title: '我从没使用过电子烟产品',
-					content: '(从未使用过电子烟)',
+					content: '需完成36个好友助力，获取限时购买资格',
 					url: '/pages/userA/userA',
 					id: 1
 				},
 				{
 					title: '我是MOTI（MT产品）',
-					content: '(有在使用MOTI（MT）换弹式电子烟）',
+					content: '需完成10个好友助力+拍照上传MOTI照',
 					url: '/pages/userB/userB',
 					id: 2
 				},
 				{
 					title: '我有其他品牌的换弹式电子烟',
-					content: '(使用过其他品牌电子烟）',
+					content: '需完成5个好友助力+寄回换弹式烟杆',
 					url: '/pages/userC/userC',
 					id: 3
 				}
