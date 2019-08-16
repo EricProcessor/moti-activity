@@ -1,5 +1,5 @@
 // import jweixin from 'jweixin-module'
-
+import config from './config.js'
 const jweixin = require('jweixin-module')
 import {
 	request
@@ -21,37 +21,66 @@ export default {
     initJssdk:function(callback ,url){  
 		//服务端进行签名 ，可使用uni.request替换。 签名算法请看文档  
 		console.log('initJssdk', url);
-        request({
-			url: '/open/pub/wechat/jsapi/jssdk',
-			methods: 'POST',
-			contentType: 'application/json',
-			data: {
-				url: encodeURIComponent(`${url}`)
-				// url:'https://hnhd.motivape.cn'
+		let urls = encodeURIComponent(url)
+		uni.request({
+			url:`${config.host}/open/pub/wechat/jsapi/jssdk2?url=${urls}`,
+			method:'GET',
+			success:function(res){
+				console.log(JSON.stringify(res) )
+				if(res.data){
+					console.log("分享签名"+JSON.stringify(res))
+					let shareSgin = JSON.parse(res.data.result)
+					console.log("个事转化"+JSON.stringify(shareSgin))
+				    jweixin.config({  
+				         debug: true,  
+				         appId: shareSgin.appId,  
+				         timestamp:shareSgin.timestamp,  
+				         nonceStr: shareSgin.nonceStr,  
+				         signature:shareSgin.signature,  
+				         jsApiList: [  
+				             'checkJsApi',  
+				             'onMenuShareTimeline',  
+				             'onMenuShareAppMessage'  
+				         ]  
+				    });  
+				    //配置完成后，再执行分享等功能  
+				    if(callback){  
+				        callback(shareSgin);  
+				    }  
+				}  
 			}
-		}).then((res) => {
-			if(res.data){
-				console.log("分享签名"+JSON.stringify(res))
-				let shareSgin = JSON.parse(res.data.result)
-				console.log("个事转化"+JSON.stringify(shareSgin))
-			    jweixin.config({  
-			         debug: true,  
-			         appId: shareSgin.appId,  
-			         timestamp:shareSgin.timestamp,  
-			         nonceStr: shareSgin.nonceStr,  
-			         signature:shareSgin.signature,  
-			         jsApiList: [  
-			             'checkJsApi',  
-			             'onMenuShareTimeline',  
-			             'onMenuShareAppMessage'  
-			         ]  
-			    });  
-			    //配置完成后，再执行分享等功能  
-			    if(callback){  
-			        callback(shareSgin);  
-			    }  
-			}  
 		})
+  //       request({
+		// 	url: '/open/pub/wechat/jsapi/jssdk',
+		// 	methods: 'POST',
+		// 	contentType: 'application/json',
+		// 	data: {
+		// 		url: encodeURIComponent(`${url}`)
+		// 		// url:'https://hnhd.motivape.cn'
+		// 	}
+		// }).then((res) => {
+		// 	if(res.data){
+		// 		console.log("分享签名"+JSON.stringify(res))
+		// 		let shareSgin = JSON.parse(res.data.result)
+		// 		console.log("个事转化"+JSON.stringify(shareSgin))
+		// 	    jweixin.config({  
+		// 	         debug: true,  
+		// 	         appId: shareSgin.appId,  
+		// 	         timestamp:shareSgin.timestamp,  
+		// 	         nonceStr: shareSgin.nonceStr,  
+		// 	         signature:shareSgin.signature,  
+		// 	         jsApiList: [  
+		// 	             'checkJsApi',  
+		// 	             'onMenuShareTimeline',  
+		// 	             'onMenuShareAppMessage'  
+		// 	         ]  
+		// 	    });  
+		// 	    //配置完成后，再执行分享等功能  
+		// 	    if(callback){  
+		// 	        callback(shareSgin);  
+		// 	    }  
+		// 	}  
+		// })
     },  
         //在需要自定义分享的页面中调用  
     share:function(data ,url){  
