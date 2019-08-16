@@ -4,9 +4,9 @@
 			<view class="content">
 				<view class="cont">
 					<view class="infoBox">
-						<image src='/static/mine.png'></image>
+						<image :src="wxUserInfo.headImgUrl?wxUserInfo.headImgUrl:'/static/mine.png'"></image>
 						<view class="rgBox">
-							<view class="name">阿牛</view>
+							<view class="name">{{wxUserInfo.nickname}}</view>
 							<view class="action"></view>
 							<view class="bottom">亲，我正在参加MOTI S 免费送活动， 还差24个好友助力，快来帮我顶一下！</view>
 						</view>
@@ -33,15 +33,19 @@
 	export default {
 		data() {
 			return {
-
+				wxUserInfo:{}
 			}
 		},
 		mounted() {
 			this.$nextTick(()=>{
 				this.makeQrCode()
+				this.getWxUserInfo()
 			})
 		},
 		methods: {
+			getWxUserInfo: function (){
+				this.wxUserInfo = uni.getStorageSync('wxUserInfo')
+			},
 			replaceImage(canvans) {
 				const img = new Image();
 				img.src = canvans.toDataURL()
