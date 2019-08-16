@@ -52,7 +52,7 @@
 					2:[],
 					3:[]
 				},
-				code: ''
+				code: null
 			};
 		},
 		methods:{
@@ -65,7 +65,9 @@
 				});
 			},
 			async init(){
-				this.getWxCode();
+				if(!code){
+					this.getWxCode();
+				}
 				let infoData = await getUserAllInfo(this.code);
 				let jsonData = JSON.parse(infoData.result);
 				console.log("个人信息"+ jsonData.nickname);
