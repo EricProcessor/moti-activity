@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view class="clear_data">
 		{{text}}
 	</view>
 </template>
@@ -21,5 +21,7 @@
 </script>
 
 <style lang="scss">
-
+.clear_data {
+	color: #fff;
+}
 </style>

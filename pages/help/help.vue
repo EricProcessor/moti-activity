@@ -3,7 +3,7 @@
 		<header-box></header-box>
 		<view class="help-box">
 			<image class='touxiang' :src="taskContent.wechatHeadeImgUrl?taskContent.wechatHeadeImgUrl:'/static/mine.png'"></image>
-			<view class="name">{{taskContent.wechatNickname?taskContent.wechatNickname:'未设置'}}</view>
+			<view class="name">{{taskContent.wechatNickname?decodeURIComponent(taskContent.wechatNickname):'未设置'}}</view>
 			<view class="text">
 				<view class="text1">Ta正在参加免费送烟杆活动</view>
 				<view class="text2">请为Ta助力</view>

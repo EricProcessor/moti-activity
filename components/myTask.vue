@@ -10,7 +10,7 @@
 			</view> -->
 			<view class="userInfo">
 				<view class="userName">{{masterInfo.wechatNickname?decodeURIComponent(masterInfo.wechatNickname):'未设置'}}</view>
-				<view class="state">我从没使用过电子烟产品</view>
+				<view class="state">{{typeText}}</view>
 			</view>
 		</view>
 		<view class="taskBox">
@@ -51,13 +51,26 @@
 				default: false
 			}
 		},
+		computed: {
+			typeText() {
+				let text = ''
+				if (this.taskType == 1) {
+					text = '我从没使用过电子烟产品'
+				} else if (this.taskType == 2) {
+					text = '我是MOTI（MT产品）'
+				} else {
+					text = '我有其他品牌的换弹式电子烟'
+				}
+				return text
+			}
+		},
 		data() {
 			return {
 				task1:true
 			};
 		},
 		created() {
-			console.log(this.master);
+			
 		},
 		methods:{
 			progress(){
