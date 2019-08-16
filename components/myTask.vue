@@ -126,6 +126,7 @@
 			display: flex;
 			justify-content: flex-start;
 			.userImage{
+				flex-shrink: 0;
 				width:120upx;
 				height:120upx;
 				border-radius: 50%;
