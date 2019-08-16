@@ -11,8 +11,8 @@
 							<view class="bottom">亲，我正在参加MOTI S 免费送活动， 还差24个好友助力，快来帮我顶一下！</view>
 						</view>
 					</view>
-					<view class="codeImg">
-						<image></image>
+					<view class="codeImg" id="qrcode-image">
+						
 					</view>
 					<view class="tishi">微信扫码即可为我助力</view>
 					<view class="text">非个人原因 烟杆终身免费换新</view>
@@ -35,6 +35,11 @@
 			return {
 
 			}
+		},
+		mounted() {
+			this.$nextTick(()=>{
+				this.makeQrCode()
+			})
 		},
 		methods: {
 			replaceImage(canvans) {
@@ -67,6 +72,15 @@
 					this.replaceImage(canvans)
 
 				});
+			},
+			makeQrCode(){
+				var qrcodeObj = new QRCode('qrcode-image', {
+					text: "www.baidu.com",
+					width: uni.upx2px(259),
+					height: uni.upx2px(259),
+					colorDark: '#000000', //前景色
+					colorLight: '#ffffff', //背景色
+				})
 			}
 		}
 	}

@@ -20,27 +20,35 @@ export default {
         //初始化sdk配置  
     initJssdk:function(callback ,url){  
 		//服务端进行签名 ，可使用uni.request替换。 签名算法请看文档  
-        request('/open/pub/wechat/jsapi/jssdk',{url:url},function(res){  
-            if(res.data){  
-                jweixin.config({  
-                     debug: false,  
-                     appId: res.data.appId,  
-                     timestamp:res.data.timestamp,  
-                     nonceStr: res.data.nonceStr,  
-                     signature:res.data.signature,  
-                     jsApiList: [  
-                         'checkJsApi',  
-                         'onMenuShareTimeline',  
-                         'onMenuShareAppMessage'  
-                     ]  
-                });  
-                //配置完成后，再执行分享等功能  
-                if(callback){  
-                    callback(res.data);  
-                }  
-            }  
-
-        });  
+		console.log('initJssdk', url);
+        request({
+			url: '/open/pub/wechat/jsapi/jssdk',
+			methods: 'POST',
+			contentType: 'application/json',
+			data: {
+				url: url
+			}
+		}).then((res) => {
+			if(res.data){
+				console.log("分享签名"+JSON.stringify(res))
+			    jweixin.config({  
+			         debug: false,  
+			         appId: res.data.appId,  
+			         timestamp:res.data.timestamp,  
+			         nonceStr: res.data.nonceStr,  
+			         signature:res.data.signature,  
+			         jsApiList: [  
+			             'checkJsApi',  
+			             'onMenuShareTimeline',  
+			             'onMenuShareAppMessage'  
+			         ]  
+			    });  
+			    //配置完成后，再执行分享等功能  
+			    if(callback){  
+			        callback(res.data);  
+			    }  
+			}  
+		})
     },  
         //在需要自定义分享的页面中调用  
     share:function(data ,url){  
@@ -49,7 +57,7 @@ export default {
             return ;  
         }  
 		//每次都需要重新初始化配置，才可以进行分享  
-        this.initJssdk(function(signData){  
+        this.initJssdk(function(signData){ 
             jweixin.ready(function(){    
                 var shareData = {  
                      title: data&&data.title ? data.title: signData.site_name,  

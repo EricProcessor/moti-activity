@@ -52,6 +52,14 @@
 		mounted() {
 			this.getInfo();
 		},
+		onLoad() {
+			if (this.$wechat && this.$wechat.isWechat()) {
+			     this.$wechat.share({
+					 title: 'MOTI',
+					 img: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/activity/bluetoothzhuli/611694820796133376.png'
+				}, location.href);  
+			} 
+		},
 		methods:{
 			getInfo: async function() {
 				let userId = uni.getStorageSync('userId');

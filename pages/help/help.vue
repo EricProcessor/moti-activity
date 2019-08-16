@@ -50,10 +50,6 @@
 					data:jsonData,
 					success:function(){
 						console.log("储存成功"+JSON.stringify(jsonData));
-						_self.headImgUrl = jsonData.headImgUrl
-						_self.nickname = jsonData.nickname
-						_self.openId = jsonData.openId
-						_self.sexDesc = jsonData.sexDesc
 					}
 				});
 			},
@@ -125,6 +121,7 @@
 			}
 			console.log(this.info)
 			this.getHelpSub(params);
+			this.init();
 		}
 	}
 </script>
