@@ -93,12 +93,10 @@ export default {
 			this.selectedIndex = index;
 		},
 		getWxCode() {
-			return new Promise(function(resolve, reject) {
-				let testUrl = `http://${window.location.host}/bluehd/#/`;
-				location.replace(
-					`https://gezi.motivape.cn/auth.html?appid=wx80a7401a02e0f8ec&redirectUri=${encodeURIComponent(testUrl)}&response_type=code&scope=snsapi_userinfo&state=gfhd`
-				);
-			});
+			const url = `${location.origin}/bluehd/#/`
+			location.replace(
+				`https://gezi.motivape.cn/auth.html?appid=wx80a7401a02e0f8ec&redirectUri=${encodeURIComponent(url)}&response_type=code&scope=snsapi_userinfo&state=gfhd`
+			);
 		},
 		async joinBtn() {
 			// this.buryPoint();
