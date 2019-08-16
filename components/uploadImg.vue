@@ -60,7 +60,7 @@
 					}
 					let {code,msg,result} = await motiPicCommit(params)
 					if(code == 0){
-						this.$parent.userImgProgress = true;
+						$.emit('userImgProgress',true)
 					}
 				}else{
 					uni.showToast({

@@ -8,7 +8,8 @@
 						<view class="rgBox">
 							<view class="name">{{wxUserInfo.nickname}}</view>
 							<view class="action"></view>
-							<view class="bottom">亲，我正在参加MOTI S 免费送活动， 还差24个好友助力，快来帮我顶一下！</view>
+							<view class="bottom">亲，我正在参加MOTI S 免费送活动， 
+								还差{{taskContents.countCondition - taskContents.countData}}个好友助力，快来帮我顶一下！</view>
 						</view>
 					</view>
 					<view class="codeImg" id="qrcode-image">
@@ -33,7 +34,8 @@
 	export default {
 		data() {
 			return {
-				wxUserInfo:{}
+				wxUserInfo:{},
+				taskContents:{}
 			}
 		},
 		mounted() {
@@ -45,6 +47,7 @@
 		methods: {
 			getWxUserInfo: function (){
 				this.wxUserInfo = uni.getStorageSync('wxUserInfo')
+				this.taskContents = uni.getStorageSync('taskContents')
 			},
 			replaceImage(canvans) {
 				const img = new Image();
