@@ -28,7 +28,7 @@
 
 <script>
 	import headerBox from '@/components/header.vue';
-	import {queryHelpSubByOpenId,saveHelpSub,getUserAllInfo} from '@/common/request.js'
+	import {queryHelpSubByOpenId,saveHelpSub,getUserAllInfo,addWechatUser} from '@/common/request.js'
 	export default {
 		components:{
 			headerBox
@@ -59,7 +59,7 @@
 		},
 		methods:{
 			getWxCode() {
-				const url = location.href.split('?')[0]
+				const url = `${location.origin}/bluehd/#/pages/help/help`
 				uni.setStorageSync('helpShareParam', {
 					activityId: this.option.activityId,
 					wechatId: this.option.wechatId,
@@ -107,6 +107,7 @@
 			},
 			async getHelpSub(params){
 				let {code,msg,result} = await queryHelpSubByOpenId(params);
+				
 				if(code == 0){
 					let wxUserInfo = uni.getStorageSync('wxUserInfo')
 					let params = {
@@ -115,22 +116,29 @@
 						openId: wxUserInfo.openId,
 						sexDesc: wxUserInfo.sexDesc
 					};
+					console.log('result', result);
 					this.oldUser.wechatHeadeImgUrl = result.userMsg.wechatHeadeImgUrl;
 					this.oldUser.wechatNickname = result.userMsg.wechatNickname;
 					let contentObj = JSON.parse(result.task.taskContents[0].content); 
+					console.log('contentObj', contentObj);
 					this.taskContent = contentObj
+					this.taskContent.wechatHeadeImgUrl = result.userMsg.wechatHeadeImgUrl
+					this.taskContent.wechatNickname = result.userMsg.wechatNickname
 					this.taskContent.calcNum = contentObj.countCondition - contentObj.countData
 					this.taskContent.percent = (contentObj.countData)/contentObj.countCondition * 100
 					this.taskId = result.task.taskContents.taskId
-					let { code, msg, result } = await addWechatUser(params);
-					if(code == 0){
-						this.info.newWechatId = result.id
-					}else{
-						uni.showToast({
-							icon: 'none',
-							title: msg
-						})
-					}
+					this.addWechatUser(params)
+				}else{
+					uni.showToast({
+						icon: 'none',
+						title: msg
+					})
+				}
+			},
+			async addWechatUser(params) {
+				let { code, msg, result } = await addWechatUser(params);
+				if(code == 0){
+					this.info.newWechatId = result.id
 				}else{
 					uni.showToast({
 						icon: 'none',
@@ -166,7 +174,7 @@
 			console.log(this.info)
 			//this.init()
 			this.getHelpSub(params);
-			this.init();
+			// this.init();
 		}
 	}
 </script>
