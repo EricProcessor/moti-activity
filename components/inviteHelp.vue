@@ -1,5 +1,5 @@
 <template>
-	<view v-if='isShow' class="inviteHelp">
+	<view v-if='isShow' class="inviteHelp" @tap="close">
 		<view v-if='yindao' class="zhiyin">
 			<image src='/static/zhiyin.png'></image>
 		</view>
@@ -9,11 +9,11 @@
 				<text @tap="close">×</text>
 			</view>
 			<view class="content">
-				<view class="cont" @tap='wFenXiang'>
+				<view class="cont" @tap.stop='wFenXiang'>
 					<image src='/static/weixin.png'></image>
 					<view class="text">微信分享</view>
 				</view>
-				<view class="cont" @tap='generateImg'>
+				<view class="cont" @tap.stop='generateImg'>
 					<image src='/static/tupian.png'></image>
 					<view class="text">生成图片</view>
 				</view>
@@ -40,6 +40,7 @@
 		methods:{
 			close(){
 				this.isShow = false;
+				this.yindao = false
 			},
 			generateImg(){
 				uni.navigateTo({

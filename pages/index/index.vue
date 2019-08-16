@@ -1,6 +1,6 @@
 <template>
 	<view class="index-content">
-		<header-box></header-box>
+		<header-box :count="userCountNum"></header-box>
 		<footer-box></footer-box>
 		<view class="joinBtn btn" @tap.stop="joinBtn">我要参与活动</view>
 		<view class="pop-up" v-if="isJoin">
@@ -21,7 +21,7 @@
 <script>
 import headerBox from '@/components/header.vue';
 import footerBox from '@/components/footer.vue';
-import { addWechatUser, queryHelpMasterByUserId, queryTaskMasterByActiId, saveHelpMaster,getUserAllInfo } from '@/common/request.js';
+import { addWechatUser, queryHelpMasterByUserId, queryTaskMasterByActiId, saveHelpMaster,getUserAllInfo, userCount } from '@/common/request.js';
 export default {
 	components: {
 		headerBox,
@@ -30,6 +30,7 @@ export default {
 	data() {
 		return {
 			isJoin: false,
+			userCountNum: 0,
 			selectedIndex: 0,
 			activityInfo: [
 				{
@@ -63,13 +64,19 @@ export default {
 			isLogin: false //用户是否已经授权
 		};
 	},
-	onLoad(option) {
+	async onLoad(option) {
+		const activityType = uni.setStorageSync('activityType')
+		let wxUserInfo = uni.getStorageSync('wxUserInfo');
+		if (userId && activityType) {
+			return this.toPath(parseInt(activityType))
+		}
 		if (option.code) {
 			this.isLogin = true;
 			this.code = option.code;
 		} else {
 			this.isLogin = false;
 		}
+		this.userCount()
 	},
 	methods: {
 		selected(index, url) {
@@ -123,6 +130,7 @@ export default {
 							}
 							uni.setStorageSync('userId', userId);
 							let taskId = parseInt(result.taskId);
+							uni.setStorageSync('activityType', taskId)
 							this.toPath(taskId)
 						} else {
 							this.isJoin = !this.isJoin;
@@ -201,8 +209,12 @@ export default {
 			_event.ec = 'Loginnnnnng';
 			_event.ea = 'click';
 			_core.send(_event);
+		},
+		async userCount() {
+			const { result } = await userCount()
+			this.userCountNum = result.count
 		}
-	}
+	},
 };
 </script>
 
