@@ -32,7 +32,7 @@ export default {
 					let shareSgin = JSON.parse(res.data.result)
 					console.log("个事转化"+JSON.stringify(shareSgin))
 				    jweixin.config({  
-				         debug: true,  
+				         debug: false,  
 				         appId: shareSgin.appId,  
 				         timestamp:shareSgin.timestamp,  
 				         nonceStr: shareSgin.nonceStr,  
@@ -83,8 +83,8 @@ export default {
 		// })
     },  
         //在需要自定义分享的页面中调用  
-    share:function(data ,url){  
-        url =url ? url :window.location.href;  
+    share:function(data, signUrl, shareUrl){  
+        var url = signUrl ? signUrl : window.location.href;  
         if(!this.isWechat()){  
             return ;  
         }  
@@ -94,7 +94,7 @@ export default {
                 var shareData = {  
                      title: data&&data.title ? data.title: signData.site_name,  
                      desc: data&&data.desc ? data.desc: signData.site_description,  
-                     link: url,  
+                     link: shareUrl,  
                      imgUrl: data&&data.img ?data.img :signData.site_logo,  
                      success: function (res) {  
                                                  //用户点击分享后的回调，这里可以进行统计，例如分享送金币之类的  

@@ -28,7 +28,7 @@
 
 <script>
 	import headerBox from '@/components/header.vue';
-	import {queryHelpSubByOpenId,saveHelpSub,getUserAllInfo} from '@/common/request.js'
+	import {queryHelpSubByOpenId,saveHelpSub,getUserAllInfo,addWechatUser} from '@/common/request.js'
 	export default {
 		components:{
 			headerBox
@@ -36,6 +36,7 @@
 		data() {
 			return {
 				isHelp:true,
+				option: {},
 				oldUser:{
 					wechatHeadeImgUrl:'',
 					wechatNickname:''
@@ -47,6 +48,7 @@
 					activityId:'',
 					newWechatId:''
 				},
+				helpMasterId: '',
 				taskList:{
 					1:[],
 					2:[],
@@ -57,15 +59,19 @@
 		},
 		methods:{
 			getWxCode() {
-				return new Promise(function(resolve, reject) {
-					let testUrl = `http://${window.location.host}/bluehd/#/pages/help/help?activityId={this.info.activityId}&wechatId={this.info.oldWechatId}`;
-					location.replace(
-						`https://gezi.motivape.cn/auth.html?appid=wx80a7401a02e0f8ec&redirectUri=${encodeURIComponent(testUrl)}&response_type=code&scope=snsapi_userinfo&state=gfhd`
-					);
-				});
+				const url = `${location.origin}/bluehd/#/pages/help/help`
+				uni.setStorageSync('helpShareParam', {
+					activityId: this.option.activityId,
+					wechatId: this.option.wechatId,
+					helpMasterId: this.option.helpMasterId
+				})
+				// let testUrl = `{window.location.host}/bluehd/#/pages/help/help?activityId={this.info.activityId}&wechatId={this.info.oldWechatId}`;
+				location.replace(
+					`https://gezi.motivape.cn/auth.html?appid=wx80a7401a02e0f8ec&redirectUri=${encodeURIComponent(url)}&response_type=code&scope=snsapi_userinfo&state=gfhd`
+				);
 			},
 			async init(){
-				if(!code){
+				if(!this.code){
 					this.getWxCode();
 				}
 				let infoData = await getUserAllInfo(this.code);
@@ -89,6 +95,7 @@
 				}
 				let {code,msg,result} = await saveHelpSub(params);
 				if(code == 0){
+					uni.removeStorageSync('helpShareParam')
 					this.isHelp = false;
 				}else{
 					uni.showToast({
@@ -100,6 +107,7 @@
 			},
 			async getHelpSub(params){
 				let {code,msg,result} = await queryHelpSubByOpenId(params);
+				
 				if(code == 0){
 					let wxUserInfo = uni.getStorageSync('wxUserInfo')
 					let params = {
@@ -108,22 +116,29 @@
 						openId: wxUserInfo.openId,
 						sexDesc: wxUserInfo.sexDesc
 					};
+					console.log('result', result);
 					this.oldUser.wechatHeadeImgUrl = result.userMsg.wechatHeadeImgUrl;
 					this.oldUser.wechatNickname = result.userMsg.wechatNickname;
 					let contentObj = JSON.parse(result.task.taskContents[0].content); 
+					console.log('contentObj', contentObj);
 					this.taskContent = contentObj
+					this.taskContent.wechatHeadeImgUrl = result.userMsg.wechatHeadeImgUrl
+					this.taskContent.wechatNickname = result.userMsg.wechatNickname
 					this.taskContent.calcNum = contentObj.countCondition - contentObj.countData
 					this.taskContent.percent = (contentObj.countData)/contentObj.countCondition * 100
 					this.taskId = result.task.taskContents.taskId
-					let { code, msg, result } = await addWechatUser(params);
-					if(code == 0){
-						this.info.newWechatId = result.id
-					}else{
-						uni.showToast({
-							icon: 'none',
-							title: msg
-						})
-					}
+					this.addWechatUser(params)
+				}else{
+					uni.showToast({
+						icon: 'none',
+						title: msg
+					})
+				}
+			},
+			async addWechatUser(params) {
+				let { code, msg, result } = await addWechatUser(params);
+				if(code == 0){
+					this.info.newWechatId = result.id
 				}else{
 					uni.showToast({
 						icon: 'none',
@@ -138,12 +153,23 @@
 			}
 		},
 		onLoad(option) {
-			this.info.activityId = option.activityId
-			this.info.oldWechatId = option.wechatId
-			this.code = option.code;
+			console.log(option);
+			const helpShareParam = uni.getStorageSync('helpShareParam')
+			if (helpShareParam && helpShareParam.activityId) {
+				this.option = helpShareParam
+				for (let item in option) {
+					this.option[item] = option[item]
+				}
+			} else {
+				this.option = option
+			}
+			this.info.activityId = this.option.activityId
+			this.info.oldWechatId = this.option.wechatId
+			this.code = this.option.code;
+			this.helpMasterId = this.option.helpMasterId
 			let params = {
-				activityId: option.activityId,
-				wechatId: option.wechatId
+				activityId: this.option.activityId,
+				wechatId: this.option.wechatId
 			}
 			console.log(this.info)
 			//this.init()

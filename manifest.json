@@ -82,7 +82,13 @@
 		            "target" : "https://hnhd.motivape.cn/api",
 		            "changeOrigin" : true,
 		            "secure" : false
-		        }
+		        },
+				"/activity" : {
+				    //"target" : "http://172.27.110.2:8014",
+				    "target" : "https://hnhd.motivape.cn/api",
+				    "changeOrigin" : true,
+				    "secure" : false
+				}
 		    }
 		},
         "router" : {

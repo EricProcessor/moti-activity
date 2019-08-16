@@ -60,6 +60,16 @@
 		mounted() {
 			this.getInfo();
 		},
+		onLoad() {
+			if (this.$wechat && this.$wechat.isWechat()) {
+				const host = location.href.split('#')[0]
+				const ids = uni.getStorageSync('userId')
+			     this.$wechat.share({
+					 title: 'MOTIS 只送不卖',
+					 img: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/bluetooth/avatar/share.png'
+				}, location.href, `${host}#/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}`);  
+			} 
+		},
 		methods:{
 			getInfo: async function() {
 				let userId = uni.getStorageSync('userId');
