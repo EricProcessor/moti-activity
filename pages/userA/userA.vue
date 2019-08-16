@@ -1,7 +1,7 @@
 <template>
 	<view class='userA'>
 		<header-box></header-box>
-		<my-task :master="master"></my-task>
+		<my-task :master="master" :masterInfo="masterInfo"></my-task>
 		<help-box :master="master" :helperList="helperList"></help-box>
 		<discounts-box ></discounts-box>
 		<code-box :imgUrl="imgUrl"></code-box>
