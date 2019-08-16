@@ -5,7 +5,7 @@
 		<discounts-box></discounts-box>
 		<code-box :imgUrl="imgUrl"></code-box>
 		<help-box :master="master" :helperList="helperList" :taskContents="taskContents"></help-box>
-		<upload-img :userImgProgress="userImgProgress" @userImgProgress="getUserImgProgress"></upload-img>
+		<upload-img :userImgProgress="userImgProgress" @userImgProgress="getUserImgProgress" :taskImgInfo="taskImgInfo"></upload-img>
 		<footer-box></footer-box>
 		<button-box :isHelp="isHelp" :noType="noType"></button-box>
 		<pop-up></pop-up>
@@ -52,7 +52,8 @@
 				imgUrl: '/static/b.png',
 				noType: false,
 				taskContents:{},
-				masterInfo:{}
+				masterInfo:{},
+				taskImgInfo:{}
 			};
 		},
 		mounted() {
@@ -93,6 +94,7 @@
 						this.userProgress = true
 					}
 					if(result.task.taskContents[1].status == 1){
+						this.taskImgInfo = JSON.parse(result.task.taskContents[1].content)
 						this.userImgProgress = true
 					}
 					if(userBStatus){
