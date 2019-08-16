@@ -207,3 +207,13 @@ export function getUserAllInfo(code){
 		return data
 	})
 }
+
+export function userCount() {
+	return request({
+		url: '/activity/activity/wechat/userCount',
+		methods:'post'
+	}).then(function(res){
+		let data = res.data;
+		return data
+	})
+}

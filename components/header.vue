@@ -3,7 +3,7 @@
 		<view class="banner">
 			<view class="topBox">
 				<view class='top-lf'>
-					<text>10984</text>人正在参加
+					<text>{{count}}</text>人正在参加
 				</view >
 				<view class='top-rg' @tap='aboutMe'>什么是MOTIS</view>
 			</view>
@@ -14,6 +14,14 @@
 
 <script>
 	export default {
+		props: {
+			count: {
+				type: [Number, String],
+				default() {
+					return 10984
+				}
+			}
+		},
 		data() {
 			return {
 				
