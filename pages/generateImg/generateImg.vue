@@ -35,7 +35,8 @@
 		data() {
 			return {
 				wxUserInfo:{},
-				taskContents:{}
+				taskContents:{},
+				userId:{}
 			}
 		},
 		mounted() {
@@ -43,6 +44,10 @@
 				this.makeQrCode()
 				this.getWxUserInfo()
 			})
+		},
+		onLoad() {
+			this.userId = uni.getStorageSync("useId")
+			console.log(this.userId)
 		},
 		methods: {
 			getWxUserInfo: function (){
@@ -81,8 +86,11 @@
 				});
 			},
 			makeQrCode(){
+				let _self = this;
+				
+				let qrUrl = "https://hnhd.motivape.cn/bluehd/#/pages/help/help?activityId="+_self.userId.activityId+"&helpMasterId="+_self.userId.helpMasterId+"&wechatId="+_self.userId.wechatId
 				var qrcodeObj = new QRCode('qrcode-image', {
-					text: "www.baidu.com",
+					text: qrUrl,
 					width: uni.upx2px(120),
 					height: uni.upx2px(120),
 					colorDark: '#000000', //前景色
