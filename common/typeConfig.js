@@ -511,4 +511,36 @@ export default {
 		bianXianMao:true,
 		isSpuDesc:false,
 	},
+	33: {
+		module: 'EditOrderFormC',
+		goodsName: "goodsMTGO", // 商品key
+		imgs: "imgs31", // 图片key
+		lastImg:14,
+		swiper750: true, // 轮播图片是否高度是否是750upx
+		submitApi: "/activity1/ad/order/bookingGghdOrderLittleSmoke", //提交订单api
+		isEncrypted: true, // 是否对提交订单数据加密
+		isShowPayMethod: true, // 是否显示支付方式
+		buttonMsg: '立即抢购', //底部抢购提示
+		onWxPay: true, //开启微信支付
+		onAlipayPay: true, //开启支付宝支付
+		onArrivePay: false, //开始货到付款
+		bianXianMao:false,
+		isSpuDesc:true,
+	},
+	34: {
+		module: 'EditOrderFormC',
+		goodsName: "goodsMTGO99", // 商品key
+		imgs: "imgs31", // 图片key
+		lastImg:14,
+		swiper750: true, // 轮播图片是否高度是否是750upx
+		submitApi: "/activity1/ad/order/bookingGghdOrder2c", //提交订单api
+		isEncrypted: false, // 是否对提交订单数据加密
+		isShowPayMethod: true, // 是否显示支付方式
+		buttonMsg: '立即抢购', //底部抢购提示
+		onWxPay: true, //开启微信支付
+		onAlipayPay: true, //开启支付宝支付
+		onArrivePay: false, //开始货到付款
+		bianXianMao:false,
+		isSpuDesc:true,
+	},
 }

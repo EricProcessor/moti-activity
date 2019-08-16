@@ -406,7 +406,10 @@
 					districtName:this.areaObj.area.label,
 					districtCode:this.areaObj.area.value
 				};
-				if(this.paramType === 32){
+				//typeConfig[this.paramType].isEncrypted
+				//if(this.paramType === 32){
+				if(typeConfig[this.paramType].isEncrypted){
+
 					orderInfo.cartridgesSkuPrice = this.goods.tastePrice
 					orderInfo.tobaccoSkuPrice  = this.goods.price
 				}

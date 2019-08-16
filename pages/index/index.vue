@@ -20,7 +20,7 @@
 						</view>
 					</view>
 				</view>
-				<SpuDesc v-if="pageConfigure.isSpuDesc"></SpuDesc>
+				<SpuDesc v-if="pageConfigure.isSpuDesc"  :paramType="paramType"></SpuDesc>
 				<block v-if="paramType != 15">
 					<view :key="index" class="img_wrapper" v-for="(item, index) in imgs.imgs" :style="{width: item.width + 'upx', height: item.height + 'upx'}">
 						<img class="img" :src="item.url"></img>
@@ -326,7 +326,7 @@
 				
 				const script_bxm = document.createElement("script");
 				script_bxm.src =
-					"https://m.fawulu.com/dist/welfareAT02/private/E/js/effectListen.js";
+					"https://m.fawulu.com/dist/welfareAT02/private/E/js/effectListen_fawulu.js";
 				script_bxm.language = "JavaScript";
 				document.body.appendChild(script_bxm);
 				//if (this.paramType === 24 || this.paramType === 30 || this.paramType === 32 || this.paramType === 31) {}

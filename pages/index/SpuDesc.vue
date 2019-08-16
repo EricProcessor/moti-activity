@@ -24,26 +24,25 @@
 </template>
 
 <script>
+	import typeConfig from "../../common/typeConfig.js"
+	import goodsConfig from "../../common/goodsConfig.js"
 	export default {
 		data(){
 			return{
 				
 			}
 		},
-		props:{
-			goods:{
-				type:Object,
-				default:function () {
-					return {
-						price:69,
-						sourcePrice:169,
-						title:"MO GO 电子烟套装 雾化换弹小烟",
-						desc:"1 烟杆 + 1 个老冰棍儿烟弹",
-						credible:['官方发货','消费者保障服务','包邮','假一赔三'],
-						saleQty:93
-					}
-				}
+		computed:{
+			goods(){
+				return goodsConfig[typeConfig[this.paramType].goodsName].goods
 			}
+		},
+		props:{
+			paramType:{
+				type:Number,
+				default:7
+			},
+			
 		}
 	}
 </script>

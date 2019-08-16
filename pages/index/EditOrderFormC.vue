@@ -453,7 +453,8 @@
 					districtName:this.areaObj.area.label,
 					districtCode:this.areaObj.area.value
 				};
-				if(this.paramType == 28 || this.paramType == 31){
+				//if(this.paramType == 28 || this.paramType == 31){
+				if(typeConfig[this.paramType].isEncrypted){
 					orderInfo.cartridgesSkuPrice = this.goods.tastePrice
 					orderInfo.tobaccoSkuPrice  = this.goods.price
 				}
