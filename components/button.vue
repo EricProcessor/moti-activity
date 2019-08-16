@@ -52,6 +52,8 @@
 
 <style lang="scss">
 	.boutton-box{
+		position:fixed ;
+		bottom: 0;
 		width:100%;
 		.btn{
 			line-height:90upx;
