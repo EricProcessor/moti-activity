@@ -1,17 +1,20 @@
 <template>
 	<view v-if='isShow' class="inviteHelp">
-		<view class="inviteBox">
+		<view v-if='yindao' class="zhiyin">
+			<image src='/static/zhiyin.png'></image>
+		</view>
+		<view v-else class="inviteBox">
 			<view class="topBox">
 				<text>邀请助力</text>
 				<text @tap="close">×</text>
 			</view>
 			<view class="content">
 				<view class="cont">
-					<image src='/static/mine.png'></image>
-					<view class="text">微信分享</view>
+					<image src='/static/weixin.png'></image>
+					<view @tap='wFenXiang' class="text">微信分享</view>
 				</view>
 				<view class="cont">
-					<image src='/static/mine.png'></image>
+					<image src='/static/tupian.png'></image>
 					<view class="text" @tap='generateImg'>生成图片</view>
 				</view>
 			</view>
@@ -24,7 +27,8 @@
 	export default {
 		data() {
 			return {
-				isShow:false
+				isShow:false,
+				yindao:false
 			};
 		},
 		created() {
@@ -41,6 +45,9 @@
 				uni.navigateTo({
 					url:'/pages/generateImg/generateImg'
 				})
+			},
+			wFenXiang(){
+				this.yindao = true;
 			}
 		}
 	}
@@ -53,6 +60,15 @@
 		height:100%;
 		background:rgba(0,0,0,.7);
 		box-sizing: border-box;
+		.zhiyin{
+			width: 80%;
+			height:400upx;
+			margin:0 auto;
+			image{
+				max-width:100%;
+				height:100%;
+			}
+		}
 		.inviteBox{
 			height:340upx;
 			background: #fff;
