@@ -49,7 +49,7 @@
 
 <style lang="scss" scoped>
 	.spu-name{
-		padding: 56upx 30upx 30upx 30upx;
+		padding: 30upx 30upx 30upx 30upx;
 		background-color: #ffffff;
 		color: #333333;
 		font-size: 26upx;
