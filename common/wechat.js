@@ -26,9 +26,12 @@ export default {
 			methods: 'POST',
 			contentType: 'application/json',
 			data: {
-				url: 'https://hnhd.motivape.cn'
+				url: 'https://hnhd.motivape.cn/bluehd'
 			}
 		}).then((res) => {
+			if(res.data.code != 0){
+				
+			}
 			if(res.data){
 				console.log("分享签名"+JSON.stringify(res))
 				let shareSgin = JSON.parse(res.data.result)
