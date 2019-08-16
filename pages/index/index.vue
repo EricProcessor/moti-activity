@@ -1,6 +1,7 @@
 <template>
 	<view class="index-content">
 		<header-box :count="userCountNum"></header-box>
+		<qrcode-img></qrcode-img>
 		<footer-box></footer-box>
 		<view class="joinBtn btn" @tap.stop="joinBtn">我要参与活动</view>
 		<view class="pop-up" v-if="isJoin">
@@ -21,11 +22,13 @@
 <script>
 import headerBox from '@/components/header.vue';
 import footerBox from '@/components/footer.vue';
-import { addWechatUser, queryHelpMasterByUserId, queryTaskMasterByActiId, saveHelpMaster,getUserAllInfo, userCount } from '@/common/request.js';
+import qrcodeImg from '@/components/qrcodeimg.vue';
+import { addWechatUser, queryHelpMasterByUserId, queryTaskMasterByActiId, saveHelpMaster,getUserAllInfo } from '@/common/request.js';
 export default {
 	components: {
 		headerBox,
-		footerBox
+		footerBox,
+		qrcodeImg
 	},
 	data() {
 		return {

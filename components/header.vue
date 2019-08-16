@@ -47,19 +47,20 @@
 			padding-top:1upx;
 			font-weight:400;
 			position: relative;
-			height:700upx;
-			background-image: url('../static/bgimg.jpg');
+			height:720upx;
+			background-image: url('../static/bgm2.png');
 			background-repeat:no-repeat;
 			background-position:center top;
 			background-size: 100%;
 			.activityNum{
 				color:#777;
 				font-size:22upx;
-				margin:0 auto;
+				// margin:60upx auto;
 				position:absolute;
-				bottom:49upx;
+				bottom:20upx;
 				width:100%;
 				text-align: center;
+				
 			}
 			.topBox{
 				display: flex;
