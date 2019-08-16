@@ -51,7 +51,8 @@
 				userImgProgress: false,
 				imgUrl: '/static/b.png',
 				noType: false,
-				taskContents:{}
+				taskContents:{},
+				masterInfo:{}
 			};
 		},
 		mounted() {
@@ -83,6 +84,7 @@
 							}
 						}
 					}
+					this.masterInfo = result.userMsg;
 					let userBStatus = false
 					if(result.task.taskContents[0].status == 1 && result.task.taskContents[1].status == 1){
 						userBStatus = true
