@@ -93,7 +93,8 @@ export default {
             jweixin.ready(function(){    
                 var shareData = {  
                      title: data&&data.title ? data.title: signData.site_name,  
-                     desc: data&&data.desc ? data.desc: signData.site_description,  
+                     // desc: data&&data.desc ? data.desc: signData.site_description,  
+                     desc: '低至0元，好友助力领取MOTI S智能电子烟',  // 暂时写死
                      link: shareUrl,  
                      imgUrl: data&&data.img ?data.img :signData.site_logo,  
                      success: function (res) {  
