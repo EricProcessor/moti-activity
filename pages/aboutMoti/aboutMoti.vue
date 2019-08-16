@@ -1,10 +1,11 @@
 <template>
 	<view class="aboutMoti">
-		<view class="image1"></view>
+		<!-- <view class="image1"></view>
 		<view class="image2"></view>
 		<view class="image3"></view>
 		<view class="image4"></view>
-		<view class="image5"></view>
+		<view class="image5"></view> -->
+		<image class="newimg" src="../../static/newimg/20.jpg" mode=""></image>
 	</view>
 </template>
 
@@ -12,7 +13,7 @@
 	export default {
 		data() {
 			return {
-				
+				i
 			};
 		}
 	}
@@ -29,6 +30,10 @@
 			background-repeat:no-repeat;
 			background-position:center top;
 			background-size: 100%;
+		}
+		.newimg{
+			width: 100%;
+			height: 14769upx;
 		}
 		.image1{
 			background-image: url('../../static/aboutM/1.jpg');
