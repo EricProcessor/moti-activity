@@ -32,7 +32,7 @@
 		},
 		data() {
 			return {
-				imgSrc:'/static/bgimgText.jpg',
+				imgSrc:'/static/deafult.png',
 				isHavePic: true
 			};
 		},
