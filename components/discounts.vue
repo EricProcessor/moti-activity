@@ -1,6 +1,6 @@
 <template>
 	<view v-if='isShow' class="discounts">
-		<image class='disImg' src='../../static/discounts.png'></image>
+		<image class='disImg' src='../../static/duihuan.png'></image>
 		<view class="code">{{discountsNum}}</view>
 	</view>
 </template>
