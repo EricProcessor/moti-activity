@@ -80,8 +80,8 @@
 			makeQrCode(){
 				var qrcodeObj = new QRCode('qrcode-image', {
 					text: "www.baidu.com",
-					width: uni.upx2px(259),
-					height: uni.upx2px(259),
+					width: uni.upx2px(120),
+					height: uni.upx2px(120),
 					colorDark: '#000000', //前景色
 					colorLight: '#ffffff', //背景色
 				})
@@ -95,7 +95,7 @@
 		height: 100%;
 		background: #F5F5F5;
 		padding-top: 1upx;
-
+		padding-bottom:2upx;
 		.save-btn {
 			width: 500upx;
 			line-height: 72upx;
@@ -107,7 +107,7 @@
 
 		.content {
 			background: #121518;
-			height: 889upx;
+			height: 900upx;
 			width: 500upx;
 			margin: 100upx auto 40upx;
 			background-image: url('../../static/bgimg.jpg');
@@ -133,14 +133,21 @@
 					font-size: 22upx;
 					color: #F93822;
 					text-align: center;
-					margin-bottom: 20upx;
+					margin-bottom: 10upx;
 				}
 
 				.codeImg {
-					width: 120upx;
-					height: 120upx;
+					width: 130upx;
+					height: 130upx;
 					background: #fff;
 					margin: 25upx auto 15upx;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					img{
+						max-width:120upx;
+						max-height:120upx;
+					}
 				}
 
 				.infoBox {
@@ -167,7 +174,6 @@
 						font-size: 18upx;
 						color: #EDE8E4;
 						flex-direction: column;
-						height: 120upx;
 
 						.bottom {
 							line-height: 28upx;
