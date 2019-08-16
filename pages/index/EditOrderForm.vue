@@ -120,8 +120,10 @@
 		checkMobile,
 
 	} from "@/common/utils.js";
-	import Goods from "./goods.js"
-	import Goods14 from "./goods14.js"
+	import goodsConfig from "../../common/goodsConfig.js"
+	import typeConfig from "../../common/typeConfig.js"
+	/*import Goods from "./goods.js"
+	import Goods14 from "./goods14.js"*/
 	import ChoicArea from "./ChoicArea.vue"
 	export default {
 		data() {
@@ -132,9 +134,9 @@
 				buyNumbersColor: 1,
 				buyNumbersTaste: 0,
 				isShowTastes: false,
-				spec: Goods.spec,
-				backgrounds: Goods.backgrounds,
-				goods: Goods.goods,
+				spec: [],
+				backgrounds: [],
+				goods: {},
 				areaObj:{},
 				userInfo: [{
 						text: "收货人 *",
@@ -192,6 +194,8 @@
 				return this.paramType === 15
 			},
 			goodsInfo(){
+				console.log(typeConfig[this.paramType].goodsName)
+				return goodsConfig[typeConfig[this.paramType].goodsName]
 				if( this.paramType === 32) return Goods14
 				return Goods
 			}

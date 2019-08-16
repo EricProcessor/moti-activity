@@ -154,10 +154,12 @@
 		checkMobile,
 
 	} from "@/common/utils.js";
-	import Goods from "./goodsMojo.js"
+	import goodsConfig from "../../common/goodsConfig.js"
+	import typeConfig from "../../common/typeConfig.js"
+	/*import Goods from "./goodsMojo.js"
 	import GoodsTwo from "./goodsMojo2.js"
 	import GoodsMojoFree from "./goodsMojoFree.js"
-	import GoodsMojo24 from "./goodsMojo24.js"
+	import GoodsMojo24 from "./goodsMojo24.js"*/
 	import ChoicArea from "./ChoicArea.vue"
 	export default {
 		data() {
@@ -232,10 +234,12 @@
 				return this.goods.taste[index]
 			},
 			goodsInfo(){
-				if(this.paramType == 24 || this.paramType == 29) return GoodsMojo24
+				console.log(typeConfig[this.paramType].goodsName)
+				return goodsConfig[typeConfig[this.paramType].goodsName]
+				/*if(this.paramType == 24 || this.paramType == 29) return GoodsMojo24
 				if(this.paramType == 23) return Goods
 				if(this.paramType == 27 || this.paramType == 30) return GoodsMojoFree
-				return GoodsTwo
+				return GoodsTwo*/
 			}
 		},
 		watch: {

@@ -154,9 +154,11 @@
 		checkMobile,
 
 	} from "@/common/utils.js";
-	import Goods from "./goods.js"
+	import goodsConfig from "../../common/goodsConfig.js"
+	import typeConfig from "../../common/typeConfig.js"
+	/*import Goods from "./goods.js"
 	import Goods99 from "./goods99.js"
-	import GoodsMTGO from "./goodsMTGO.js"
+	import GoodsMTGO from "./goodsMTGO.js"*/
 	import ChoicArea from "./ChoicArea.vue"
 	export default {
 		data() {
@@ -167,9 +169,9 @@
 				buyNumbersColor: 1,
 				buyNumbersTaste: 0,
 				isShowTastes: false,
-				spec: Goods.spec,
-				backgrounds: Goods.backgrounds,
-				goods: Goods.goods,
+				spec: [],
+				backgrounds: [],
+				goods: {},
 				areaObj:{},
 				userInfo: [{
 						text: "收货人",
@@ -231,9 +233,11 @@
 				return this.goods.taste[index]
 			},
 			goodsInfo(){
-				if( this.paramType == 28) return Goods99
+				console.log(typeConfig[this.paramType].goodsName)
+				return goodsConfig[typeConfig[this.paramType].goodsName]
+				/*if( this.paramType == 28) return Goods99
 				if(this.paramType == 31) return GoodsMTGO
-				return Goods
+				return Goods*/
 			}
 		},
 		watch: {
