@@ -20,7 +20,7 @@
 				this.isShow = true;
 			});
 			Bus.$on('couponCode',(data) => {
-				this.discountsNum = data;f
+				this.discountsNum = data;
 			});
 		},
 		methods:{

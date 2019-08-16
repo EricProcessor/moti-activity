@@ -61,8 +61,7 @@
 				}
 				let {code,msg,result} = await queryUserCouponCode(params);
 				if(code==0){
-					console.log(result);
-					Bus.$emit('couponCode',result);
+					Bus.$emit('couponCode',result.couponCode);
 				}else{
 					uni.showToast({
 						icon:'none',
