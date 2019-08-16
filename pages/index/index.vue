@@ -68,7 +68,7 @@ export default {
 		};
 	},
 	async onLoad(option) {
-		const activityType = uni.setStorageSync('activityType')
+		const activityType = uni.getStorageSync('activityType')
 		let wxUserInfo = uni.getStorageSync('wxUserInfo');
 		if (userId && activityType) {
 			return this.toPath(parseInt(activityType))

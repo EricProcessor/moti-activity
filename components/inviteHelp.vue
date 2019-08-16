@@ -28,7 +28,7 @@
 		data() {
 			return {
 				isShow:false,
-				yindao:false
+				yindao:true
 			};
 		},
 		created() {
@@ -40,7 +40,6 @@
 		methods:{
 			close(){
 				this.isShow = false;
-				this.yindao = false
 			},
 			generateImg(){
 				uni.navigateTo({
