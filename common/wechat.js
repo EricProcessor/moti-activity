@@ -26,17 +26,19 @@ export default {
 			methods: 'POST',
 			contentType: 'application/json',
 			data: {
-				url: url
+				url: 'https://hnhd.motivape.cn'
 			}
 		}).then((res) => {
 			if(res.data){
 				console.log("分享签名"+JSON.stringify(res))
+				let shareSgin = JSON.parse(res.data.result)
+				console.log("个事转化"+JSON.stringify(shareSgin))
 			    jweixin.config({  
 			         debug: false,  
-			         appId: res.data.appId,  
-			         timestamp:res.data.timestamp,  
-			         nonceStr: res.data.nonceStr,  
-			         signature:res.data.signature,  
+			         appId: shareSgin.appId,  
+			         timestamp:shareSgin.timestamp,  
+			         nonceStr: shareSgin.nonceStr,  
+			         signature:shareSgin.signature,  
 			         jsApiList: [  
 			             'checkJsApi',  
 			             'onMenuShareTimeline',  
@@ -45,7 +47,7 @@ export default {
 			    });  
 			    //配置完成后，再执行分享等功能  
 			    if(callback){  
-			        callback(res.data);  
+			        callback(shareSgin);  
 			    }  
 			}  
 		})
