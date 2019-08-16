@@ -18,7 +18,7 @@
 </template>
 
 <script>
-	import { uploadMoti } from '@/common/request.js';
+	import { uploadMoti,motiPicCommit } from '@/common/request.js';
 	export default {
 		props:{
 			userImgProgress:{
@@ -40,22 +40,28 @@
 					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
 					sourceType: ['album'],//从相册选择
 					success:async (res) => {
-						
 						_this.imgSrc = res.tempFilePaths[0];
-						console.log(res.tempFilePaths[0]);
 						this.uploadPic()
 					}
 				})
 			},
 			uploadPic:async function (){
+				
 				let params = {
 					file: this.imgSrc 
 				}
 				let succ = await uploadMoti(params);
 				succ = JSON.parse(succ)
 				if(succ.code == 0){
-					console.log(succ.result)
-					_this.$parent.userImgProgress = true;
+					let userId = uni.getStorageSync('userId');
+					let params = {
+						"picUrl": this.imgSrc,
+						"weChatHelpId": userId.helpMasterId
+					}
+					let {code,msg,result} = await motiPicCommit(params)
+					if(code == 0){
+						this.$parent.userImgProgress = true;
+					}
 				}else{
 					uni.showToast({
 						icon: 'none',

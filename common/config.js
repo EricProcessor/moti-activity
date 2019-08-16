@@ -7,7 +7,7 @@ const origin = location.origin
 config.host = process.env.NODE_ENV === 'development' ?
 	'http://192.168.10.96:8197':
 
-	//`${origin}/api` // 生产环境/线上环境
-	'http://192.168.10.96:8197'
+	`${origin}/api` // 生产环境/线上环境
+	//'http://192.168.10.96:8197'
 
 export default config

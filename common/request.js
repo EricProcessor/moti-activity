@@ -131,6 +131,19 @@ export function uploadMoti(params) {
 		return data
 	})
 }
+//提交moti照片
+export function motiPicCommit(params) { 
+	return request({
+		url:'/activity/activity/wechat/motiPicCommit',
+		methods: 'post',//默认值---不需要则不要填写
+		contentType: 'application/json', //默认值---不需要则不要填写
+		data: params
+	}).then(function (res){
+		let data = res.data;
+		// data.result = typeof data.result === 'string' ? JSON.parse(data.result) : data.result;
+		return data
+	})
+}
 //发送下单验证码
 export function dynamicCode(params) { 
 	return request({
@@ -180,6 +193,17 @@ export function checkMobileAndCode(params) {
 	}).then(function (res){
 		let data = res.data;
 		data.result = typeof data.result === 'string' ? JSON.parse(data.result) : data.result;
+		return data
+	})
+}
+//获取用户所有信息
+export function getUserAllInfo(code){
+	return request({
+		url:`/open/pub/wechat/jsapi/userInfo?code=${code}`,
+		methods:'get'
+	}).then(function(res){
+		let data = res.data;
+		console.log("请求得到的数据"+ JSON.stringify(data) )
 		return data
 	})
 }
