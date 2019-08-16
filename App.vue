@@ -5,6 +5,9 @@
 		},
 		onShow: function() {
 			console.log('App Show')
+			console.log(window.location.href);
+			// this.$wechat.initJssdk(window.location.href.split('#')[0])
+			
 		},
 		onHide: function() {
 			console.log('App Hide')
