@@ -36,6 +36,7 @@
 		data() {
 			return {
 				isHelp:true,
+				option: {},
 				oldUser:{
 					wechatHeadeImgUrl:'',
 					wechatNickname:''
@@ -47,6 +48,7 @@
 					activityId:'',
 					newWechatId:''
 				},
+				helpMasterId: '',
 				taskList:{
 					1:[],
 					2:[],
@@ -57,15 +59,19 @@
 		},
 		methods:{
 			getWxCode() {
-				return new Promise(function(resolve, reject) {
-					let testUrl = `http://${window.location.host}/bluehd/#/pages/help/help?activityId={this.info.activityId}&wechatId={this.info.oldWechatId}`;
-					location.replace(
-						`https://gezi.motivape.cn/auth.html?appid=wx80a7401a02e0f8ec&redirectUri=${encodeURIComponent(testUrl)}&response_type=code&scope=snsapi_userinfo&state=gfhd`
-					);
-				});
+				const url = location.href.split('?')[0]
+				uni.setStorageSync('helpShareParam', {
+					activityId: this.option.activityId,
+					wechatId: this.option.wechatId,
+					helpMasterId: this.option.helpMasterId
+				})
+				// let testUrl = `{window.location.host}/bluehd/#/pages/help/help?activityId={this.info.activityId}&wechatId={this.info.oldWechatId}`;
+				location.replace(
+					`https://gezi.motivape.cn/auth.html?appid=wx80a7401a02e0f8ec&redirectUri=${encodeURIComponent(url)}&response_type=code&scope=snsapi_userinfo&state=gfhd`
+				);
 			},
 			async init(){
-				if(!code){
+				if(!this.code){
 					this.getWxCode();
 				}
 				let infoData = await getUserAllInfo(this.code);
@@ -89,6 +95,7 @@
 				}
 				let {code,msg,result} = await saveHelpSub(params);
 				if(code == 0){
+					uni.removeStorageSync('helpShareParam')
 					this.isHelp = false;
 				}else{
 					uni.showToast({
@@ -138,12 +145,23 @@
 			}
 		},
 		onLoad(option) {
-			this.info.activityId = option.activityId
-			this.info.oldWechatId = option.wechatId
-			this.code = option.code;
+			console.log(option);
+			const helpShareParam = uni.getStorageSync('helpShareParam')
+			if (helpShareParam && helpShareParam.activityId) {
+				this.option = helpShareParam
+				for (let item in option) {
+					this.option[item] = option[item]
+				}
+			} else {
+				this.option = option
+			}
+			this.info.activityId = this.option.activityId
+			this.info.oldWechatId = this.option.wechatId
+			this.code = this.option.code;
+			this.helpMasterId = this.option.helpMasterId
 			let params = {
-				activityId: option.activityId,
-				wechatId: option.wechatId
+				activityId: this.option.activityId,
+				wechatId: this.option.wechatId
 			}
 			console.log(this.info)
 			//this.init()
