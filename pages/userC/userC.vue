@@ -2,7 +2,7 @@
 	<view class="userC">
 		<header-box></header-box>
 		<my-task :master="master" :taskType="3" :masterInfo="masterInfo"></my-task>
-		<help-box :master="master" :helperList="helperList" :fillIn="fillIn"></help-box>
+		<help-box :master="master" :helperList="helperList" :fillIn="fillIn" :taskContents="taskContents"></help-box>
 		<footer-box></footer-box>
 		<button-box :fillIn="fillIn" :isHelp="isHelp" :noType="noType"></button-box>
 		<invite-help></invite-help>
@@ -37,7 +37,8 @@ export default {
 			fillIn: false,
 			isHelp: true,
 			masterInfo:{},
-			noType: false
+			noType: false,
+			taskContents:{}
 		};
 	},
 	mounted() {
@@ -52,6 +53,8 @@ export default {
 			};
 			let { code, msg, result } = await queryHelpSubByOpenId(params);
 			if(code == 0){
+				this.taskContents = JSON.parse(result.task.taskContents[0].content)
+				uni.setStorageSync('taskContents',this.taskContents)
 				let helperNum = JSON.parse(result.task.taskContents[0].content).countCondition;
 				for(let i = 0; i < helperNum; i++){
 					let obj = {

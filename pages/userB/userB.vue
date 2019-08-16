@@ -4,7 +4,7 @@
 		<my-task :taskType="2"  :masterInfo="masterInfo" :master="master" :userProgress="userProgress" :userImgProgress="userImgProgress"></my-task>
 		<discounts-box></discounts-box>
 		<code-box :imgUrl="imgUrl"></code-box>
-		<help-box :master="master" :helperList="helperList"></help-box>
+		<help-box :master="master" :helperList="helperList" :taskContents="taskContents"></help-box>
 		<upload-img :userImgProgress="userImgProgress"></upload-img>
 		<footer-box></footer-box>
 		<button-box :isHelp="isHelp" :noType="noType"></button-box>
@@ -50,7 +50,9 @@
 				userProgress: false,
 				userImgProgress: false,
 				imgUrl: '/static/b.png',
-				noType: false
+				noType: false,
+				taskContents:{},
+				masterInfo:{}
 			};
 		},
 		mounted() {
@@ -65,6 +67,8 @@
 				};
 				let { code, msg, result } = await queryHelpSubByOpenId(params);
 				if(code == 0){
+					this.taskContents = JSON.parse(result.task.taskContents[0].content)
+					uni.setStorageSync('taskContents',this.taskContents)
 					let helperNum = JSON.parse(result.task.taskContents[0].content).countCondition;
 					for(let i = 0; i < helperNum; i++){
 						let obj = {
@@ -80,6 +84,7 @@
 							}
 						}
 					}
+					this.masterInfo = result.userMsg;
 					let userBStatus = false
 					if(result.task.taskContents[0].status == 1 && result.task.taskContents[1].status == 1){
 						userBStatus = true
