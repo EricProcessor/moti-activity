@@ -2,13 +2,13 @@ const config = {}
 let origin = location.origin
 config.host = process.env.NODE_ENV === 'development' 
 	? 
-		"http://192.168.0.102:8085/api" // 开发环境 注册
+		origin+'/api'// 开发环境 注册
 	: 
 		origin+'/api'	// 生产环境
 		
 config.hostOrder  = process.env.NODE_ENV === 'development' 
 	? 
-		"http://192.168.0.102:8085/api" // 开发环境 下单
+		origin+'/api' // 开发环境 下单
 	: 
 		origin+'/api'	// 生产环境		
 export default config
