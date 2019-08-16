@@ -112,11 +112,11 @@
 					};
 					this.oldUser.wechatHeadeImgUrl = result.userMsg.wechatHeadeImgUrl;
 					this.oldUser.wechatNickname = result.userMsg.wechatNickname;
-					let contentObj = JSON.parse(result.taskContents[0].content); 
+					let contentObj = JSON.parse(result.task.taskContents[0].content); 
 					this.taskContent = contentObj
 					this.taskContent.calcNum = contentObj.countCondition - contentObj.countData
 					this.taskContent.percent = (contentObj.countData)/contentObj.countCondition * 100
-					this.taskId = result.taskContents.taskId
+					this.taskId = result.task.taskContents.taskId
 					let { code, msg, result } = await addWechatUser(params);
 					if(code == 0){
 						this.info.newWechatId = result.id
