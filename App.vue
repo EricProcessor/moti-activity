@@ -28,7 +28,13 @@
 </script>
 
 <style>
+	body {
+		padding-bottom: constant(safe-area-inset-bottom);
+		padding-bottom: env(safe-area-inset-bottom);
+	}
 	page{
+		padding-bottom: constant(safe-area-inset-bottom);
+		padding-bottom: env(safe-area-inset-bottom);
 		background:#121518;
 		height:100%;
 	}

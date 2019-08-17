@@ -195,7 +195,13 @@
 <style lang="scss" scoped>
 	.helpBox{
 		height:100%;
+		padding-bottom: 90upx;
 		.btn{
+			position: fixed;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			height: 90upx;
 			line-height:90upx;
 			background:rgba(249,56,34,1);
 			color:#fff;

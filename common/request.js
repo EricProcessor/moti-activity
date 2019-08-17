@@ -147,7 +147,7 @@ export function motiPicCommit(params) {
 //发送下单验证码
 export function dynamicCode(params) { 
 	return request({
-		url:'/activity/activity/buyer/dynamicCode',
+		url:'/activity/activity/wechat/sendCode',
 		methods: 'post',//默认值---不需要则不要填写
 		contentType: 'application/json', //默认值---不需要则不要填写
 		data: params

@@ -20,7 +20,9 @@
 					<text class="zhanwei"></text>
 					<view class="input-box">
 						<input v-model='userInfo.code' type="text" placeholder="请输入短信验证码">
-						<text class='code' @tap='getCode'>获取验证码</text>
+						<!-- <text class='code' @tap='getCode'>获取验证码</text> -->
+						<text class='code' v-if="!cutDown" @tap="getCode">获取验证码</text>
+						<text class='code countDown' v-if="cutDown">{{ time }}秒</text>
 					</view>
 				</view>
 			</view>
@@ -43,7 +45,10 @@
 				userInfo:{
 					mobile:'',
 					code:''
-				}
+				},
+				timer: null,
+				cutDown: false,
+				time: 90
 			};
 		},
 		mounted() {
@@ -98,8 +103,8 @@
 					let params = {
 						activityId: ids.activityId,
 						phone: this.userInfo.mobile,
-						shopAttDetailId:0,
-						shopId:'111'
+						shopAttDetailId: '11',
+						shopId:'1'
 					};
 					console.log(params);
 					let {code,msg,result} = await dynamicCode(params);
@@ -108,6 +113,20 @@
 							icon: 'none',
 							title: '验证码已发送'
 						})
+						const time_count = 90
+						if (!this.timer) {
+							this.time = time_count;
+							this.cutDown = true;
+							this.timer = setInterval(() => {
+								if (this.time > 0 && this.time <= time_count) {
+									this.time--;
+								} else {
+									this.cutDown = false;
+									clearInterval(this.timer);
+									this.timer = null;
+								}
+							}, 1000);
+						}
 					}else{
 						uni.showToast({
 							icon: 'none',
@@ -219,6 +238,9 @@
 							font-size:28upx;
 							font-weight: 500;
 							flex-shrink:0;
+							&.countDown {
+								color: gray;
+							}
 						}
 					}
 				}

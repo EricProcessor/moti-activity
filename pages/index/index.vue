@@ -116,7 +116,7 @@ export default {
 			};
 			const addWechatUserRes = await addWechatUser(user);
 			if (addWechatUserRes.code == 0 && addWechatUserRes.result) {
-				this.wechatId = String(addWechatUserRes.result.id)
+				this.wechatId = addWechatUserRes.result.id
 				let params = {
 					activityId: this.activityId,
 					wechatId: this.wechatId
@@ -125,8 +125,8 @@ export default {
 				if (code == 0 && result) {
 					let ids = {
 						activityId: result.activityId,
-						helpMasterId: String(result.id),
-						wechatId: String(result.wechatId)
+						helpMasterId: result.id,
+						wechatId: result.wechatId
 					}
 					console.log("储存的本地======"+JSON.stringify(ids));
 					uni.setStorageSync('ids', ids);
@@ -183,7 +183,7 @@ export default {
 				if (succ.code == 0) {
 					let ids = {
 						activityId: this.activityId,
-						helpMasterId:  String(succ.result.helpMasterId),
+						helpMasterId:  succ.result.helpMasterId,
 						wechatId: this.wechatId
 					}
 					uni.setStorageSync('ids', ids);
