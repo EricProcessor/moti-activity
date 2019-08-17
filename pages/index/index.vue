@@ -66,10 +66,12 @@ export default {
 			activityId: '423784446',
 			wechatId: 0,
 			isLogin: false, //用户是否已经授权
-			option: null
+			option: null,
+			isOnLoad: false
 		};
 	},
 	onLoad(option) {
+		this.isOnLoad = true
 		this.option = option
 		const wxUserInfo = uni.getStorageSync('wxUserInfo')
 		if (wxUserInfo) {
@@ -82,7 +84,7 @@ export default {
 	},
 	onShow() {
 		this.userCount()
-		if (this.option) {
+		if (this.option && !this.isOnLoad) {
 			const wxUserInfo = uni.getStorageSync('wxUserInfo')
 			if (wxUserInfo) {
 				this.initData('')
@@ -136,7 +138,7 @@ export default {
 			} else {
 				uni.showToast({
 					icon: 'none',
-					title: msg
+					title: `${addWechatUserRes.msg}`
 				});
 			}
 			uni.hideLoading()

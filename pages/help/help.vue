@@ -133,6 +133,7 @@
 					this.taskContent.percent = this.taskContent.countData/(this.taskContent.countData+this.taskContent.calcNum)*100;//进度条更新
 					//助力成功
 				}else{
+					this.isHelp = false;
 					uni.showToast({
 						icon: 'none',
 						title: msg
