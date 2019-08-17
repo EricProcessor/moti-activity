@@ -9,8 +9,8 @@
 				</view>
 			</view> -->
 			<view class="userInfo">
-				<view class="userName">{{wechatNickname?wechatNickname:'未设置'}}</view>
-				<view class="state">我从没使用过电子烟产品</view>
+				<view class="userName">{{masterInfo.wechatNickname?decodeURIComponent(masterInfo.wechatNickname):'未设置'}}</view>
+				<view class="state">{{typeText}}</view>
 			</view>
 		</view>
 		<view class="taskBox">
@@ -49,17 +49,16 @@
 			userImgProgress:{
 				type: Boolean,
 				default: false
-			}
+			},
+			typeText: String
 		},
 		data() {
 			return {
-				task1:true,
-				wechatNickname: ''
+				task1:true
 			};
 		},
 		created() {
-			console.log(this.master);
-			this.wechatNickname = decodeURIComponent(masterInfo.wechatNickname)
+			
 		},
 		methods:{
 			progress(){

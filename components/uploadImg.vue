@@ -61,10 +61,10 @@
 				let succ = await uploadMoti(params);
 				succ = JSON.parse(succ)
 				if(succ.code == 0){
-					let userId = uni.getStorageSync('userId');
+					let ids = uni.getStorageSync('ids');
 					let params = {
 						"picUrl": this.imgSrc,
-						"weChatHelpId": userId.helpMasterId
+						"weChatHelpId": ids.helpMasterId
 					}
 					let {code,msg,result} = await motiPicCommit(params)
 					if(code == 0){

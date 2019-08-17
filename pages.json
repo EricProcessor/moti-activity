@@ -67,6 +67,10 @@
             "path" : "pages/qrcode/qrcode",
             "style" : {}
         }
+        ,{
+            "path" : "pages/clear/clear",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
