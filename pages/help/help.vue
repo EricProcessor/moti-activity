@@ -108,6 +108,15 @@
 				this.wxUserInfo = wxUserInfo
 			},
 			async helpBtn(){
+				if(this.taskContent.countCondition <= this.taskContent.countData ){
+					uni.showToast({
+						icon:'none',
+						title:'您的好友助力已完成'
+					})
+					this.isHelp = false;
+					return false;
+				}
+				// debugger
 				let wxUserInfo = uni.getStorageSync('wxUserInfo')
 				let params = {
 					"activityId": this.info.activityId,
@@ -119,6 +128,10 @@
 				if(code == 0){
 					uni.removeStorageSync('helpShareParam')
 					this.isHelp = false;
+					this.taskContent.countData += 1;//助力成功前端展示加1 假的
+					this.taskContent.calcNum -=1;//剩余人数减1 假的
+					this.taskContent.percent = this.taskContent.countData/(this.taskContent.countData+this.taskContent.calcNum)*100;//进度条更新
+					//助力成功
 				}else{
 					uni.showToast({
 						icon: 'none',

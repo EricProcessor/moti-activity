@@ -81,13 +81,14 @@ export default {
 		}
 	},
 	onShow() {
-		// 
+		this.userCount()
 		if (this.option) {
 			const wxUserInfo = uni.getStorageSync('wxUserInfo')
 			if (wxUserInfo) {
 				this.initData('')
 			}
 		}
+		
 	},
 	methods: {
 		async initData(wxcode) {
@@ -125,6 +126,7 @@ export default {
 						helpMasterId: String(result.id),
 						wechatId: String(result.wechatId)
 					}
+					console.log("储存的本地======"+JSON.stringify(ids));
 					uni.setStorageSync('ids', ids);
 					let taskId = parseInt(result.taskId);
 					if (!isNaN(taskId) && taskId > 0) {
