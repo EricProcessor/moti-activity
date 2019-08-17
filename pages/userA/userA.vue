@@ -64,7 +64,7 @@ const host = location.href.split('#')[0]
 			     this.$wechat.share({
 					 title: 'MOTIS 只送不卖',
 					 img: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/bluetooth/avatar/share.png'
-				}, location.href, `${host}#/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}`);
+				}, location.href, `https://hnhd.motivape.cn/bluehd/#/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}`);
 			} 
 		},
 		methods:{

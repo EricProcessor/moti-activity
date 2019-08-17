@@ -57,7 +57,7 @@
 				code: null
 			};
 		},
-		onLoad(option) {
+		async onLoad(option) {
 			const helpShareParam = uni.getStorageSync('helpShareParam')
 			if (helpShareParam && helpShareParam.activityId) {
 				this.option = helpShareParam
@@ -77,7 +77,7 @@
 			}
 			console.log(this.info)
 			//this.init()
-			this.init();
+			await this.init();
 			this.getHelpSub(params);
 		},
 		methods:{
@@ -141,8 +141,8 @@
 				}
 				
 			},
-			async getHelpSub(params){
-				let {code,msg,result} = await queryHelpSubByOpenId(params);
+			async getHelpSub(data){
+				let {code,msg,result} = await queryHelpSubByOpenId(data);
 				
 				if(code == 0){
 					let wxUserInfo = uni.getStorageSync('wxUserInfo')
