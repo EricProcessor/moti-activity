@@ -44,7 +44,11 @@
 					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
 					sourceType: ['album'],//从相册选择
 					success:async (res) => {
-						_this.imgSrc = res.tempFilePaths[0];
+						// _this.imgSrc = res.tempFilePaths[0];
+						uni.showToast({
+							icon:'none',
+							title:'上传成功'
+						})
 						this.uploadPic()
 					}
 				})
