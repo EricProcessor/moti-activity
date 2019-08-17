@@ -70,16 +70,10 @@
 			if (this.$wechat && this.$wechat.isWechat()) {
 				const host = location.href.split('#')[0]
 				const ids = uni.getStorageSync('ids')
-				this.$wechat.share2({
+				 this.$wechat.share({
 					 title: 'MOTIS 只送不卖',
-					 desc: '低至0元，好友助力领取MOTI S智能电子烟',
-					 link: `${host}#/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}`,
-					 imgUrl: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/bluetooth/avatar/share.png'
-				});
-			 //     this.$wechat.share({
-				// 	 title: 'MOTIS 只送不卖',
-				// 	 img: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/bluetooth/avatar/share.png'
-				// }, location.href, `${host}#/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}`);  
+					 img: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/bluetooth/avatar/share.png'
+				}, location.href, `${host}#/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}`);
 			} 
 		},
 		methods:{
