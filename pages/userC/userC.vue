@@ -80,14 +80,11 @@ export default {
 			let { code, msg, result } = await queryHelpSubByOpenId(params);
 			if(code == 0){
 				if (result.taskId != 3) {
-					if (result.taskId == 1) {
-						uni.redirectTo({ url: '/pages/userA/userA' })
-					} else if (result.taskId == 2) {
-						uni.redirectTo({ url: '/pages/userB/userB' })
-					} else {
-						uni.redirectTo({ url: '/' })
+					if (result.task.taskId == 1) {
+						return uni.redirectTo({ url: '/pages/userA/userA' })
+					} else if (result.task.taskId == 2) {
+						return uni.redirectTo({ url: '/pages/userB/userB' })
 					}
-					return 
 				}
 				this.taskContents = JSON.parse(result.task.taskContents[0].content)
 				uni.setStorageSync('taskContents',this.taskContents)

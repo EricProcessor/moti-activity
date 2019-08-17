@@ -84,15 +84,13 @@
 				};
 				let { code, msg, result } = await queryHelpSubByOpenId(params);
 				if(code == 0){
-					if (result.taskId != 1) {
-						if (result.taskId == 2) {
-							uni.redirectTo({ url: '/pages/userB/userB' })
-						} else if (result.taskId == 3) {
-							uni.redirectTo({ url: '/pages/userC/userC' })
-						} else {
-							uni.redirectTo({ url: '/' })
+					if (result.task.taskId != 1) {
+						if (result.task.taskId == 2) {
+							return uni.redirectTo({ url: '/pages/userB/userB' })
+						} else if (result.task.taskId == 3) {
+							return uni.redirectTo({ url: '/pages/userC/userC' })
 						}
-						return 
+						 
 					}
 					this.taskContents = JSON.parse(result.task.taskContents[0].content)
 					uni.setStorageSync('taskContents',this.taskContents)
