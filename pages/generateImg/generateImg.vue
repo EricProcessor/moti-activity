@@ -36,11 +36,11 @@
 			return {
 				wxUserInfo:{},
 				taskContents:{},
-				userId:{}
+				ids:{}
 			}
 		},
 		mounted() {
-			this.userId = uni.getStorageSync("userId")
+			this.ids = uni.getStorageSync("ids")
 			this.makeQrCode()
 			this.getWxUserInfo()
 		},
@@ -90,7 +90,7 @@
 			makeQrCode(){
 				let _self = this;
 				
-				let qrUrl = "https://hnhd.motivape.cn/bluehd/#/pages/help/help?activityId="+_self.userId.activityId+"&helpMasterId="+_self.userId.helpMasterId+"&wechatId="+_self.userId.wechatId
+				let qrUrl = "https://hnhd.motivape.cn/bluehd/#/pages/help/help?activityId="+_self.ids.activityId+"&helpMasterId="+_self.ids.helpMasterId+"&wechatId="+_self.ids.wechatId
 				var qrcodeObj = new QRCode('qrcode-image', {
 					text: qrUrl,
 					width: uni.upx2px(200),

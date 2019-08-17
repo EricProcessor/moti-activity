@@ -1,7 +1,11 @@
 <template>
 	<view class='userA'>
 		<header-box></header-box>
-		<my-task :master="master" :masterInfo="masterInfo"></my-task>
+		<my-task 
+			:taskType="1"
+			:master="master" 
+			:masterInfo="masterInfo" 
+			typeText="我从没使用过电子烟产品"></my-task>
 		<help-box :master="master" :helperList="helperList" :taskContents="taskContents"></help-box>
 		<discounts-box ></discounts-box>
 		<code-box :imgUrl="imgUrl"></code-box>
@@ -56,22 +60,40 @@
 		onLoad() {
 			if (this.$wechat && this.$wechat.isWechat()) {
 				const host = location.href.split('#')[0]
-				const ids = uni.getStorageSync('userId')
-			     this.$wechat.share({
+				const ids = uni.getStorageSync('ids')
+			    this.$wechat.share2({
 					 title: 'MOTIS 只送不卖',
-					 img: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/bluetooth/avatar/share.png'
-				}, location.href, `${host}#/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}`);  
+					 desc: '低至0元，好友助力领取MOTI S智能电子烟',
+					 link: `${host}#/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}`,
+					 imgUrl: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/bluetooth/avatar/share.png'
+				});  
 			} 
 		},
 		methods:{
 			getInfo: async function() {
-				let userId = uni.getStorageSync('userId');
+				let ids = uni.getStorageSync('ids');
+				let wxUserInfo = uni.getStorageSync('wxUserInfo');
+				if (!(ids || wxUserInfo)) {
+					return uni.redirectTo({
+						url: '/'
+					})
+				}
 				let params = {
-					activityId: userId.activityId,
-					wechatId: userId.wechatId
+					activityId: ids.activityId,
+					wechatId: ids.wechatId
 				};
 				let { code, msg, result } = await queryHelpSubByOpenId(params);
 				if(code == 0){
+					if (result.taskId != 1) {
+						if (result.taskId == 2) {
+							uni.redirectTo({ url: '/pages/userB/userB' })
+						} else if (result.taskId == 3) {
+							uni.redirectTo({ url: '/pages/userC/userC' })
+						} else {
+							uni.redirectTo({ url: '/' })
+						}
+						return 
+					}
 					this.taskContents = JSON.parse(result.task.taskContents[0].content)
 					uni.setStorageSync('taskContents',this.taskContents)
 					let helperNum = this.taskContents.countCondition;
@@ -95,7 +117,6 @@
 						this.isHelp = false
 						this.noType = true
 					}
-					
 				}
 			}
 		}

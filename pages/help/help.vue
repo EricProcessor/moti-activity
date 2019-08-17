@@ -57,6 +57,29 @@
 				code: null
 			};
 		},
+		onLoad(option) {
+			const helpShareParam = uni.getStorageSync('helpShareParam')
+			if (helpShareParam && helpShareParam.activityId) {
+				this.option = helpShareParam
+				for (let item in option) {
+					this.option[item] = option[item]
+				}
+			} else {
+				this.option = option
+			}
+			this.info.activityId = this.option.activityId
+			this.info.oldWechatId = this.option.wechatId
+			this.code = this.option.code;
+			this.helpMasterId = this.option.helpMasterId
+			let params = {
+				activityId: this.option.activityId,
+				wechatId: this.option.wechatId
+			}
+			console.log(this.info)
+			//this.init()
+			this.init();
+			this.getHelpSub(params);
+		},
 		methods:{
 			getWxCode() {
 				const url = `${location.origin}/bluehd/#/pages/help/help`
@@ -71,19 +94,18 @@
 				);
 			},
 			async init(){
-				if(!this.code){
+				let wxUserInfo = uni.getStorageSync('wxUserInfo')
+				if (wxUserInfo) {
+					
+				} else if (this.code) {
+					let infoData = await getUserAllInfo(this.code);
+					let jsonData = JSON.parse(infoData.result);
+					wxUserInfo = jsonData
+					uni.setStorageSync('wxUserInfo', jsonData)
+				} else {
 					this.getWxCode();
 				}
-				let infoData = await getUserAllInfo(this.code);
-				let jsonData = JSON.parse(infoData.result);
-				console.log("个人信息"+ jsonData.nickname);
-				uni.setStorage({
-					key:'wxUserInfo',
-					data:jsonData,
-					success:function(){
-						console.log("储存成功"+JSON.stringify(jsonData));
-					}
-				});
+				this.wxUserInfo = wxUserInfo
 			},
 			async helpBtn(){
 				let wxUserInfo = uni.getStorageSync('wxUserInfo')
@@ -152,30 +174,7 @@
 				})
 			}
 		},
-		onLoad(option) {
-			console.log(option);
-			const helpShareParam = uni.getStorageSync('helpShareParam')
-			if (helpShareParam && helpShareParam.activityId) {
-				this.option = helpShareParam
-				for (let item in option) {
-					this.option[item] = option[item]
-				}
-			} else {
-				this.option = option
-			}
-			this.info.activityId = this.option.activityId
-			this.info.oldWechatId = this.option.wechatId
-			this.code = this.option.code;
-			this.helpMasterId = this.option.helpMasterId
-			let params = {
-				activityId: this.option.activityId,
-				wechatId: this.option.wechatId
-			}
-			console.log(this.info)
-			//this.init()
-			this.getHelpSub(params);
-			this.init();
-		}
+		
 	}
 </script>
 

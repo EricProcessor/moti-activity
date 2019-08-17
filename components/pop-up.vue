@@ -54,10 +54,10 @@
 		},
 		methods:{
 			async queryUserCouponCode(){//获取兑换码
-				let userId = uni.getStorageSync('userId');
+				let ids = uni.getStorageSync('ids');
 				let params = {
-					activityId : userId.activityId,
-					wechatId : userId.wechatId
+					activityId : ids.activityId,
+					wechatId : ids.wechatId
 				}
 				let {code,msg,result} = await queryUserCouponCode(params);
 				if(code==0){
@@ -71,12 +71,12 @@
 			},
 			async submitBtn(){
 				if(this.checkMobile() && this.checkCode()){
-					let userId = uni.getStorageSync('userId');
+					let ids = uni.getStorageSync('ids');
 					let params = {
-						"activityId": userId.activityId,
+						"activityId": ids.activityId,
 						"code": this.userInfo.code,
 						"phone": this.userInfo.mobile,
-						"wechatId": userId.wechatId
+						"wechatId": ids.wechatId
 					}
 					let {code,msg,result} = await checkMobileAndCode(params);
 					if(code == 0){
@@ -94,9 +94,9 @@
 			},
 			async getCode(){
 				if(this.checkMobile()){
-					let userId = uni.getStorageSync('userId');
+					let ids = uni.getStorageSync('ids');
 					let params = {
-						activityId: userId.activityId,
+						activityId: ids.activityId,
 						phone: this.userInfo.mobile,
 						shopAttDetailId:0,
 						shopId:'111'

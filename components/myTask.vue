@@ -49,20 +49,8 @@
 			userImgProgress:{
 				type: Boolean,
 				default: false
-			}
-		},
-		computed: {
-			typeText() {
-				let text = ''
-				if (this.taskType == 1) {
-					text = '我从没使用过电子烟产品'
-				} else if (this.taskType == 2) {
-					text = '我是MOTI（MT产品）'
-				} else {
-					text = '我有其他品牌的换弹式电子烟'
-				}
-				return text
-			}
+			},
+			typeText: String
 		},
 		data() {
 			return {

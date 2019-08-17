@@ -1,7 +1,13 @@
 <template>
 	<view class="userB">
 		<header-box></header-box>
-		<my-task :taskType="2"  :masterInfo="masterInfo" :master="master" :userProgress="userProgress" :userImgProgress="userImgProgress"></my-task>
+		<my-task :taskType="2" 
+			:masterInfo="masterInfo"
+			:master="master"
+			:userProgress="userProgress"
+			:userImgProgress="userImgProgress"
+			 typeText="我是MOTI（MT产品）"
+			></my-task>
 		<discounts-box></discounts-box>
 		<code-box :imgUrl="imgUrl"></code-box>
 		<help-box :master="master" :helperList="helperList" :taskContents="taskContents"></help-box>
@@ -63,22 +69,44 @@
 		onLoad() {
 			if (this.$wechat && this.$wechat.isWechat()) {
 				const host = location.href.split('#')[0]
-				const ids = uni.getStorageSync('userId')
-			     this.$wechat.share({
+				const ids = uni.getStorageSync('ids')
+				this.$wechat.share2({
 					 title: 'MOTIS 只送不卖',
-					 img: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/bluetooth/avatar/share.png'
-				}, location.href, `${host}#/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}`);  
+					 desc: '低至0元，好友助力领取MOTI S智能电子烟',
+					 link: `${host}#/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}`,
+					 imgUrl: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/bluetooth/avatar/share.png'
+				});
+			 //     this.$wechat.share({
+				// 	 title: 'MOTIS 只送不卖',
+				// 	 img: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/bluetooth/avatar/share.png'
+				// }, location.href, `${host}#/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}`);  
 			} 
 		},
 		methods:{
 			getInfo: async function() {
-				let userId = uni.getStorageSync('userId');
+				let ids = uni.getStorageSync('ids');
+				let wxUserInfo = uni.getStorageSync('wxUserInfo');
+				if (!(ids || wxUserInfo)) {
+					return uni.redirectTo({
+						url: '/'
+					})
+				}
 				let params = {
-					activityId: userId.activityId,
-					wechatId: userId.wechatId
+					activityId: ids.activityId,
+					wechatId: ids.wechatId
 				};
 				let { code, msg, result } = await queryHelpSubByOpenId(params);
 				if(code == 0){
+					if (result.taskId != 2) {
+						if (result.taskId == 1) {
+							uni.redirectTo({ url: '/pages/userA/userA' })
+						} else if (result.taskId == 3) {
+							uni.redirectTo({ url: '/pages/userC/userC' })
+						} else {
+							uni.redirectTo({ url: '/' })
+						}
+						return 
+					}
 					this.taskContents = JSON.parse(result.task.taskContents[0].content)
 					uni.setStorageSync('taskContents',this.taskContents)
 					let helperNum = JSON.parse(result.task.taskContents[0].content).countCondition;
