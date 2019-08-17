@@ -33,7 +33,7 @@
 
 <script>
 	import Bus from '@/common/bus.js';
-	import {dynamicCode,checkMobileAndCode,queryUserCouponCode} from "@/common/request.js";
+	import {dynamicCode,checkMobileAndCode,queryUserCouponCode, queryHelpMasterByUserId} from "@/common/request.js";
 	export default {
 		data() {
 			return {
@@ -56,22 +56,39 @@
 			Bus.$on('showPop',(data) => {
 				this.popShow = data;
 			})
+			queryHelpMasterByUserId()
 		},
 		methods:{
-			async queryUserCouponCode(){//获取兑换码
+			async queryHelpMasterByUserId() {
 				let ids = uni.getStorageSync('ids');
 				let params = {
 					activityId : ids.activityId,
-					wechatId : ids.wechatId
+					wechatId : ids.helpMasterId // 名称是wechatId, id是helpMasterId, 这是对的
+				}
+				let { code, msg, result } = await queryHelpMasterByUserId(params);
+				if (code == 0 && result.phone) {
+					this.queryUserCouponCode(1)
+				}
+			},
+			async queryUserCouponCode(type = 1){//获取兑换码
+				let ids = uni.getStorageSync('ids');
+				let params = {
+					activityId : ids.activityId,
+					wechatId : ids.helpMasterId // 名称是wechatId, id是helpMasterId, 这是对的
 				}
 				let {code,msg,result} = await queryUserCouponCode(params);
 				if(code==0){
+					Bus.$emit('changeShowBtn',false);
+					Bus.$emit('discountsShow',true);
+					Bus.$emit('codeShow',true);
 					Bus.$emit('couponCode',result.couponCode);
 				}else{
-					uni.showToast({
-						icon:'none',
-						title:msg
-					})
+					if (type == 2) {
+						uni.showToast({
+							icon:'none',
+							title:msg
+						})
+					}
 				}
 			},
 			async submitBtn(){
@@ -86,9 +103,7 @@
 					let {code,msg,result} = await checkMobileAndCode(params);
 					if(code == 0){
 						this.popShow = false;
-						Bus.$emit('discountsShow',true);
-						Bus.$emit('codeShow',true);
-						this.queryUserCouponCode();
+						this.queryUserCouponCode(2);
 					}else{
 						uni.showToast({
 							icon: 'none',

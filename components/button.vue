@@ -2,7 +2,7 @@
 	<view class="boutton-box">
 		<view v-if='isHelp' @tap='goHelp' class="btn">邀请好友助力</view>
 		<view v-if="fillIn" class='btn' @tap="toForm">填写表单</view>
-		<view v-if='!isHelp' @tap='completeTask' class="btn">完成任务</view>
+		<view v-if='!isHelp  && isShowBtn' @tap='completeTask' class="btn">完成任务</view>
 	</view>
 </template>
 
@@ -10,6 +10,10 @@
 	import Bus from '@/common/bus.js'
 	export default {
 		props:{
+			isShowBtn:{
+				type: Boolean,
+				default: true
+			},
 			fillIn:{
 				type: Boolean,
 				default: false
@@ -22,6 +26,11 @@
 				type: Boolean,
 				default: true
 			}
+		},
+		mounted() {
+			Bus.$on('changeShowBtn',(data) => {
+				this.isShowBtn = data;
+			})
 		},
 		methods:{
 			goHelp(){

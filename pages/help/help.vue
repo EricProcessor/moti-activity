@@ -67,7 +67,11 @@
 			} else {
 				this.option = option
 			}
-			this.info.activityId = this.option.activityId
+			this.option.activityId = parseInt(this.option.activityId)
+			this.option.wechatId = parseInt(this.option.wechatId)
+			this.option.helpMasterId = parseInt(this.option.helpMasterId)
+			
+			this.info.activityId = parseInt(this.option.activityId)
 			this.info.oldWechatId = this.option.wechatId
 			this.code = this.option.code;
 			this.helpMasterId = this.option.helpMasterId

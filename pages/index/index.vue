@@ -87,7 +87,12 @@ export default {
 		if (this.option && !this.isOnLoad) {
 			const wxUserInfo = uni.getStorageSync('wxUserInfo')
 			if (wxUserInfo) {
-				this.initData('')
+				// this.initData('')
+				if (wxUserInfo) {
+					this.initData('')
+				} else {
+					this.getWxCode()
+				}
 			}
 		}
 		

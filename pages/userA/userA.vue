@@ -11,7 +11,7 @@
 		<code-box :imgUrl="imgUrl"></code-box>
 		<footer-box></footer-box>
 		<button-box :isHelp="isHelp" :noType="noType"></button-box>
-		<pop-up></pop-up>
+		<pop-up @couponCode="couponCode"></pop-up>
 		<invite-help></invite-help>
 	</view>
 </template>
@@ -114,12 +114,20 @@ const host = location.href.split('#')[0]
 						this.noType = true
 					}
 				}
+			},
+			couponCode() {
+				// uni.navigateTo({
+				// 	url: '/pages/'
+				// })
 			}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
+	page {
+		padding-bottom: 100upx;
+	}
 	.userA {
 		display: flex;
 		flex-direction: column;
