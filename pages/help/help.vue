@@ -5,8 +5,8 @@
 			<image class='touxiang' :src="taskContent.wechatHeadeImgUrl?taskContent.wechatHeadeImgUrl:'/static/mine.png'"></image>
 			<view class="name">{{taskContent.wechatNickname?decodeURIComponent(taskContent.wechatNickname):'未设置'}}</view>
 			<view class="text">
-				<view class="text1">Ta正在参加免费送烟杆活动</view>
-				<view class="text2">请为Ta助力</view>
+				<view class="text1">已成功为Ta助力</view>
+				<!-- <view class="text2">请为Ta助力</view> -->
 			</view>
 			<view class="tishi">已经有
 				<text class="color">{{taskContent.countData}}名</text>好友为Ta助力，还差
@@ -58,7 +58,8 @@
 			};
 		},
 		async onLoad(option) {
-			const helpShareParam = uni.getStorageSync('helpShareParam')
+			const helpShareParam = uni.getStorageSync('helpShareParam');
+			console.log(helpShareParam);
 			if (helpShareParam && helpShareParam.activityId) {
 				this.option = helpShareParam
 				for (let item in option) {
@@ -164,7 +165,8 @@
 					this.taskContent = contentObj
 					this.taskContent.wechatHeadeImgUrl = result.userMsg.wechatHeadeImgUrl
 					this.taskContent.wechatNickname = result.userMsg.wechatNickname
-					this.taskContent.calcNum = contentObj.countCondition - contentObj.countData
+					// this.taskContent.calcNum = contentObj.countCondition - contentObj.countData
+					contentObj.countCondition>contentObj.countData ? this.taskContent.calcNum = contentObj.countCondition - contentObj.countData :  this.taskContent.calcNum=0
 					this.taskContent.percent = (contentObj.countData)/contentObj.countCondition * 100
 					this.taskId = result.task.taskContents.taskId
 					this.addWechatUser(params)

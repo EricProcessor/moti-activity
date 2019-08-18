@@ -18,7 +18,7 @@
 			count: {
 				type: [Number, String],
 				default() {
-					return 10984
+					return ' '
 				}
 			}
 		},

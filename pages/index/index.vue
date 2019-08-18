@@ -38,14 +38,14 @@ export default {
 			selectedIndex: 0,
 			activityInfo: [
 				{
-					title: '我从没使用过电子烟产品',
-					content: '需完成36个好友助力，获取限时购买资格',
+					title: '我没有电子烟产品',
+					content: '需完成 36 个好友助力，获取限时购买资格',
 					url: '/pages/userA/userA',
 					id: 1
 				},
 				{
-					title: '我是MOTI（MT产品）',
-					content: '需完成10个好友助力+拍照上传MOTI照',
+					title: '我有MOTI（MT）产品',
+					content: '需完成 10 个好友助力+拍照上传 MOTI 照片 获取换购资格',
 					url: '/pages/userB/userB',
 					id: 2
 				},

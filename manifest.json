@@ -92,7 +92,7 @@
             }
         },
         "router" : {
-            "base" : "/bluehd/",
+            "base" : "/html5/",
             "mode" : "hash"
         },
         "template" : ""

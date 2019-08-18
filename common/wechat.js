@@ -123,7 +123,8 @@ export default {
 					// desc: data&&data.desc ? data.desc: signData.site_description,  
 					desc: '低至0元，好友助力领取MOTI S智能电子烟', // 暂时写死
 					link: shareUrl,
-					imgUrl: data && data.img ? data.img : signData.site_logo,
+					// imgUrl: data && data.img ? data.img : signData.site_logo,
+					imgUrl: data && data.img ? data.img : 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/bluetooth/avatar/share.png',
 					success: function(res) {
 						//用户点击分享后的回调，这里可以进行统计，例如分享送金币之类的  
 						request.post('/api/member/share');
