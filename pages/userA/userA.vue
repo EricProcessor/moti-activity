@@ -10,7 +10,7 @@
 		<discounts-box ></discounts-box>
 		<code-box :imgUrl="imgUrl"></code-box>
 		<footer-box></footer-box>
-		<button-box :isHelp="isHelp" :noType="noType"></button-box>
+		<button-box :isHasPhone="isHasPhone" :taskId="taskId" :isCompleted="isCompleted" :isHelp="isHelp" :noType="noType"></button-box>
 		<pop-up @couponCode="couponCode"></pop-up>
 		<invite-help></invite-help>
 	</view>
@@ -26,7 +26,8 @@
 	import codeBox from '@/components/code.vue';
 	import buttonBox from '@/components/button.vue';
 	import inviteHelp from '@/components/inviteHelp.vue';
-	import { queryHelpSubByOpenId } from '@/common/request.js';
+	import { queryHelpSubByOpenId, queryHelpMasterByUserId } from '@/common/request.js';
+	import Bus from '@/common/bus.js';
 	export default {
 		components: {
 			headerBox,
@@ -51,11 +52,20 @@
 				masterInfo:{},
 				imgUrl: '/static/a.png',
 				noType: false,
-				taskContents:{}
+				taskContents:{},
+				taskId: 0,
+				isCompleted: false,
+				isHasPhone: false
 			};
 		},
 		mounted() {
 			this.getInfo();
+			this.queryHelpMasterByUserId()
+			
+			Bus.$on('changeIsCompleted', (data) => {
+				this.isCompleted = true
+				this.isHasPhone = true
+			})
 		},
 		onLoad() {
 			if (this.$wechat && this.$wechat.isWechat()) {
@@ -82,6 +92,7 @@ const host = location.href.split('#')[0]
 				};
 				let { code, msg, result } = await queryHelpSubByOpenId(params);
 				if(code == 0){
+					this.taskId = result.task.taskId
 					if (result.task.taskId != 1) {
 						if (result.task.taskId == 2) {
 							return uni.redirectTo({ url: '/pages/userB/userB' })
@@ -110,9 +121,22 @@ const host = location.href.split('#')[0]
 					this.masterInfo = result.userMsg;
 					let taskStatus = result.userMsg.taskStatus;
 					if(taskStatus == 1){
+						this.isCompleted = true
 						this.isHelp = false
 						this.noType = true
 					}
+				}
+			},
+			async queryHelpMasterByUserId() {
+				let ids = uni.getStorageSync('ids');
+				console.log('ids', ids);
+				let data = {
+					activityId : ids.activityId,
+					wechatId : ids.wechatId // 名称是wechatId, id是helpMasterId, 这是对的
+				}
+				let { code, msg, result } = await queryHelpMasterByUserId(data);
+				if (code == 0 && result && result.phone) {
+					this.isHasPhone = true
 				}
 			},
 			couponCode() {

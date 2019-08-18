@@ -8,7 +8,7 @@
 			></my-task>
 		<help-box :master="master" :helperList="helperList" :fillIn="fillIn" :taskContents="taskContents"></help-box>
 		<footer-box></footer-box>
-		<button-box :fillIn="fillIn" :isHelp="isHelp" :noType="noType"></button-box>
+		<button-box :isCompleted="isCompleted" :taskId="taskId" :fillIn="fillIn" :isHelp="isHelp" :noType="noType"></button-box>
 		<invite-help></invite-help>
 	</view>
 </template>
@@ -20,7 +20,8 @@ import helpBox from '@/components/help.vue';
 import footerBox from '@/components/footer.vue';
 import buttonBox from '@/components/button.vue';
 import inviteHelp from '@/components/inviteHelp.vue'
-import { queryHelpSubByOpenId } from '@/common/request.js';
+import { queryHelpSubByOpenId, queryHelpMasterByUserId } from '@/common/request.js';
+import Bus from '@/common/bus.js';
 export default {
 	components: {
 		headerBox,
@@ -42,11 +43,13 @@ export default {
 			isHelp: true,
 			masterInfo:{},
 			noType: false,
-			taskContents:{}
+			taskContents:{},
+			taskId: 0
 		};
 	},
 	mounted() {
 		this.getInfo();
+		this.queryHelpMasterByUserId()
 	},
 	onLoad() {
 		if (this.$wechat && this.$wechat.isWechat()) {
@@ -77,6 +80,7 @@ export default {
 			};
 			let { code, msg, result } = await queryHelpSubByOpenId(params);
 			if(code == 0){
+				this.taskId = result.task.taskId
 				if (result.taskId != 3) {
 					if (result.task.taskId == 1) {
 						return uni.redirectTo({ url: '/pages/userA/userA' })
@@ -104,13 +108,25 @@ export default {
 				this.masterInfo = result.userMsg;
 				let taskStatus = result.userMsg.taskStatus;
 				if(taskStatus == 1){
+					this.isCompleted = true
+					Bus.$emit('changeShowBtn',false);
 					this.fillIn = true
 					this.isHelp = false
 					this.noType = true
 				}
 				
 			}
-		}
+		},
+		async queryHelpMasterByUserId() {
+			let ids = uni.getStorageSync('ids');
+			console.log('ids', ids);
+			let data = {
+				activityId : ids.activityId,
+				wechatId : ids.wechatId // 名称是wechatId, id是helpMasterId, 这是对的
+			}
+			let { code, msg, result } = await queryHelpMasterByUserId(data);
+			this.isHasPhone = code == 0 && result && result.phone
+		},
 	}
 };
 </script>

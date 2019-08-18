@@ -18,6 +18,7 @@
 </template>
 
 <script>
+	import Bus from '@/common/bus.js';
 	import { uploadMoti,motiPicCommit } from '@/common/request.js';
 	export default {
 		props:{
@@ -44,17 +45,15 @@
 					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
 					sourceType: ['album'],//从相册选择
 					success:async (res) => {
-						// _this.imgSrc = res.tempFilePaths[0];
-						uni.showToast({
-							icon:'none',
-							title:'上传成功'
-						})
 						this.uploadPic()
 					}
 				})
 			},
 			uploadPic:async function (){
-				
+				uni.showLoading({
+					title: '正在上传...',
+					mask: true
+				})
 				let params = {
 					file: this.imgSrc 
 				}
@@ -68,6 +67,8 @@
 					}
 					let {code,msg,result} = await motiPicCommit(params)
 					if(code == 0){
+						uni.hideLoading()
+						Bus.$emit('taskBIsDoing', false);
 						this.$emit('userImgProgress',true)
 					}
 				}else{

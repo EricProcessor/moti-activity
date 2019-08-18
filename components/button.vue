@@ -1,8 +1,20 @@
 <template>
 	<view class="boutton-box">
-		<view v-if='isHelp' @tap='goHelp' class="btn">邀请好友助力</view>
+		<block v-if="taskId == 1">
+			<view v-if='!isCompleted' @tap='goHelp' class="btn">邀请好友助力</view>
+			<view v-else-if="!isHasPhone" @tap='completeTask' class="btn">完成任务</view>
+		</block>
+		<block v-if="taskId == 2">
+			<view v-if='!isCompleted' @tap='goHelp' class="btn">邀请好友助力</view>
+			<view v-else-if="isCompleted && !isDoing && !isHasPhone" @tap='completeTask' class="btn">完成任务</view>
+		</block>
+		<block v-if="taskId == 3">
+			<view v-if='!isCompleted' @tap='goHelp' class="btn">邀请好友助力</view>
+			<view v-else class='btn' @tap="toForm">填写表单</view>
+		</block>
+		<!-- <view v-if='isHelp && isShowBtn' @tap='goHelp' class="btn">邀请好友助力</view>
 		<view v-if="fillIn" class='btn' @tap="toForm">填写表单</view>
-		<view v-if='!isHelp  && isShowBtn' @tap='completeTask' class="btn">完成任务</view>
+		<view v-if='!isHelp && isShowBtn' @tap='completeTask' class="btn">完成任务</view> -->
 	</view>
 </template>
 
@@ -10,9 +22,27 @@
 	import Bus from '@/common/bus.js'
 	export default {
 		props:{
-			isShowBtn:{
+			taskId: {
+				type: [Number, String],
+				default() {
+					return 0
+				}
+			},
+			isCompleted: {
 				type: Boolean,
-				default: true
+				default: false
+			},
+			isDoing: {
+				type: Boolean,
+				default: false
+			},
+			isAllTaskCompleted: {
+				type: Boolean,
+				default: false
+			},
+			isHasPhone: {
+				type: Boolean,
+				default: false
 			},
 			fillIn:{
 				type: Boolean,
@@ -27,9 +57,19 @@
 				default: true
 			}
 		},
+		data() {
+			return {
+				isShowBtn: true,
+				taskBIsShowBtn: true
+			}
+		},
 		mounted() {
 			Bus.$on('changeShowBtn',(data) => {
+				console.log('changeShowBtn', data);
 				this.isShowBtn = data;
+			})
+			Bus.$on('taskBIsShowBtn',(data) => {
+				this.taskBIsShowBtn = data;
 			})
 		},
 		methods:{

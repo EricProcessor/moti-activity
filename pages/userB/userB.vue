@@ -8,13 +8,13 @@
 			:userImgProgress="userImgProgress"
 			 typeText="我是MOTI（MT产品）"
 			></my-task>
+		<help-box :master="master" :helperList="helperList" :taskContents="taskContents"></help-box>
 		<discounts-box></discounts-box>
 		<code-box :imgUrl="imgUrl"></code-box>
-		<help-box :master="master" :helperList="helperList" :taskContents="taskContents"></help-box>
 		<upload-img :userImgProgress="userImgProgress" 
 			@userImgProgress="getUserImgProgress" :taskImgInfo="taskImgInfo"></upload-img>
 		<footer-box></footer-box>
-		<button-box :isHelp="isHelp" :noType="noType"></button-box>
+		<button-box :isAllTaskCompleted="isAllTaskCompleted" :isDoing="isDoing" :isHasPhone="isHasPhone" :isCompleted="isCompleted" :isHelp="isHelp" :noType="noType" :taskId="taskId"></button-box>
 		<pop-up></pop-up>
 		<invite-help></invite-help>
 	</view>
@@ -31,7 +31,8 @@
 	import uploadImg from '@/components/uploadImg.vue';
 	import popUp from "@/components/pop-up.vue";
 	import inviteHelp from '@/components/inviteHelp.vue'
-	import { queryHelpSubByOpenId } from '@/common/request.js';
+	import { queryHelpSubByOpenId, queryHelpMasterByUserId } from '@/common/request.js';
+	import Bus from '@/common/bus.js';
 	export default {
 		components:{
 			headerBox,
@@ -60,11 +61,23 @@
 				noType: false,
 				taskContents:{},
 				masterInfo:{},
-				taskImgInfo:{}
+				taskImgInfo:{},
+				taskId: 0,
+				isCompleted: false,
+				isHasPhone: false,
+				isDoing: false,
+				isAllTaskCompleted: false
 			};
 		},
 		mounted() {
 			this.getInfo();
+			this.queryHelpMasterByUserId()
+			Bus.$on('taskBIsDoing', () => {
+				this.isDoing = false
+			})
+			Bus.$on('isInputedPhone', () => {
+				this.isHasPhone = true
+			})
 		},
 		onLoad() {
 			if (this.$wechat && this.$wechat.isWechat()) {
@@ -91,6 +104,7 @@
 				};
 				let { code, msg, result } = await queryHelpSubByOpenId(params);
 				if(code == 0){
+					this.taskId = result.task.taskId
 					if (result.task.taskId != 2) {
 						if (result.task.taskId == 1) {
 							return uni.redirectTo({ url: '/pages/userA/userA' })
@@ -116,9 +130,18 @@
 						}
 					}
 					this.masterInfo = result.userMsg;
+					console.log(result.task.taskContents[0], result.task.taskContents[0].status);
+					if (result.task.taskContents[0] && result.task.taskContents[0].status == 1 && result.task.taskId == 2) {
+						// Bus.$emit('changeShowBtn',false);
+						// this.isHelp = false
+						this.isCompleted = true
+						this.isDoing = true
+					}
+					
 					let userBStatus = false
 					if(result.task.taskContents[0].status == 1 && result.task.taskContents[1].status == 1){
 						userBStatus = true
+						// Bus.$emit('changeShowBtn',true);
 					}
 					if(result.task.taskContents[0].status == 1){
 						this.userProgress = true
@@ -127,11 +150,26 @@
 						this.taskImgInfo = JSON.parse(result.task.taskContents[1].content)
 						this.userImgProgress = true
 					}
+					console.log('userBStatus', userBStatus);
 					if(userBStatus){
+						this.isDoing = false
+						this.isCompleted = true
 						this.isHelp = false
 						this.noType = true
 					}
 					
+				}
+			},
+			async queryHelpMasterByUserId() {
+				let ids = uni.getStorageSync('ids');
+				console.log('ids', ids);
+				let data = {
+					activityId : ids.activityId,
+					wechatId : ids.wechatId // 名称是wechatId, id是helpMasterId, 这是对的
+				}
+				let { code, msg, result } = await queryHelpMasterByUserId(data);
+				if (code == 0 && result && result.phone) {
+					this.isHasPhone = true
 				}
 			},
 			getUserImgProgress: function (options){

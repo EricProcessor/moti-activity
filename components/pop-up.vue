@@ -56,17 +56,21 @@
 			Bus.$on('showPop',(data) => {
 				this.popShow = data;
 			})
-			queryHelpMasterByUserId()
+			console.log('queryHelpMasterByUserId');
+			this.queryHelpMasterByUserId()
 		},
 		methods:{
 			async queryHelpMasterByUserId() {
+				console.log('================');
 				let ids = uni.getStorageSync('ids');
-				let params = {
+				console.log('ids', ids);
+				let data = {
 					activityId : ids.activityId,
-					wechatId : ids.helpMasterId // 名称是wechatId, id是helpMasterId, 这是对的
+					wechatId : ids.wechatId // 名称是wechatId, id是helpMasterId, 这是对的
 				}
-				let { code, msg, result } = await queryHelpMasterByUserId(params);
-				if (code == 0 && result.phone) {
+				let { code, msg, result } = await queryHelpMasterByUserId(data);
+				console.log(this.taskId, this.isCompleted);
+				if (code == 0 && result && result.phone) {
 					this.queryUserCouponCode(1)
 				}
 			},
@@ -78,6 +82,8 @@
 				}
 				let {code,msg,result} = await queryUserCouponCode(params);
 				if(code==0){
+					Bus.$emit('changeIsCompleted',true);
+					Bus.$emit('taskBIsAllCompleted',true);
 					Bus.$emit('changeShowBtn',false);
 					Bus.$emit('discountsShow',true);
 					Bus.$emit('codeShow',true);
@@ -103,6 +109,7 @@
 					let {code,msg,result} = await checkMobileAndCode(params);
 					if(code == 0){
 						this.popShow = false;
+						Bus.$emit('isInputedPhone', true)
 						this.queryUserCouponCode(2);
 					}else{
 						uni.showToast({
