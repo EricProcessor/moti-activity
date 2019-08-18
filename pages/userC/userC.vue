@@ -8,7 +8,7 @@
 			></my-task>
 		<help-box :master="master" :helperList="helperList" :fillIn="fillIn" :taskContents="taskContents"></help-box>
 		<footer-box></footer-box>
-		<button-box :isCompleted="isCompleted" :taskId="taskId" :fillIn="fillIn" :isHelp="isHelp" :noType="noType"></button-box>
+		<button-box :isCompleted="isCompleted" :taskId="taskId"></button-box>
 		<invite-help></invite-help>
 	</view>
 </template>
@@ -109,10 +109,10 @@ export default {
 				let taskStatus = result.userMsg.taskStatus;
 				if(taskStatus == 1){
 					this.isCompleted = true
-					Bus.$emit('changeShowBtn',false);
-					this.fillIn = true
-					this.isHelp = false
-					this.noType = true
+					// Bus.$emit('changeShowBtn',false);
+					// this.fillIn = true
+					// this.isHelp = false
+					// this.noType = true
 				}
 				
 			}

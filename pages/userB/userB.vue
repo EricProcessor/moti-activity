@@ -14,7 +14,7 @@
 		<upload-img :userImgProgress="userImgProgress" 
 			@userImgProgress="getUserImgProgress" :taskImgInfo="taskImgInfo"></upload-img>
 		<footer-box></footer-box>
-		<button-box :isAllTaskCompleted="isAllTaskCompleted" :isDoing="isDoing" :isHasPhone="isHasPhone" :isCompleted="isCompleted" :isHelp="isHelp" :noType="noType" :taskId="taskId"></button-box>
+		<button-box :isDoing="isDoing" :isHasPhone="isHasPhone" :isCompleted="isCompleted" :taskId="taskId"></button-box>
 		<pop-up></pop-up>
 		<invite-help></invite-help>
 	</view>
@@ -132,9 +132,9 @@
 					this.masterInfo = result.userMsg;
 					console.log(result.task.taskContents[0], result.task.taskContents[0].status);
 					if (result.task.taskContents[0] && result.task.taskContents[0].status == 1 && result.task.taskId == 2) {
-						// Bus.$emit('changeShowBtn',false);
-						// this.isHelp = false
+						// userB任务, 完成第一步即助力任务了, 但还没有完成上传图片
 						this.isCompleted = true
+						// 是否正在进行, 即上传图片还未完成
 						this.isDoing = true
 					}
 					
@@ -152,10 +152,11 @@
 					}
 					console.log('userBStatus', userBStatus);
 					if(userBStatus){
+						// 两个任务都完成了
 						this.isDoing = false
 						this.isCompleted = true
-						this.isHelp = false
-						this.noType = true
+						// this.isHelp = false
+						// this.noType = true
 					}
 					
 				}
