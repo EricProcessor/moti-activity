@@ -5,7 +5,7 @@
 		<!-- 完成任务且填了手机号, 不显示按钮, 页面显示优惠码 -->
 		<block v-if="taskId == 1">
 			<view v-if='!isCompleted' @tap='goHelp' class="btn">邀请好友助力</view>
-			<view v-else-if="!isHasPhone" @tap='completeTask' class="btn">完成任务</view>
+			<view v-else-if="!isHasPhone" @tap='completeTask' class="btn">完成助力，点击提交</view>
 		</block>
 		<!-- 为完成助力任务时显示: 邀请好友助力 -->
 		<!-- 完成助力,但没有上传图片, 不显示按钮 -->
@@ -13,7 +13,7 @@
 		<!-- 都完成了, 不显示按钮 -->
 		<block v-if="taskId == 2">
 			<view v-if='!isCompleted' @tap='goHelp' class="btn">邀请好友助力</view>
-			<view v-else-if="isCompleted && !isDoing && !isHasPhone" @tap='completeTask' class="btn">完成任务</view>
+			<view v-else-if="isCompleted && !isDoing && !isHasPhone" @tap='completeTask' class="btn">完成助力，点击提交</view>
 		</block>
 		<!-- 为完成任务显示: 邀请好友助力 -->
 		<!-- 完成任务显示填写表单 -->

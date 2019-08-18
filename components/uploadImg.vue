@@ -68,7 +68,8 @@
 					let {code,msg,result} = await motiPicCommit(params)
 					if(code == 0){
 						uni.hideLoading()
-						Bus.$emit('taskBIsDoing', false);
+						// Bus.$emit('taskBIsDoing', false);
+						Bus.$emit('taskBIsDoing', true);
 						this.$emit('userImgProgress',true)
 					}
 				}else{

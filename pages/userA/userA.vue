@@ -129,8 +129,6 @@ const host = location.href.split('#')[0]
 					if(taskStatus == 1){
 						// 已完成任务, 改变状态
 						this.isCompleted = true
-						// this.isHelp = false
-						// this.noType = true
 					}
 				}
 			},

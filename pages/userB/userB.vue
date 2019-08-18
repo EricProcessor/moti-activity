@@ -73,8 +73,12 @@
 		mounted() {
 			this.getInfo();
 			this.queryHelpMasterByUserId()
-			Bus.$on('taskBIsDoing', () => {
-				this.isDoing = false
+			// Bus.$on('taskBIsDoing', () => {
+			// 	this.isDoing = false
+			// })
+			Bus.$on('taskBIsDoing', (data) => {
+				this.isDoing = data;
+				// this.isDoing = false
 			})
 			Bus.$on('isInputedPhone', () => {
 				this.isHasPhone = true
