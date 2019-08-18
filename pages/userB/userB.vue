@@ -1,12 +1,12 @@
 <template>
 	<view class="userB">
-		<header-box></header-box>
+		<header-box :count="userCountNum"></header-box>
 		<my-task :taskType="2" 
 			:masterInfo="masterInfo"
 			:master="master"
 			:userProgress="userProgress"
 			:userImgProgress="userImgProgress"
-			 typeText="我是MOTI（MT产品）"
+			 typeText="我有MOTI（MT）产品"
 			></my-task>
 		<help-box :master="master" :helperList="helperList" :taskContents="taskContents"></help-box>
 		<discounts-box></discounts-box>
@@ -31,7 +31,7 @@
 	import uploadImg from '@/components/uploadImg.vue';
 	import popUp from "@/components/pop-up.vue";
 	import inviteHelp from '@/components/inviteHelp.vue'
-	import { queryHelpSubByOpenId, queryHelpMasterByUserId } from '@/common/request.js';
+	import { queryHelpSubByOpenId, queryHelpMasterByUserId,userCount } from '@/common/request.js';
 	import Bus from '@/common/bus.js';
 	export default {
 		components:{
@@ -48,6 +48,7 @@
 		},
 		data() {
 			return {
+				userCountNum:0,
 				master: {
 					helpNum: 10,
 					helpText: '完成2个任务，即可获得',
@@ -80,6 +81,7 @@
 			})
 		},
 		onLoad() {
+			this.userCount();
 			if (this.$wechat && this.$wechat.isWechat()) {
 				const host = location.href.split('#')[0]
 				const ids = uni.getStorageSync('ids')
@@ -90,6 +92,10 @@
 			} 
 		},
 		methods:{
+			async userCount() {
+				const { result } = await userCount()
+				this.userCountNum = result.count
+			},
 			getInfo: async function() {
 				let ids = uni.getStorageSync('ids');
 				let wxUserInfo = uni.getStorageSync('wxUserInfo');

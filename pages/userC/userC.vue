@@ -1,6 +1,6 @@
 <template>
 	<view class="userC">
-		<header-box></header-box>
+		<header-box :count="userCountNum"></header-box>
 		<my-task :master="master" 
 			:taskType="3"
 			:masterInfo="masterInfo"
@@ -20,7 +20,7 @@ import helpBox from '@/components/help.vue';
 import footerBox from '@/components/footer.vue';
 import buttonBox from '@/components/button.vue';
 import inviteHelp from '@/components/inviteHelp.vue'
-import { queryHelpSubByOpenId, queryHelpMasterByUserId } from '@/common/request.js';
+import { queryHelpSubByOpenId, queryHelpMasterByUserId,userCount } from '@/common/request.js';
 import Bus from '@/common/bus.js';
 export default {
 	components: {
@@ -33,6 +33,7 @@ export default {
 	},
 	data() {
 		return {
+			userCountNum:0,
 			master: {
 				helpNum: 5,
 				helpText: '完成1个任务，即可获得',
@@ -52,6 +53,7 @@ export default {
 		this.queryHelpMasterByUserId()
 	},
 	onLoad() {
+		this.userCount();
 		if (this.$wechat && this.$wechat.isWechat()) {
 			const host = location.href.split('#')[0]
 			const ids = uni.getStorageSync('ids')
@@ -66,6 +68,10 @@ export default {
 		} 
 	},
 	methods: {
+		async userCount() {
+			const { result } = await userCount()
+			this.userCountNum = result.count
+		},
 		getInfo: async function() {
 			let ids = uni.getStorageSync('ids');
 			let wxUserInfo = uni.getStorageSync('wxUserInfo');

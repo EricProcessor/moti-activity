@@ -5,9 +5,12 @@
 			<image class='touxiang' :src="taskContent.wechatHeadeImgUrl?taskContent.wechatHeadeImgUrl:'/static/mine.png'"></image>
 			<view class="name">{{taskContent.wechatNickname?decodeURIComponent(taskContent.wechatNickname):'未设置'}}</view>
 			<view class="text">
-				<view class="text1">已成功为Ta助力</view>
-				<!-- <view class="text2">请为Ta助力</view> -->
+				<view class="text1">Ta正在参加免费送烟杆活动</view>
+				<view class="text2">请为Ta助力</view>
 			</view>
+			<!-- <view class="text">
+				<view class="text1">已成功为他助力</view>
+			</view> -->
 			<view class="tishi">已经有
 				<text class="color">{{taskContent.countData}}名</text>好友为Ta助力，还差
 				<text class="color">{{taskContent.calcNum}}个</text>助力
