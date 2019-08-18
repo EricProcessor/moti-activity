@@ -68,6 +68,7 @@
 					activityId : ids.activityId,
 					wechatId : ids.wechatId // 名称是wechatId, id是helpMasterId, 这是对的
 				}
+				// 查询是否填写过手机号了
 				let { code, msg, result } = await queryHelpMasterByUserId(data);
 				console.log(this.taskId, this.isCompleted);
 				if (code == 0 && result && result.phone) {
@@ -75,6 +76,8 @@
 				}
 			},
 			async queryUserCouponCode(type = 1){//获取兑换码
+				// type=1: 初始查询, 不需要显示错误信息弹窗
+				// type=2: 点击按钮查询优惠码
 				let ids = uni.getStorageSync('ids');
 				let params = {
 					activityId : ids.activityId,
@@ -82,11 +85,14 @@
 				}
 				let {code,msg,result} = await queryUserCouponCode(params);
 				if(code==0){
+					// 改变任务状态, 针对userA任务
 					Bus.$emit('changeIsCompleted',true);
-					Bus.$emit('taskBIsAllCompleted',true);
-					Bus.$emit('changeShowBtn',false);
+					// Bus.$emit('changeShowBtn',false);
+					// 改变优惠码显示, 针对userA和userB任务
 					Bus.$emit('discountsShow',true);
+					// 改变官方二维码显示, 针对userB任务
 					Bus.$emit('codeShow',true);
+					// 优惠码
 					Bus.$emit('couponCode',result.couponCode);
 				}else{
 					if (type == 2) {
@@ -109,6 +115,7 @@
 					let {code,msg,result} = await checkMobileAndCode(params);
 					if(code == 0){
 						this.popShow = false;
+						// 填写完手机号并提交成功了说明有手机号了
 						Bus.$emit('isInputedPhone', true)
 						this.queryUserCouponCode(2);
 					}else{

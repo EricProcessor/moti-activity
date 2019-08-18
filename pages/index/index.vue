@@ -73,6 +73,7 @@ export default {
 	onLoad(option) {
 		this.isOnLoad = true
 		this.option = option
+		// 本地有微信信息说明已经授权过了, 不用再次授权
 		const wxUserInfo = uni.getStorageSync('wxUserInfo')
 		if (wxUserInfo) {
 			this.initData('')
@@ -86,13 +87,11 @@ export default {
 		this.userCount()
 		if (this.option && !this.isOnLoad) {
 			const wxUserInfo = uni.getStorageSync('wxUserInfo')
-			if (wxUserInfo) {
 				// this.initData('')
-				if (wxUserInfo) {
-					this.initData('')
-				} else {
-					this.getWxCode()
-				}
+			if (wxUserInfo) {
+				this.initData('')
+			} else {
+				this.getWxCode()
 			}
 		}
 		

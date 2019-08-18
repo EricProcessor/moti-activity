@@ -10,8 +10,8 @@
 		<code-box :imgUrl="imgUrl"></code-box>
 		<help-box :master="master" :helperList="helperList" :taskContents="taskContents"></help-box>
 		<footer-box></footer-box>
-		<button-box :isHasPhone="isHasPhone" :taskId="taskId" :isCompleted="isCompleted" :isHelp="isHelp" :noType="noType"></button-box>
-		<pop-up @couponCode="couponCode"></pop-up>
+		<button-box :isHasPhone="isHasPhone" :taskId="taskId" :isCompleted="isCompleted"></button-box>
+		<pop-up></pop-up>
 		<invite-help></invite-help>
 	</view>
 </template>
@@ -127,13 +127,15 @@ const host = location.href.split('#')[0]
 					this.masterInfo = result.userMsg;
 					let taskStatus = result.userMsg.taskStatus;
 					if(taskStatus == 1){
+						// 已完成任务, 改变状态
 						this.isCompleted = true
-						this.isHelp = false
-						this.noType = true
+						// this.isHelp = false
+						// this.noType = true
 					}
 				}
 			},
 			async queryHelpMasterByUserId() {
+				// 查询是否填写过手机号
 				let ids = uni.getStorageSync('ids');
 				console.log('ids', ids);
 				let data = {
@@ -144,11 +146,6 @@ const host = location.href.split('#')[0]
 				if (code == 0 && result && result.phone) {
 					this.isHasPhone = true
 				}
-			},
-			couponCode() {
-				// uni.navigateTo({
-				// 	url: '/pages/'
-				// })
 			}
 		}
 	}
