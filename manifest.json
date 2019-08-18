@@ -93,7 +93,7 @@
         },
         "router" : {
             "base" : "/bluehd/",
-            "mode" : "hash"
+            "mode" : "history"
         },
         "template" : ""
     }

@@ -90,8 +90,6 @@ export default {
 				// this.initData('')
 			if (wxUserInfo) {
 				this.initData('')
-			} else {
-				this.getWxCode()
 			}
 		}
 		
@@ -149,7 +147,7 @@ export default {
 		},
 		
 		getWxCode() {
-			const url = `${location.origin}/bluehd/#/`
+			const url = location.href
 			location.replace(
 				`https://gezi.motivape.cn/auth.html?appid=wx80a7401a02e0f8ec&redirectUri=${encodeURIComponent(url)}&response_type=code&scope=snsapi_userinfo&state=gfhd`
 			);

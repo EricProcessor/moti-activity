@@ -71,12 +71,12 @@
 		onLoad() {
 			this.userCount()
 			if (this.$wechat && this.$wechat.isWechat()) {
-const host = location.href.split('#')[0]
+			const host = location.href.split('#')[0]
 				const ids = uni.getStorageSync('ids')
 			     this.$wechat.share({
 					 title: 'MOTIS 只送不卖',
 					 img: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/bluetooth/avatar/share.png'
-				}, location.href, `https://hnhd.motivape.cn/bluehd/#/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}`);
+				}, location.href, `https://hnhd.motivape.cn/bluehd/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}`);
 			} 
 		},
 		methods:{
@@ -126,10 +126,17 @@ const host = location.href.split('#')[0]
 					}
 					this.masterInfo = result.userMsg;
 					let taskStatus = result.userMsg.taskStatus;
-					if(taskStatus == 1){
+					
+					const taskContents = result.task.taskContents
+					if (taskContents.every((cur) => { return cur.status == 1})) {
 						// 已完成任务, 改变状态
 						this.isCompleted = true
 					}
+					
+					// if(taskStatus == 1){
+					// 	// 已完成任务, 改变状态
+					// 	this.isCompleted = true
+					// }
 				}
 			},
 			async queryHelpMasterByUserId() {

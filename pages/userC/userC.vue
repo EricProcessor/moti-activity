@@ -45,7 +45,8 @@ export default {
 			masterInfo:{},
 			noType: false,
 			taskContents:{},
-			taskId: 0
+			taskId: 0,
+			isCompleted: false
 		};
 	},
 	mounted() {
@@ -60,7 +61,7 @@ export default {
 			 this.$wechat.share({
 				 title: 'MOTIS 只送不卖',
 				 img: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/bluetooth/avatar/share.png'
-			}, location.href, `https://hnhd.motivape.cn/bluehd/#/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}`);
+			}, location.href, `https://hnhd.motivape.cn/bluehd/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}`);
 		 //     this.$wechat.share({
 			// 	 title: 'MOTIS 只送不卖',
 			// 	 img: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/bluetooth/avatar/share.png'
@@ -112,14 +113,18 @@ export default {
 					}
 				}
 				this.masterInfo = result.userMsg;
-				let taskStatus = result.userMsg.taskStatus;
-				if(taskStatus == 1){
+				const taskContents = result.task.taskContents
+				if (taskContents.every((cur) => { return cur.status == 1})) {
 					this.isCompleted = true
-					// Bus.$emit('changeShowBtn',false);
-					// this.fillIn = true
-					// this.isHelp = false
-					// this.noType = true
 				}
+				// let taskStatus = result.userMsg.taskStatus;
+				// if(taskStatus == 1){
+				// 	this.isCompleted = true
+				// 	// Bus.$emit('changeShowBtn',false);
+				// 	// this.fillIn = true
+				// 	// this.isHelp = false
+				// 	// this.noType = true
+				// }
 				
 			}
 		},

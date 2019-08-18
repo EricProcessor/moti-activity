@@ -61,16 +61,17 @@
 			};
 		},
 		async onLoad(option) {
-			const helpShareParam = uni.getStorageSync('helpShareParam');
-			console.log(helpShareParam);
-			if (helpShareParam && helpShareParam.activityId) {
-				this.option = helpShareParam
-				for (let item in option) {
-					this.option[item] = option[item]
-				}
-			} else {
-				this.option = option
-			}
+			// const helpShareParam = uni.getStorageSync('helpShareParam');
+			// console.log(helpShareParam);
+			// if (helpShareParam && helpShareParam.activityId) {
+			// 	this.option = helpShareParam
+			// 	for (let item in option) {
+			// 		this.option[item] = option[item]
+			// 	}
+			// } else {
+			// 	this.option = option
+			// }
+			this.option = option
 			this.option.activityId = parseInt(this.option.activityId)
 			this.option.wechatId = parseInt(this.option.wechatId)
 			this.option.helpMasterId = parseInt(this.option.helpMasterId)
@@ -90,12 +91,12 @@
 		},
 		methods:{
 			getWxCode() {
-				const url = `${location.origin}/bluehd/#/pages/help/help`
-				uni.setStorageSync('helpShareParam', {
-					activityId: this.option.activityId,
-					wechatId: this.option.wechatId,
-					helpMasterId: this.option.helpMasterId
-				})
+				const url = location.href
+				// uni.setStorageSync('helpShareParam', {
+				// 	activityId: this.option.activityId,
+				// 	wechatId: this.option.wechatId,
+				// 	helpMasterId: this.option.helpMasterId
+				// })
 				// let testUrl = `{window.location.host}/bluehd/#/pages/help/help?activityId={this.info.activityId}&wechatId={this.info.oldWechatId}`;
 				location.replace(
 					`https://gezi.motivape.cn/auth.html?appid=wx80a7401a02e0f8ec&redirectUri=${encodeURIComponent(url)}&response_type=code&scope=snsapi_userinfo&state=gfhd`

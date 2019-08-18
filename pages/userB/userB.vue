@@ -92,7 +92,7 @@
 				 this.$wechat.share({
 					 title: 'MOTIS 只送不卖',
 					 img: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/bluetooth/avatar/share.png'
-				}, location.href, `https://hnhd.motivape.cn/bluehd/#/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}`);
+				}, location.href, `https://hnhd.motivape.cn/bluehd/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}`);
 			} 
 		},
 		methods:{
@@ -161,13 +161,18 @@
 						this.userImgProgress = true
 					}
 					console.log('userBStatus', userBStatus);
-					if(userBStatus){
-						// 两个任务都完成了
+					const taskContents = result.task.taskContents
+					if (taskContents.every((cur) => { return cur.status == 1})) {
 						this.isDoing = false
 						this.isCompleted = true
-						// this.isHelp = false
-						// this.noType = true
 					}
+					// if(userBStatus){
+					// 	// 两个任务都完成了
+					// 	this.isDoing = false
+					// 	this.isCompleted = true
+					// 	// this.isHelp = false
+					// 	// this.noType = true
+					// }
 					
 				}
 			},
