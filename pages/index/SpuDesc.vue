@@ -1,7 +1,10 @@
 <template>
 	<view class="spu-name">
 		<view class="price">
-			<text class="curency">￥</text><text class="price">{{goods.price}}.00</text><text class="market-price">原价￥{{goods.sourcePrice}}</text>
+			<text class="curency" v-if="goods.price">￥</text>
+			<text class="zero-get" v-if="!goods.price">0元领取</text>
+			<text v-else class="price">{{goods.price}}.00</text>
+			<text class="market-price">原价￥{{goods.sourcePrice}}</text>
 		</view>
 		<view class="title">
 			{{goods.title}}
@@ -68,6 +71,11 @@
 				margin-left: 10upx;		
 				color: rgba(153, 153, 153, 0.76);
 				text-decoration: line-through;
+			}
+			.zero-get{
+				font-size: 50upx;
+				font-weight: bold;
+				color: #fb8c00;
 			}
 		}
 		.title{

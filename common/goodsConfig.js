@@ -551,7 +551,7 @@ export default {
 	        imgUrl: "",
 	        price: 0.00,
 	        sourcePrice: 169,
-	        title: "MT GO 电子烟套装 雾化换弹小烟",
+	        title: "MTGO 电子烟套装 雾化换弹小烟",
 	        desc:"1 烟杆 + 1 个老冰棍儿烟弹",
 	        tastePrice:35,
 	        taste: [
