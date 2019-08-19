@@ -145,7 +145,7 @@
 						// userB任务, 完成第一步即助力任务了, 但还没有完成上传图片
 						this.isCompleted = true
 						// 是否正在进行, 即上传图片还未完成
-						this.isDoing = true
+						// this.isDoing = true
 					}
 					
 					let userBStatus = false
