@@ -191,7 +191,7 @@
 						placeholder: "请填写手机号码"
 					},
 					 {
-					 	text: '地区',
+					 	text: '选择地区',
 					 	value: '',
 					 	placeholder: '选择地区'
 					},
@@ -267,7 +267,7 @@
 						placeholder: "请填写手机号码"
 					},
 					{
-					 	text: '地区',
+					 	text: '选择地区',
 					 	value: '',
 					 	placeholder: '请输入'
 					},

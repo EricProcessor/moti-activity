@@ -83,7 +83,7 @@
 					</view>
 					<view class="order-receive-item">
 						<text class="ori-title">配送信息：</text>
-						<text class="ori-content">{{initData.totalPrice ? initData.result.deliveryInfo : '有货，邮费12元'}}</text>
+						<text class="ori-content">{{initData.totalPrice ? initData.result.deliveryInfo : pageConfigure.diliverMsg}}</text>
 					</view>
 					<view class="order-receive-item">
 						<text class="ori-title">订单备注：</text>

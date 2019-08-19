@@ -157,7 +157,7 @@
 						placeholder: "请输入联系方式"
 					},
 					{
-					 	text: '地区 *',
+					 	text: '选择地区 *',
 					 	value: '',
 					 	placeholder: '选择地区'
 					},
@@ -228,7 +228,7 @@
 						placeholder: "请输入"
 					},
 					{
-					 	text: '地区 *',
+					 	text: '选择地区 *',
 					 	value: '',
 					 	placeholder: '请输入'
 					},

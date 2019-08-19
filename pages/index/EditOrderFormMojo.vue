@@ -192,7 +192,7 @@
 						placeholder: "请填写手机号码"
 					},
 					 {
-					 	text: '地区',
+					 	text: '选择地区',
 					 	value: '',
 					 	placeholder: '选择地区'
 					},
@@ -269,7 +269,7 @@
 						placeholder: "请填写手机号码"
 					},
 					{
-					 	text: '地区',
+					 	text: '选择地区',
 					 	value: '',
 					 	placeholder: '请输入'
 					},
@@ -359,7 +359,7 @@
 				if (this.buyNumbersTaste < 1) this.buyNumbersTaste = 1
 			},
 			numsUpColor(e) {
-				if(this.buyNumbersColor>= 1 && (this.paramType == 27 || this.paramType == 30)) return uni.showToast({
+				if(this.buyNumbersColor>= 1 && (!typeConfig[this.paramType].isShowAgain)) return uni.showToast({
 					title:"每次只能限购一个哦",
 					icon:"none"
 				})

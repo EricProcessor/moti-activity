@@ -1784,6 +1784,63 @@ export default {
 			}
 		],
 	},
+	 imgs36:{
+		swipers: [
+			'../../static/type/31/1.jpg',
+			'../../static/type/31/2.jpg',
+			'../../static/type/31/3.jpg',
+		],
+		imgs:[
+			{
+				url: '../../static/type/36/MTGO-0.jpg',
+				width: 750,
+				height: 663,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/31/MOGO-1.jpg',
+				width: 750,
+				height: 1033,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/31/MOGO-2.jpg',
+				width: 750,
+				height: 1077,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/31/MOGO-3.jpg',
+				width: 750,
+				height: 524,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/31/MOGO-4.jpg',
+				width: 750,
+				height: 962,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/31/MOGO-5.jpg',
+				width: 750,
+				height: 960,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/31/MOGO-6.jpg',
+				width: 750,
+				height: 960,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/31/MOGO-7.jpg',
+				width: 750,
+				height: 1166,
+				isLoaded: false
+			}
+		]
+	},
     lastImgs: [
         'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_1/last.jpg',
         'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_2/last.jpg',
