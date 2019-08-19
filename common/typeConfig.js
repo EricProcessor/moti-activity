@@ -577,4 +577,39 @@ export default {
 		isSpuDesc:true,
 		isShowAgain:true,
 	},
+	//20190819 生成2 MTGO 69元链接 货到付款  一个纯连接 一个包含三方监控链接
+	35: {
+		module: 'EditOrderFormC',
+		goodsName: "goodsMTGO", // 商品key
+		imgs: "imgs31", // 图片key
+		lastImg:14,
+		swiper750: true, // 轮播图片是否高度是否是750upx
+		submitApi: "/activity1/ad/order/bookingGghdOrderLittleSmoke", //提交订单api
+		isEncrypted: true, // 是否对提交订单数据加密
+		isShowPayMethod: true, // 是否显示支付方式
+		buttonMsg: '立即抢购', //底部抢购提示
+		onWxPay: false, //开启微信支付
+		onAlipayPay: false, //开启支付宝支付
+		onArrivePay: true, //开始货到付款
+		bianXianMao:true,
+		isSpuDesc:true,
+		isShowAgain:true,
+	},
+	36: {
+		module: 'EditOrderFormC',
+		goodsName: "goodsMTGO", // 商品key
+		imgs: "imgs31", // 图片key
+		lastImg:14,
+		swiper750: true, // 轮播图片是否高度是否是750upx
+		submitApi: "/activity1/ad/order/bookingGghdOrderLittleSmoke", //提交订单api
+		isEncrypted: true, // 是否对提交订单数据加密
+		isShowPayMethod: true, // 是否显示支付方式
+		buttonMsg: '立即抢购', //底部抢购提示
+		onWxPay: false, //开启微信支付
+		onAlipayPay: false, //开启支付宝支付
+		onArrivePay: true, //开始货到付款
+		bianXianMao:false,
+		isSpuDesc:true,
+		isShowAgain:true,
+	},
 }
