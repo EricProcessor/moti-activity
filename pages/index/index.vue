@@ -147,7 +147,7 @@ export default {
 		},
 		
 		getWxCode() {
-			const url = location.href
+			const url = `${location.origin}/bluehd/#/`
 			location.replace(
 				`https://gezi.motivape.cn/auth.html?appid=wx80a7401a02e0f8ec&redirectUri=${encodeURIComponent(url)}&response_type=code&scope=snsapi_userinfo&state=gfhd`
 			);
