@@ -90,8 +90,6 @@ export default {
 				// this.initData('')
 			if (wxUserInfo) {
 				this.initData('')
-			} else {
-				this.getWxCode()
 			}
 		}
 		
