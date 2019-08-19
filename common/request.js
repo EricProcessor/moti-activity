@@ -147,7 +147,7 @@ export function motiPicCommit(params) {
 //发送下单验证码
 export function dynamicCode(params) { 
 	return request({
-		url:'/activity/activity/buyer/dynamicCode',
+		url:'/activity/activity/wechat/sendCode',
 		methods: 'post',//默认值---不需要则不要填写
 		contentType: 'application/json', //默认值---不需要则不要填写
 		data: params
@@ -204,6 +204,16 @@ export function getUserAllInfo(code){
 	}).then(function(res){
 		let data = res.data;
 		console.log("请求得到的数据"+ JSON.stringify(data) )
+		return data
+	})
+}
+
+export function userCount() {
+	return request({
+		url: '/activity/activity/wechat/userCount',
+		methods:'post'
+	}).then(function(res){
+		let data = res.data;
 		return data
 	})
 }

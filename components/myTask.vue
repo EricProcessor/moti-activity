@@ -9,14 +9,14 @@
 				</view>
 			</view> -->
 			<view class="userInfo">
-				<view class="userName">{{masterInfo.wechatNickname?masterInfo.wechatNickname:'未设置'}}</view>
-				<view class="state">我从没使用过电子烟产品</view>
+				<view class="userName">{{masterInfo.wechatNickname?decodeURIComponent(masterInfo.wechatNickname):'未设置'}}</view>
+				<view class="state">{{typeText}}</view>
 			</view>
 		</view>
 		<view class="taskBox">
 			<view class='task'>任务1:<text class="font-color">{{master.helpNum}}名</text>好友助力</view>
-			<view v-if='masterInfo.taskStatus == 0 || !userProgress' @tap='progress' class="proceed btn">进行中</view>
-			<view v-if='masterInfo.taskStatus == 1 || userProgress' class="accomplish btn">已完成</view>
+			<view v-if='masterInfo.taskStatus == 0' @tap='progress' class="proceed btn">进行中</view>
+			<view v-if='masterInfo.taskStatus == 1' class="accomplish btn">已完成</view>
 		</view>
 		<view class="taskBox" v-if='taskType==2'>
 			<view class='task'>任务2:上传<text class="font-color">MOTI照片</text></view>
@@ -49,7 +49,8 @@
 			userImgProgress:{
 				type: Boolean,
 				default: false
-			}
+			},
+			typeText: String
 		},
 		data() {
 			return {
@@ -57,11 +58,12 @@
 			};
 		},
 		created() {
-			console.log(this.master);
+			console.log('masterInfo', this.masterInfo);
 		},
 		methods:{
 			progress(){
-				this.task1 = false;
+				console.log('masterInfo', this.masterInfo);
+				// this.task1 = false;
 			}
 		}
 	}
@@ -126,6 +128,7 @@
 			display: flex;
 			justify-content: flex-start;
 			.userImage{
+				flex-shrink: 0;
 				width:120upx;
 				height:120upx;
 				border-radius: 50%;
@@ -150,14 +153,18 @@
 				}
 			}
 			.userInfo{
-				flex-grow: 1;
 				margin-left:21upx;
 				color:#53412B;
+				max-width: 400upx;
+
 				.userName{
 					font-size: 30upx;
 					font-weight: 500;
 					line-height: 42upx;
 					margin:21upx 0 10upx;
+					text-overflow: ellipsis;
+					overflow: hidden;
+					white-space: nowrap;
 				}
 				.state{
 					font-size:24upx;

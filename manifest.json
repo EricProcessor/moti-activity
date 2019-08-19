@@ -73,20 +73,27 @@
     "h5" : {
         "title" : " ",
         "domain" : "",
-		"devServer" : {
-		    "port" : 8080,
-		    "disableHostCheck" : true,
-		    "proxy" : {
-		        "/open" : {
-		            //"target" : "http://172.27.110.2:8014",
-		            "target" : "https://hnhd.motivape.cn/api",
-		            "changeOrigin" : true,
-		            "secure" : false
-		        }
-		    }
-		},
+        "devServer" : {
+            "port" : 8080,
+            "disableHostCheck" : true,
+            "proxy" : {
+                "/open" : {
+                    //"target" : "http://172.27.110.2:8014",
+                    "target" : "https://hnhd.motivape.cn/api",
+                    "changeOrigin" : true,
+                    "secure" : false
+                },
+                "/activity" : {
+                    //"target" : "http://172.27.110.2:8014",
+                    "target" : "https://hnhd.motivape.cn/api",
+                    "changeOrigin" : true,
+                    "secure" : false
+                }
+            }
+        },
         "router" : {
-            "base" : "/bluehd/"
+            "base" : "/bluehd/",
+            "mode" : "hash"
         },
         "template" : ""
     }

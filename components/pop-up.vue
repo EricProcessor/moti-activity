@@ -20,7 +20,9 @@
 					<text class="zhanwei"></text>
 					<view class="input-box">
 						<input v-model='userInfo.code' type="text" placeholder="请输入短信验证码">
-						<text class='code' @tap='getCode'>获取验证码</text>
+						<!-- <text class='code' @tap='getCode'>获取验证码</text> -->
+						<text class='code' v-if="!cutDown" @tap="getCode">获取验证码</text>
+						<text class='code countDown' v-if="cutDown">{{ time }}秒</text>
 					</view>
 				</view>
 			</view>
@@ -31,7 +33,7 @@
 
 <script>
 	import Bus from '@/common/bus.js';
-	import {dynamicCode,checkMobileAndCode,queryUserCouponCode} from "@/common/request.js";
+	import {dynamicCode,checkMobileAndCode,queryUserCouponCode, queryHelpMasterByUserId} from "@/common/request.js";
 	export default {
 		data() {
 			return {
@@ -43,7 +45,10 @@
 				userInfo:{
 					mobile:'',
 					code:''
-				}
+				},
+				timer: null,
+				cutDown: false,
+				time: 90
 			};
 		},
 		mounted() {
@@ -51,39 +56,68 @@
 			Bus.$on('showPop',(data) => {
 				this.popShow = data;
 			})
+			console.log('queryHelpMasterByUserId');
+			this.queryHelpMasterByUserId()
 		},
 		methods:{
-			async queryUserCouponCode(){//获取兑换码
-				let userId = uni.getStorageSync('userId');
+			async queryHelpMasterByUserId() {
+				console.log('================');
+				let ids = uni.getStorageSync('ids');
+				console.log('ids', ids);
+				let data = {
+					activityId : ids.activityId,
+					wechatId : ids.wechatId // 名称是wechatId, id是helpMasterId, 这是对的
+				}
+				// 查询是否填写过手机号了
+				let { code, msg, result } = await queryHelpMasterByUserId(data);
+				console.log(this.taskId, this.isCompleted);
+				if (code == 0 && result && result.phone) {
+					this.queryUserCouponCode(1)
+				}
+			},
+			async queryUserCouponCode(type = 1){//获取兑换码
+				// type=1: 初始查询, 不需要显示错误信息弹窗
+				// type=2: 点击按钮查询优惠码
+				let ids = uni.getStorageSync('ids');
 				let params = {
-					activityId : userId.activityId,
-					wechatId : userId.wechatId
+					activityId : ids.activityId,
+					wechatId : ids.helpMasterId // 名称是wechatId, id是helpMasterId, 这是对的
 				}
 				let {code,msg,result} = await queryUserCouponCode(params);
 				if(code==0){
+					// 改变任务状态, 针对userA任务
+					Bus.$emit('changeIsCompleted',true);
+					// Bus.$emit('changeShowBtn',false);
+					// 改变优惠码显示, 针对userA和userB任务
+					Bus.$emit('discountsShow',true);
+					// 改变官方二维码显示, 针对userB任务
+					Bus.$emit('codeShow',true);
+					// 优惠码
 					Bus.$emit('couponCode',result.couponCode);
 				}else{
-					uni.showToast({
-						icon:'none',
-						title:msg
-					})
+					if (type == 2) {
+						uni.showToast({
+							icon:'none',
+							title:msg
+						})
+					}
 				}
 			},
 			async submitBtn(){
 				if(this.checkMobile() && this.checkCode()){
-					let userId = uni.getStorageSync('userId');
+					let ids = uni.getStorageSync('ids');
 					let params = {
-						"activityId": userId.activityId,
+						"activityId": ids.activityId,
 						"code": this.userInfo.code,
 						"phone": this.userInfo.mobile,
-						"wechatId": userId.wechatId
+						"wechatId": ids.wechatId
 					}
 					let {code,msg,result} = await checkMobileAndCode(params);
 					if(code == 0){
 						this.popShow = false;
-						Bus.$emit('discountsShow',true);
-						Bus.$emit('codeShow',true);
-						this.queryUserCouponCode();
+						// 填写完手机号并提交成功了说明有手机号了
+						Bus.$emit('isInputedPhone', true)
+						this.queryUserCouponCode(2);
 					}else{
 						uni.showToast({
 							icon: 'none',
@@ -94,12 +128,12 @@
 			},
 			async getCode(){
 				if(this.checkMobile()){
-					let userId = uni.getStorageSync('userId');
+					let ids = uni.getStorageSync('ids');
 					let params = {
-						activityId: userId.activityId,
+						activityId: ids.activityId,
 						phone: this.userInfo.mobile,
-						shopAttDetailId:0,
-						shopId:'111'
+						shopAttDetailId: '11',
+						shopId:'1'
 					};
 					console.log(params);
 					let {code,msg,result} = await dynamicCode(params);
@@ -108,6 +142,20 @@
 							icon: 'none',
 							title: '验证码已发送'
 						})
+						const time_count = 90
+						if (!this.timer) {
+							this.time = time_count;
+							this.cutDown = true;
+							this.timer = setInterval(() => {
+								if (this.time > 0 && this.time <= time_count) {
+									this.time--;
+								} else {
+									this.cutDown = false;
+									clearInterval(this.timer);
+									this.timer = null;
+								}
+							}, 1000);
+						}
 					}else{
 						uni.showToast({
 							icon: 'none',
@@ -219,6 +267,9 @@
 							font-size:28upx;
 							font-weight: 500;
 							flex-shrink:0;
+							&.countDown {
+								color: gray;
+							}
 						}
 					}
 				}

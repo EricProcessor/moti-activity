@@ -18,6 +18,7 @@
 </template>
 
 <script>
+	import Bus from '@/common/bus.js';
 	import { uploadMoti,motiPicCommit } from '@/common/request.js';
 	export default {
 		props:{
@@ -32,7 +33,7 @@
 		},
 		data() {
 			return {
-				imgSrc:'/static/bgimgText.jpg',
+				imgSrc:'/static/deafult.png',
 				isHavePic: true
 			};
 		},
@@ -44,26 +45,31 @@
 					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
 					sourceType: ['album'],//从相册选择
 					success:async (res) => {
-						_this.imgSrc = res.tempFilePaths[0];
 						this.uploadPic()
 					}
 				})
 			},
 			uploadPic:async function (){
-				
+				uni.showLoading({
+					title: '正在上传...',
+					mask: true
+				})
 				let params = {
 					file: this.imgSrc 
 				}
 				let succ = await uploadMoti(params);
 				succ = JSON.parse(succ)
 				if(succ.code == 0){
-					let userId = uni.getStorageSync('userId');
+					let ids = uni.getStorageSync('ids');
 					let params = {
 						"picUrl": this.imgSrc,
-						"weChatHelpId": userId.helpMasterId
+						"weChatHelpId": ids.helpMasterId
 					}
 					let {code,msg,result} = await motiPicCommit(params)
 					if(code == 0){
+						uni.hideLoading()
+						// Bus.$emit('taskBIsDoing', false);
+						Bus.$emit('taskBIsDoing', true);
 						this.$emit('userImgProgress',true)
 					}
 				}else{

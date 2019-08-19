@@ -1,14 +1,15 @@
 <template>
 	<view class="index-content">
-		<header-box></header-box>
+		<header-box :count="userCountNum"></header-box>
+		<!-- <qrcode-img></qrcode-img> -->
 		<footer-box></footer-box>
 		<view class="joinBtn btn" @tap.stop="joinBtn">我要参与活动</view>
-		<view class="pop-up" v-if="isJoin">
+		<view class="pop-up" @tap="closeSelect" v-if="isJoin">
 			<view class="pop"></view>
 			<view class="pop-content">
 				<view class="title">我要参与活动</view>
 				<view class="tit">请选择参与方式，点击后不可进行修改哦</view>
-				<view @tap="selected(item.id, item.url)" :class="{ active: selectedIndex == item.id }" class="content-li" v-for="(item, index) in activityInfo" :key="index">
+				<view @tap.stop="selected(item.id, item.url)" :class="{ active: selectedIndex == item.id }" class="content-li" v-for="(item, index) in activityInfo" :key="index">
 					<view class="content-top">{{ item.title }}</view>
 					<view class="content">{{ item.content }}</view>
 				</view>
@@ -21,32 +22,36 @@
 <script>
 import headerBox from '@/components/header.vue';
 import footerBox from '@/components/footer.vue';
-import { addWechatUser, queryHelpMasterByUserId, queryTaskMasterByActiId, saveHelpMaster,getUserAllInfo } from '@/common/request.js';
+import qrcodeImg from '@/components/qrcodeimg.vue';
+import { addWechatUser, queryHelpMasterByUserId, queryTaskMasterByActiId, saveHelpMaster,getUserAllInfo, userCount } from '@/common/request.js';
 export default {
 	components: {
 		headerBox,
-		footerBox
+		footerBox,
+		qrcodeImg
 	},
 	data() {
 		return {
 			isJoin: false,
+			wxUserInfo: null,
+			userCountNum: 0,
 			selectedIndex: 0,
 			activityInfo: [
 				{
-					title: '我从没使用过电子烟产品',
-					content: '(从未使用过电子烟)',
+					title: '我没有电子烟产品',
+					content: '需完成 36 个好友助力，获取限时购买资格',
 					url: '/pages/userA/userA',
 					id: 1
 				},
 				{
-					title: '我是MOTI（MT产品）',
-					content: '(有在使用MOTI（MT）换弹式电子烟）',
+					title: '我有MOTI（MT）产品',
+					content: '需完成 10 个好友助力+拍照上传 MOTI 照片 获取换购资格',
 					url: '/pages/userB/userB',
 					id: 2
 				},
 				{
 					title: '我有其他品牌的换弹式电子烟',
-					content: '(使用过其他品牌电子烟）',
+					content: '需完成5个好友助力+寄回换弹式烟杆',
 					url: '/pages/userC/userC',
 					id: 3
 				}
@@ -58,87 +63,110 @@ export default {
 			nickname: null,
 			openId: null,
 			sexDesc: null,
-			activityId: 423784446,
+			activityId: '423784446',
 			wechatId: 0,
-			isLogin: false //用户是否已经授权
+			isLogin: false, //用户是否已经授权
+			option: null,
+			isOnLoad: false
 		};
 	},
 	onLoad(option) {
-		if (option.code) {
-			this.isLogin = true;
-			this.code = option.code;
+		this.isOnLoad = true
+		this.option = option
+		// 本地有微信信息说明已经授权过了, 不用再次授权
+		const wxUserInfo = uni.getStorageSync('wxUserInfo')
+		if (wxUserInfo) {
+			this.initData('')
+		} else if (option.code) {
+			this.initData(option.code)
 		} else {
-			this.isLogin = false;
+			this.getWxCode()
 		}
 	},
+	onShow() {
+		this.userCount()
+		if (this.option && !this.isOnLoad) {
+			const wxUserInfo = uni.getStorageSync('wxUserInfo')
+				// this.initData('')
+			if (wxUserInfo) {
+				this.initData('')
+			} else {
+				this.getWxCode()
+			}
+		}
+		
+	},
 	methods: {
+		async initData(wxcode) {
+			uni.showLoading({
+				title: '加载中...',
+				mask: true
+			})
+			const _self = this
+			let wxUserInfo = uni.getStorageSync('wxUserInfo')
+			if (wxcode) {
+				let infoData = await getUserAllInfo(wxcode);
+				wxUserInfo = JSON.parse(infoData.result);
+				uni.setStorageSync('wxUserInfo', wxUserInfo)
+			}
+			
+			this.wxUserInfo = wxUserInfo
+			
+			let user = {
+				headImgUrl: wxUserInfo.headImgUrl,
+				nickname: wxUserInfo.nickname,
+				openId: wxUserInfo.openId,
+				sexDesc: wxUserInfo.sexDesc
+			};
+			const addWechatUserRes = await addWechatUser(user);
+			if (addWechatUserRes.code == 0 && addWechatUserRes.result) {
+				this.wechatId = addWechatUserRes.result.id
+				let params = {
+					activityId: this.activityId,
+					wechatId: this.wechatId
+				};
+				let { code, msg, result } = await queryHelpMasterByUserId(params);
+				if (code == 0 && result) {
+					let ids = {
+						activityId: result.activityId,
+						helpMasterId: result.id,
+						wechatId: result.wechatId
+					}
+					console.log("储存的本地======"+JSON.stringify(ids));
+					uni.setStorageSync('ids', ids);
+					let taskId = parseInt(result.taskId);
+					if (!isNaN(taskId) && taskId > 0) {
+						this.toPath(taskId)
+					}
+				}
+			} else {
+				uni.showToast({
+					icon: 'none',
+					title: `${addWechatUserRes.msg}`
+				});
+			}
+			uni.hideLoading()
+		},
+		
+		getWxCode() {
+			const url = `${location.origin}/bluehd/#/`
+			location.replace(
+				`https://gezi.motivape.cn/auth.html?appid=wx80a7401a02e0f8ec&redirectUri=${encodeURIComponent(url)}&response_type=code&scope=snsapi_userinfo&state=gfhd`
+			);
+		},
+		
 		selected(index, url) {
 			this.selectedIndex = index;
 		},
-		getWxCode() {
-			return new Promise(function(resolve, reject) {
-				let testUrl = `http://${window.location.host}/bluehd/#/`;
-				location.replace(
-					`https://gezi.motivape.cn/auth.html?appid=wx80a7401a02e0f8ec&redirectUri=${encodeURIComponent(testUrl)}&response_type=code&scope=snsapi_userinfo&state=gfhd`
-				);
-			});
-		},
+		
 		async joinBtn() {
-			// this.buryPoint();
-			let _self = this;
-			if (this.isLogin) {
-				let infoData = await getUserAllInfo(_self.code);
-				let jsonData = JSON.parse(infoData.result);
-				uni.setStorage({
-					key:'wxUserInfo',
-					data:jsonData,
-					success:function(){
-						_self.headImgUrl = jsonData.headImgUrl
-						_self.nickname = jsonData.nickname
-						_self.openId = jsonData.openId
-						_self.sexDesc = jsonData.sexDesc
-					}
-				});
-				
-				let params = {
-					headImgUrl: this.headImgUrl,
-					nickname: this.nickname,
-					openId: this.openId,
-					sexDesc: this.sexDesc
-				};
-				let { code, msg, result } = await addWechatUser(params);
-				this.wechatId = result.id;
-				if (code == 0) {
-					let params = {
-						activityId: _self.activityId,
-						wechatId: this.wechatId
-					};
-					let { code, msg, result } = await queryHelpMasterByUserId(params);
-					if (code == 0) {
-						if (result != undefined) {
-							let userId = {
-								activityId: result.activityId,
-								helpMasterId: result.id,
-								wechatId: result.wechatId
-							}
-							uni.setStorageSync('userId', userId);
-							let taskId = parseInt(result.taskId);
-							this.toPath(taskId)
-						} else {
-							this.isJoin = !this.isJoin;
-						}
-					}
-				} else {
-					uni.showToast({
-						icon: 'none',
-						title: msg
-					});
-				}
-			} else {
-				this.getWxCode();
-			}
+			this.isJoin = true
+		},
+		closeSelect() {
+			this.isJoin = false
 		},
 		async confirm() {
+			// taskId
 			let type = this.selectedIndex;
 			if (type == 0) {
 				uni.showToast({
@@ -148,7 +176,7 @@ export default {
 			} else {
 				let params = {
 					activityId: this.activityId,
-					openId: this.openId,
+					openId: this.wxUserInfo.openId,
 					shareUrl: 'string',
 					taskId: type,
 					wechatId: this.wechatId,
@@ -157,12 +185,12 @@ export default {
 				// let {code,msg,result} = await queryTaskMasterByActiId(params);
 				let succ = await saveHelpMaster(params);
 				if (succ.code == 0) {
-					let userId = {
+					let ids = {
 						activityId: this.activityId,
 						helpMasterId:  succ.result.helpMasterId,
 						wechatId: this.wechatId
 					}
-					uni.setStorageSync('userId', userId);
+					uni.setStorageSync('ids', ids);
 					this.isJoin = false;
 					this.toPath(type)
 				} else {
@@ -173,25 +201,27 @@ export default {
 				}
 			}
 		},
+		
 		toPath: function (type){
 			switch (type) {
 				case 1:
 					uni.navigateTo({
-						url: '/pages/userA/userA'
+						url: `/pages/userA/userA`
 					});
 					break;
 				case 2:
 					uni.navigateTo({
-						url: '/pages/userB/userB'
+						url: `/pages/userB/userB`
 					});
 					break;
 				case 3:
 					uni.navigateTo({
-						url: '/pages/userC/userC'
+						url: `/pages/userC/userC`
 					});
 					break;
 			}
 		},
+		
 		buryPoint() {
 			var _core = new WCore();
 			var _user = new WCore.inputs.User();
@@ -201,8 +231,12 @@ export default {
 			_event.ec = 'Loginnnnnng';
 			_event.ea = 'click';
 			_core.send(_event);
+		},
+		async userCount() {
+			const { result } = await userCount()
+			this.userCountNum = result.count
 		}
-	}
+	},
 };
 </script>
 

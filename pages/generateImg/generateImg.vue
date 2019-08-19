@@ -35,14 +35,17 @@
 		data() {
 			return {
 				wxUserInfo:{},
-				taskContents:{}
+				taskContents:{},
+				ids:{}
 			}
 		},
 		mounted() {
-			this.$nextTick(()=>{
-				this.makeQrCode()
-				this.getWxUserInfo()
-			})
+			this.ids = uni.getStorageSync("ids")
+			this.makeQrCode()
+			this.getWxUserInfo()
+		},
+		onLoad() {
+			
 		},
 		methods: {
 			getWxUserInfo: function (){
@@ -59,6 +62,9 @@
 				document.getElementById("save-qrcode-iamge-content").innerHTML = img.outerHTML
 			},
 			saveImage() {
+				uni.showLoading({
+					title: '正在生成'
+				})
 				html2canvan(document.getElementById("save-qrcode-iamge"), {
 					useCORS: true,
 					scale: helper.DPR(),
@@ -70,6 +76,7 @@
 					}
 
 				}).then((canvans) => {
+					uni.hideLoading()
 					// if (helper.useAgent() == 'wechat') {
 					uni.showModal({
 						title: '',
@@ -81,10 +88,13 @@
 				});
 			},
 			makeQrCode(){
+				let _self = this;
+				
+				let qrUrl = "https://hnhd.motivape.cn/bluehd/#/pages/help/help?activityId="+_self.ids.activityId+"&helpMasterId="+_self.ids.helpMasterId+"&wechatId="+_self.ids.wechatId
 				var qrcodeObj = new QRCode('qrcode-image', {
-					text: "www.baidu.com",
-					width: uni.upx2px(120),
-					height: uni.upx2px(120),
+					text: qrUrl,
+					width: uni.upx2px(200),
+					height: uni.upx2px(200),
 					colorDark: '#000000', //前景色
 					colorLight: '#ffffff', //背景色
 				})
@@ -112,18 +122,27 @@
 			background: #121518;
 			height: 900upx;
 			width: 500upx;
-			margin: 100upx auto 40upx;
+			margin: 50upx auto 40upx;
 			background-image: url('../../static/bgimg.jpg');
 			background-repeat: no-repeat;
 			background-position: center top;
 			background-size: 100%;
 			padding-top: 1upx;
 			position: relative;
-
+			
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-end;
+			align-items: center;
 			.cont {
-				top: 50%;
-				position: absolute;
-				left: 5%;
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-end;
+				align-items: center;
+				padding-bottom: 10upx;
+				// top: 50%;
+				// position: absolute;
+				// left: 5%;
 
 				.text {
 					font-size: 22upx;
@@ -140,10 +159,10 @@
 				}
 
 				.codeImg {
-					width: 130upx;
-					height: 130upx;
+					width: 200upx;
+					height: 200upx;
 					background: #fff;
-					margin: 25upx auto 15upx;
+					margin: 10upx auto 10upx;
 					display: flex;
 					justify-content: center;
 					align-items: center;

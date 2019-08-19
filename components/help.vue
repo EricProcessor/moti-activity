@@ -1,7 +1,9 @@
 <template>
 	<view class="help-box">
 		<image class='helpImage' src='../../static/help.png'></image>
-		<view class="textBox">还差<text>{{taskContents.countCondition - taskContents.countData}}名</text>好友助力，即可成功哦</view>
+		<view class="textBox" v-if='taskContents.taskStatus==1'>恭喜您已完成助力活动</view>
+		<view class="textBox" e-else>还差<text>{{taskContents.countCondition > taskContents.countData ? taskContents.countCondition - taskContents.countData :0}}名</text>好友助力，即可成功哦</view>
+		<!-- <view class="textBox">还差<text>{{taskContents.countCondition - taskContents.countData}}名</text>好友助力，即可成功哦</view> -->
 		<view class="imagesBox">
 			<template v-if='isDown'>
 				<view class='image-li' v-if='index<10' v-for='(item,index) in helperList' :key='index'>
@@ -58,6 +60,9 @@
 			return {
 				isDown:true
 			};
+		},
+		created() {
+			console.log(this.taskContents);
 		},
 		methods:{
 			showMore(){

@@ -1,12 +1,16 @@
 <template>
 	<view class='userA'>
-		<header-box></header-box>
-		<my-task :master="master" :masterInfo="masterInfo"></my-task>
-		<help-box :master="master" :helperList="helperList" :taskContents="taskContents"></help-box>
+		<header-box :count="userCountNum"></header-box>
+		<my-task 
+			:taskType="1"
+			:master="master" 
+			:masterInfo="masterInfo" 
+			typeText="我没有电子烟产品"></my-task>
 		<discounts-box ></discounts-box>
 		<code-box :imgUrl="imgUrl"></code-box>
+		<help-box :master="master" :helperList="helperList" :taskContents="taskContents"></help-box>
 		<footer-box></footer-box>
-		<button-box :isHelp="isHelp" :noType="noType"></button-box>
+		<button-box :isHasPhone="isHasPhone" :taskId="taskId" :isCompleted="isCompleted"></button-box>
 		<pop-up></pop-up>
 		<invite-help></invite-help>
 	</view>
@@ -22,7 +26,8 @@
 	import codeBox from '@/components/code.vue';
 	import buttonBox from '@/components/button.vue';
 	import inviteHelp from '@/components/inviteHelp.vue';
-	import { queryHelpSubByOpenId } from '@/common/request.js';
+	import { queryHelpSubByOpenId, queryHelpMasterByUserId,userCount } from '@/common/request.js';
+	import Bus from '@/common/bus.js';
 	export default {
 		components: {
 			headerBox,
@@ -37,6 +42,7 @@
 		},
 		data() {
 			return {
+				userCountNum: 0,
 				master: {
 					helpNum: 36,
 					helpText: '完成1个任务，即可获得',
@@ -47,29 +53,60 @@
 				masterInfo:{},
 				imgUrl: '/static/a.png',
 				noType: false,
-				taskContents:{}
+				taskContents:{},
+				taskId: 0,
+				isCompleted: false,
+				isHasPhone: false
 			};
 		},
 		mounted() {
 			this.getInfo();
+			this.queryHelpMasterByUserId()
+			
+			Bus.$on('changeIsCompleted', (data) => {
+				this.isCompleted = true
+				this.isHasPhone = true
+			})
 		},
 		onLoad() {
+			this.userCount()
 			if (this.$wechat && this.$wechat.isWechat()) {
+const host = location.href.split('#')[0]
+				const ids = uni.getStorageSync('ids')
 			     this.$wechat.share({
-					 title: 'MOTI',
-					 img: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/activity/bluetoothzhuli/611694820796133376.png'
-				}, location.href);  
+					 title: 'MOTIS 只送不卖',
+					 img: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/bluetooth/avatar/share.png'
+				}, location.href, `https://hnhd.motivape.cn/bluehd/#/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}`);
 			} 
 		},
 		methods:{
+			async userCount() {
+				const { result } = await userCount()
+				this.userCountNum = result.count
+			},
 			getInfo: async function() {
-				let userId = uni.getStorageSync('userId');
+				let ids = uni.getStorageSync('ids');
+				let wxUserInfo = uni.getStorageSync('wxUserInfo');
+				if (!(ids || wxUserInfo)) {
+					return uni.redirectTo({
+						url: '/'
+					})
+				}
 				let params = {
-					activityId: userId.activityId,
-					wechatId: userId.wechatId
+					activityId: ids.activityId,
+					wechatId: ids.wechatId
 				};
 				let { code, msg, result } = await queryHelpSubByOpenId(params);
 				if(code == 0){
+					this.taskId = result.task.taskId
+					if (result.task.taskId != 1) {
+						if (result.task.taskId == 2) {
+							return uni.redirectTo({ url: '/pages/userB/userB' })
+						} else if (result.task.taskId == 3) {
+							return uni.redirectTo({ url: '/pages/userC/userC' })
+						}
+						 
+					}
 					this.taskContents = JSON.parse(result.task.taskContents[0].content)
 					uni.setStorageSync('taskContents',this.taskContents)
 					let helperNum = this.taskContents.countCondition;
@@ -90,10 +127,22 @@
 					this.masterInfo = result.userMsg;
 					let taskStatus = result.userMsg.taskStatus;
 					if(taskStatus == 1){
-						this.isHelp = false
-						this.noType = true
+						// 已完成任务, 改变状态
+						this.isCompleted = true
 					}
-					
+				}
+			},
+			async queryHelpMasterByUserId() {
+				// 查询是否填写过手机号
+				let ids = uni.getStorageSync('ids');
+				console.log('ids', ids);
+				let data = {
+					activityId : ids.activityId,
+					wechatId : ids.wechatId // 名称是wechatId, id是helpMasterId, 这是对的
+				}
+				let { code, msg, result } = await queryHelpMasterByUserId(data);
+				if (code == 0 && result && result.phone) {
+					this.isHasPhone = true
 				}
 			}
 		}
@@ -101,6 +150,9 @@
 </script>
 
 <style lang="scss" scoped>
+	page {
+		padding-bottom: 100upx;
+	}
 	.userA {
 		display: flex;
 		flex-direction: column;

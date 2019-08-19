@@ -1,14 +1,20 @@
 <template>
 	<view class="userB">
-		<header-box></header-box>
-		<my-task :taskType="2"  :masterInfo="masterInfo" :master="master" :userProgress="userProgress" :userImgProgress="userImgProgress"></my-task>
+		<header-box :count="userCountNum"></header-box>
+		<my-task :taskType="2" 
+			:masterInfo="masterInfo"
+			:master="master"
+			:userProgress="userProgress"
+			:userImgProgress="userImgProgress"
+			 typeText="我有MOTI（MT）产品"
+			></my-task>
+		<help-box :master="master" :helperList="helperList" :taskContents="taskContents"></help-box>
 		<discounts-box></discounts-box>
 		<code-box :imgUrl="imgUrl"></code-box>
-		<help-box :master="master" :helperList="helperList" :taskContents="taskContents"></help-box>
 		<upload-img :userImgProgress="userImgProgress" 
 			@userImgProgress="getUserImgProgress" :taskImgInfo="taskImgInfo"></upload-img>
 		<footer-box></footer-box>
-		<button-box :isHelp="isHelp" :noType="noType"></button-box>
+		<button-box :isDoing="isDoing" :isHasPhone="isHasPhone" :isCompleted="isCompleted" :taskId="taskId"></button-box>
 		<pop-up></pop-up>
 		<invite-help></invite-help>
 	</view>
@@ -25,7 +31,8 @@
 	import uploadImg from '@/components/uploadImg.vue';
 	import popUp from "@/components/pop-up.vue";
 	import inviteHelp from '@/components/inviteHelp.vue'
-	import { queryHelpSubByOpenId } from '@/common/request.js';
+	import { queryHelpSubByOpenId, queryHelpMasterByUserId,userCount } from '@/common/request.js';
+	import Bus from '@/common/bus.js';
 	export default {
 		components:{
 			headerBox,
@@ -41,6 +48,7 @@
 		},
 		data() {
 			return {
+				userCountNum:0,
 				master: {
 					helpNum: 10,
 					helpText: '完成2个任务，即可获得',
@@ -54,21 +62,66 @@
 				noType: false,
 				taskContents:{},
 				masterInfo:{},
-				taskImgInfo:{}
+				taskImgInfo:{},
+				taskId: 0,
+				isCompleted: false,
+				isHasPhone: false,
+				isDoing: false,
+				isAllTaskCompleted: false
 			};
 		},
 		mounted() {
 			this.getInfo();
+			this.queryHelpMasterByUserId()
+			// Bus.$on('taskBIsDoing', () => {
+			// 	this.isDoing = false
+			// })
+			Bus.$on('taskBIsDoing', (data) => {
+				this.isDoing = data;
+				// this.isDoing = false
+			})
+			Bus.$on('isInputedPhone', () => {
+				this.isHasPhone = true
+			})
+		},
+		onLoad() {
+			this.userCount();
+			if (this.$wechat && this.$wechat.isWechat()) {
+				const host = location.href.split('#')[0]
+				const ids = uni.getStorageSync('ids')
+				 this.$wechat.share({
+					 title: 'MOTIS 只送不卖',
+					 img: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/bluetooth/avatar/share.png'
+				}, location.href, `https://hnhd.motivape.cn/bluehd/#/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}`);
+			} 
 		},
 		methods:{
+			async userCount() {
+				const { result } = await userCount()
+				this.userCountNum = result.count
+			},
 			getInfo: async function() {
-				let userId = uni.getStorageSync('userId');
+				let ids = uni.getStorageSync('ids');
+				let wxUserInfo = uni.getStorageSync('wxUserInfo');
+				if (!(ids || wxUserInfo)) {
+					return uni.redirectTo({
+						url: '/'
+					})
+				}
 				let params = {
-					activityId: userId.activityId,
-					wechatId: userId.wechatId
+					activityId: ids.activityId,
+					wechatId: ids.wechatId
 				};
 				let { code, msg, result } = await queryHelpSubByOpenId(params);
 				if(code == 0){
+					this.taskId = result.task.taskId
+					if (result.task.taskId != 2) {
+						if (result.task.taskId == 1) {
+							return uni.redirectTo({ url: '/pages/userA/userA' })
+						} else if (result.task.taskId == 3) {
+							return uni.redirectTo({ url: '/pages/userC/userC' })
+						}
+					}
 					this.taskContents = JSON.parse(result.task.taskContents[0].content)
 					uni.setStorageSync('taskContents',this.taskContents)
 					let helperNum = JSON.parse(result.task.taskContents[0].content).countCondition;
@@ -87,9 +140,18 @@
 						}
 					}
 					this.masterInfo = result.userMsg;
+					console.log(result.task.taskContents[0], result.task.taskContents[0].status);
+					if (result.task.taskContents[0] && result.task.taskContents[0].status == 1 && result.task.taskId == 2) {
+						// userB任务, 完成第一步即助力任务了, 但还没有完成上传图片
+						this.isCompleted = true
+						// 是否正在进行, 即上传图片还未完成
+						// this.isDoing = true
+					}
+					
 					let userBStatus = false
 					if(result.task.taskContents[0].status == 1 && result.task.taskContents[1].status == 1){
 						userBStatus = true
+						// Bus.$emit('changeShowBtn',true);
 					}
 					if(result.task.taskContents[0].status == 1){
 						this.userProgress = true
@@ -98,11 +160,27 @@
 						this.taskImgInfo = JSON.parse(result.task.taskContents[1].content)
 						this.userImgProgress = true
 					}
+					console.log('userBStatus', userBStatus);
 					if(userBStatus){
-						this.isHelp = false
-						this.noType = true
+						// 两个任务都完成了
+						this.isDoing = false
+						this.isCompleted = true
+						// this.isHelp = false
+						// this.noType = true
 					}
 					
+				}
+			},
+			async queryHelpMasterByUserId() {
+				let ids = uni.getStorageSync('ids');
+				console.log('ids', ids);
+				let data = {
+					activityId : ids.activityId,
+					wechatId : ids.wechatId // 名称是wechatId, id是helpMasterId, 这是对的
+				}
+				let { code, msg, result } = await queryHelpMasterByUserId(data);
+				if (code == 0 && result && result.phone) {
+					this.isHasPhone = true
 				}
 			},
 			getUserImgProgress: function (options){
