@@ -62,9 +62,6 @@
 		},
 		async onLoad(option) {
 			const url = location.href
-			// if (url.indexOf('code') > -1) {
-			// 	
-			// }
 			const helpShareParam = uni.getStorageSync('helpShareParam');
 			console.log(helpShareParam);
 			if (helpShareParam && helpShareParam.activityId) {
@@ -77,13 +74,9 @@
 					const str = `${item}=${this.option[item]}`
 					paramStr = `${paramStr}&${str}`
 				}
-				// url.replace(/\?from=\w*/, '').replace(/&isappinstalled=\w*/, '')
 				uni.removeStorageSync('helpShareParam')
-				location.replace(`https://hnhd.motivape.cn/bluehd/#/pages/help/help?${paramStr}`)
-				return
-				// return uni.redirectTo({
-				// 	
-				// })
+				// 拿到参数以后重定向, 避免清除本地之后再次访问会没有数据
+				return location.replace(`https://hnhd.motivape.cn/bluehd/#/pages/help/help?${paramStr}`)
 			} else {
 				this.option = option
 			}
@@ -95,7 +88,7 @@
 			
 			this.info.activityId = parseInt(this.option.activityId)
 			this.info.oldWechatId = this.option.wechatId
-			this.code = this.option.code;
+			this.code = this.option.code
 			this.helpMasterId = this.option.helpMasterId
 			let params = {
 				activityId: this.option.activityId,
@@ -105,6 +98,8 @@
 			//this.init()
 			await this.init();
 			this.getHelpSub(params);
+			// 获取到code之后重定向
+			// 重定向之后获取code
 		},
 		methods:{
 			getWxCode() {
@@ -211,8 +206,8 @@
 				}
 			},
 			toMaster: function (){
-				uni.navigateTo({
-					url: '/pages/index/index'
+				uni.redirectTo({
+					url: '/'
 				})
 			}
 		},

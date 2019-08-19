@@ -127,7 +127,7 @@ export default {
 					imgUrl: data && data.img ? data.img : 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/bluetooth/avatar/share.png',
 					success: function(res) {
 						//用户点击分享后的回调，这里可以进行统计，例如分享送金币之类的  
-						request.post('/api/member/share');
+						// request.post('/api/member/share');
 					},
 					cancel: function(res) {}
 				};

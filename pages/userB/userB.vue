@@ -76,6 +76,19 @@
 			// Bus.$on('taskBIsDoing', () => {
 			// 	this.isDoing = false
 			// })
+			if (this.$wechat && this.$wechat.isWechat()) {
+				const isAndroid = (UA && UA.indexOf('android') > 0) || (weexPlatform === 'android')
+				const host = location.href.split('#')[0]
+				const ids = uni.getStorageSync('ids')
+				if (isAndroid) {
+					 this.$wechat.share({
+						 title: 'MOTIS 只送不卖',
+						 img: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/bluetooth/avatar/share.png'
+					}, location.href, `https://hnhd.motivape.cn/bluehd/#/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}`);
+				}
+				// https://hnhd.motivape.cn/bluehd/#/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}
+			} 
+			this.userCount();
 			Bus.$on('taskBIsDoing', (data) => {
 				this.isDoing = data;
 				// this.isDoing = false
@@ -85,15 +98,7 @@
 			})
 		},
 		onLoad() {
-			this.userCount();
-			if (this.$wechat && this.$wechat.isWechat()) {
-				const host = location.href.split('#')[0]
-				const ids = uni.getStorageSync('ids')
-				 this.$wechat.share({
-					 title: 'MOTIS 只送不卖',
-					 img: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/bluetooth/avatar/share.png'
-				}, location.href, `https://hnhd.motivape.cn/bluehd/#/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}`);
-			} 
+			
 		},
 		methods:{
 			async userCount() {

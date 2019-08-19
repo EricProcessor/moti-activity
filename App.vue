@@ -14,16 +14,19 @@
 		onHide: function() {
 			console.log('App Hide')
 		},
-		// mounted() {
-		// 	if(isProdEnv){
-		// 		//友盟统计添加
-		// 		const script = document.createElement("script");
-		// 		script.src = "https://s5.cnzz.com/z_stat.php?id=1277794271&web_id=1277794271";
-		// 		script.language = "JavaScript";
-		// 		document.body.appendChild(script);
-		// 	}
-		// 	
-		// }
+		mounted() {
+			const isIOS = (UA && /iphone|ipad|ipod|ios/.test(UA)) || (weexPlatform === 'ios')
+			if (isIOS) {
+				this.$wechat.initJssdk2()
+			}
+			// if(isProdEnv){
+			// 	//友盟统计添加
+			// 	const script = document.createElement("script");
+			// 	script.src = "https://s5.cnzz.com/z_stat.php?id=1277794271&web_id=1277794271";
+			// 	script.language = "JavaScript";
+			// 	document.body.appendChild(script);
+			// }
+		}
 	}
 </script>
 
