@@ -377,7 +377,7 @@ export default {
             imgUrl: "",
             price: 69.00,
             sourcePrice: 169,
-            title: "MO GO 电子烟套装 雾化换弹小烟",
+            title: "MT GO 电子烟套装 雾化换弹小烟",
             desc:"1 烟杆 + 1 个老冰棍儿烟弹",
             tastePrice:35,
             taste: [{
@@ -412,6 +412,7 @@ export default {
         backgrounds: [
             "../../static/images/mojo/xbh.jpg",
             "../../static/images/mojo/jdh.jpg",
+			"../../static/images/mojo/chse.jpg",
         ],
         spec: [
 
@@ -422,7 +423,11 @@ export default {
             {
                 text: "极夜黑",
                 sku: "112492575752"
-            }
+            },
+			 {
+			    text: "珊瑚橙",
+			    sku: "112492575754"
+			}
         ],
     },
 	 goodsMTGO99:{
@@ -430,7 +435,7 @@ export default {
 	        imgUrl: "",
 	        price: 99.00,
 	        sourcePrice: 169,
-	        title: "MO GO 电子烟套装 雾化换弹小烟",
+	        title: "MT GO 电子烟套装 雾化换弹小烟",
 	        desc:"1 烟杆 + 1 个老冰棍儿烟弹",
 	        tastePrice:35,
 	        taste: [{
@@ -465,6 +470,7 @@ export default {
 	    backgrounds: [
 	        "../../static/images/mojo/xbh.jpg",
 	        "../../static/images/mojo/jdh.jpg",
+			"../../static/images/mojo/chse.jpg",
 	    ],
 	    spec: [
 	
@@ -475,7 +481,11 @@ export default {
 	        {
 	            text: "极夜黑",
 	            sku: "112492575752"
-	        }
+	        },
+			 {
+			    text: "珊瑚橙",
+			    sku: "112492575754"
+			}
 	    ],
 	}
 }

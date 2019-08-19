@@ -133,7 +133,11 @@
 				<view class="input-item" v-for="(item, index) in userInfo" :key="index">
 					<view class="text">{{item.text}}</view>
 
-					<ChoicArea v-if="index === 2"    @pickArea="getAreas"  :initData="areaObj" :isClear = "isClear" ></ChoicArea>
+					<!-- <ChoicArea v-if="index === 2"    @pickArea="getAreas"  :initData="areaObj" :isClear = "isClear" ></ChoicArea> -->
+					<view class="input citySelect" v-if="index === 2">
+						<input type="text" disabled="true"  @tap="showCityPicker"  placeholder-style="color: #b6b6b6;" :placeholder="item.placeholder" v-model="item.value">
+						<image class="arrow-down" @tap="showCityPicker" src="/static/images/icons/arrow_down.png"></image>
+					</view>
 					<view  v-else class="input">
 						<input type="text" placeholder-style="color: #b6b6b6;font-size:30upx;height: 30upx;line-height:30upx;"
 						 :placeholder="item.placeholder" v-model="item.value">
@@ -141,6 +145,7 @@
 
 				</view>
 			</view>
+			<mpvueCityPicker ref="mpvueCityPicker" :pickerValueDefault="cityPickerValueDefault" @onCancel="onCancel"  @onConfirm="onConfirm"></mpvueCityPicker>
 		</view>
 	</view>
 
@@ -161,9 +166,11 @@
 	import GoodsMojoFree from "./goodsMojoFree.js"
 	import GoodsMojo24 from "./goodsMojo24.js"*/
 	import ChoicArea from "./ChoicArea.vue"
+	import mpvueCityPicker from "../../component/mpvue-citypicker/mpvueCityPicker.vue"
 	export default {
 		data() {
 			return {
+				cityPickerValueDefault: [0, 0, 0],
 				formScrolly:1160,
 				currentSpecIndex: 0,
 				currentTasteIndex: "",
@@ -187,7 +194,7 @@
 					 {
 					 	text: '地区',
 					 	value: '',
-					 	placeholder: '请输入'
+					 	placeholder: '选择地区'
 					},
 					{
 						text: "详细地址",
@@ -294,12 +301,45 @@
 			this.currentTasteIndex = this.initData.currentTasteIndex
 			this.isShowTastes = this.initData.isShowTastes
 			this.areaObj = this.initData.areaObj
+			if(this.areaObj && JSON.stringify(this.areaObj) !== '{}'){
+				this.cityPickerValueDefault = [this.areaObj.province.index,this.areaObj.city.index,this.areaObj.area.index]
+			}
 
 		},
 		components:{
-			ChoicArea
+			ChoicArea,
+			mpvueCityPicker
 		},
 		methods: {
+			onConfirm(data){
+				
+				let labelArr = data.label.split("-")
+				let cityCodeArr = data.cityCode.split("-")
+				let indexArr = data.value.split("-")
+				this.areaObj.province = {
+					index:  parseInt(indexArr[0]),
+					label: labelArr[0],
+					value: cityCodeArr[0]
+				}
+				this.areaObj.city = {
+					index:parseInt(indexArr[1]),
+					label: labelArr[1],
+					value: cityCodeArr[1]
+				}
+				this.areaObj.area = {
+					index:parseInt(indexArr[2]),
+					label: labelArr[2],
+					value: cityCodeArr[2]
+				}
+				
+				this.userInfo[2].value = labelArr.join(" ")
+			},
+			onCancel(){
+				
+			},
+			showCityPicker(){
+				this.$refs["mpvueCityPicker"].show()
+			},
 			getAreas(data){
 				this.areaObj = data
 			},
@@ -859,12 +899,26 @@
 				border-bottom: 1upx solid #b6b6b6;
 				font-size: 30upx;
 				color: #323232;
-
+				
+				
+				&.citySelect{
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					//position: relative;
+				}
+				.arrow-down{
+					display: position;
+					width: 26upx;
+					height: 14upx;
+					right: 0;
+				}
 
 				input {
 					//line-height: normal;
 					transform: translateZ(0);
 					height: 30upx;
+					flex-grow:1,
 				}
 			}
 
