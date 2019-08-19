@@ -14,6 +14,7 @@ export default {
 		onArrivePay: true, //开始货到付款
 		bianXianMao:false, //是否加载变现猫JS
 		isSpuDesc:false, //是否显示价格描述
+		isShowAgain:true,
 	},
 	2: {
 		module: 'EditOrderForm',
@@ -30,6 +31,7 @@ export default {
 		onArrivePay: true, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:false,
+		isShowAgain:true,
 	},
 	3: {
 		module: 'EditOrderForm',
@@ -46,6 +48,7 @@ export default {
 		onArrivePay: true, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:false,
+		isShowAgain:true,
 	},
 	4: {
 		module: 'EditOrderForm',
@@ -62,6 +65,7 @@ export default {
 		onArrivePay: true, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:false,
+		isShowAgain:true,
 	},
 	5: {
 		module: 'EditOrderForm',
@@ -78,6 +82,7 @@ export default {
 		onArrivePay: true, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:false,
+		isShowAgain:true,
 	},
 	6: {
 		module: 'EditOrderForm',
@@ -94,6 +99,7 @@ export default {
 		onArrivePay: true, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:false,
+		isShowAgain:true,
 	},
 	7: {
 		module: 'EditOrderForm',
@@ -110,6 +116,7 @@ export default {
 		onArrivePay: true, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:false,
+		isShowAgain:true,
 	},
 	8: {
 		module: 'EditOrderForm',
@@ -126,6 +133,7 @@ export default {
 		onArrivePay: true, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:false,
+		isShowAgain:true,
 	},
 	9: {
 		module: 'EditOrderForm',
@@ -142,6 +150,7 @@ export default {
 		onArrivePay: true, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:false,
+		isShowAgain:true,
 	},
 	10: {
 		module: 'EditOrderForm',
@@ -158,6 +167,7 @@ export default {
 		onArrivePay: true, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:false,
+		isShowAgain:true,
 	},
 	11: {
 		module: 'EditOrderForm',
@@ -174,6 +184,7 @@ export default {
 		onArrivePay: true, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:false,
+		isShowAgain:true,
 	},
 	12: {
 		module: 'EditOrderForm',
@@ -190,6 +201,7 @@ export default {
 		onArrivePay: true, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:false,
+		isShowAgain:true,
 	},
 	13: {
 		module: 'EditOrderForm',
@@ -206,6 +218,7 @@ export default {
 		onArrivePay: true, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:false,
+		isShowAgain:true,
 	},
 	14: {
 		module: 'EditOrderForm',
@@ -222,6 +235,7 @@ export default {
 		onArrivePay: false, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:false,
+		isShowAgain:true,
 	},
 	15: {
 		module: 'EditOrderForm',
@@ -238,6 +252,7 @@ export default {
 		onArrivePay: true, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:false,
+		isShowAgain:true,
 	},
 	16: {
 		module: 'EditOrderFormC',
@@ -254,6 +269,7 @@ export default {
 		onArrivePay: true, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:false,
+		isShowAgain:true,
 	},
 	17: {
 		module: 'EditOrderFormC',
@@ -270,6 +286,7 @@ export default {
 		onArrivePay: true, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:false,
+		isShowAgain:true,
 	},
 	18: {
 		module: 'EditOrderForm',
@@ -286,6 +303,7 @@ export default {
 		onArrivePay: false, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:false,
+		isShowAgain:true,
 	},
 	19: {
 		module: 'EditOrderForm',
@@ -302,6 +320,7 @@ export default {
 		onArrivePay: false, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:false,
+		isShowAgain:true,
 	},
 	20: {
 		module: 'EditOrderForm',
@@ -318,6 +337,7 @@ export default {
 		onArrivePay: false, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:false,
+		isShowAgain:true,
 	},
 	21: {
 		module: 'EditOrderForm',
@@ -334,6 +354,7 @@ export default {
 		onArrivePay: false, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:false,
+		isShowAgain:true,
 	},
 	22: {
 		module: 'EditOrderForm',
@@ -350,6 +371,7 @@ export default {
 		onArrivePay: false, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:false,
+		isShowAgain:true,
 	},
 	23: {
 		module: 'EditOrderFormMojo',
@@ -366,6 +388,7 @@ export default {
 		onArrivePay: true, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:false,
+		isShowAgain:true,
 	},
 	24: {
 		module: 'EditOrderFormMojo',
@@ -382,6 +405,7 @@ export default {
 		onArrivePay: false, //开始货到付款
 		bianXianMao:true,
 		isSpuDesc:false,
+		isShowAgain:true,
 	},
 	25: {
 		module: 'EditOrderFormMojo',
@@ -398,6 +422,7 @@ export default {
 		onArrivePay: true, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:false,
+		isShowAgain:true,
 	},
 	26: {
 		module: 'EditOrderFormMojo',
@@ -414,6 +439,7 @@ export default {
 		onArrivePay: false, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:false,
+		isShowAgain:true,
 	},
 	27: {
 		module: 'EditOrderFormMojo',
@@ -430,6 +456,7 @@ export default {
 		onArrivePay: true, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:false,
+		isShowAgain:false,
 	},
 	28: {
 		module: 'EditOrderFormC',
@@ -446,6 +473,7 @@ export default {
 		onArrivePay: false, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:false,
+		isShowAgain:true,
 	},
 	29: {
 		module: 'EditOrderFormMojo',
@@ -462,6 +490,7 @@ export default {
 		onArrivePay: false, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:false,
+		isShowAgain:true,
 	},
 	30: {
 		module: 'EditOrderFormMojo',
@@ -478,6 +507,7 @@ export default {
 		onArrivePay: true, //开始货到付款
 		bianXianMao:true,
 		isSpuDesc:false,
+		isShowAgain:false,
 	},
 	31: {
 		module: 'EditOrderFormC',
@@ -494,6 +524,7 @@ export default {
 		onArrivePay: false, //开始货到付款
 		bianXianMao:true,
 		isSpuDesc:true,
+		isShowAgain:true,
 	},
 	32: {
 		module: 'EditOrderForm',
@@ -510,6 +541,7 @@ export default {
 		onArrivePay: false, //开始货到付款
 		bianXianMao:true,
 		isSpuDesc:false,
+		isShowAgain:true,
 	},
 	33: {
 		module: 'EditOrderFormC',
@@ -526,6 +558,7 @@ export default {
 		onArrivePay: false, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:true,
+		isShowAgain:true,
 	},
 	34: {
 		module: 'EditOrderFormC',
@@ -542,5 +575,6 @@ export default {
 		onArrivePay: false, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:true,
+		isShowAgain:true,
 	},
 }

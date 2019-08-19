@@ -62,28 +62,28 @@
         "usingComponents" : true
     },
     "h5" : {
-        // "devServer" : {
-        //     "port" : 8080,
-        //     "disableHostCheck" : true,
-        //     "proxy" : {
-        //         "/m" : {
-        //             // "target": "http://10.165.111.78:8090",
-        //             // "target": "http://10.165.106.92:8090",
-        //             "target" : "http://10.165.106.67:8090",
-        //             // "target": "http://39.96.190.37:80",
-        //             "changeOrigin" : true,
-        //             "secure" : false
-        //         },
-        //         "/user" : {
-        //             // "target": "http://10.165.111.78:8090",
-        //             // "target": "http://10.165.106.92:8096",
-        //             "target" : "http://10.165.106.92:8096",
-        //             // "target": "http://39.96.190.37:80",
-        //             "changeOrigin" : true,
-        //             "secure" : false
-        //         }
-        //     }
-        // },
+         "devServer" : {
+             
+             "disableHostCheck" : true,
+             "proxy" : {
+                 "/api" : {
+                     // "target": "http://10.165.111.78:8090",
+                     // "target": "http://10.165.106.92:8090",
+                     "target" : "http://test.motiactivity.motimall.cn",
+                     // "target": "http://39.96.190.37:80",
+                     "changeOrigin" : true,
+                     "secure" : false
+                 },
+                 "/user" : {
+                     // "target": "http://10.165.111.78:8090",
+                     // "target": "http://10.165.106.92:8096",
+                     "target" : "https://motiactivity.motimall.cn",
+                     // "target": "http://39.96.190.37:80",
+                     "changeOrigin" : true,
+                     "secure" : false
+                 }
+             }
+         },
         "router" : {
             "mode" : "history"
         },

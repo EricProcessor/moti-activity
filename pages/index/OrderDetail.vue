@@ -91,7 +91,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="order-again">
+			<view class="order-again" v-if="isAgain">
 				<button @click="$emit('againBuy')" >再来一单</button>
 			</view>
 
@@ -101,6 +101,7 @@
 </template>
 
 <script>
+	import typeConfig from "../../common/typeConfig.js"
 	export default {
 		data() {
 			return {
@@ -117,6 +118,14 @@
 			paramType:{
 				type:Number,
 				default:7
+			}
+		},
+		computed:{
+			pageConfigure(){
+				return typeConfig[this.paramType]
+			},
+			isAgain(){
+				return this.pageConfigure.isShowAgain
 			}
 		},
 		methods:{
