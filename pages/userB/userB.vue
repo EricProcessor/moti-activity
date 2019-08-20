@@ -16,7 +16,7 @@
 		<upload-img :isCompleted="isCompleted" :userImgProgress="userImgProgress" 
 			@userImgProgress="getUserImgProgress" :taskImgInfo="taskImgInfo"></upload-img>
 		<footer-box></footer-box>
-		<button-box :isDoing="isDoing" :isHasPhone="isHasPhone" :isCompleted="isCompleted" :taskId="taskId"></button-box>
+		<button-box @showPop="handleShowPop" :isDoing="isDoing" :isHasPhone="isHasPhone" :isCompleted="isCompleted" :taskId="taskId"></button-box>
 		<pop-up></pop-up>
 		<invite-help></invite-help>
 		
@@ -112,6 +112,9 @@
 			
 		},
 		methods:{
+			handleShowPop() {
+				Bus.$emit('showPop', true)
+			},
 			async userCount() {
 				const { result } = await userCount()
 				this.userCountNum = result.count

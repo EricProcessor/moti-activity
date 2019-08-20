@@ -91,6 +91,7 @@
 					})
 				}
 				Bus.$emit('showPop',true);
+				this.$emit('showPop', true)
 				
 				//this.buryPoint('completeTask')
 			},

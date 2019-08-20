@@ -12,7 +12,7 @@
 		<code-box :imgUrl="imgUrl"></code-box>
 		<help-box :master="master" :helperList="helperList" :taskContents="taskContents"></help-box>
 		<footer-box></footer-box>
-		<button-box :isHasPhone="isHasPhone" :taskId="taskId" :isCompleted="isCompleted"></button-box>
+		<button-box @showPop="handleShowPop" :isHasPhone="isHasPhone" :taskId="taskId" :isCompleted="isCompleted"></button-box>
 		<pop-up></pop-up>
 		<invite-help></invite-help>
 	</view>
@@ -92,6 +92,9 @@
 			}
 		},
 		methods:{
+			handleShowPop() {
+				Bus.$emit('showPop', true)
+			},
 			async userCount() {
 				const { result } = await userCount()
 				this.userCountNum = result.count
