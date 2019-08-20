@@ -305,6 +305,7 @@
 			.shop-detail-body {
 				width: 750upx;
 				height: auto;
+				margin-bottom: 86upx;
 
 				image {
 					width: 750upx;

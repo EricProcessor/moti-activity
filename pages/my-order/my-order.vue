@@ -1,77 +1,156 @@
 <template>
 	<view class="my-order">
-		<view class="order-groups">
-			<view class="order-item">
+		<view class="order-groups" :style="{height:height}">
+			<view class="order-item" v-for="(items,index) in orderList" :key="index">
 				<view class="order-header">
 					<view class="header-left">
 						TOP的专属MOTI小店
 					</view>
 					<view class="header-right">
-						待收货
+						{{items.order_status === '30' ? '已支付' :'支付失败'}}
+						
 					</view>
 				</view>
-				<view class="order-body">
-					<image class="order-image" src="../../static/image/pay-successbg.png" mode="aspectFill"></image>
+				<view class="order-body" v-for="(item,key) in items.item" :key="key">
+					<image class="order-image" :src="item.skuPicture.picture_url" mode="aspectFill"></image>
 					<view class="order-desc">
 						<view class="order-title-price">
 							<view class="o-title">
-								D13 电子烟套装 雾化换弹小烟（1烟杆+3烟弹） …
+								{{item.spu_name}}
 							</view>
 							<view class="o-price">
-								￥999.80
+								￥{{item.sku_price}}
 							</view>
 						</view>
 						<view class="order-spec-number">
 							<view class="o-spec">
-								颜色:淡蓝色
+								{{item.skuAttr.attrName}}:{{item.skuAttr.attrValue}}
 							</view>
 							<view class="o-number">
-								×3
+								×{{item.sku_num}}
 							</view>
 						</view>
 					</view>
 
 				</view>
 				<view class="order-total">
-					<text class="total-number">共计3件商品</text>
+					<text class="total-number">共计{{items.item.length}}件商品</text>
 					<text class="total-title">合计:￥</text>
-					<text class="price-total-int">9980</text>
-					<text class="price-float">.50</text>
+					<text class="price-total-int">{{toDecimalInt(items.order_old_money)}}</text>
+					<text class="price-float">.{{toDecimalFloat(items.order_old_money)}}</text>
 				</view>
 				<view class="order-operate">
 					<view class="operate-item">
-						联系客服
+						<a href="tel:4000126828">联系客服</a>
 					</view>
-					<view class="operate-item">
-						联系小店
-					</view>
-					<view class="operate-item">
-						申请售后
-					</view>
-					<view class="operate-item">
-						商品验真
-					</view>
+
 				</view>
 			</view>
 		</view>
+
 		<view class="order-bottom">
 			<view class="order-tip">
 				下载MOTI到家APP关注您的订单状态
 			</view>
-			<button>立即体验</button>
+			<button @tap="linkTo">立即体验</button>
 		</view>
 	</view>
 </template>
 
 <script>
+	import {
+		postForm
+	} from "../../common/request.js"
+	import {
+		orderSource
+	} from '../../common/unils.js'
 	export default {
 		data() {
 			return {
-
+				orderList: [],
+				height: ""
 			}
 		},
 		methods: {
+			linkTo(){
+				location.href = "https://daojia.motivape.cn"
+			},
+			async queryOrders() {
+				uni.showLoading({
+					title: "加载中..."
+				})
+				let res = await postForm("/mall/h5/ofo/queryOrderList", {
+					orderSource: orderSource
+				})
+				uni.hideLoading()
+				if (res.code != 0) return uni.showToast({
+					title: res.msg,
+					icon: "none"
+				})
+				this.orderList = res.result
 
+			},
+			toDecimalInt(price) {
+				let arr = ["0", "00"]
+				let f = parseFloat(price);
+				if (isNaN(f)) {
+					return arr[0]
+				}
+				f = Math.round(price * 100) / 100;
+				let s = f.toString();
+				let rs = s.indexOf('.');
+
+				if (rs < 0) {
+					arr[0] = s
+					return arr[0]
+				}
+
+				let rsarr = s.split(".")
+				arr[0] = rsarr[0]
+
+				let f0 = rsarr[1]
+				while (s.length <= rs + 2) {
+					f0 += '0';
+				}
+				arr[1] = f0
+				return arr[0];
+			},
+			toDecimalFloat(price) {
+				let arr = ["0", "0"]
+				let f = parseFloat(price);
+				if (isNaN(f)) {
+					return arr
+				}
+				f = Math.round(this.price * 100) / 100;
+				let s = f.toString();
+				let rs = s.indexOf('.');
+				if (rs < 0) {
+					arr[0] = s
+					return arr[1]
+				}
+				let rsarr = s.split(".")
+				arr[0] = rsarr[0]
+
+				let f0 = rsarr[1]
+				while (s.length <= rs + 1) {
+					f0 += '0';
+				}
+				arr[1] = f0
+				return arr[1];
+			},
+		},
+		computed: {
+
+		},
+		onLoad() {
+			let self = this
+			uni.getSystemInfo({
+				success: function(res) {
+					self.height = (res.windowHeight - uni.upx2px(127+32)) + "px"
+					
+				}
+			});
+			this.queryOrders()
 		}
 	}
 </script>
@@ -81,10 +160,14 @@
 		color: #333333;
 
 		.order-groups {
+			//height: 900upx;
+			overflow-y: auto;
+
 			.order-item {
 				margin-top: 20upx;
 				background-color: #FFFFFF;
 				padding: 32upx 24upx 40upx 24upx;
+
 
 				.order-header {
 					display: flex;
@@ -146,9 +229,10 @@
 					font-size: 24upx;
 					color: #999999;
 					display: flex;
-					align-items: center;
+					align-items:  baseline;
 					justify-content: flex-end;
 					margin-bottom: 32upx;
+					
 
 					.total-title {
 						font-weight: bold;
@@ -159,7 +243,7 @@
 						font-size: 36upx;
 						font-weight: bold;
 						color: #333333;
-						height: 50upx;
+						
 					}
 
 					.price-float {
@@ -181,9 +265,15 @@
 						line-height: 56upx;
 						width: 152upx;
 						height: 56upx;
+						line-height: 56upx;
 						border-radius: 8upx;
 						border: 2upx solid rgba(221, 221, 221, 1);
 						margin-right: 32upx;
+
+						a {
+							text-decoration: none;
+							color: #333333;
+						}
 					}
 
 					:last-child {

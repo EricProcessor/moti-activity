@@ -92,7 +92,7 @@
 
 
 			</view>
-			<view class="pay-item" @tap="payType = 'arrive_pay'">
+			<!-- <view class="pay-item" @tap="payType = 'arrive_pay'">
 				<view class="pay-icon">
 					<image src="../../static/image/zhuanqian-H@2X.png" mode="aspectFit"></image>
 					<view class="pay-title">
@@ -104,9 +104,7 @@
 				</view>
 				<image class="select-pay" v-if="payType === 'arrive_pay'" src="../../static/image/circle-acitve.png" mode=""></image>
 				<image class="select-pay" v-else src="../../static/image/circle-choic.png" mode=""></image>
-
-
-			</view>
+			</view> -->
 		</view>
 		<view class="bottom-button">
 			<view class="bottom-left">
@@ -258,6 +256,7 @@
 					else PayObject.queryPayStatus(queryPayParams.orderNo, "1")
 				}
 				if (queryPayParams.payType == "weixin") {
+					if(PayObject.isWxBrowser()) return
 					setTimeout(() => {
 						uni.showModal({
 							content: "是否完成微信支付？",
