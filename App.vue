@@ -15,17 +15,19 @@
 			console.log('App Hide')
 		},
 		mounted() {
-			const isIOS = (UA && /iphone|ipad|ipod|ios/.test(UA)) || (weexPlatform === 'ios')
+			const UA = window.navigator.userAgent.toLowerCase()
+			const isIOS = (UA && /iphone|ipad|ipod|ios/.test(UA))
 			if (isIOS) {
 				this.$wechat.initJssdk2()
 			}
-			// if(isProdEnv){
-			// 	//友盟统计添加
-			// 	const script = document.createElement("script");
-			// 	script.src = "https://s5.cnzz.com/z_stat.php?id=1277794271&web_id=1277794271";
-			// 	script.language = "JavaScript";
-			// 	document.body.appendChild(script);
-			// }
+			const isDev = process.env.NODE_ENV === 'development'
+			if(!isDev){
+				//友盟统计添加
+				const script = document.createElement("script");
+				script.src = "https://s5.cnzz.com/z_stat.php?id=1277794271&web_id=1277794271";
+				script.language = "JavaScript";
+				document.body.appendChild(script);
+			}
 		}
 	}
 </script>

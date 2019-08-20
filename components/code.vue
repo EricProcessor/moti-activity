@@ -1,6 +1,6 @@
 <template>
 	<view class="code-box" v-if='codeShow'>
-		<view class="text">复制优惠码并添加官方发送后即可获得优惠券购买MOTIS产品</view>
+		<view class="text">复制优惠码并添加官方小 MO 账号，发送兑换码即可获得领取链接，并可加入免单福利群。</view>
 		<view class="code-border">
 			<image :src="imgUrl?imgUrl:'/static/a.png'" mode=""></image>
 		</view>

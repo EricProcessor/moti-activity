@@ -73,8 +73,9 @@
         }
     ],
 	"globalStyle": {
+		"navigationStyle":"custom",
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "MOTIS只送不卖",
+		"navigationBarTitleText": "MOTI S 限时免费领取",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	}

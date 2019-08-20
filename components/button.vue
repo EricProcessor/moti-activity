@@ -84,6 +84,12 @@
 				//this.buryPoint('inviteFirend')
 			},
 			completeTask(){
+				if (this.isDoing) {
+					return uni.showToast({
+						title: '请先完成助力',
+						icon: 'none'
+					})
+				}
 				Bus.$emit('showPop',true);
 				
 				//this.buryPoint('completeTask')

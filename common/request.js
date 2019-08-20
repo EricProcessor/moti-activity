@@ -3,7 +3,7 @@ import config from './config.js'
 //封装request方法
 export async function request(params){
 	return new Promise(function (resolve,reject){
-		uni.showLoading({title: ''});
+		// uni.showLoading({title: ''});
 		const {...rest} = params.data;
 		uni.request({
 			url: config.host + params.url,
@@ -17,7 +17,7 @@ export async function request(params){
 				resolve(data)
 			},
 			fail: function (err){
-				uni.hideLoading();
+				// uni.hideLoading();
 				reject(err)
 			}
 		})

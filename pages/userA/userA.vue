@@ -1,8 +1,10 @@
 <template>
 	<view class='userA'>
 		<header-box :count="userCountNum"></header-box>
+		<view style="margin-top: 40upx;"></view>
 		<my-task 
 			:taskType="1"
+			:taskStatus="taskStatus"
 			:master="master" 
 			:masterInfo="masterInfo" 
 			typeText="我没有电子烟产品"></my-task>
@@ -56,28 +58,38 @@
 				taskContents:{},
 				taskId: 0,
 				isCompleted: false,
-				isHasPhone: false
+				isHasPhone: false,
+				taskStatus: 0
 			};
 		},
 		mounted() {
 			this.getInfo();
 			this.queryHelpMasterByUserId()
-			
+			this.userCount();
 			Bus.$on('changeIsCompleted', (data) => {
 				this.isCompleted = true
 				this.isHasPhone = true
 			})
-		},
-		onLoad() {
-			this.userCount()
+			
 			if (this.$wechat && this.$wechat.isWechat()) {
-			const host = location.href.split('#')[0]
+				const UA = window.navigator.userAgent.toLowerCase()
+				const isIOS = (UA && /iphone|ipad|ipod|ios/.test(UA))
+				const host = location.href.split('#')[0]
 				const ids = uni.getStorageSync('ids')
-			     this.$wechat.share({
-					 title: 'MOTIS 只送不卖',
-					 img: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/bluetooth/avatar/share.png'
-				}, location.href, `https://hnhd.motivape.cn/bluehd/#/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}`);
-			} 
+				if (isIOS) {
+					this.$wechat.share2({
+						 title: 'MOTI S 限时免费领取',
+						 desc: '我不要你觉得，我就要宇宙无敌魔笛智能电子烟',
+						 link: `https://hnhd.motivape.cn/bluehd/#/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}`,
+						 imgUrl: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/bluetooth/avatar/share.png'
+					});
+				} else {
+					this.$wechat.share({
+						 title: 'MOTI S 限时免费领取',
+						 img: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/bluetooth/avatar/share.png'
+					}, location.href, `https://hnhd.motivape.cn/bluehd/#/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}`);
+				}
+			}
 		},
 		methods:{
 			async userCount() {
@@ -105,7 +117,6 @@
 						} else if (result.task.taskId == 3) {
 							return uni.redirectTo({ url: '/pages/userC/userC' })
 						}
-						 
 					}
 					this.taskContents = JSON.parse(result.task.taskContents[0].content)
 					uni.setStorageSync('taskContents',this.taskContents)
@@ -131,6 +142,7 @@
 					if (taskContents.every((cur) => { return cur.status == 1})) {
 						// 已完成任务, 改变状态
 						this.isCompleted = true
+						this.taskStatus = 1
 					}
 					
 					// if(taskStatus == 1){
@@ -157,12 +169,9 @@
 </script>
 
 <style lang="scss" scoped>
-	page {
-		padding-bottom: 100upx;
-	}
 	.userA {
+		padding-bottom: 100upx;
 		display: flex;
 		flex-direction: column;
-		height: 100%;
 	}
 </style>

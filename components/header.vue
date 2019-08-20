@@ -5,9 +5,9 @@
 				<view class='top-lf'>
 					<text>{{count}}</text>人正在参加
 				</view >
-				<view class='top-rg' @tap='aboutMe'>什么是MOTIS</view>
+				<view class='top-rg' @tap='aboutMe'>什么是<text>MOTIS</text></view>
 			</view>
-			<view class="activityNum">活动时间&nbsp;即日起至2019年09月20日</view>
+			<view class="activityNum">活动时间&nbsp;即日起至2019年08月25日</view>
 		</view>
 	</view>
 </template>
@@ -48,7 +48,7 @@
 			font-weight:400;
 			position: relative;
 			height:720upx;
-			background-image: url('../static/bgm2.png');
+			background-image: url('../static/bgm2.jpg');
 			background-repeat:no-repeat;
 			background-position:center top;
 			background-size: 100%;
@@ -57,7 +57,7 @@
 				font-size:22upx;
 				// margin:60upx auto;
 				position:absolute;
-				bottom:20upx;
+				bottom:0;
 				width:100%;
 				text-align: center;
 				
@@ -69,6 +69,7 @@
 				color:#fff;
 				margin-top:27upx;
 				.top-lf{
+					font-size: 20upx;
 					padding-left:24upx;
 					text{
 						color:#F93822;
@@ -78,6 +79,11 @@
 					background:rgba(38,41,45,1);
 					padding:2upx 25upx;
 					border-radius:20upx 0 0 20upx;
+					font-size: 20upx;
+					text {
+						margin-left: 10upx;
+						color: #F93822;
+					}
 				}
 			}
 		}

@@ -1,8 +1,10 @@
 <template>
 	<view class="userB">
 		<header-box :count="userCountNum"></header-box>
+		<view style="margin-top: 40upx;"></view>
 		<my-task :taskType="2" 
 			:masterInfo="masterInfo"
+			:taskStatus="taskStatus"
 			:master="master"
 			:userProgress="userProgress"
 			:userImgProgress="userImgProgress"
@@ -11,12 +13,13 @@
 		<help-box :master="master" :helperList="helperList" :taskContents="taskContents"></help-box>
 		<discounts-box></discounts-box>
 		<code-box :imgUrl="imgUrl"></code-box>
-		<upload-img :userImgProgress="userImgProgress" 
+		<upload-img :isCompleted="isCompleted" :userImgProgress="userImgProgress" 
 			@userImgProgress="getUserImgProgress" :taskImgInfo="taskImgInfo"></upload-img>
 		<footer-box></footer-box>
 		<button-box :isDoing="isDoing" :isHasPhone="isHasPhone" :isCompleted="isCompleted" :taskId="taskId"></button-box>
 		<pop-up></pop-up>
 		<invite-help></invite-help>
+		
 	</view>
 </template>
 
@@ -67,32 +70,40 @@
 				isCompleted: false,
 				isHasPhone: false,
 				isDoing: false,
-				isAllTaskCompleted: false
+				isAllTaskCompleted: false,
+				taskStatus: 0
 			};
 		},
 		mounted() {
 			this.getInfo();
 			this.queryHelpMasterByUserId()
-			// Bus.$on('taskBIsDoing', () => {
-			// 	this.isDoing = false
-			// })
+			Bus.$on('taskBIsDoing', (data) => {
+				this.isDoing = data
+			})
 			if (this.$wechat && this.$wechat.isWechat()) {
-				const isAndroid = (UA && UA.indexOf('android') > 0) || (weexPlatform === 'android')
+				const UA = window.navigator.userAgent.toLowerCase()
+				const isIOS = (UA && /iphone|ipad|ipod|ios/.test(UA))
 				const host = location.href.split('#')[0]
 				const ids = uni.getStorageSync('ids')
-				if (isAndroid) {
-					 this.$wechat.share({
-						 title: 'MOTIS 只送不卖',
+				if (isIOS) {
+					this.$wechat.share2({
+						 title: 'MOTI S 限时免费领取',
+						 desc: '我不要你觉得，我就要宇宙无敌魔笛智能电子烟',
+						 link: `https://hnhd.motivape.cn/bluehd/#/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}`,
+						 imgUrl: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/bluetooth/avatar/share.png'
+					});
+				} else {
+					this.$wechat.share({
+						 title: 'MOTI S 限时免费领取',
 						 img: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/bluetooth/avatar/share.png'
 					}, location.href, `https://hnhd.motivape.cn/bluehd/#/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}`);
 				}
-				// https://hnhd.motivape.cn/bluehd/#/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}
 			} 
 			this.userCount();
-			Bus.$on('taskBIsDoing', (data) => {
-				this.isDoing = data;
-				// this.isDoing = false
-			})
+			// Bus.$on('taskBIsDoing', (data) => {
+			// 	this.isDoing = data;
+			// 	// this.isDoing = false
+			// })
 			Bus.$on('isInputedPhone', () => {
 				this.isHasPhone = true
 			})
@@ -145,27 +156,20 @@
 						}
 					}
 					this.masterInfo = result.userMsg;
-					console.log(result.task.taskContents[0], result.task.taskContents[0].status);
+					// 完成了助力
 					if (result.task.taskContents[0] && result.task.taskContents[0].status == 1 && result.task.taskId == 2) {
 						// userB任务, 完成第一步即助力任务了, 但还没有完成上传图片
 						this.isCompleted = true
+						this.taskStatus = 1
+						this.userProgress = true
 						// 是否正在进行, 即上传图片还未完成
 						// this.isDoing = true
 					}
 					
-					let userBStatus = false
-					if(result.task.taskContents[0].status == 1 && result.task.taskContents[1].status == 1){
-						userBStatus = true
-						// Bus.$emit('changeShowBtn',true);
-					}
-					if(result.task.taskContents[0].status == 1){
-						this.userProgress = true
-					}
 					if(result.task.taskContents[1].status == 1){
 						this.taskImgInfo = JSON.parse(result.task.taskContents[1].content)
 						this.userImgProgress = true
 					}
-					console.log('userBStatus', userBStatus);
 					const taskContents = result.task.taskContents
 					if (taskContents.every((cur) => { return cur.status == 1})) {
 						this.isDoing = false
@@ -202,8 +206,8 @@
 
 <style lang="scss" scoped>
 	.userB{
+		padding-bottom: 100upx;
 		display: flex;
 		flex-direction: column;
-		height: 100%;
 	}
 </style>

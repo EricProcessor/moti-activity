@@ -2,6 +2,7 @@
 	<view class="index-content">
 		<header-box :count="userCountNum"></header-box>
 		<!-- <qrcode-img></qrcode-img> -->
+		<view style="margin-top: 40upx;;"></view>
 		<footer-box></footer-box>
 		<view class="joinBtn btn" @tap.stop="joinBtn">我要参与活动</view>
 		<view class="pop-up" @tap="closeSelect" v-if="isJoin">
@@ -39,19 +40,19 @@ export default {
 			activityInfo: [
 				{
 					title: '我没有电子烟产品',
-					content: '需完成 36 个好友助力，获取限时购买资格',
+					content: '需完成 36 个好友助力，获得免费领取烟杆资格',
 					url: '/pages/userA/userA',
 					id: 1
 				},
 				{
 					title: '我有MOTI（MT）产品',
-					content: '需完成 10 个好友助力+拍照上传 MOTI 照片 获取换购资格',
+					content: '需完成10个好友助力+按要求拍照上传MOTI照片，获得免费领取烟杆资格',
 					url: '/pages/userB/userB',
 					id: 2
 				},
 				{
 					title: '我有其他品牌的换弹式电子烟',
-					content: '需完成5个好友助力+寄回换弹式烟杆',
+					content: '需完成5个好友助力+寄回换弹式烟杆，获得免费领取烟杆资格',
 					url: '/pages/userC/userC',
 					id: 3
 				}
@@ -203,17 +204,17 @@ export default {
 		toPath: function (type){
 			switch (type) {
 				case 1:
-					uni.navigateTo({
+					uni.redirectTo({
 						url: `/pages/userA/userA`
 					});
 					break;
 				case 2:
-					uni.navigateTo({
+					uni.redirectTo({
 						url: `/pages/userB/userB`
 					});
 					break;
 				case 3:
-					uni.navigateTo({
+					uni.redirectTo({
 						url: `/pages/userC/userC`
 					});
 					break;
@@ -240,7 +241,7 @@ export default {
 
 <style lang="scss">
 .index-content {
-	height: 100%;
+	// height: 100%;
 	display: flex;
 	flex-direction: column;
 
@@ -251,6 +252,10 @@ export default {
 	}
 
 	.joinBtn {
+		position: fixed;
+		left: 0;
+		right: 0;
+		bottom: 0;
 		line-height: 90upx;
 		flex: 0 0 auto;
 	}
@@ -308,8 +313,9 @@ export default {
 				}
 
 				.content {
+					margin-top: 10upx;
 					font-size: 26upx;
-					line-height: 37px;
+					line-height: 1.5;
 				}
 			}
 

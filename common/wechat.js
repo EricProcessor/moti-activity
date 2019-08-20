@@ -119,9 +119,9 @@ export default {
 		this.initJssdk(function(signData) {
 			jweixin.ready(function() {
 				var shareData = {
-					title: data && data.title ? data.title : signData.site_name,
+					title: 'MOTI S 限时免费领取',
 					// desc: data&&data.desc ? data.desc: signData.site_description,  
-					desc: '低至0元，好友助力领取MOTI S智能电子烟', // 暂时写死
+					desc: '我不要你觉得，我就要宇宙无敌魔笛智能电子烟', // 暂时写死
 					link: shareUrl,
 					// imgUrl: data && data.img ? data.img : signData.site_logo,
 					imgUrl: data && data.img ? data.img : 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/bluetooth/avatar/share.png',
@@ -145,14 +145,14 @@ export default {
 		//每次都需要重新初始化配置，才可以进行分享  
 		jweixin.ready(function() {
 			var shareData = {
-				title: config.title || 'MOTIS 只送不卖',
+				title: config.title || 'MOTI S 限时免费领取',
 				// desc: data&&data.desc ? data.desc: signData.site_description,  
-				desc: config.desc || '低至0元，好友助力领取MOTI S智能电子烟', // 暂时写死
+				desc: config.desc || '我不要你觉得，我就要宇宙无敌魔笛智能电子烟', // 暂时写死
 				link: config.link || location.href,
 				imgUrl: config.imgUrl || 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/bluetooth/avatar/share.png',
 				success: function(res) {
 					//用户点击分享后的回调，这里可以进行统计，例如分享送金币之类的  
-					request.post('/api/member/share');
+					// request.post('/api/member/share');
 				},
 				cancel: function(res) {}
 			};

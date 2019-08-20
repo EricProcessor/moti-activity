@@ -15,8 +15,8 @@
 		</view>
 		<view class="taskBox">
 			<view class='task'>任务1:<text class="font-color">{{master.helpNum}}名</text>好友助力</view>
-			<view v-if='masterInfo.taskStatus == 0' @tap='progress' class="proceed btn">进行中</view>
-			<view v-if='masterInfo.taskStatus == 1' class="accomplish btn">已完成</view>
+			<view v-if='taskStatus == 0' @tap='progress' class="proceed btn">进行中</view>
+			<view v-if='taskStatus == 1' class="accomplish btn">已完成</view>
 		</view>
 		<view class="taskBox" v-if='taskType==2'>
 			<view class='task'>任务2:上传<text class="font-color">MOTI照片</text></view>
@@ -50,6 +50,12 @@
 				type: Boolean,
 				default: false
 			},
+			taskStatus: {
+				type: [Number, String],
+				default() {
+					return 0
+				}
+			},
 			typeText: String
 		},
 		data() {
@@ -59,6 +65,9 @@
 		},
 		created() {
 			console.log('masterInfo', this.masterInfo);
+		},
+		mounted() {
+			console.log('taskStatus', this.taskStatus);
 		},
 		methods:{
 			progress(){
@@ -113,7 +122,7 @@
 				background:#6EB17A;
 			}
 			.accomplish{
-				background:#333;
+				background: #AFAFAF;
 			}
 		}
 		.taskImage{

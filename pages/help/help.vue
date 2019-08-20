@@ -1,8 +1,9 @@
 <template>
 	<view class="helpBox">
-		<header-box></header-box>
+		<header-box :count="userCountNum"></header-box>
+		<view style="margin-top: 40upx;"></view>
 		<view class="help-box">
-			<image class='touxiang' :src="taskContent.wechatHeadeImgUrl?taskContent.wechatHeadeImgUrl:'/static/mine.png'"></image>
+			<image class='touxiang' :src="taskContent.wechatHeadeImgUrl?taskContent.wechatHeadeImgUrl:'/static/userImg.png'"></image>
 			<view class="name">{{taskContent.wechatNickname?decodeURIComponent(taskContent.wechatNickname):'未设置'}}</view>
 			<view class="text">
 				<view class="text1">Ta正在参加免费送烟杆活动</view>
@@ -24,14 +25,15 @@
 				<text>{{taskContent.countCondition}}个助力</text>
 			</view>
 		</view>
+		<view class="home_btn" @tap="toMaster">回我的活动首页</view>
 		<view @tap='helpBtn' v-if='isHelp' class="btn">为他助力</view>
-		<view v-else class="btn" @tap="toMaster">我也要参加</view>
+		<view v-else class="btn" @tap="toMaster">我也要领取</view>
 	</view>
 </template>
 
 <script>
-	import headerBox from '@/components/header.vue';
-	import {queryHelpSubByOpenId,saveHelpSub,getUserAllInfo,addWechatUser} from '@/common/request.js'
+	import headerBox from '@/components/header2.vue';
+	import {queryHelpSubByOpenId,saveHelpSub,getUserAllInfo,addWechatUser, userCount} from '@/common/request.js'
 	export default {
 		components:{
 			headerBox
@@ -57,7 +59,8 @@
 					2:[],
 					3:[]
 				},
-				code: null
+				code: null,
+				userCountNum: '-'
 			};
 		},
 		async onLoad(option) {
@@ -98,10 +101,15 @@
 			//this.init()
 			await this.init();
 			this.getHelpSub(params);
+			this.userCount()
 			// 获取到code之后重定向
 			// 重定向之后获取code
 		},
 		methods:{
+			async userCount() {
+				const { result } = await userCount()
+				this.userCountNum = result.count || '-'
+			},
 			getWxCode() {
 				const url = `${location.origin}/bluehd/#/pages/help/help`
 				// const url = location.href
@@ -130,13 +138,13 @@
 				this.wxUserInfo = wxUserInfo
 			},
 			async helpBtn(){
-				if(this.taskContent.countCondition <= this.taskContent.countData ){
-					uni.showToast({
+				await this.getHelpedNum()
+				if(this.taskContent.countData >= this.taskContent.countCondition){
+					this.isHelp = false;
+					return uni.showToast({
 						icon:'none',
 						title:'您的好友助力已完成'
 					})
-					this.isHelp = false;
-					return false;
 				}
 				// debugger
 				let wxUserInfo = uni.getStorageSync('wxUserInfo')
@@ -148,13 +156,18 @@
 				}
 				let {code,msg,result} = await saveHelpSub(params);
 				if(code == 0){
-					uni.removeStorageSync('helpShareParam')
 					this.isHelp = false;
 					this.taskContent.countData += 1;//助力成功前端展示加1 假的
 					this.taskContent.calcNum -=1;//剩余人数减1 假的
 					this.taskContent.percent = this.taskContent.countData/(this.taskContent.countData+this.taskContent.calcNum)*100;//进度条更新
+					
+					uni.redirectTo({
+						url: '/'
+					})
 					//助力成功
-				}else{
+				} else if (code == 142) {
+					this.isHelp = false;
+				} else{
 					this.isHelp = false;
 					uni.showToast({
 						icon: 'none',
@@ -162,6 +175,16 @@
 					})
 				}
 				
+			},
+			async getHelpedNum() {
+				let params = {
+					activityId: this.option.activityId,
+					wechatId: this.option.wechatId
+				}
+				const {code,msg,result} = await queryHelpSubByOpenId(params);
+				let contentObj = JSON.parse(result.task.taskContents[0].content);
+				this.taskContent.countData = contentObj.countData
+				this.taskContent.countCondition = contentObj.countCondition
 			},
 			async getHelpSub(data){
 				let {code,msg,result} = await queryHelpSubByOpenId(data);
@@ -217,8 +240,14 @@
 
 <style lang="scss" scoped>
 	.helpBox{
-		height:100%;
-		padding-bottom: 90upx;
+		padding-bottom: 140upx;
+		.home_btn {
+			height: 100upx;
+			line-height: 100upx;
+			text-align: center;
+			color: #E5D4B7;
+			font-size: 22upx;
+		}
 		.btn{
 			position: fixed;
 			left: 0;
@@ -226,7 +255,7 @@
 			bottom: 0;
 			height: 90upx;
 			line-height:90upx;
-			background:rgba(249,56,34,1);
+			background: #F93822;
 			color:#fff;
 			text-align: center;
 		}
@@ -234,10 +263,10 @@
 			width:93%;
 			background:rgba(237,232,228,1);
 			border-radius:14upx;
-			padding:37upx 83upx 40upx;
+			padding:37upx 60upx 40upx;
 			box-sizing: border-box;
 			text-align: center;
-			margin:0 auto 133upx;
+			margin:0 auto;
 			.helpNum{
 				color:#53412B;
 				font-size:22upx;

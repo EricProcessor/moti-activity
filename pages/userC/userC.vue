@@ -1,8 +1,10 @@
 <template>
 	<view class="userC">
 		<header-box :count="userCountNum"></header-box>
+		<view style="margin-top: 40upx;"></view>
 		<my-task :master="master" 
 			:taskType="3"
+			:taskStatus="taskStatus"
 			:masterInfo="masterInfo"
 			typeText="我有其他品牌的换弹式电子烟"
 			></my-task>
@@ -46,27 +48,33 @@ export default {
 			noType: false,
 			taskContents:{},
 			taskId: 0,
-			isCompleted: false
+			isCompleted: false,
+			taskStatus: 0
 		};
 	},
 	mounted() {
 		this.getInfo();
 		this.queryHelpMasterByUserId()
-	},
-	onLoad() {
 		this.userCount();
 		if (this.$wechat && this.$wechat.isWechat()) {
+			const UA = window.navigator.userAgent.toLowerCase()
+			const isIOS = (UA && /iphone|ipad|ipod|ios/.test(UA))
 			const host = location.href.split('#')[0]
 			const ids = uni.getStorageSync('ids')
-			 this.$wechat.share({
-				 title: 'MOTIS 只送不卖',
-				 img: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/bluetooth/avatar/share.png'
-			}, location.href, `https://hnhd.motivape.cn/bluehd/#/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}`);
-		 //     this.$wechat.share({
-			// 	 title: 'MOTIS 只送不卖',
-			// 	 img: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/bluetooth/avatar/share.png'
-			// }, location.href, `${host}#/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}`);  
-		} 
+			if (isIOS) {
+				this.$wechat.share2({
+					 title: 'MOTI S 限时免费领取',
+					 desc: '我不要你觉得，我就要宇宙无敌魔笛智能电子烟',
+					 link: `https://hnhd.motivape.cn/bluehd/#/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}`,
+					 imgUrl: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/bluetooth/avatar/share.png'
+				});
+			} else {
+				this.$wechat.share({
+					 title: 'MOTI S 限时免费领取',
+					 img: 'https://moti-dev.oss-cn-beijing.aliyuncs.com/image/bluetooth/avatar/share.png'
+				}, location.href, `https://hnhd.motivape.cn/bluehd/#/pages/help/help?activityId=${ids.activityId}&wechatId=${ids.wechatId}&helpMasterId=${ids.helpMasterId}`);
+			}
+		}
 	},
 	methods: {
 		async userCount() {
@@ -116,6 +124,7 @@ export default {
 				const taskContents = result.task.taskContents
 				if (taskContents.every((cur) => { return cur.status == 1})) {
 					this.isCompleted = true
+					this.taskStatus = 1
 				}
 				// let taskStatus = result.userMsg.taskStatus;
 				// if(taskStatus == 1){
@@ -144,7 +153,7 @@ export default {
 
 <style lang="scss">
 .userC {
-	height: 100%;
+	padding-bottom: 100upx;
 	width: 100%;
 	display: flex;
 	flex-direction: column;

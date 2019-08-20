@@ -3,8 +3,9 @@
 		<image class="img" src='/static/uploadImg.png'></image>
 		<view class="contentBox">
 			<view class="left-box">
-				<image class='showImg' :src="taskImgInfo.imageUrl?taskImgInfo.imageUrl:imgSrc" ></image>
-				<view class="show" v-if="isHavePic">照片示例</view>
+				<image class='showImg' :src="imgSrc" ></image>
+				<!-- <view class="show" v-if="isHavePic">照片示例</view> -->
+				<view class="show">照片示例</view>
 			</view>
 			<view class="rg-box">
 				<view class="btn accomplish" @tap="uploadImg" v-if="!userImgProgress">去上传</view>
@@ -29,6 +30,10 @@
 			taskImgInfo:{
 				type: Object,
 				default: Object
+			},
+			isCompleted: {
+				type: Boolean,
+				default: false
 			}
 		},
 		data() {
@@ -39,7 +44,14 @@
 		},
 		methods:{
 			uploadImg:async function (){
+				
 				let _this = this;
+				if (!_this.isCompleted) {
+					return uni.showToast({
+						title: '请先完成助力',
+						icon: 'none'
+					})
+				}
 				await uni.chooseImage({
 					count: 1,
 					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
@@ -54,25 +66,25 @@
 					title: '正在上传...',
 					mask: true
 				})
-				let params = {
+				let params1 = {
 					file: this.imgSrc 
 				}
-				let succ = await uploadMoti(params);
+				let succ = await uploadMoti(params1);
 				succ = JSON.parse(succ)
 				if(succ.code == 0){
 					let ids = uni.getStorageSync('ids');
-					let params = {
+					let params2 = {
 						"picUrl": this.imgSrc,
-						"weChatHelpId": ids.helpMasterId
+						"weChatHelpId": `${ids.helpMasterId}`
 					}
-					let {code,msg,result} = await motiPicCommit(params)
-					if(code == 0){
-						uni.hideLoading()
-						// Bus.$emit('taskBIsDoing', false);
-						Bus.$emit('taskBIsDoing', true);
-						this.$emit('userImgProgress',true)
-					}
-				}else{
+					let {code,msg,result} = await motiPicCommit(params2)
+					// if(code == 0){
+					uni.hideLoading()
+					Bus.$emit('taskBIsDoing', false);
+					// Bus.$emit('taskBIsDoing', true);
+					this.$emit('userImgProgress',true)
+					// }
+				} else{
 					uni.showToast({
 						icon: 'none',
 						title: msg
@@ -101,7 +113,7 @@
 			.rg-box{
 				flex-grow: 1;
 				.achieve{
-					background: #333333;
+					background: #AFAFAF;
 				}
 				.text{
 					font-size:26upx;
@@ -113,7 +125,7 @@
 					}
 				}
 				.accomplish{
-					background:#6EB17A;
+					background:#333;
 				}
 				.btn{
 					display: inline-block;
