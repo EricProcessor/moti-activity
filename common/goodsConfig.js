@@ -580,5 +580,43 @@ export default {
 			    sku: "112492575754"
 			}
 	    ],
-	}
+	},
+	 goodsFree:{
+	    goods: {
+	        imgUrl: "",
+	        price: 0.00,
+	        sourcePrice: 399,
+	        title: "MOTI D11 电子烟套装 雾化 换弹小烟",
+	        desc:"1烟杆+1经典烟草烟弹",
+	        tastePrice:35,
+	        taste: [],
+			credible:['官方发货','消费者保障服务','包邮','假一赔三'],
+			saleQty:93
+	    },
+	    backgrounds: [
+	        "https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/4.jpg",
+	        "https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/3.jpg",
+	        "https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/1.jpg",
+	        "https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/2.jpg",
+	    ],
+	    spec: [
+	
+	        {
+	            text: "星辰银",
+	            sku: "112492577675"
+	        },
+	        {
+	            text: "深海蓝",
+	            sku: "112492578591"
+	        },
+	        {
+	            text: "燕尾黑",
+	            sku: "112492575139"
+	        },
+	        {
+	            text: "极光色",
+	            sku: "586197169359"
+	        },
+	    ],
+	},
 }
