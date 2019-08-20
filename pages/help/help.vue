@@ -28,6 +28,11 @@
 		<view class="home_btn" @tap="toMaster">回我的活动首页</view>
 		<view @tap='helpBtn' v-if='isHelp' class="btn">为他助力</view>
 		<view v-else class="btn" @tap="toMaster">我也要领取</view>
+		
+		
+		<view class="home_back_btn">
+			<image src="/static/home_back_2.png"></image>
+		</view>
 	</view>
 </template>
 
@@ -164,10 +169,7 @@
 					uni.redirectTo({
 						url: '/'
 					})
-					//助力成功
-				} else if (code == 142) {
-					this.isHelp = false;
-				} else{
+				} else {
 					this.isHelp = false;
 					uni.showToast({
 						icon: 'none',
@@ -309,6 +311,16 @@
 					font-weight: 500;
 					margin:18upx 0 40upx;
 				}
+			}
+		}
+		
+		.home_back_btn {
+			position: fixed;
+			top: 400upx;
+			right: 0;
+			image {
+				width: 130upx;
+				height: 130upx;
 			}
 		}
 	}
