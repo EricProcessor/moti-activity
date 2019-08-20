@@ -7,7 +7,8 @@
 						TOP的专属MOTI小店
 					</view>
 					<view class="header-right">
-						{{items.order_status === '30' ? '已支付' :'支付失败'}}
+						<!-- {{items.order_status === '30' ? '已支付' :'支付失败'}} -->
+						{{formatDate(items.create_time)}}
 						
 					</view>
 				</view>
@@ -74,6 +75,11 @@
 		methods: {
 			linkTo(){
 				location.href = "https://daojia.motivape.cn"
+			},
+			formatDate(date){
+				let d = new Date(date.replace(/-/g, '/'))
+				
+				return [d.getFullYear(),(d.getMonth() +1).toString().padStart(2,'0'),d.getDate().toString().padStart(2,'0')].join(".")
 			},
 			async queryOrders() {
 				uni.showLoading({

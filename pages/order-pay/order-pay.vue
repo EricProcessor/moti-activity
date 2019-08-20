@@ -251,12 +251,15 @@
 				let queryPayParams = uni.getStorageSync("forQueryPayParams");
 				if (!queryPayParams) return;
 				
-				if (queryPayParams.payType == "alipay") {
+				
+				if (queryPayParams.payType === "alipay") {
 					if(!options.out_trade_no) PayObject.cancelCallBack()
 					else PayObject.queryPayStatus(queryPayParams.orderNo, "1")
 				}
-				if (queryPayParams.payType == "weixin") {
-					if(PayObject.isWxBrowser()) return
+				if (queryPayParams.payType === "weixin") {
+					
+					if(PayObject.Wechat.isWxBrowser()) return ;
+					
 					setTimeout(() => {
 						uni.showModal({
 							content: "是否完成微信支付？",

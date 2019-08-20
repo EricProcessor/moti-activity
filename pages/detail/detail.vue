@@ -226,6 +226,7 @@
 			.goods-title {
 				margin-top: 16upx;
 				position: relative;
+				height: 100upx;
 				
 				
 				.label-spec {
