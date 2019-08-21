@@ -26,7 +26,7 @@
 					_core.send(_pv);
 				})();				
 			}
-			document.body.appendChild(script);
+			//document.body.appendChild(script);
 		}
 	}
 </script>

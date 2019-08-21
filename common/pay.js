@@ -121,7 +121,9 @@ const PayObject = {
 					document.attachEvent('onWeixinJSBridgeReady', this.onBridgeReady);
 				}
 			} else {
-				this.onBridgeReady(apiParams.result);
+				setTimeout(()=>{
+					this.onBridgeReady(apiParams.result);
+				},0)
 			}
 		}
 	},
