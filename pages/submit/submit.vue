@@ -322,12 +322,14 @@
 						width: 105upx;
 						font-size: 26upx;
 						line-height: 37upx;
+						
 					}
 
 					input {
 						height: 37upx;
 						line-height: 37upx;
 						margin-left: 75upx;
+						flex-grow: 1;
 					}
 
 					.place-class {

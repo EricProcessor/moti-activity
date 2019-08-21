@@ -494,6 +494,9 @@
 					height: 36upx;
 				}
 			}
+			:last-child{
+				border-bottom: none;
+			}
 		}
 
 		.bottom-button {
