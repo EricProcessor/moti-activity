@@ -63,6 +63,10 @@ const PayObject = {
 				`appId=${apiParams.appid}&nonceStr=${apiParams.nonce_str}&package=${apiParams.package}&signType=MD5&timeStamp=${apiParams.timeStamp}&key=58Lei2Yan95kE42jI17mo87TI5312640`
 			let sign = md5(signStr).toUpperCase()
 			let self = this
+			if(!apiParams.appid){
+				PayObject.missApiCallBack("miss apiParams appid: "+JSON.stringify(apiParams))
+				console.log(JSON.stringify(apiParams))
+			}
 			WeixinJSBridge.invoke('getBrandWCPayRequest', {
 				"appId": apiParams.appid, //公众号名称，由商户传入     
 				"timeStamp": apiParams.timeStamp, //时间戳，自1970年以来的秒数     
@@ -146,7 +150,8 @@ const PayObject = {
 	successCallBack: null,
 	failCallBack: null,
 	cancelCallBack: null,
-	systemCallBack: null
+	systemCallBack: null,
+	missApiCallBack:null
 
 }
 export default PayObject

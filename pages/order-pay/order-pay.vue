@@ -116,6 +116,9 @@
 			</view>
 		</view>
 		<popCard @emitClose="closePop" :submitState="submitState" v-if="isShowPayPop"></popCard>
+		<view v-html="testMsg">
+			
+		</view>
 	</view>
 </template>
 
@@ -130,6 +133,7 @@
 	export default {
 		data() {
 			return {
+				testMsg:"",
 				isShowPayPop: false,
 				submitState: 0,
 				payType: "",
@@ -244,6 +248,9 @@
 					this.isShowPayPop = true
 					this.submitState = 4
 					uni.removeStorageSync("forQueryPayParams")
+				}
+				PayObject.missApiCallBack = (data)=>{
+					this.testMsg = data
 				}
 			},
 			queryPayState(options) {
