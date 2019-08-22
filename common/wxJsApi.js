@@ -31,8 +31,8 @@ export default {
 		return JSON.parse(jsParams.data.result)
 		console.log("openid", jsParams)
 	},
-	onBridgeReady() {
-		let apiParams = this.apiParams
+	onBridgeReady(apiParams) {
+		//let apiParams = this.apiParams
 		let signStr =
 			`appId=${apiParams.appid}&nonceStr=${apiParams.nonce_str}&package=${apiParams.package}&signType=MD5&timeStamp=${apiParams.timeStamp}&key=58Lei2Yan95kE42jI17mo87TI5312640`
 		let sign = md5(signStr).toUpperCase()
@@ -71,15 +71,28 @@ export default {
 			return ;
 		}
 		this.apiParams = apiParams
+		
 		if (typeof WeixinJSBridge == "undefined") {
 			if (document.addEventListener) {
-				document.addEventListener('WeixinJSBridgeReady', this.onBridgeReady, false);
+				document.addEventListener('WeixinJSBridgeReady', ()=>{
+					this.onBridgeReady(apiParams)
+					console.log('WeixinJSBridge-undefined')
+					
+				}, false);
 			} else if (document.attachEvent) {
-				document.attachEvent('WeixinJSBridgeReady', this.onBridgeReady);
-				document.attachEvent('onWeixinJSBridgeReady', this.onBridgeReady);
+				document.attachEvent('WeixinJSBridgeReady', ()=>{
+					this.onBridgeReady(apiParams)
+					console.log('WeixinJSBridge-undefined')
+					
+				});
+				document.attachEvent('onWeixinJSBridgeReady', ()=>{
+					this.onBridgeReady(apiParams)
+					console.log('WeixinJSBridge-undefined')
+					
+				});
 			}
 		} else {
-			this.onBridgeReady();
+			this.onBridgeReady(apiParams);
 		}
 		
 	}
