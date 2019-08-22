@@ -8,6 +8,7 @@ export default {
 	callBack:null,
 	failBack:null,
 	cancelBack:null,
+	apiParams:{},
 	async wxJsPay(code) {
 		let res = await post("/activity1/pay/confirmAuthorization", {
 			code: code
@@ -30,7 +31,8 @@ export default {
 		return JSON.parse(jsParams.data.result)
 		console.log("openid", jsParams)
 	},
-	onBridgeReady(apiParams) {
+	onBridgeReady() {
+		let apiParams = this.apiParams
 		let signStr =
 			`appId=${apiParams.appid}&nonceStr=${apiParams.nonce_str}&package=${apiParams.package}&signType=MD5&timeStamp=${apiParams.timeStamp}&key=58Lei2Yan95kE42jI17mo87TI5312640`
 		let sign = md5(signStr).toUpperCase()
@@ -68,6 +70,7 @@ export default {
 			this.failBack()
 			return ;
 		}
+		this.apiParams = apiParams
 		if (typeof WeixinJSBridge == "undefined") {
 			if (document.addEventListener) {
 				document.addEventListener('WeixinJSBridgeReady', this.onBridgeReady, false);
@@ -76,7 +79,7 @@ export default {
 				document.attachEvent('onWeixinJSBridgeReady', this.onBridgeReady);
 			}
 		} else {
-			this.onBridgeReady(apiParams);
+			this.onBridgeReady();
 		}
 		
 	}
