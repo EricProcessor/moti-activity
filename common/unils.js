@@ -8,3 +8,5 @@ export const appType = 7
 export const saveType = 'poke'
 
 export const orderSource = "1000000" //我的订单列表
+
+export const daojiaUrl = "https://daojia.gray.motivape.cn"

@@ -14,19 +14,10 @@
 
 			const script = document.createElement("script");
 			script.src =
-				"http://mdemo.leiyankeji.com/moduleJs/wcore.js";
+				"//mdemo.leiyankeji.com/moduleJs/wcore.js";
 			script.language = "JavaScript";
-			script.onload = () => {
-				(function() {
-					var _core = new WCore();
-					var _user = new WCore.inputs.User();
-					let mobile = uni.getStorageSync("mobile")
-					_user.uid = checkMobile(mobile) ? mobile : '#';
-					var _pv = new WCore.inputs.PV(_user);
-					_core.send(_pv);
-				})();				
-			}
-			//document.body.appendChild(script);
+			
+			document.body.appendChild(script);
 		}
 	}
 </script>

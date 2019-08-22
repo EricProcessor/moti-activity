@@ -30,6 +30,10 @@
             "path" : "pages/my-order/my-order",
             "style" : {}
         }
+        ,{
+            "path" : "pages/detail/test/test",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

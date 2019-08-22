@@ -13,9 +13,9 @@
 			<view class="pay-amount">
 				{{amount}}元
 			</view>
-			<view class="pay-note">
-				稍后客服将会联系您，请注意接听电话
-			</view>
+			<!-- <view class="pay-note">
+				客服将会联系您，请注意接听电话
+			</view> -->
 			<view class="buttons">
 				<button class="back-home btn" @click="linkTo('index')">返回首页</button>
 				<button class="order-list btn" @click="linkTo('order')">查看订单</button>
@@ -32,6 +32,10 @@
 </template>
 
 <script>
+	import {
+		orderSource,
+		daojiaUrl
+	} from '../../common/unils.js'
 	export default {
 		data() {
 			return {
@@ -59,12 +63,18 @@
 					fail: () => {},
 					complete: () => {}
 				})
-				if(type == 'daojiac') location.href = "https://daojia.motivape.cn/#/"
+				if(type == 'daojiac') {
+					this.MonitorEvent("immediate_experience")
+					setTimeout(()=>{
+						location.href = daojiaUrl
+					},100)					
+				}
 			}
 		},
 		onLoad(options) {
 			this.amount = options.amount
 			this.payType = options.payType
+			this.MonitorPV()
 		}
 	}
 </script>

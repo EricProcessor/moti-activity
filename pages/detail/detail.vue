@@ -22,26 +22,19 @@
 
 
 			<view class="goods-title">
-				<text class="label-spec">
-					热卖
-				</text>
-				<text class="label-spec">
-					1小时达
-				</text>
+		
 				<text class="label-title">
 					{{spuDetail.name}} {{selectAttrObj.skuName}}
 				</text>
-				<text class="month-sales">
-					月销 949
-				</text>
+				
 
 			</view>
 
 		</view>
-
+<!-- 
 		<view class="selected-spec">
 			<text class="select-title">重要</text> <text class="select-attr">未成年人请勿购买本产品</text>
-		</view>
+		</view> -->
 		<view class="shop-detail">
 			<view class="shop-detail-title">
 				商品详情
@@ -103,6 +96,7 @@
 					title:"加载中...",
 					icon:"none"
 				})
+				this.MonitorEvent("immediate_buy")
 				uni.setStorageSync("preOrderData",this.selectAttrObj)
 				uni.navigateTo({
 					url:"/pages/submit/submit"
@@ -165,6 +159,7 @@
 			let type  = options.type ? options.type : 'A'
 			this.queryGoods(type)
 			uni.setStorageSync("optionsType",type)
+			this.MonitorPV()
 		}
 
 	}
@@ -186,7 +181,7 @@
 		}
 
 		.description {
-			height: 266upx;
+			//height: 266upx;
 			background-color: #ffffff;
 			padding: 28upx 21upx 32upx 27upx;
 			box-sizing: border-box;
@@ -226,8 +221,7 @@
 			.goods-title {
 				margin-top: 16upx;
 				position: relative;
-				height: 100upx;
-				
+						
 				
 				.label-spec {
 					font-size: 24upx;

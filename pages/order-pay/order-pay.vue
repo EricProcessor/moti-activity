@@ -21,7 +21,7 @@
 		</view>
 		<view class="goods-show">
 			<view class="goods-desc-header">
-				MOTI专属小店
+				MOTI商城
 			</view>
 			<view class="goods-body">
 				<view class="good-pic">
@@ -39,7 +39,7 @@
 							￥<text>{{preOrderData.skuPrice}}</text>
 						</view>
 						<view class="operate-number">
-							<uniNumberBox disabled :value="preOrderData.skuNumber"  type="small" :min="1" @change="numberChange"></uniNumberBox>
+						<!-- 	<uniNumberBox disabled :value="preOrderData.skuNumber"  type="small" :min="1" @change="numberChange"></uniNumberBox> -->
 						</view>
 					</view>
 					<view class="goods-note">
@@ -176,6 +176,7 @@
 				this.submitState = 0
 			},
 			async confirmPay() {
+				this.MonitorEvent("confirm_pay")
 				if (!this.payType) return uni.showToast({
 					title: "请选择支付方式",
 					icon: "none"
@@ -292,6 +293,7 @@
 			this.queryPayState(this.options)
 		},
 		onLoad(options) {
+			this.MonitorPV()
 			this.options = options
 			this.preOrderData = uni.getStorageSync("preOrderData")
 			this.preOrderForm = uni.getStorageSync("orderForm")

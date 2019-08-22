@@ -51,7 +51,7 @@
 
 		<view class="order-bottom">
 			<view class="order-tip">
-				下载MOTI到家APP关注您的订单状态
+				打开MOTI到家，实时关注我的订单进展
 			</view>
 			<button @tap="linkTo">立即体验</button>
 		</view>
@@ -63,7 +63,8 @@
 		postForm
 	} from "../../common/request.js"
 	import {
-		orderSource
+		orderSource,
+		daojiaUrl
 	} from '../../common/unils.js'
 	export default {
 		data() {
@@ -74,7 +75,7 @@
 		},
 		methods: {
 			linkTo(){
-				location.href = "https://daojia.motivape.cn"
+				location.href = daojiaUrl
 			},
 			formatDate(date){
 				let d = new Date(date.replace(/-/g, '/'))
@@ -156,6 +157,7 @@
 					
 				}
 			});
+			this.MonitorPV()
 			this.queryOrders()
 		}
 	}

@@ -2,7 +2,7 @@
 	<view class="form-body">
 		<view class="goods-show">
 			<view class="goods-desc-header">
-				MOTI专属小店
+				MOTI 商城
 			</view>
 			<view class="goods-body">
 				<view class="good-pic">
@@ -74,10 +74,10 @@
 			</view>
 		</view>
 			<mpvueCityPicker ref="mpvueCityPicker" :defaultValueCode="defaultValueCode" :pickerValueDefault="cityPickerValueDefault" @onCancel="onCancel"  @onConfirm="onConfirm"></mpvueCityPicker>
-		<view class="form-note">
+		<!-- <view class="form-note">
 			<text>填写订单后MOTI官方将会与您确认订单</text>
-		</view>
-		<view class="form-button" @click="submitForm">
+		</view> -->
+		<view class="form-button" :class="{fixed:buttonFixed,noFixed:!buttonFixed}"  @click="submitForm">
 			<button >确定</button>
 		</view>
 	
@@ -112,7 +112,8 @@
 					skuNum:"",
 					userAddress:"",
 					appType:appType
-				}
+				},
+				buttonFixed:true,
 			};
 		},
 		computed:{
@@ -185,6 +186,7 @@
 				uni.showLoading({
 					title:"下单中..."
 				})
+				this.MonitorEvent("confirm")
 				let resLogin = await postForm("/mall/h5/ofo/mobileLogin",{dynamicCode:this.verifyCode,mobile:this.orderForm.mobile,userName:this.userName})
 				
 				if(resLogin.code !== 0) return uni.showToast({
@@ -203,6 +205,7 @@
 				uni.setStorageSync("preOrderData",this.preOrderData)
 				uni.setStorageSync("orderForm",this.orderForm)
 				uni.setStorageSync("orderResult",resOrder.result)
+				uni.setStorageSync("mobile",this.orderForm.mobile)
 				uni.navigateTo({
 					url:"/pages/order-pay/order-pay"
 				})
@@ -218,6 +221,19 @@
 			this.preOrderData = uni.getStorageSync("preOrderData")
 			this.orderForm.skuId = this.preOrderData.skuId
 			this.orderForm.skuNum = this.preOrderData.skuNumber
+			this.MonitorPV()
+			let self = this
+			uni.getSystemInfo({
+				success: function(res) {
+					console.log(res.windowHeight)
+					console.log(uni.upx2px(890));
+					if(res.windowHeight <= uni.upx2px(1000)){
+						console.log(res.windowHeight)
+						self.buttonFixed = false
+					}
+					
+				}
+			});
 		}
 	}
 </script>
@@ -372,10 +388,16 @@
 		}
 
 		.form-button {
-			position: fixed;
-			bottom: 24upx;
-			padding: 0 24upx;
 			
+			padding: 0 24upx;
+			&.fixed{
+				position: fixed;
+				bottom: 24upx;
+			}
+			
+			&.noFixed{
+				margin-top: 24upx;
+			}
 			button{
 				display: inline-block;
 				height: 80upx;

@@ -7,9 +7,11 @@ Vue.config.productionTip = false
 App.mpType = 'app'
 Vue.mixin({
 	methods: {
-		MonitorEvent(ec,ea) {
+		MonitorEvent(ec) {
 
-			/* console.log("触发监控....")
+			console.log("触发监控....")
+			console.log(event)
+			console.log(ec);
 			var _core = new WCore();
 			var _user = new WCore.inputs.User();
 			let mobile = uni.getStorageSync("mobile")
@@ -17,9 +19,17 @@ Vue.mixin({
 			var _pv = new WCore.inputs.PV(_user);
 			var _event = new WCore.inputs.Event(_pv);
 			_event.ec = ec;
-			_event.ea = ea;
-			_core.send(_event); */
+			_event.ea = event.type;
+			_core.send(_event); 
 
+		},
+		MonitorPV(){
+			var _core = new WCore();
+			var _user = new WCore.inputs.User();
+			let mobile = uni.getStorageSync("mobile")
+			_user.uid = checkMobile(mobile) ? mobile : '#';
+			var _pv = new WCore.inputs.PV(_user);
+			_core.send(_pv);
 		}
 	}
 })

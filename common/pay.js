@@ -57,14 +57,16 @@ const PayObject = {
 				`https://gezi.motivape.cn/auth.html?appid=wx80a7401a02e0f8ec&redirectUri=${encodeURIComponent(url)}&response_type=code&scope=snsapi_base&state=homec`
 			)
 		},
-		onBridgeReady(apiParams) {
-
+		apiParams:{},
+		onBridgeReady() {
+			let apiParams = this.apiParams
 			let signStr =
 				`appId=${apiParams.appid}&nonceStr=${apiParams.nonce_str}&package=${apiParams.package}&signType=MD5&timeStamp=${apiParams.timeStamp}&key=58Lei2Yan95kE42jI17mo87TI5312640`
 			let sign = md5(signStr).toUpperCase()
 			let self = this
 			if(!apiParams.appid){
 				PayObject.missApiCallBack("miss apiParams appid: "+JSON.stringify(apiParams))
+				console.log(typeof apiParams)
 				console.log(JSON.stringify(apiParams))
 			}
 			WeixinJSBridge.invoke('getBrandWCPayRequest', {
@@ -112,7 +114,7 @@ const PayObject = {
 				title: 'fail',
 				icon: "none"
 			})
-
+			this.apiParams = apiParams.result
 			if (typeof WeixinJSBridge == "undefined") {
 				if (document.addEventListener) {
 					document.addEventListener('WeixinJSBridgeReady', this.onBridgeReady, false);
@@ -121,9 +123,9 @@ const PayObject = {
 					document.attachEvent('onWeixinJSBridgeReady', this.onBridgeReady);
 				}
 			} else {
-				setTimeout(()=>{
-					this.onBridgeReady(apiParams.result);
-				},0)
+				console.log("apiParams:" + JSON.stringify(apiParams))
+				console.log(typeof apiParams.result)
+				this.onBridgeReady();
 			}
 		}
 	},
