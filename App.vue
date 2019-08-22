@@ -17,7 +17,7 @@
 				"//mdemo.leiyankeji.com/moduleJs/wcore.js";
 			script.language = "JavaScript";
 			
-			document.body.appendChild(script);
+			//document.body.appendChild(script);
 		}
 	}
 </script>

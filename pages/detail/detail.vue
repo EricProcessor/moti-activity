@@ -54,7 +54,7 @@
 	import PopupBottom from '@/component/popupBottom/popupBottom.vue'
 	import uniNumberBox from "@/component/uni-number-box/uni-number-box.vue";
 	import {postForm} from '../../common/request.js'
-	import {appType} from '../../common/unils.js'
+	import {appType,daojiaUrl} from '../../common/unils.js'
 	export default {
 		data() {
 			return {
@@ -157,9 +157,15 @@
 		},
 		onLoad(options) {
 			let type  = options.type ? options.type : 'A'
+			this.MonitorPV()
+			if(type === 'xiaomao'){		
+				setTimeout(()=>{
+					location.href = daojiaUrl
+				},150)
+			}
 			this.queryGoods(type)
 			uni.setStorageSync("optionsType",type)
-			this.MonitorPV()
+			
 		}
 
 	}

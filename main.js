@@ -12,6 +12,8 @@ Vue.mixin({
 			console.log("触发监控....")
 			console.log(event)
 			console.log(ec);
+			if(typeof WCore === 'undefined') return ;
+			
 			var _core = new WCore();
 			var _user = new WCore.inputs.User();
 			let mobile = uni.getStorageSync("mobile")
@@ -24,6 +26,7 @@ Vue.mixin({
 
 		},
 		MonitorPV(){
+			if(typeof WCore === 'undefined') return ;
 			var _core = new WCore();
 			var _user = new WCore.inputs.User();
 			let mobile = uni.getStorageSync("mobile")
