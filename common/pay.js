@@ -65,7 +65,7 @@ const PayObject = {
 			let sign = md5(signStr).toUpperCase()
 			let self = this
 			if(!apiParams.appid){//todo 可删除
-				PayObject.missApiCallBack("miss apiParams appid: "+JSON.stringify(apiParams))
+				//PayObject.missApiCallBack("miss apiParams appid: "+JSON.stringify(apiParams))
 				console.log(typeof apiParams)
 				console.log(JSON.stringify(apiParams))
 			}
@@ -104,7 +104,7 @@ const PayObject = {
 			let queryPayParams = uni.getStorageSync("forQueryPayParams")
 			uni.removeStorageSync("forQueryPayParams")
 			const wxJsRes = await wechatPay(queryPayParams.orderNo, queryPayParams.spuName)
-			console.log(wxJsRes)
+			//console.log(wxJsRes)
 			if (wxJsRes.code != 0) return uni.showToast({
 				title: 'fail',
 				icon: "none"
