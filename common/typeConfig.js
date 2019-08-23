@@ -689,4 +689,59 @@ export default {
 		isShowAgain:false,
 		diliverMsg:"有货,顺丰到付 运费22元"
 	},
+	//20190823 新增MOJO 三个 1元 3元 9元页面
+	41: {
+		module: 'EditOrderFormMojo',
+		goodsName: "goodsMojo1", // 商品key
+		imgs: "imgs41", // 图片key
+		lastImg:14,
+		swiper750: false, // 轮播图片是否高度是否是750upx
+		submitApi: "/activity1/ad/order/bookingGghdOrderLittleSmoke", //提交订单api
+		isEncrypted: true, // 是否对提交订单数据加密
+		isShowPayMethod: true, // 是否显示支付方式
+		buttonMsg: '立即抢购', //底部抢购提示
+		onWxPay: true, //开启微信支付
+		onAlipayPay: true, //开启支付宝支付
+		onArrivePay: false, //开始货到付款
+		bianXianMao:true,
+		isSpuDesc:false,
+		isShowAgain:true,
+		diliverMsg:"有货,邮费12元"
+	},
+	42: {
+		module: 'EditOrderFormMojo',
+		goodsName: "goodsMojo3", // 商品key
+		imgs: "imgs42", // 图片key
+		lastImg:14,
+		swiper750: false, // 轮播图片是否高度是否是750upx
+		submitApi: "/activity1/ad/order/bookingGghdOrderLittleSmoke", //提交订单api
+		isEncrypted: true, // 是否对提交订单数据加密
+		isShowPayMethod: true, // 是否显示支付方式
+		buttonMsg: '立即抢购', //底部抢购提示
+		onWxPay: true, //开启微信支付
+		onAlipayPay: true, //开启支付宝支付
+		onArrivePay: false, //开始货到付款
+		bianXianMao:true,
+		isSpuDesc:false,
+		isShowAgain:true,
+		diliverMsg:"有货,邮费12元"
+	},
+	43: {
+		module: 'EditOrderFormMojo',
+		goodsName: "goodsMojo9", // 商品key
+		imgs: "imgs43", // 图片key
+		lastImg:14,
+		swiper750: false, // 轮播图片是否高度是否是750upx
+		submitApi: "/activity1/ad/order/bookingGghdOrderLittleSmoke", //提交订单api
+		isEncrypted: true, // 是否对提交订单数据加密
+		isShowPayMethod: true, // 是否显示支付方式
+		buttonMsg: '立即抢购', //底部抢购提示
+		onWxPay: true, //开启微信支付
+		onAlipayPay: true, //开启支付宝支付
+		onArrivePay: false, //开始货到付款
+		bianXianMao:true,
+		isSpuDesc:false,
+		isShowAgain:true,
+		diliverMsg:""
+	},
 }
