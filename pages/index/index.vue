@@ -334,6 +334,7 @@
 					script_tuia.src =
 						"//yun.tuisnake.com/h5-mami/log.js";
 					script_tuia.language = "JavaScript";
+					script_tuia.id = "send_log"
 					document.body.appendChild(script_tuia);
 				}
 				
