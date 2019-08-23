@@ -68,9 +68,9 @@
 					<view class="pay-title">
 						微信支付
 					</view>
-					<view class="pay-carrier-fee">
+					<!-- <view class="pay-carrier-fee">
 						( 配送费6元 )
-					</view>
+					</view> -->
 				</view>
 				<image class="select-pay" v-if="payType === 'weixin'" src="../../static/image/circle-acitve.png" mode=""></image>
 
@@ -83,9 +83,9 @@
 					<view class="pay-title">
 						支付宝
 					</view>
-					<view class="pay-carrier-fee">
+					<!-- <view class="pay-carrier-fee">
 						( 配送费6元 )
-					</view>
+					</view> -->
 				</view>
 				<image class="select-pay" v-if="payType === 'alipay'" src="../../static/image/circle-acitve.png" mode=""></image>
 				<image class="select-pay" v-else src="../../static/image/circle-choic.png" mode=""></image>
@@ -146,9 +146,9 @@
 					arrive_pay: "6"
 				},
 				payFee: {
-					weixin: 6,
-					alipay: 6,
-					arrive_pay: 9
+					weixin: 0,
+					alipay: 0,
+					arrive_pay: 0
 				},
 				options:{}
 			};
