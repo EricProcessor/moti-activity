@@ -669,7 +669,7 @@
 
 
 				&.active {
-					border: none;
+					border: 1upx #ff5041 solid;
 					background-color: #ff5041;
 					color: #FFFFFF;
 				}
