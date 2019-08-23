@@ -28,7 +28,7 @@
 		<view class="home_btn" @tap="toMaster">回我的活动首页</view>
 		<view @tap='helpBtn' v-if='isHelp' class="btn">为他助力</view>
 		<view v-else class="btn" @tap="toMaster">我也要领取</view>
-		<view class="home_back_btn">
+		<view class="home_back_btn" @tap="toMaster">
 			<image src="/static/home_back_2.png"></image>
 		</view>
 <!-- 		<view class="act-end">
