@@ -650,6 +650,7 @@ export default {
 		bianXianMao:false,
 		isSpuDesc:true,
 		isShowAgain:false,
+		isTuiAMonitor:true,
 		diliverMsg:"有货,顺丰到付 运费22元"
 	},
 	//20190820 根据Type 14 生成的0元购,不含口味 添加第三方JS监控统计

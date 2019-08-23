@@ -322,14 +322,21 @@
 				//if (this.paramType === 31) this.isSwiper750 = true
 			},
 			bianXianMao() {
-				if(!this.pageConfigure.bianXianMao) return 
+				if(this.pageConfigure.bianXianMao) {
+					const script_bxm = document.createElement("script");
+					script_bxm.src =
+						"https://m.fawulu.com/dist/welfareAT02/private/E/js/effectListen_fawulu.js";
+					script_bxm.language = "JavaScript";
+					document.body.appendChild(script_bxm);
+				}
+				if(this.pageConfigure.isTuiAMonitor){
+					const script_tuia = document.createElement("script");
+					script_tuia.src =
+						"//yun.tuisnake.com/h5-mami/log.js";
+					script_tuia.language = "JavaScript";
+					document.body.appendChild(script_tuia);
+				}
 				
-				const script_bxm = document.createElement("script");
-				script_bxm.src =
-					"https://m.fawulu.com/dist/welfareAT02/private/E/js/effectListen_fawulu.js";
-				script_bxm.language = "JavaScript";
-				document.body.appendChild(script_bxm);
-				//if (this.paramType === 24 || this.paramType === 30 || this.paramType === 32 || this.paramType === 31) {}
 			},
 			buyAgain() {
 				let userInfo = this.pageState.editOrderForm.userInfo
