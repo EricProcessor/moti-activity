@@ -75,7 +75,7 @@
 		},
 		methods: {
 			linkTo(){
-				location.href = daojiaUrl()
+				location.href = daojiaUrl
 			},
 			formatDate(date){
 				let d = new Date(date.replace(/-/g, '/'))

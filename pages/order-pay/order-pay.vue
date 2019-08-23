@@ -77,7 +77,7 @@
 				<image class="select-pay" v-else src="../../static/image/circle-choic.png" mode=""></image>
 
 			</view>
-			<view class="pay-item" @tap="payType = 'alipay'">
+			<view class="pay-item" @tap="payType = 'alipay'" v-if="!isWxBrowser()">
 				<view class="pay-icon">
 					<image src="../../static/image/zhifubao.png" mode="aspectFit"></image>
 					<view class="pay-title">
@@ -168,6 +168,9 @@
 			}
 		},
 		methods: {
+			isWxBrowser(){
+				return PayObject.Wechat.isWxBrowser()
+			},
 			numberChange() {
 
 			},
@@ -201,7 +204,7 @@
 				uni.setStorageSync("payType",this.payType)
 				if (this.payType == 'alipay') {
 
-					let res = await PayObject.AliPay.createOrder(location.origin + "/#/pages/order-pay/order-pay", this.preOrderResult.order_no,this.preOrderData.title)
+					let res = await PayObject.AliPay.createOrder(location.origin + "/pages/order-pay/order-pay", this.preOrderResult.order_no,this.preOrderData.title)
 				}
 				
 				if (this.payType == 'weixin') {

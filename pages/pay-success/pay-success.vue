@@ -66,7 +66,7 @@
 				if(type == 'daojiac') {
 					this.MonitorEvent("immediate_experience")
 					setTimeout(()=>{
-						location.href = daojiaUrl()
+						location.href = daojiaUrl
 					},100)					
 				}
 			}
