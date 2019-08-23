@@ -72,7 +72,7 @@
     },
     "h5" : {
         "router" : {
-            "mode" : "hash"
+            "mode" : "history"
         },
         "devServer" : {
             "disableHostCheck" : true,

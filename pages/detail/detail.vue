@@ -160,7 +160,7 @@
 			this.MonitorPV()
 			if(type === 'xiaomao'){		
 				setTimeout(()=>{
-					location.href = daojiaUrl
+					location.href = daojiaUrl()
 				},150)
 			}
 			this.queryGoods(type)

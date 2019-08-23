@@ -9,4 +9,10 @@ export const saveType = 'poke'
 
 export const orderSource = "1000000" //我的订单列表
 
-export const daojiaUrl = "https://daojia.gray.motivape.cn"
+export function daojiaUrl(){
+	return (window.host === 'poke.motivape.cn') ? 'https://daojia.motivape.cn' : 'https://daojia.gray.motivape.cn'
+}
+
+
+
+
