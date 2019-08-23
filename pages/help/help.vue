@@ -30,7 +30,7 @@
 		<view v-else class="btn" @tap="toMaster">我也要领取</view>
 		
 		
-		<view class="home_back_btn">
+		<view class="home_back_btn" @tap="toMaster">
 			<image src="/static/home_back_2.png"></image>
 		</view>
 	</view>
