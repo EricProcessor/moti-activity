@@ -17,6 +17,10 @@
 				<view class="btn confirm" @tap.stop="confirm">确认</view>
 			</view>
 		</view>
+<!-- 		<view class="act-end">
+			<image src="../../static/end.png" mode=""></image>
+		</view> -->
+		<act-end></act-end>
 	</view>
 </template>
 
@@ -24,12 +28,14 @@
 import headerBox from '@/components/header.vue';
 import footerBox from '@/components/footer.vue';
 import qrcodeImg from '@/components/qrcodeimg.vue';
+import actEnd from '@/components/actEnd.vue'
 import { addWechatUser, queryHelpMasterByUserId, queryTaskMasterByActiId, saveHelpMaster,getUserAllInfo, userCount } from '@/common/request.js';
 export default {
 	components: {
 		headerBox,
 		footerBox,
-		qrcodeImg
+		qrcodeImg,
+		actEnd
 	},
 	data() {
 		return {
@@ -134,9 +140,13 @@ export default {
 					console.log("储存的本地======"+JSON.stringify(ids));
 					uni.setStorageSync('ids', ids);
 					let taskId = parseInt(result.taskId);
+					
+					
+					/********活动结束禁止跳转
 					if (!isNaN(taskId) && taskId > 0) {
 						this.toPath(taskId)
 					}
+					*********/
 				}
 			} else {
 				uni.showToast({
@@ -325,6 +335,15 @@ export default {
 				color: #fff;
 			}
 		}
+	}
+	.act-end{
+		width: 100%;
+		height: 100%;
+		position: fixed;
+		background: rgba($color: #000000, $alpha: .7);
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 }
 </style>

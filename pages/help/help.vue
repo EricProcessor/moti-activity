@@ -28,20 +28,24 @@
 		<view class="home_btn" @tap="toMaster">回我的活动首页</view>
 		<view @tap='helpBtn' v-if='isHelp' class="btn">为他助力</view>
 		<view v-else class="btn" @tap="toMaster">我也要领取</view>
-		
-		
 		<view class="home_back_btn">
 			<image src="/static/home_back_2.png"></image>
 		</view>
+<!-- 		<view class="act-end">
+			<image src="../../static/end.png" mode=""></image>
+		</view> -->
+		<act-end></act-end>
 	</view>
 </template>
 
 <script>
 	import headerBox from '@/components/header2.vue';
+	import actEnd from '@/components/actEnd.vue'
 	import {queryHelpSubByOpenId,saveHelpSub,getUserAllInfo,addWechatUser, userCount} from '@/common/request.js'
 	export default {
 		components:{
-			headerBox
+			headerBox,
+			actEnd
 		},
 		data() {
 			return {
@@ -322,6 +326,15 @@
 				width: 130upx;
 				height: 130upx;
 			}
+		}
+		.act-end{
+			width: 100%;
+			height: 100%;
+			position: fixed;
+			background: rgba($color: #000000, $alpha: .7);
+			display: flex;
+			justify-content: center;
+			align-items: center;
 		}
 	}
 </style>
