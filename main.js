@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App'
 import {checkMobile} from "common/unils.js"
+import WCore from "common/wcore.js"
 
 Vue.config.productionTip = false
 

@@ -9,15 +9,6 @@
 		},
 		onHide: function() {
 			console.log('App Hide')
-		},
-		mounted() {
-
-			const script = document.createElement("script");
-			script.src =
-				"//mdemo.leiyankeji.com/moduleJs/wcore.js";
-			script.language = "JavaScript";
-			
-			//document.body.appendChild(script);
 		}
 	}
 </script>

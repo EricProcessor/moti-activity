@@ -57,14 +57,14 @@ const PayObject = {
 				`https://gezi.motivape.cn/auth.html?appid=wx80a7401a02e0f8ec&redirectUri=${encodeURIComponent(url)}&response_type=code&scope=snsapi_base&state=homec`
 			)
 		},
-		apiParams:{},
-		onBridgeReady() {
-			let apiParams = this.apiParams
+		
+		onBridgeReady(apiParams) {
+			
 			let signStr =
 				`appId=${apiParams.appid}&nonceStr=${apiParams.nonce_str}&package=${apiParams.package}&signType=MD5&timeStamp=${apiParams.timeStamp}&key=58Lei2Yan95kE42jI17mo87TI5312640`
 			let sign = md5(signStr).toUpperCase()
 			let self = this
-			if(!apiParams.appid){
+			if(!apiParams.appid){//todo 可删除
 				PayObject.missApiCallBack("miss apiParams appid: "+JSON.stringify(apiParams))
 				console.log(typeof apiParams)
 				console.log(JSON.stringify(apiParams))
@@ -114,18 +114,24 @@ const PayObject = {
 				title: 'fail',
 				icon: "none"
 			})
-			this.apiParams = apiParams.result
+			//this.apiParams = apiParams.result
 			if (typeof WeixinJSBridge == "undefined") {
 				if (document.addEventListener) {
-					document.addEventListener('WeixinJSBridgeReady', this.onBridgeReady, false);
+					document.addEventListener('WeixinJSBridgeReady',()=>{
+						 this.onBridgeReady(apiParams.result)
+					}, false);
 				} else if (document.attachEvent) {
-					document.attachEvent('WeixinJSBridgeReady', this.onBridgeReady);
-					document.attachEvent('onWeixinJSBridgeReady', this.onBridgeReady);
+					document.attachEvent('WeixinJSBridgeReady', ()=>{
+						this.onBridgeReady(apiParams.result)
+					});
+					document.attachEvent('onWeixinJSBridgeReady', ()=>{
+						this.onBridgeReady(apiParams.result)
+					});
 				}
 			} else {
 				console.log("apiParams:" + JSON.stringify(apiParams))
 				console.log(typeof apiParams.result)
-				this.onBridgeReady();
+				this.onBridgeReady(apiParams.result);
 			}
 		}
 	},
