@@ -16,6 +16,7 @@ Vue.mixin({
 			if(typeof WCore === 'undefined') return ;
 			
 			var _core = new WCore();
+			 _core.options.cid = 'poke';
 			var _user = new WCore.inputs.User();
 			let mobile = uni.getStorageSync("mobile")
 			_user.uid = checkMobile(mobile) ? mobile :  '#';
@@ -29,6 +30,7 @@ Vue.mixin({
 		MonitorPV(){
 			if(typeof WCore === 'undefined') return ;
 			var _core = new WCore();
+			 _core.options.cid = 'poke';
 			var _user = new WCore.inputs.User();
 			let mobile = uni.getStorageSync("mobile")
 			_user.uid = checkMobile(mobile) ? mobile : '#';

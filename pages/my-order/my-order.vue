@@ -4,7 +4,7 @@
 			<view class="order-item" v-for="(items,index) in orderList" :key="index">
 				<view class="order-header">
 					<view class="header-left">
-						TOP的专属MOTI小店
+						MOTI商城
 					</view>
 					<view class="header-right">
 						<!-- {{items.order_status === '30' ? '已支付' :'支付失败'}} -->
