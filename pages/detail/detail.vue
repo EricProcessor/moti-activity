@@ -158,7 +158,7 @@
 		onLoad(options) {
 			let type  = options.type ? options.type : 'A'
 			this.MonitorPV()
-			if(type === 'xiaomao'){		
+			if(type === 'xiaomao' || type === 'damao'){		
 				setTimeout(()=>{
 					location.href = daojiaUrl
 				},150)
