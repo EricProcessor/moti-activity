@@ -655,11 +655,11 @@
 			//justify-content: space-between;
 
 			.item-color {
-				width: 146upx;
+				width: 145upx;
 				height: 60upx;
 				margin-bottom: 15upx;
 				
-				margin-right: 27upx;
+				margin-right: 26upx;
 				
 				border: 1upx #333333 solid;
 				border-radius: 8upx;
