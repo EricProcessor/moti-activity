@@ -1865,7 +1865,7 @@ WCore.config = {
     WCore.config.apiPath = 'http://test.com/api/';
     // 如发送PV请求, URL会变成http://test.com/api/PV.do?
     */
-    apiPath: 'http://39.106.223.14:11181/log.gif',
+    apiPath: 'https://md.leiyankeji.com/log.gif',
     //apiPath: 'http://ddns.leiyankeji.com:1081/1.gif',
     // apiPath: 'http://patwu.cn/log.png',
 
@@ -2023,5 +2023,4 @@ WCore.config = {
         'mp.weixin.qq.com'
     ]
 };
-
 export default WCore

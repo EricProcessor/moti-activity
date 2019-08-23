@@ -13,7 +13,7 @@
 		<view class="description">
 			<view class="price-discount">
 				<view class="price">
-					<text class="middle">￥</text> <text class="big">{{parseInt(this.spuDetail.price)}}</text>
+					<text class="middle">￥</text> <text class="big">{{this.spuDetail.price ? parseInt(this.spuDetail.price) : ''}}</text>
 				</view>
 				<view class="discount" v-if="false">
 					分享有礼
