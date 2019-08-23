@@ -13,7 +13,7 @@
 		<view class="description">
 			<view class="price-discount">
 				<view class="price">
-					<text class="middle">￥</text> <text class="big">{{toDecimal2[0]}}.</text>{{toDecimal2[1]}}
+					<text class="middle">￥</text> <text class="big">{{parseInt(this.spuDetail.price)}}</text>
 				</view>
 				<view class="discount" v-if="false">
 					分享有礼

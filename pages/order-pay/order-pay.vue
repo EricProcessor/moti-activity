@@ -36,7 +36,7 @@
 					</view>
 					<view class="goods-buy">
 						<view class="goods-price">
-							￥<text>{{preOrderData.skuPrice}}</text>
+							￥<text>{{parseInt(preOrderData.skuPrice)}}</text>
 						</view>
 						<view class="operate-number">
 						<!-- 	<uniNumberBox disabled :value="preOrderData.skuNumber"  type="small" :min="1" @change="numberChange"></uniNumberBox> -->
@@ -55,7 +55,7 @@
 					商品金额
 				</view>
 				<view class="total-number">
-					<text class="amount">¥{{preOrderData.skuPrice}}</text> <text class="number">× {{preOrderData.skuNumber}}</text>
+					<text class="amount">¥{{parseInt(preOrderData.skuPrice)}}</text> <text class="number">× {{preOrderData.skuNumber}}</text>
 				</view>
 			</view>
 		</view>

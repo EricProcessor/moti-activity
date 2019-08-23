@@ -17,7 +17,7 @@
 					</view>
 					<view class="goods-buy">
 						<view class="goods-price">
-							￥<text>{{preOrderData.skuPrice}}</text>
+							￥<text>{{parseInt(preOrderData.skuPrice)}}</text>
 						</view>
 						<view class="operate-number">
 							<uniNumberBox :value="preOrderData.skuNumber" :min="1" @change="numberChange"></uniNumberBox>

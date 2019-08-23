@@ -20,7 +20,7 @@
 								{{item.spu_name}}
 							</view>
 							<view class="o-price">
-								￥{{item.sku_price}}
+								￥{{parseInt(item.sku_price)}}
 							</view>
 						</view>
 						<view class="order-spec-number">
@@ -37,8 +37,8 @@
 				<view class="order-total">
 					<text class="total-number">共计{{items.item.length}}件商品</text>
 					<text class="total-title">合计:￥</text>
-					<text class="price-total-int">{{toDecimalInt(items.order_old_money)}}</text>
-					<text class="price-float">.{{toDecimalFloat(items.order_old_money)}}</text>
+					<text class="price-total-int">{{parseInt(items.order_old_money)}}</text>
+					<!-- <text class="price-float">.{{toDecimalFloat(items.order_old_money)}}</text> -->
 				</view>
 				<view class="order-operate">
 					<view class="operate-item">
