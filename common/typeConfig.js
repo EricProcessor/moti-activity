@@ -650,7 +650,7 @@ export default {
 		bianXianMao:false,
 		isSpuDesc:true,
 		isShowAgain:false,
-		isTuiAMonitor:true,
+		isTuiAMonitor:false,
 		diliverMsg:"有货,顺丰到付 运费22元"
 	},
 	//20190820 根据Type 14 生成的0元购,不含口味 添加第三方JS监控统计
@@ -744,5 +744,24 @@ export default {
 		isSpuDesc:false,
 		isShowAgain:true,
 		diliverMsg:""
+	},
+	44: {
+		module: 'EditOrderFormMojo',
+		goodsName: "goodsMTGOFree", // 商品key
+		imgs: "imgs36", // 图片key
+		lastImg:14,
+		swiper750: true, // 轮播图片是否高度是否是750upx
+		submitApi: "/activity1/ad/order/bookingGghdOrderLittleSmoke", //提交订单api
+		isEncrypted: true, // 是否对提交订单数据加密
+		isShowPayMethod: false, // 是否显示支付方式
+		buttonMsg: '0元抢购', //底部抢购提示
+		onWxPay: false, //开启微信支付
+		onAlipayPay: false, //开启支付宝支付
+		onArrivePay: true, //开始货到付款
+		bianXianMao:false,
+		isSpuDesc:true,
+		isShowAgain:false,
+		isTuiAMonitor:true,
+		diliverMsg:"有货,顺丰到付 运费22元"
 	},
 }
