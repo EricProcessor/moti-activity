@@ -1320,7 +1320,7 @@ export default {
 	        {
 	            url: '../../static/type/23/6.jpg',
 	            width: 750,
-	            height: 1139,
+	            height: 950,
 	            isLoaded: false
 	        },
 	        {
@@ -1365,7 +1365,7 @@ export default {
             {
                 url: '../../static/type/23/6.jpg',
                 width: 750,
-                height: 1139,
+                height: 950,
                 isLoaded: false
             },
             {
@@ -1410,7 +1410,7 @@ export default {
             {
                 url: '../../static/type/23/6.jpg',
                 width: 750,
-                height: 1139,
+                height: 950,
                 isLoaded: false
             },
             {
@@ -1455,7 +1455,7 @@ export default {
             {
                 url: '../../static/type/23/6.jpg',
                 width: 750,
-                height: 1139,
+                height: 950,
                 isLoaded: false
             },
             {
@@ -1500,7 +1500,7 @@ export default {
             {
                 url: '../../static/type/23/6.jpg',
                 width: 750,
-                height: 1139,
+                height: 950,
                 isLoaded: false
             },
             {
@@ -1628,7 +1628,7 @@ export default {
 	        {
 	            url: '../../static/type/23/6.jpg',
 	            width: 750,
-	            height: 1139,
+	            height: 950,
 	            isLoaded: false
 	        },
 	        {
@@ -1673,7 +1673,7 @@ export default {
 	        {
 	            url: '../../static/type/23/6.jpg',
 	            width: 750,
-	            height: 1139,
+	            height: 950,
 	            isLoaded: false
 	        },
 	        {
@@ -1924,7 +1924,7 @@ export default {
 			{
 				url: '../../static/type/23/6.jpg',
 				width: 750,
-				height: 1139,
+				height: 950,
 				isLoaded: false
 			},
 			{
@@ -1969,7 +1969,7 @@ export default {
 			{
 				url: '../../static/type/23/6.jpg',
 				width: 750,
-				height: 1139,
+				height: 950,
 				isLoaded: false
 			},
 			{
@@ -2014,7 +2014,7 @@ export default {
 			{
 				url: '../../static/type/23/6.jpg',
 				width: 750,
-				height: 1139,
+				height: 950,
 				isLoaded: false
 			},
 			{

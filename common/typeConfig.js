@@ -510,7 +510,7 @@ export default {
 		isSpuDesc:false,
 		isShowAgain:false,
 		diliverMsg:"有货,邮费12元"
-		
+
 	},
 	31: {
 		module: 'EditOrderFormC',
@@ -764,4 +764,99 @@ export default {
 		isTuiAMonitor:true,
 		diliverMsg:"有货,顺丰到付 运费22元"
 	},
+	//20190826 新增5条推啊监控链接
+    45: {
+        module: 'EditOrderFormMojo',
+        goodsName: "goodsMojoFree", // 商品key
+        imgs: "imgs27", // 图片key
+        lastImg:14,
+        swiper750: false, // 轮播图片是否高度是否是750upx
+        submitApi: "/activity1/ad/order/bookingGghdOrderLittleSmoke", //提交订单api
+        isEncrypted: true, // 是否对提交订单数据加密
+        isShowPayMethod: false, // 是否显示支付方式
+        buttonMsg: '0元抢购', //底部抢购提示
+        onWxPay: false, //开启微信支付
+        onAlipayPay: false, //开启支付宝支付
+        onArrivePay: true, //开始货到付款
+        bianXianMao:false,
+        isSpuDesc:false,
+        isShowAgain:false,
+        isTuiAMonitor:true,
+        diliverMsg:"有货,邮费12元"
+    },
+    46: {
+        module: 'EditOrderFormC',
+        goodsName: "goodsMTGO", // 商品key
+        imgs: "imgs31", // 图片key
+        lastImg:14,
+        swiper750: true, // 轮播图片是否高度是否是750upx
+        submitApi: "/activity1/ad/order/bookingGghdOrderLittleSmoke", //提交订单api
+        isEncrypted: true, // 是否对提交订单数据加密
+        isShowPayMethod: true, // 是否显示支付方式
+        buttonMsg: '立即抢购', //底部抢购提示
+        onWxPay: true, //开启微信支付
+        onAlipayPay: true, //开启支付宝支付
+        onArrivePay: false, //开始货到付款
+        bianXianMao:false,
+        isSpuDesc:true,
+        isTuiAMonitor:true,
+        isShowAgain:true,
+    },
+    47: {
+        module: 'EditOrderFormMojo',
+        goodsName: "goodsMojo1", // 商品key
+        imgs: "imgs41", // 图片key
+        lastImg:14,
+        swiper750: false, // 轮播图片是否高度是否是750upx
+        submitApi: "/activity1/ad/order/bookingGghdOrderLittleSmoke", //提交订单api
+        isEncrypted: true, // 是否对提交订单数据加密
+        isShowPayMethod: true, // 是否显示支付方式
+        buttonMsg: '立即抢购', //底部抢购提示
+        onWxPay: true, //开启微信支付
+        onAlipayPay: true, //开启支付宝支付
+        onArrivePay: false, //开始货到付款
+        bianXianMao:false,
+        isSpuDesc:false,
+        isTuiAMonitor:true,
+        isShowAgain:true,
+        diliverMsg:"有货,邮费12元"
+    },
+    48: {
+        module: 'EditOrderFormMojo',
+        goodsName: "goodsMojo3", // 商品key
+        imgs: "imgs42", // 图片key
+        lastImg:14,
+        swiper750: false, // 轮播图片是否高度是否是750upx
+        submitApi: "/activity1/ad/order/bookingGghdOrderLittleSmoke", //提交订单api
+        isEncrypted: true, // 是否对提交订单数据加密
+        isShowPayMethod: true, // 是否显示支付方式
+        buttonMsg: '立即抢购', //底部抢购提示
+        onWxPay: true, //开启微信支付
+        onAlipayPay: true, //开启支付宝支付
+        onArrivePay: false, //开始货到付款
+        bianXianMao:false,
+        isSpuDesc:false,
+        isShowAgain:true,
+        isTuiAMonitor:true,
+        diliverMsg:"有货,邮费12元"
+    },
+    49: {
+        module: 'EditOrderFormMojo',
+        goodsName: "goodsMojo9", // 商品key
+        imgs: "imgs43", // 图片key
+        lastImg:14,
+        swiper750: false, // 轮播图片是否高度是否是750upx
+        submitApi: "/activity1/ad/order/bookingGghdOrderLittleSmoke", //提交订单api
+        isEncrypted: true, // 是否对提交订单数据加密
+        isShowPayMethod: true, // 是否显示支付方式
+        buttonMsg: '立即抢购', //底部抢购提示
+        onWxPay: true, //开启微信支付
+        onAlipayPay: true, //开启支付宝支付
+        onArrivePay: false, //开始货到付款
+        bianXianMao:false,
+        isSpuDesc:false,
+        isShowAgain:true,
+        isTuiAMonitor:true,
+        diliverMsg:""
+    },
 }
