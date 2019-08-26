@@ -217,7 +217,25 @@
 				
 			}
 		},
+		
 		async onLoad() {
+			
+			window.onresize = ()=>{
+				uni.getSystemInfo({
+					success: function(res) {
+						console.log("res.windowHeight:"+res.windowHeight)
+						if(res.windowHeight <= uni.upx2px(1000)){
+							self.buttonFixed = false
+						}else{
+							self.buttonFixed = true
+							uni.pageScrollTo({
+								scrollTop: 0,
+								duration: 100
+							})
+						}
+					}
+				});
+			}
 			this.preOrderData = uni.getStorageSync("preOrderData")
 			this.orderForm.skuId = this.preOrderData.skuId
 			this.orderForm.skuNum = this.preOrderData.skuNumber
@@ -225,6 +243,7 @@
 			let self = this
 			uni.getSystemInfo({
 				success: function(res) {
+					console.log(res)
 					console.log(res.windowHeight)
 					console.log(uni.upx2px(890));
 					if(res.windowHeight <= uni.upx2px(1000)){
