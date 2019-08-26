@@ -157,7 +157,6 @@
 					
 				}
 			});
-			this.MonitorPV()
 			this.queryOrders()
 		}
 	}

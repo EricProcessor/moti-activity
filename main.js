@@ -7,7 +7,9 @@ Vue.config.productionTip = false
 
 App.mpType = 'app'
 Vue.mixin({
+	
 	methods: {
+		
 		MonitorEvent(ec) {
 
 			console.log("触发监控....")

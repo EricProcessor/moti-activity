@@ -2,14 +2,20 @@
 	import {checkMobile} from "common/unils.js"
 	export default {
 		onLaunch: function() {
-			console.log('App Launch')
+			
+			this.MonitorPV()
 		},
 		onShow: function() {
-			console.log('App Show')
+			
 		},
 		onHide: function() {
-			console.log('App Hide')
-		}
+			
+		},
+		watch:{
+			'$route'(to,from){
+				this.MonitorPV()
+			}
+		},
 	}
 </script>
 

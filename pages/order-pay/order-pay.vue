@@ -296,7 +296,6 @@
 			this.queryPayState(this.options)
 		},
 		onLoad(options) {
-			this.MonitorPV()
 			this.options = options
 			this.preOrderData = uni.getStorageSync("preOrderData")
 			this.preOrderForm = uni.getStorageSync("orderForm")

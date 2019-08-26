@@ -239,7 +239,6 @@
 			this.preOrderData = uni.getStorageSync("preOrderData")
 			this.orderForm.skuId = this.preOrderData.skuId
 			this.orderForm.skuNum = this.preOrderData.skuNumber
-			this.MonitorPV()
 			let self = this
 			uni.getSystemInfo({
 				success: function(res) {
