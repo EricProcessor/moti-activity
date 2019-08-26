@@ -2023,4 +2023,3 @@ WCore.config = {
         'mp.weixin.qq.com'
     ]
 };
-export default WCore

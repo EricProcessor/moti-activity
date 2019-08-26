@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App'
 import {checkMobile,isDevEnv} from "common/unils.js"
-import WCore from "common/wcore.js"
+import  "common/wcore.js"
 
 Vue.config.productionTip = false
 

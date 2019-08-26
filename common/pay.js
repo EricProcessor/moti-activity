@@ -15,7 +15,7 @@ const PayObject = {
 		async createOrder(returnUrl, orderNo, spuName) {
 
 			let res = await aliWapPay(returnUrl, orderNo, spuName)
-			console.log(res)
+			//console.log(res)
 			if (res.code != 0) return uni.showToast({
 				title: res.msg,
 				icon: "none"
@@ -129,8 +129,8 @@ const PayObject = {
 					});
 				}
 			} else {
-				console.log("apiParams:" + JSON.stringify(apiParams))
-				console.log(typeof apiParams.result)
+				//console.log("apiParams:" + JSON.stringify(apiParams))
+				//console.log(typeof apiParams.result)
 				this.onBridgeReady(apiParams.result);
 			}
 		}
