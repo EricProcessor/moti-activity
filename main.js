@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App'
-import {checkMobile} from "common/unils.js"
+import {checkMobile,isDevEnv} from "common/unils.js"
 import WCore from "common/wcore.js"
 
 Vue.config.productionTip = false
@@ -11,12 +11,8 @@ Vue.mixin({
 	methods: {
 		
 		MonitorEvent(ec) {
-
-			console.log("触发监控....")
-			console.log(event)
-			console.log(ec);
-			if(typeof WCore === 'undefined') return ;
-			
+			if(isDevEnv) return ;
+			if(typeof WCore === 'undefined') return ;	
 			var _core = new WCore();
 			 _core.options.cid = 'poke';
 			var _user = new WCore.inputs.User();
@@ -30,6 +26,7 @@ Vue.mixin({
 
 		},
 		MonitorPV(){
+			if(isDevEnv) return ;
 			if(typeof WCore === 'undefined') return ;
 			var _core = new WCore();
 			 _core.options.cid = 'poke';
