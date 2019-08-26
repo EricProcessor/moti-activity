@@ -74,7 +74,6 @@
 		onLoad(options) {
 			this.amount = options.amount
 			this.payType = options.payType
-			this.MonitorPV()
 		}
 	}
 </script>
