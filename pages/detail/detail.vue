@@ -116,6 +116,11 @@
 				this.selectAttrObj.skuId = this.spuDetail.skuId
 				this.selectAttrObj.skuName = attrArr.attrValueList[0].attrValue
 				this.selectAttrObj.title = this.spuDetail.name
+				
+				uni.setNavigationBarTitle({
+					title:this.selectAttrObj.skuName  + "-" +this.spuDetail.name
+				})
+				
 				let resSku = await postForm("/mall/h5/ofo/querySkupicturcBySkuId",{skuId:this.spuDetail.skuId})
 				if(resSku.code == 0){
 					this.selectAttrObj.img = resSku.result[0].picture_url
@@ -156,6 +161,7 @@
 			uniNumberBox
 		},
 		onLoad(options) {
+			
 			let type  = options.type ? options.type : 'A'
 			this.MonitorPV()
 			if(type === 'xiaomao' || type === 'damao'){		
@@ -292,6 +298,7 @@
 		.shop-detail {
 			background-color: #FFFFFF;
 			margin-top: 20upx;
+			margin-bottom: 86upx;
 
 			.shop-detail-title {
 				height: 106upx;
@@ -306,7 +313,7 @@
 			.shop-detail-body {
 				width: 750upx;
 				height: auto;
-				margin-bottom: 86upx;
+				//
 
 				image {
 					width: 750upx;

@@ -15,20 +15,26 @@
         ,{
             "path" : "pages/submit/submit",
             "style" : {
-				"navigationBarTitleText":"下单"
+				"navigationBarTitleText":"填写信息"
 			}
         }
 		,{
 		    "path" : "pages/order-pay/order-pay",
-		    "style" : {}
+		    "style" : {
+				"navigationBarTitleText":"确认支付"
+			}
 		}
         ,{
             "path" : "pages/pay-success/pay-success",
-            "style" : {}
+            "style" : {
+				"navigationBarTitleText":"支付成功"
+			}
         }
         ,{
             "path" : "pages/my-order/my-order",
-            "style" : {}
+            "style" : {
+				"navigationBarTitleText":"我的订单"
+			}
         }
   
     ],
