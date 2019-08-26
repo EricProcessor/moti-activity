@@ -7,7 +7,7 @@
 				</view >
 				<view class='top-rg' @tap='aboutMe'>什么是<text>MOTIS</text></view>
 			</view>
-			<view class="activityNum">活动时间&nbsp;即日起至2019年08月25日</view>
+			<view class="activityNum">活动时间&nbsp;即日起至2019年09月30日</view>
 		</view>
 	</view>
 </template>

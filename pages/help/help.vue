@@ -34,7 +34,7 @@
 <!-- 		<view class="act-end">
 			<image src="../../static/end.png" mode=""></image>
 		</view> -->
-		<act-end></act-end>
+		<!-- <act-end></act-end> 取消结束,如果想结束活动放开此注释即可-->
 	</view>
 </template>
 

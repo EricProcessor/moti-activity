@@ -20,7 +20,7 @@
 <!-- 		<view class="act-end">
 			<image src="../../static/end.png" mode=""></image>
 		</view> -->
-		<act-end></act-end>
+		<!-- <act-end></act-end>取消结束,如果想结束活动放开此注释即可 -->
 	</view>
 </template>
 
@@ -142,10 +142,10 @@ export default {
 					let taskId = parseInt(result.taskId);
 					
 					
-					/********活动结束禁止跳转
 					if (!isNaN(taskId) && taskId > 0) {
 						this.toPath(taskId)
 					}
+					/********活动结束禁止跳转
 					*********/
 				}
 			} else {
