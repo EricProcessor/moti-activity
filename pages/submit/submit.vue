@@ -259,6 +259,8 @@
 <style lang="scss" scoped>
 	.form-body {
 		padding-top: 20upx;
+		position: relative;
+
 
 		.goods-show {
 			background-color: #FFFFFF;
