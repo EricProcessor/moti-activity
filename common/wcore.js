@@ -501,7 +501,7 @@ WCore输入模块, 包括类及相关方法
 	function Input(api) {
 		// Request.call(this, WCore.config.apiPath + api + ".do");
 
-		Request.call(this, WCore.config.apiPath + '?type=' + api);
+		Request.call(this, WCore.config.apiPath + '?mdtype=' + api);
 	}
 
 	/* 继承自 Request */
@@ -1866,6 +1866,7 @@ WCore.config = {
     // 如发送PV请求, URL会变成http://test.com/api/PV.do?
     */
     apiPath: 'https://md.leiyankeji.com/log.gif',
+    //apiPath: 'http://39.106.223.14:11181/log.gif',
     //apiPath: 'http://ddns.leiyankeji.com:1081/1.gif',
     // apiPath: 'http://patwu.cn/log.png',
 
