@@ -38,19 +38,19 @@
 					<view class="item-title">
 						收货人
 					</view>
-					<input type="text"  v-model.trim="userName" placeholder="请填写姓名" placeholder-class="place-class"  />
+					<input type="text" @blur="toTop"  @focus="isScrollTop = false" v-model.trim="userName" placeholder="请填写姓名" placeholder-class="place-class"  />
 				</view>
 				<view class="form-item">
 					<view class="item-title">
 						手机号
 					</view>
-					<input type="text" v-model.trim="orderForm.mobile" placeholder="请填写手机号" placeholder-class="place-class" />
+					<input type="text" @blur="toTop"  @focus="isScrollTop = false" v-model.trim="orderForm.mobile" placeholder="请填写手机号" placeholder-class="place-class" />
 				</view>
 				<view class="form-item">
 					<view class="item-title">
 						验证码
 					</view>
-					<input type="text" v-model.trim="verifyCode" placeholder="短信验证码" placeholder-class="place-class"  />
+					<input type="text" @blur="toTop"  @focus="isScrollTop = false" v-model.trim="verifyCode" placeholder="短信验证码" placeholder-class="place-class"  />
 					<view class="right-view">
 						<view class="verify-code" v-if="!timeOut"  @click="getVerifyCode"> 获取验证码 </view>
 						<view class="verify-code gray" v-if="timeOut"  > {{timeOut}}秒后重新获取 </view>
@@ -69,7 +69,7 @@
 					<view class="item-title">
 						详细地址
 					</view>
-					<input type="text" v-model.trim="orderForm.userAddress" placeholder="具体到楼层门牌号" placeholder-class="place-class"  />
+					<input type="text" @blur="toTop"  @focus="isScrollTop = false" v-model.trim="orderForm.userAddress" placeholder="具体到楼层门牌号" placeholder-class="place-class"  />
 				</view>
 			</view>
 		</view>
@@ -114,6 +114,7 @@
 					appType:appType
 				},
 				buttonFixed:true,
+				isScrollTop:false,
 			};
 		},
 		computed:{
@@ -124,6 +125,24 @@
 			mpvueCityPicker
 		},
 		methods: {
+			toTop(){
+				let u = navigator.userAgent;
+				let isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); 
+				this.isScrollTop = true
+				if(isIOS){
+					setTimeout(()=>{
+						if(this.isScrollTop) {
+							uni.showToast({
+								title:'....',
+								icon:'none'
+							})
+							window.scrollTo(0,0)
+							
+						}
+					},200)
+				}
+
+			},
 			numberChange(data) {
 				this.orderForm.skuNum = data.num
 				this.preOrderData.skuNumber = data.num
