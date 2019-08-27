@@ -132,10 +132,7 @@
 				if(isIOS){
 					setTimeout(()=>{
 						if(this.isScrollTop) {
-							uni.showToast({
-								title:'....',
-								icon:'none'
-							})
+							
 							window.scrollTo(0,0)
 							
 						}
@@ -242,7 +239,7 @@
 			window.onresize = ()=>{
 				uni.getSystemInfo({
 					success: function(res) {
-						console.log("res.windowHeight:"+res.windowHeight)
+						//console.log("res.windowHeight:"+res.windowHeight)
 						if(res.windowHeight <= uni.upx2px(1000)){
 							self.buttonFixed = false
 						}else{
@@ -261,9 +258,9 @@
 			let self = this
 			uni.getSystemInfo({
 				success: function(res) {
-					console.log(res)
-					console.log(res.windowHeight)
-					console.log(uni.upx2px(890));
+					//console.log(res)
+					//console.log(res.windowHeight)
+					//console.log(uni.upx2px(890));
 					if(res.windowHeight <= uni.upx2px(1000)){
 						console.log(res.windowHeight)
 						self.buttonFixed = false
