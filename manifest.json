@@ -76,7 +76,7 @@
                 "/user" : {
                     // "target": "http://10.165.111.78:8090",
                     // "target": "http://10.165.106.92:8096",
-                    "target" : "https://motiactivity.motimall.cn",
+                    "target" : "http://test.motiactivity.motimall.cn",
                     // "target": "http://39.96.190.37:80",
                     "changeOrigin" : true,
                     "secure" : false
