@@ -2033,6 +2033,7 @@ export default {
         'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_5/last.jpg',
         'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_6/last.jpg',
         'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/last.jpg',
+		//'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_7/newlst.jpg',  info8 域名
         'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_8/last.jpg',
         'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_9/last.png',
 		'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_10/11.jpg',

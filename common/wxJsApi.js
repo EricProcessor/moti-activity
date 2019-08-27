@@ -13,7 +13,7 @@ export default {
 		let res = await post("/activity1/pay/confirmAuthorization", {
 			code: code
 		})
-		console.log("-", res)
+		//console.log("-", res)
 		if (res.data.code !== "0") return
 		let orderInfo = uni.getStorageSync("orderInfo")
 		let preRes = await post("/activity1/pay/wxJsPay", {
@@ -21,15 +21,15 @@ export default {
 			spuName: orderInfo.spuName,
 			ip: orderInfo.ip
 		})
-		console.log("--", preRes)
+		//console.log("--", preRes)
 		let jsParams = await post("/activity1/pay/getJsApiParam", {
 			prepayId: preRes.data.result
 		})
-		console.log("---", jsParams)
+		//console.log("---", jsParams)
 		if (jsParams.data.code !== "0") return
-		console.log(jsParams.data.result)
+		//console.log(jsParams.data.result)
 		return JSON.parse(jsParams.data.result)
-		console.log("openid", jsParams)
+		//console.log("openid", jsParams)
 	},
 	onBridgeReady(apiParams) {
 		//let apiParams = this.apiParams
@@ -76,18 +76,18 @@ export default {
 			if (document.addEventListener) {
 				document.addEventListener('WeixinJSBridgeReady', ()=>{
 					this.onBridgeReady(apiParams)
-					console.log('WeixinJSBridge-undefined')
+					//console.log('WeixinJSBridge-undefined')
 					
 				}, false);
 			} else if (document.attachEvent) {
 				document.attachEvent('WeixinJSBridgeReady', ()=>{
 					this.onBridgeReady(apiParams)
-					console.log('WeixinJSBridge-undefined')
+					//console.log('WeixinJSBridge-undefined')
 					
 				});
 				document.attachEvent('onWeixinJSBridgeReady', ()=>{
 					this.onBridgeReady(apiParams)
-					console.log('WeixinJSBridge-undefined')
+					//console.log('WeixinJSBridge-undefined')
 					
 				});
 			}
