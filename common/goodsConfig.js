@@ -212,7 +212,7 @@ export default {
             },
 
             {
-                text: "清爽薄荷",
+                text: "激爽薄荷",
                 sku: "112492576122"
             },
             {
@@ -261,7 +261,7 @@ export default {
             },
 
             {
-                text: "清爽薄荷",
+                text: "激爽薄荷",
                 sku: "112492576122"
             },
             {
@@ -310,7 +310,7 @@ export default {
             },
 
             {
-                text: "清爽薄荷",
+                text: "激爽薄荷",
                 sku: "112492576122"
             },
             {
@@ -359,7 +359,7 @@ export default {
             },
 
             {
-                text: "清爽薄荷",
+                text: "激爽薄荷",
                 sku: "112492576122"
             },
             {
@@ -406,7 +406,7 @@ export default {
             },
 
             {
-                text: "清爽薄荷",
+                text: "激爽薄荷",
                 sku: "112492576122"
             },
             {
@@ -452,7 +452,7 @@ export default {
             },
 
             {
-                text: "清爽薄荷",
+                text: "激爽薄荷",
                 sku: "112492576122"
             },
             {
@@ -502,7 +502,7 @@ export default {
                     sku: "112492578019"
                 }, */
             {
-                text: "清爽薄荷",
+                text: "激爽薄荷",
                 sku: "112492576122"
             },
             {
@@ -591,7 +591,7 @@ export default {
 	            price:35,
 	            src:"../../static/images/icons/jdyc.jpg"
 	        },
-	
+
 	            {
 	                text: "绿豆冰沙",
 	                sku: "112492581718",
@@ -620,7 +620,7 @@ export default {
 			"../../static/images/mojo/chse.jpg",
 	    ],
 	    spec: [
-	
+
 	        {
 	            text: "雪狐白",
 	            sku: "112492575751"
@@ -649,7 +649,7 @@ export default {
 	            price:35,
 	            src:"../../static/images/icons/jdyc.jpg"
 	        },
-	
+
 	            {
 	                text: "绿豆冰沙",
 	                sku: "112492581718",
@@ -678,7 +678,7 @@ export default {
 			"../../static/images/mojo/chse.jpg",
 	    ],
 	    spec: [
-	
+
 	        {
 	            text: "雪狐白",
 	            sku: "112492575751"
@@ -702,7 +702,7 @@ export default {
 	        desc:"1 烟杆 + 1 个老冰棍儿烟弹",
 	        tastePrice:35,
 	        taste: [
-	   
+
 	        ],
 			credible:['官方发货','消费者保障服务','包邮','假一赔三'],
 			saleQty:93
@@ -713,7 +713,7 @@ export default {
 			"../../static/images/mojo/chse.jpg",
 	    ],
 	    spec: [
-	
+
 	        {
 	            text: "雪狐白",
 	            sku: "112492575751"
@@ -747,7 +747,7 @@ export default {
 	        "https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/2.jpg",
 	    ],
 	    spec: [
-	
+
 	        {
 	            text: "星辰银",
 	            sku: "112492577675"

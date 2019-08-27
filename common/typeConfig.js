@@ -818,7 +818,7 @@ export default {
         bianXianMao:false,
         isSpuDesc:false,
         isTuiAMonitor:true,
-        isShowAgain:true,
+        isShowAgain:false,
         diliverMsg:"有货,邮费12元"
     },
     48: {
@@ -836,7 +836,7 @@ export default {
         onArrivePay: false, //开始货到付款
         bianXianMao:false,
         isSpuDesc:false,
-        isShowAgain:true,
+        isShowAgain:false,
         isTuiAMonitor:true,
         diliverMsg:"有货,邮费12元"
     },
@@ -855,7 +855,7 @@ export default {
         onArrivePay: false, //开始货到付款
         bianXianMao:false,
         isSpuDesc:false,
-        isShowAgain:true,
+        isShowAgain:false,
         isTuiAMonitor:true,
         diliverMsg:""
     },
