@@ -78,12 +78,12 @@
             "disableHostCheck" : true,
             "proxy" : {
                 "/mall" : {
-                    "target" : "https://ofogray.motivape.cn/",
+                    "target" : "https://pokegray.motivape.cn/",
                     "changeOrigin" : true,
                     "secure" : false
                 },
                 "/payment" : {
-                    "target" : "https://ofogray.motivape.cn/",
+                    "target" : "https://pokegray.motivape.cn/",
                     "changeOrigin" : true,
                     "secure" : false
                 }

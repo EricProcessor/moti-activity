@@ -1,14 +1,18 @@
 <template>
 	<view class="panel-body">
 		<view class="main-pictures">
-			<swiper class="swiper-style" :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
+			<!-- <swiper class="swiper-style" :indicator-dots="false" :autoplay="false" :interval="3000" :duration="1000">
 				<swiper-item  v-for="(item,index) in spuDetail.pictureList" :key="index" >
 					<view class="swiper-item">
 						<image :src="item.picture_url"
 						 mode=""></image>
 					</view>
 				</swiper-item>
-			</swiper>
+			</swiper> -->
+			<view  class="swiper-style">
+				<image :src="spuDetail.pictureUrl"
+				 mode=""></image>
+			</view>
 		</view>
 		<view class="description">
 			<view class="price-discount">
