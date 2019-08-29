@@ -754,7 +754,8 @@ export default {
 		submitApi: "/activity1/ad/order/bookingGghdOrderLittleSmoke", //提交订单api
 		isEncrypted: true, // 是否对提交订单数据加密
 		isShowPayMethod: false, // 是否显示支付方式
-		buttonMsg: '0元抢购', //底部抢购提示
+		buttonMsg: '0元申请', //底部抢购提示
+		priceText:"0元申请",
 		onWxPay: false, //开启微信支付
 		onAlipayPay: false, //开启支付宝支付
 		onArrivePay: true, //开始货到付款

@@ -2,7 +2,7 @@
 	<view class="spu-name">
 		<view class="price">
 			<text class="curency" v-if="goods.price">￥</text>
-			<text class="zero-get" v-if="!goods.price">0元领取</text>
+			<text class="zero-get" v-if="!goods.price">{{priceText}}</text>
 			<text v-else class="price">{{goods.price}}.00</text>
 			<text class="market-price">原价￥{{goods.sourcePrice}}</text>
 		</view>
@@ -38,7 +38,10 @@
 		computed:{
 			goods(){
 				return goodsConfig[typeConfig[this.paramType].goodsName].goods
-			}
+			},
+			priceText(){
+				return typeConfig[this.paramType].priceText ? typeConfig[this.paramType].priceText : '0元领取'
+			},
 		},
 		props:{
 			paramType:{
