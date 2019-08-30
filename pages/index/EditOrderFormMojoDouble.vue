@@ -123,7 +123,9 @@
 				收货信息
 			</view>
 			<view class="form-group">
-				<view class="input-item" v-for="(item, index) in userInfo" :key="index">
+				<block v-for="(item, index) in userInfo" :key="index">
+				
+				<view class="input-item" >
 					<view class="text">{{item.text}}</view>
 
 					<!-- <ChoicArea v-if="index === 2"    @pickArea="getAreas"  :initData="areaObj" :isClear = "isClear" ></ChoicArea> -->
@@ -134,9 +136,20 @@
 					<view  v-else class="input">
 						<input type="text" placeholder-style="color: #b6b6b6;font-size:30upx;height: 30upx;line-height:30upx;"
 						 :placeholder="item.placeholder" v-model="item.value">
+						
 					</view>
 
 				</view>
+				<view class="error-tip" v-if="item.isError">
+					<view class="icon-warn">
+						×
+					</view>
+					<view class="err-message">
+						{{item.errMsg}}
+					</view>
+				</view>
+				
+				</block>
 			</view>
 			<mpvueCityPicker ref="mpvueCityPicker" :pickerValueDefault="cityPickerValueDefault" @onCancel="onCancel"  @onConfirm="onConfirm"></mpvueCityPicker>
 		</view>
@@ -176,27 +189,38 @@
 				userInfo: [{
 						text: "收货人",
 						value: "",
-						placeholder: "请输入姓名"
+						placeholder: "请输入姓名",
+						errMsg:"请填写收货人姓名",
+						isError:false,
 					},
 					{
 						text: "联系方式",
 						value: "",
-						placeholder: "请填写手机号码"
+						placeholder: "请填写手机号码",
+						errMsg:"请填写正确的手机号",
+						isError:false,
 					},
 					 {
 					 	text: '选择地区',
 					 	value: '',
-					 	placeholder: '选择地区'
+					 	placeholder: '选择地区',
+						errMsg:"请选择地区",
+						isError:false,
 					},
 					{
 						text: "详细地址",
 						value: "",
-						placeholder: "请填写详细地址"
+						placeholder: "如道路、小区、楼栋号、单元室、门牌号等",
+						errMsg:"请填写详细地址",
+						isError:false,
 					},
 					{
 						text: "留言备注",
 						value: "",
-						placeholder: "如果购买多件商品，可备注留言选择颜色"
+						placeholder: "如果购买多件商品，可备注留言选择颜色",
+						errMsg:"请填写详细地址",
+						isError:false,
+						
 					}
 
 				],
@@ -236,9 +260,25 @@
 				if(this.paramType == 23) return Goods
 				if(this.paramType == 27 || this.paramType == 30) return GoodsMojoFree
 				return GoodsTwo*/
+			},
+			mobile(){
+				return this.userInfo[1].value
+			},
+			address(){
+				return this.userInfo[3].value
 			}
 		},
 		watch: {
+			mobile(){
+				if(checkMobile(this.mobile)){
+					this.userInfo[1].isError = false
+				}
+			},
+			address(){
+				if(this.address.length >=4){
+					this.userInfo[3].isError = false
+				}
+			},
 			isClear() {
 
 				this.currentSpecIndex = 0;
@@ -250,27 +290,37 @@
 				this.userInfo = [{
 						text: "收货人",
 						value: "",
-						placeholder: "请输入姓名"
+						placeholder: "请输入姓名",
+						errMsg:"请填写收货人姓名",
+						isError:false,
 					},
 					{
 						text: "联系方式",
 						value: "",
-						placeholder: "请填写手机号码"
+						placeholder: "请填写手机号码",
+						errMsg:"请填写正确的手机号",
+						isError:false,
 					},
 					{
 					 	text: '选择地区',
 					 	value: '',
-					 	placeholder: '请输入'
+					 	placeholder: '请输入',
+						errMsg:"请选择地区",
+						isError:false,
 					},
 					{
 						text: "详细地址",
 						value: "",
-						placeholder: "请填写详细地址"
+						placeholder: "如道路、小区、楼栋号、单元室、门牌号等",
+						errMsg:"请填写详细地址",
+						isError:false,
 					},
 					{
 						text: "留言备注",
 						value: "",
-						placeholder: "如果购买多件商品，可备注留言选择颜色"
+						placeholder: "如果购买多件商品，可备注留言选择颜色",
+						errMsg:"请填写详细地址",
+						isError:false,
 					}
 
 				]
@@ -371,6 +421,7 @@
 						code: 1,
 						message: "请输入收货地址"
 					}
+					this.userInfo[3].isError = true
 				}
 				
 					if(!this.areaObj || JSON.stringify(this.areaObj) === "{}"){
@@ -405,7 +456,8 @@
 					data = {
 						code: 1,
 						message: "请输入正确的联系电话"
-					}	
+					}
+					this.userInfo[1].isError = true
 				}
 				
 				if (!this.userInfo[0].value) {
@@ -890,6 +942,28 @@
 				}
 			}
 
+		}
+		.error-tip{
+			color: #ff4d3d;
+			display: flex;
+			font-size:20upx;
+			margin-top:20upx;
+			
+			.icon-warn{
+				width: 20upx;
+				height: 20upx;
+				line-height: 20upx;
+				border-radius: 50%;
+				background-color: #ff4d3d;
+				color: #FFFFFF;
+				text-align: center;
+				margin-right: 10upx;
+				
+			}
+			.err-message{
+				height: 20upx;
+				line-height: 20upx;
+			}
 		}
 	}
 </style>

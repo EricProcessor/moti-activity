@@ -872,10 +872,10 @@ export default {
 	    buttonMsg: '立即抢购', //底部抢购提示
 	    onWxPay: true, //开启微信支付
 	    onAlipayPay: true, //开启支付宝支付
-	    onArrivePay: true, //开始货到付款
+	    onArrivePay: false, //开始货到付款
 	    bianXianMao:false,
 	    isSpuDesc:false,
-	    isShowAgain:false,
+	    isShowAgain:true,
 	    isTuiAMonitor:false,
 	    diliverMsg:""
 	},

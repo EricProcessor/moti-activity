@@ -100,7 +100,9 @@
 					<view class="line_2">收货信息</view>
 					<view class="line_3">填写订单后MOTI客服将会与您确认订单</view>
 				</view>
-				<view class="input-item" v-for="(item, index) in userInfo" :key="index">
+				<block v-for="(item, index) in userInfo" :key="index">
+				
+				<view class="input-item" >
 					<view class="text">{{item.text}}</view>
 					<!-- <ChoicArea v-if="index === 2"  @pickArea="getAreas"   :initData="areaObj"  :isClear = "isClear"></ChoicArea> -->
 					
@@ -113,6 +115,15 @@
 					</view>
 
 				</view>
+				<view class="error-tip" v-if="item.isError">
+					<view class="icon-warn">
+						×
+					</view>
+					<view class="err-message">
+						{{item.errMsg}}
+					</view>
+				</view>
+				</block>
 
 			</view>
 		</view>
@@ -147,24 +158,32 @@
 				goods: {},
 				areaObj:{},
 				userInfo: [{
-						text: "收货人 *",
+						text: "收货人",
 						value: "",
-						placeholder: "请输入收货人姓名"
+						placeholder: "请输入姓名",
+						errMsg:"请填写收货人姓名",
+						isError:false,
 					},
 					{
-						text: "联系方式 *",
+						text: "联系方式",
 						value: "",
-						placeholder: "请输入联系方式"
+						placeholder: "请填写手机号码",
+						errMsg:"请填写正确的手机号",
+						isError:false,
 					},
-					{
-					 	text: '选择地区 *',
+					 {
+					 	text: '选择地区',
 					 	value: '',
-					 	placeholder: '选择地区'
+					 	placeholder: '选择地区',
+						errMsg:"请选择地区",
+						isError:false,
 					},
 					{
-						text: "详细地址 *",
+						text: "详细地址",
 						value: "",
-						placeholder: "请输入详细地址"
+						placeholder: "如道路、小区、楼栋号、单元室、门牌号等",
+						errMsg:"请填写详细地址",
+						isError:false,
 					},
 
 				],
@@ -206,9 +225,25 @@
 				return goodsConfig[typeConfig[this.paramType].goodsName]
 				if( this.paramType === 32) return Goods14
 				return Goods
+			},
+			mobile(){
+				return this.userInfo[1].value
+			},
+			address(){
+				return this.userInfo[3].value
 			}
 		},
 		watch: {
+			mobile(){
+				if(checkMobile(this.mobile)){
+					this.userInfo[1].isError = false
+				}
+			},
+			address(){
+				if(this.address.length >=4){
+					this.userInfo[3].isError = false
+				}
+			},
 			isClear() {
 
 				this.currentSpecIndex = 0;
@@ -218,24 +253,32 @@
 				this.areaObj = {}
 
 				this.userInfo = [{
-						text: "收货人 *",
+						text: "收货人",
 						value: "",
-						placeholder: "请输入"
+						placeholder: "请输入姓名",
+						errMsg:"请填写收货人姓名",
+						isError:false,
 					},
 					{
-						text: "联系方式 *",
+						text: "联系方式",
 						value: "",
-						placeholder: "请输入"
+						placeholder: "请填写手机号码",
+						errMsg:"请填写正确的手机号",
+						isError:false,
 					},
-					{
-					 	text: '选择地区 *',
+					 {
+					 	text: '选择地区',
 					 	value: '',
-					 	placeholder: '请输入'
+					 	placeholder: '选择地区',
+						errMsg:"请选择地区",
+						isError:false,
 					},
 					{
-						text: "详细地址 *",
+						text: "详细地址",
 						value: "",
-						placeholder: "请输入"
+						placeholder: "如道路、小区、楼栋号、单元室、门牌号等",
+						errMsg:"请填写详细地址",
+						isError:false,
 					},
 				];
 			}
@@ -352,6 +395,7 @@
 						code: 1,
 						message: "请输入详细地址"
 					}
+					this.userInfo[3].isError = true
 				}
 				if(!this.areaObj || JSON.stringify(this.areaObj) === "{}"){
 					data = {
@@ -385,7 +429,8 @@
 					data = {
 						code: 1,
 						message: "请输入正确的联系电话"
-					}	
+					}
+						this.userInfo[1].isError = true
 				}
 				
 				if (!this.userInfo[0].value) {
@@ -833,6 +878,28 @@
 					.pay_got {
 						// margin-left: 39upx;
 					}
+				}
+			}
+			.error-tip{
+				color: #ff4d3d;
+				display: flex;
+				font-size:20upx;
+				margin-top:20upx;
+				
+				.icon-warn{
+					width: 20upx;
+					height: 20upx;
+					line-height: 20upx;
+					border-radius: 50%;
+					background-color: #ff4d3d;
+					color: #FFFFFF;
+					text-align: center;
+					margin-right: 10upx;
+					
+				}
+				.err-message{
+					height: 20upx;
+					line-height: 20upx;
 				}
 			}
 		}

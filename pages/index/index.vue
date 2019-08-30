@@ -109,7 +109,7 @@
 			<image v-if="isShowBuyNow && isAB" src="../../static/images/icons/buy.jpg"></image>
 			<!-- <image v-if="isShowBuyNow && (isC || isMojo)" src="../../static/images/icons/red-buy.png"></image> -->
 			<view v-if="isShowBuyNow && (isC || isMojo || isD)" class="sub_order big active">{{buttonMsg}}</view>
-			<view v-if="!isShowBuyNow" class="sub_order" :class="{active:(isC || isMojo)}">提交订单</view>
+			<view v-if="!isShowBuyNow" class="sub_order" :class="{active:(isC || isMojo || isD)}">提交订单</view>
 		</view>
 
 
@@ -163,7 +163,7 @@
 		computed: {
 
 			isShowBuyNow() {
-				if (this.paramType !== 15) return !this.scrollTop || (this.currentScrollY < (this.scrollTop))
+				if (this.paramType !== 15) return !this.scrollTop || (this.currentScrollY < (this.scrollTop-3))
 				return !this.scrollTop || (this.currentScrollY < (this.scrollTop)) || (this.currentScrollY >= uni.upx2px(2480))
 			},
 			isC() {
