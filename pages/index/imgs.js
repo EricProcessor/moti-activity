@@ -2025,6 +2025,329 @@ export default {
 			}
 		]
 	},
+	imgs50:{
+		swipers: [
+			'../../static/type/50/banner-1.jpg',
+			'../../static/type/50/banner-2.jpg',
+			'../../static/type/50/banner-3.jpg',
+		],
+		imgs:[
+			{
+				url: '../../static/type/50/0.jpg',
+				width: 750,
+				height: 294,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/50/1.jpg',
+				width: 750,
+				height: 1130,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/50/2.jpg',
+				width: 750,
+				height: 1156,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/50/3.jpg',
+				width: 750,
+				height: 860,
+				isLoaded: false
+			},
+			
+		]
+	},
+	imgs51:{
+		swipers: [
+			'../../static/type/11/1.jpg',
+			'../../static/type/51/banner-2.jpg',
+			'../../static/type/51/banner-3.jpg',
+		],
+		imgs:[
+			{
+				url: '../../static/type/51/0.jpg',
+				width: 750,
+				height: 356,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/51/1.jpg',
+				width: 750,
+				height: 1384,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/51/2.jpg',
+				width: 750,
+				height: 1160,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/51/3.jpg',
+				width: 750,
+				height: 1397,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/51/4.jpg',
+				width: 750,
+				height: 1207,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/51/5.jpg',
+				width: 750,
+				height: 1130,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/51/6.jpg',
+				width: 750,
+				height: 725,
+				isLoaded: false
+			},
+			
+		]
+	},
+	imgs52:{
+		swipers: [
+			'../../static/type/52/banner-1.jpg',
+			'../../static/type/52/banner-2.jpg',
+			'../../static/type/52/banner-3.jpg',
+		],
+		imgs:[
+			{
+				url: '../../static/type/52/0.jpg',
+				width: 750,
+				height: 356,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/52/1.jpg',
+				width: 750,
+				height: 1040,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/52/2.jpg',
+				width: 750,
+				height: 1077,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/52/3.jpg',
+				width: 750,
+				height: 522,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/52/4.jpg',
+				width: 750,
+				height: 959,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/52/5.jpg',
+				width: 750,
+				height: 960,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/52/6.jpg',
+				width: 750,
+				height: 1553,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/52/7.jpg',
+				width: 750,
+				height: 1165,
+				isLoaded: false
+			},
+		]
+	},
+	imgs53:{
+		swipers: [
+		
+		],
+		imgs:[
+				
+			{
+				url: '../../static/type/53/1.jpg',
+				width: 750,
+				height: 756,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/53/2.jpg',
+				width: 750,
+				height: 1120,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/53/3.jpg',
+				width: 750,
+				height: 733,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/53/4.jpg',
+				width: 750,
+				height: 828,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/53/5.jpg',
+				width: 750,
+				height: 515,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/53/6.jpg',
+				width: 750,
+				height: 838,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/53/7.jpg',
+				width: 750,
+				height: 836,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/53/8.jpg',
+				width: 750,
+				height: 1020,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/53/dongtu.gif',
+				width: 750,
+				height: 634,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/53/dongtu2.gif',
+				width: 750,
+				height: 256,
+				isLoaded: false
+			},
+		]
+	},
+	imgs54:{
+		swipers: [
+			
+		],
+		imgs:[
+			{
+				url: '../../static/type/54/db.gif',
+				width: 750,
+				height: 476,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/54/tb.gif',
+				width: 750,
+				height: 498,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/54/1.jpg',
+				width: 750,
+				height: 756,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/54/2.jpg',
+				width: 750,
+				height: 1664,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/54/3.jpg',
+				width: 750,
+				height: 1380,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/54/4.jpg',
+				width: 750,
+				height: 1530,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/54/5.jpg',
+				width: 750,
+				height: 1842,
+				isLoaded: false
+			},
+		]
+	},
+	imgs55:{
+		swipers: [
+			
+		],
+		imgs:[
+			
+			{
+				url: '../../static/type/55/1.jpg',
+				width: 750,
+				height: 972,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/55/2.jpg',
+				width: 750,
+				height: 992,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/55/3.jpg',
+				width: 750,
+				height: 1436,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/55/4.jpg',
+				width: 750,
+				height: 1411,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/55/5.jpg',
+				width: 750,
+				height: 1442,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/55/6.jpg',
+				width: 750,
+				height: 1061,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/55/7.jpg',
+				width: 750,
+				height: 760,
+				isLoaded: false
+			},
+			
+			{
+				url: '../../static/type/55/zhong.gif',
+				width: 750,
+				height: 309,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/55/di.gif',
+				width: 750,
+				height: 234,
+				isLoaded: false
+			},
+		]
+	},
     lastImgs: [
         'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_1/last.jpg',
         'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_2/last.jpg',

@@ -69,6 +69,18 @@
 				<popCard v-if="isShowPopupCard" @emitClose="closePopup" :submitState="submitState" :payType="payType"></popCard>
 			</view>
 
+			<view v-if="isD">
+				<view v-if="!isShowOrderDetail">
+					<EditOrderFormMojoDouble ref="EditOrderForm" :orderScrollTop="scrollTop" :paramType="paramType" :initData="pageState.editOrderForm"
+					 :isClear="isClearForm" ></EditOrderFormMojoDouble>
+					<PayMethodC @choicePay="choosePayWay" :ispolling="ispolling" :paramType="paramType" :payType="payType"
+					 @payCallBack="payCallBackFunc" :urlParams="urlParams" :orderInfo="orderResult" :isOrderSuccess="isOrderSuccess"></PayMethodC>
+				</view>
+				<OrderDetail @againBuy="buyAgain" v-if="isShowOrderDetail" :paramType="paramType" :initData="propsOrderDetail"></OrderDetail>
+				<!-- 提交信息后弹出卡片 -->
+				<popCard v-if="isShowPopupCard" @emitClose="closePopup" :submitState="submitState" :payType="payType"></popCard>
+			</view>
+		
 			<view v-if="isMojo">
 				<view v-if="!isShowOrderDetail">
 					<EditOrderFormMojo ref="EditOrderForm" :orderScrollTop="scrollTop" :paramType="paramType" :initData="pageState.editOrderForm"
@@ -96,7 +108,7 @@
 		<view class="submit-btn" @tap="submit" v-show="!isShowOrderDetail">
 			<image v-if="isShowBuyNow && isAB" src="../../static/images/icons/buy.jpg"></image>
 			<!-- <image v-if="isShowBuyNow && (isC || isMojo)" src="../../static/images/icons/red-buy.png"></image> -->
-			<view v-if="isShowBuyNow && (isC || isMojo)" class="sub_order big active">{{buttonMsg}}</view>
+			<view v-if="isShowBuyNow && (isC || isMojo || isD)" class="sub_order big active">{{buttonMsg}}</view>
 			<view v-if="!isShowBuyNow" class="sub_order" :class="{active:(isC || isMojo)}">提交订单</view>
 		</view>
 
@@ -121,6 +133,7 @@
 	import EditOrderForm from "./EditOrderForm.vue"
 	import EditOrderFormC from "./EditOrderFormC.vue"
 	import EditOrderFormMojo from "./EditOrderFormMojo.vue"
+	import EditOrderFormMojoDouble from "./EditOrderFormMojoDouble.vue"
 	import SpuDesc from "./SpuDesc.vue"
 	import OrderDetail from "./OrderDetail.vue"
 	import popCard from "./popCard.vue"
@@ -144,6 +157,7 @@
 			OrderDetail,
 			popCard,
 			EditOrderFormMojo,
+			EditOrderFormMojoDouble,
 			SpuDesc
 		},
 		computed: {
@@ -168,8 +182,11 @@
 					27 || this.paramType === 29 || this.paramType === 30) return true
 				return false */
 			},
+			isD(){
+				return this.pageConfigure.module ===  "EditOrderFormMojoDouble"
+			},
 			isOnShowOrderDetail() {
-				return this.isC || this.isMojo
+				return this.isC || this.isMojo || this.isD
 			},
 			isShowDynamic() {
 				if (this.isC) return false
@@ -348,6 +365,8 @@
 					buyNumbersTaste: 0,
 					currentSpecIndex: 0,
 					currentTasteIndex: "",
+					buyNumbersBrother:0,
+					currentBrotherIndex:0,
 					userInfo: userInfo,
 					areaObj: this.pageState.editOrderForm.areaObj
 				}
@@ -588,6 +607,20 @@
 					}
 				}
 
+				let brotherSrc = ""
+				let brothertobaccoSkuName = ""
+				if(curGoods.brother && data.pageOrder.cartridgesSkuNum){
+					for (let key in curGoods.brother.spec) {
+						
+						if (curGoods.brother.spec[key].sku === data.pageOrder.cartridgesSku) {
+							brotherSrc = curGoods.brother.backgrounds[key]
+							totalPrice += data.pageOrder.cartridgesSkuNum * curGoods.brother.price
+							brothertobaccoSkuName = curGoods.brother.spec[key].text
+							break;
+						}
+					}
+				}
+							
 				let OrderDetail = {
 					receiveAddress: data.pageOrder.provinceName + data.pageOrder.cityName + data.pageOrder.districtName + data.pageOrder
 						.address,
@@ -606,7 +639,8 @@
 					}, ],
 				}
 
-				if (data.pageOrder.cartridgesSku) {
+				if (data.pageOrder.cartridgesSku && !curGoods.brother) {
+					
 					OrderDetail.list.push({
 						src: cartridgesSkuSrc,
 						title: "电子烟雾化烟弹 ",
@@ -616,6 +650,20 @@
 						id: data.pageOrder.cartridgesSku
 					})
 				}
+				
+				if(curGoods.brother && data.pageOrder.cartridgesSkuNum){
+					
+					OrderDetail.list.push({
+						src: brotherSrc,
+						title: curGoods.brother.title,
+						desc: "口味:" + brothertobaccoSkuName,
+						price: curGoods.brother.price ,
+						qty: data.pageOrder.cartridgesSkuNum,
+						id: data.pageOrder.cartridgesSku
+					})
+				}
+				
+				
 				uni.setStorageSync("OrderDetail", OrderDetail)
 			},
 			async submitOrder(data) {
@@ -627,16 +675,7 @@
 						pageOrder: encryXOR(JSON.stringify(data.pageOrder))
 					}
 				}
-				/* if (this.isC) {
-					apiUrl = "/activity1/ad/order/bookingGghdOrder2c";
-				}
-				if (this.isMojo || this.paramType === 28  || this.paramType === 32 || this.paramType === 31) {
-					apiUrl = "/activity1/ad/order/bookingGghdOrderLittleSmoke"
-					params = {
-						pageOrder: encryXOR(JSON.stringify(data.pageOrder))
-					}
-				} */
-			
+				
 				const res = await newOrder(
 					apiUrl,
 					params,
@@ -672,6 +711,8 @@
 						buyNumbersTaste: this.$refs.EditOrderForm.buyNumbersTaste,
 						currentSpecIndex: this.$refs.EditOrderForm.currentSpecIndex,
 						currentTasteIndex: this.$refs.EditOrderForm.currentTasteIndex,
+						buyNumbersBrother:this.$refs.EditOrderForm.buyNumbersBrother,
+						currentBrotherIndex:this.$refs.EditOrderForm.currentBrotherIndex,
 						areaObj: this.$refs.EditOrderForm.areaObj
 					},
 					payType: this.payType,
