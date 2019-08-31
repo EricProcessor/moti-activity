@@ -115,7 +115,7 @@
 		</view>
 		
 		<view class="total-price">
-			合计金额:<text class="price-type">￥</text><text class="price-number">{{totalPrice}}.00</text>
+			合计金额:<text class="price-type">￥</text><text class="price-number">{{totalPrice}}</text>
 		</view>
 
 		<view class="form-wrapper">

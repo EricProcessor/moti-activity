@@ -7,11 +7,6 @@
 				"navigationStyle":"custom"
 			}
 		}
-
-        ,{
-            "path" : "pages/express/express",
-            "style" : {}
-        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

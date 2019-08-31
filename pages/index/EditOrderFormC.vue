@@ -92,7 +92,7 @@
 							口味：{{defaultShowTaste.text}}
 						</view>
 						<view class="taste-price">
-							￥<text>{{goods.tastePrice}}.00</text>
+							￥<text>{{goods.tastePrice}}</text>
 						</view>
 					</view>
 				</view>
@@ -122,7 +122,7 @@
 			</view>
 		</view>
 		<view class="total-price">
-			合计金额:<text class="price-type">￥</text><text class="price-number">{{totalPrice}}.00</text>
+			合计金额:<text class="price-type">￥</text><text class="price-number">{{totalPrice}}</text>
 		</view>
 
 		<view class="form-wrapper">

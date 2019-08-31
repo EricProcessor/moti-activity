@@ -300,7 +300,7 @@ export default {
     goodsMojo1:{
         goods: {
             imgUrl: "",
-            price: 1.00,
+            price: 1,
             sourcePrice: 39,
             title: "MOJO 一次性电子烟",
             desc:"单只装",

@@ -3,7 +3,7 @@
 		<view class="price">
 			<text class="curency" v-if="goods.price">￥</text>
 			<text class="zero-get" v-if="!goods.price">{{priceText}}</text>
-			<text v-else class="price">{{goods.price}}.00</text>
+			<text v-else class="price">{{goods.price}}</text>
 			<text class="market-price">原价￥{{goods.sourcePrice}}</text>
 		</view>
 		<view class="title">

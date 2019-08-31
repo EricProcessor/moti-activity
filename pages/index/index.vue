@@ -645,7 +645,7 @@
 						src: cartridgesSkuSrc,
 						title: "电子烟雾化烟弹 ",
 						desc: "口味:" + cartridgesSkuName,
-						price: curGoods.goods.tastePrice + ".00",
+						price: curGoods.goods.tastePrice,
 						qty: data.pageOrder.cartridgesSkuNum,
 						id: data.pageOrder.cartridgesSku
 					})
