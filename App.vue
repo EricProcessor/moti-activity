@@ -12,7 +12,8 @@
 			
 		},
 		watch:{
-			'$route'(to,from){
+			$route(to,from){	
+				window._mreferrer = from.fullPath
 				this.MonitorPV()
 			}
 		},

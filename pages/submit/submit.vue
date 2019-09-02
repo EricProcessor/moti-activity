@@ -111,7 +111,8 @@
 					skuId:"",
 					skuNum:"",
 					userAddress:"",
-					appType:appType
+					appType:appType,
+					actiClass:uni.getStorageSync("optionsType")
 				},
 				buttonFixed:true,
 				isScrollTop:false,
@@ -194,6 +195,9 @@
 				return data
 			},
 			async submitForm(){
+				uni.navigateTo({
+					url:"/pages/order-pay/order-pay"
+				})
 				let validate = this.checkForm()
 				if(validate.code) return uni.showToast({
 					title:validate.message,
