@@ -969,4 +969,23 @@ export default {
 		isShowAgain:true,
 		isTuiAMonitor:false,
 	},
+	56: {
+		module: 'SinglePage',
+		goodsName: "", // 商品key
+		imgs: "imgs55", // 图片key
+		lastImg:14,
+		swiper750: true, // 轮播图片是否高度是否是750upx
+		submitApi: "/activity1/ad/order/bookingGghdOrderLittleSmoke", //提交订单api
+		isEncrypted: true, // 是否对提交订单数据加密
+		isShowPayMethod: true, // 是否显示支付方式
+		buttonMsg: '立即抢购', //底部抢购提示
+		onWxPay: false, //开启微信支付
+		onAlipayPay: false, //开启支付宝支付
+		onArrivePay: false, //开始货到付款
+		bianXianMao:false,
+		isSpuDesc:false,
+		isShowAgain:false,
+		isTuiAMonitor:false,
+		isWcoreMonitor:true
+	},
 }

@@ -1,7 +1,7 @@
 <template>
 	<view class="page-wrapper">
 		<!-- style="height: cacl(100% - 120upx)" -->
-		<view class="introduction-wrapper">
+		<view class="introduction-wrapper"  v-if="!IsSinglePage">
 			<!-- 上半部图片 -->
 			<view class="introductions">
 				<view class="swiper_wrapper" v-if="imgs.swipers.length > 0">
@@ -105,14 +105,14 @@
 			<!-- <img class="comments" :src="'../../activity/static/images/package/' + lastImg"> -->
 			<img class="comments" :src="lastImg" v-show="!isShowOrderDetail">
 		</view>
-		<view class="submit-btn" @tap="submit" v-show="!isShowOrderDetail">
+		<view class="submit-btn" @tap="submit" v-show="!isShowOrderDetail"  v-if="!IsSinglePage">
 			<image v-if="isShowBuyNow && isAB" src="../../static/images/icons/buy.jpg"></image>
 			<!-- <image v-if="isShowBuyNow && (isC || isMojo)" src="../../static/images/icons/red-buy.png"></image> -->
 			<view v-if="isShowBuyNow && (isC || isMojo || isD)" class="sub_order big active">{{buttonMsg}}</view>
 			<view v-if="!isShowBuyNow" class="sub_order" :class="{active:(isC || isMojo || isD)}">提交订单</view>
 		</view>
 
-
+		<poke v-if="IsSinglePage" :urlParams="urlParams"></poke>
 	</view>
 
 </template>
@@ -134,6 +134,7 @@
 	import EditOrderFormC from "./EditOrderFormC.vue"
 	import EditOrderFormMojo from "./EditOrderFormMojo.vue"
 	import EditOrderFormMojoDouble from "./EditOrderFormMojoDouble.vue"
+	import poke from "./poke.vue"
 	import SpuDesc from "./SpuDesc.vue"
 	import OrderDetail from "./OrderDetail.vue"
 	import popCard from "./popCard.vue"
@@ -158,7 +159,8 @@
 			popCard,
 			EditOrderFormMojo,
 			EditOrderFormMojoDouble,
-			SpuDesc
+			SpuDesc,
+			poke
 		},
 		computed: {
 
@@ -184,6 +186,9 @@
 			},
 			isD(){
 				return this.pageConfigure.module ===  "EditOrderFormMojoDouble"
+			},
+			IsSinglePage(){
+				return this.pageConfigure.module == 'SinglePage'
 			},
 			isOnShowOrderDetail() {
 				return this.isC || this.isMojo || this.isD
@@ -323,7 +328,7 @@
 					this.isGetAnchor = true
 					clearInterval(timer)
 					timer = null
-					this.scrollTop = anchor.offsetTop
+					this.scrollTop = anchor ? anchor.offsetTop : 0
 				}
 			}, 100)
 
@@ -353,6 +358,11 @@
 					script_tuia.language = "JavaScript";
 					script_tuia.id = "send_log"
 					document.body.appendChild(script_tuia);
+				}
+				if(this.pageConfigure.isWcoreMonitor){
+					import("../../common/wcore.js").then(()=>{
+						this.MonitorPV()
+					})
 				}
 				
 			},

@@ -80,7 +80,23 @@
                     // "target": "http://39.96.190.37:80",
                     "changeOrigin" : true,
                     "secure" : false
-                }
+                },
+				"/activity1" : {
+				    // "target": "http://10.165.111.78:8090",
+				    // "target": "http://10.165.106.92:8090",
+				    "target" : "http://192.168.10.108:9191",
+				    // "target": "http://39.96.190.37:80",
+				    "changeOrigin" : true,
+				    "secure" : false
+				},
+				"/mall" : {
+				    // "target": "http://10.165.111.78:8090",
+				    // "target": "http://10.165.106.92:8090",
+				    "target" : "http://192.168.10.108:9191",
+				    // "target": "http://39.96.190.37:80",
+				    "changeOrigin" : true,
+				    "secure" : false
+				}
             }
         },
         "router" : {
