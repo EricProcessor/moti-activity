@@ -18,10 +18,10 @@ Vue.mixin({
 		},
 		MonitorEvent(ec) {
 			//f(isDevEnv) return ;
-			//if(process.env.NODE_ENV === 'development') return ;
+			if(process.env.NODE_ENV === 'development') return ;
 			if(typeof WCore === 'undefined') return ;	
 			var _core = new WCore();
-			 _core.options.cid = 'poke';
+			 _core.options.cid = 'welfare_activity';
 			var _user = new WCore.inputs.User();
 			let mobile = uni.getStorageSync("mobile")
 			_user.uid = checkMobile(mobile) ? mobile :  '#';
@@ -34,11 +34,11 @@ Vue.mixin({
 		},
 		MonitorPV(){
 			//if(isDevEnv) return ;
-			//if(process.env.NODE_ENV === 'development') return ;
+			if(process.env.NODE_ENV === 'development') return ;
 			
 			if(typeof WCore === 'undefined') return ;
 			var _core = new WCore();
-			 _core.options.cid = 'poke';
+			 _core.options.cid = 'welfare_activity';
 			var _user = new WCore.inputs.User();
 			let mobile = uni.getStorageSync("mobile")
 			_user.uid = checkMobile(mobile) ? mobile : '#';

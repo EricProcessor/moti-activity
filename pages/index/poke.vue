@@ -58,25 +58,25 @@
 					},
 					{
 						url:'../../static/type/56/2.png',
-						href:"https://poke.motivape.cn/?type=4",
+						href:"/?type=4",
 						buryingPoint:""
 						
 					},
 					{
 						url:'../../static/type/56/3.png',
-						href:"https://poke.motivape.cn/?type=7",
+						href:"/?type=7",
 						buryingPoint:""
 						
 					},
 					{
 						url:'../../static/type/56/4.png',
-						href:"https://poke.motivape.cn/?type=10",
+						href:"/?type=10",
 						buryingPoint:""
 						
 					},
 					{
 						url:'../../static/type/56/5.png',
-						href:"https://poke.motivape.cn/?type=9",
+						href:"/?type=9",
 						buryingPoint:""
 						
 					},
@@ -101,6 +101,12 @@
 				default:function(){
 					return {}
 				}
+			}
+		},
+		computed:{
+			pokeUrl(){
+				if(window.location.origin === 'motiactivity.motimall.cn') return 'https://poke.motivape.cn'
+				else return 'https://pokegray.motivape.cn'
 			}
 		},
 		methods:{
@@ -140,6 +146,11 @@
 					}
 					this.timeOut--
 				},1000)
+				
+				uni.showToast({
+					title:"发送成功",
+					icon:"none"
+				})
 			},
 			async submitForm(){
 				if(!checkMobile(this.form.mobile)) return uni.showToast({
@@ -150,6 +161,7 @@
 					title:"请输入有效的6位验证码",
 					icon:"none"
 				})
+				//location.href = this.pokeUrl +  this.imgs[this.clickImgIndex].href +"&orderSource="+this.urlParams.orderSource
 				let res = await  this.savePhoneNumber()
 				if(res.data.code !== "0") return uni.showToast({
 					title:res.data.msg,
@@ -157,7 +169,7 @@
 				})
 				uni.setStorageSync("mobile",this.form.mobile)
 				console.log(this.imgs[this.clickImgIndex].href +"&orderSource="+this.urlParams.orderSource)
-				location.href = this.imgs[this.clickImgIndex].href +"&orderSource="+this.urlParams.orderSource
+				location.href = this.pokeUrl +  this.imgs[this.clickImgIndex].href +"&orderSource="+this.urlParams.orderSource
 			},
 			async checkUserMobile(mobile){
 				let res = await post("/activity1/user/checkUserMobile",{mobile:mobile })
