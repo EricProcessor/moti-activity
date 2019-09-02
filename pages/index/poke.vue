@@ -161,6 +161,8 @@
 					title:"请输入有效的6位验证码",
 					icon:"none"
 				})
+				//location.href = this.pokeUrl +  this.imgs[this.clickImgIndex].href + "&orderSource="+this.urlParams.orderSource +"&pokeCode=" + this.form.mobile + "-" + this.form.verifyCode
+				
 				//location.href = this.pokeUrl +  this.imgs[this.clickImgIndex].href +"&orderSource="+this.urlParams.orderSource
 				let res = await  this.savePhoneNumber()
 				if(res.data.code !== "0") return uni.showToast({
@@ -168,8 +170,9 @@
 					icon:"none"
 				})
 				uni.setStorageSync("mobile",this.form.mobile)
-				console.log(this.imgs[this.clickImgIndex].href +"&orderSource="+this.urlParams.orderSource)
-				location.href = this.pokeUrl +  this.imgs[this.clickImgIndex].href +"&orderSource="+this.urlParams.orderSource
+				this.isShowPop = false
+				//console.log(this.imgs[this.clickImgIndex].href +"&orderSource="+this.urlParams.orderSource)
+				location.href = this.pokeUrl +  this.imgs[this.clickImgIndex].href + "&orderSource="+this.urlParams.orderSource +"&pokeCode=" + this.form.mobile + "-" + this.form.verifyCode
 			},
 			async checkUserMobile(mobile){
 				let res = await post("/activity1/user/checkUserMobile",{mobile:mobile })
