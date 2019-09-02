@@ -11,7 +11,7 @@ export const orderSource = "1000000" //我的订单列表
 
 export const daojiaUrl = (window.location.host === 'poke.motivape.cn') ? 'https://daojia.motivape.cn' : 'https://daojia.gray.motivape.cn'
 
-export const isDevEnv = (window.location.host === 'poke.motivape.cn') ? false : true
+export const isDevEnv = (process.env.NODE_ENV === 'development') ? true : false
 
 //export const daojiaUrl = 'https://daojia.gray.motivape.cn'
 
