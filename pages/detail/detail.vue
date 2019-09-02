@@ -174,6 +174,15 @@
 			}
 			this.queryGoods(type)
 			uni.setStorageSync("optionsType",type)
+			if(options.pokeCode){
+				//从领取福利带过来的验证码
+				let arr = options.pokeCode.split("-")
+				let mobile = arr[0]
+				let verifyCode = arr[1]
+				uni.setStorageSync("mobile",mobile)
+				uni.setStorageSync("verifyCode",verifyCode)
+				uni.setStorageSync("getCodeTime",new Date().getTime())
+			}
 			
 		}
 

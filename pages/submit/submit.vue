@@ -141,6 +141,16 @@
 				}
 
 			},
+			setVerifyCode(msg){
+				if(res.msg.indexOf("90")>=0){
+					let mobile = uni.getStorageSync("mobile")
+					if(mobile !== this.mobile) return ;
+					let CodeTime = uni.getStorageSync("getCodeTime") ? uni.getStorageSync("getCodeTime") : 0
+					let curTime = (new Date()).getTime()
+					if((curTime - CodeTime) > (1000 * 90)) return ;
+					this.verifyCode = uni.getStorageSync("verifyCode")
+				}
+			},
 			numberChange(data) {
 				this.orderForm.skuNum = data.num
 				this.preOrderData.skuNumber = data.num
@@ -152,10 +162,13 @@
 				})
 				
 				let res = await postForm("/mall/h5/user/checkUserMobile",{mobile:this.orderForm.mobile})
-				if(res.code === "1") return uni.showToast({
-					title:res.msg,
-					icon:"none"
-				})
+				if(res.code === "1") {
+					this.setVerifyCode(res.msg)
+					return uni.showToast({
+						title:res.msg,
+						icon:"none"
+					})
+				}
 				let codeType = res.code == "0" ? "102" : "101"
 				let resCode = await postForm("/mall/h5/code/sendDynamicCode",{codeType:codeType,mobile:this.orderForm.mobile})
 				if(resCode.code != "0") return uni.showToast({
