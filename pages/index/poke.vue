@@ -105,7 +105,7 @@
 		},
 		computed:{
 			pokeUrl(){
-				if(window.location.origin === 'motiactivity.motimall.cn') return 'https://poke.motivape.cn'
+				if(window.location.host === 'motiactivity.motimall.cn') return 'https://poke.motivape.cn'
 				else return 'https://pokegray.motivape.cn'
 			}
 		},
