@@ -508,6 +508,7 @@
 					tobaccoSkuNum: this.buyNumbersColor,
 					cartridgesSku: this.brother.spec[this.currentBrotherIndex].sku,
 					cartridgesSkuNum: this.buyNumbersBrother,
+					cartridgesSkuPrice:this.brother.price,
 					remark: this.userInfo[4].value,
 					provinceCode: this.areaObj.province.value,
 					provinceName: this.areaObj.province.label,
@@ -516,6 +517,7 @@
 					districtName:this.areaObj.area.label,
 					districtCode:this.areaObj.area.value
 				};
+				
 				return orderInfo
 			},
 			getSrollHeight(){
