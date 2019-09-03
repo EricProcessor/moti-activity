@@ -93,6 +93,17 @@
 				<popCard v-if="isShowPopupCard" @emitClose="closePopup" :submitState="submitState" :payType="payType"></popCard>
 			</view>
 
+			<view v-if="isPickOne">
+				<view v-if="!isShowOrderDetail">
+					<EditOrderFormPickOne ref="EditOrderForm" :orderScrollTop="scrollTop" :paramType="paramType" :initData="pageState.editOrderForm"
+					 :isClear="isClearForm"></EditOrderFormPickOne>
+					<PayMethodC v-show="isShowPayMethod" @choicePay="choosePayWay" :ispolling="ispolling" :paramType="paramType"
+					 :payType="payType" @payCallBack="payCallBackFunc" :urlParams="urlParams" :orderInfo="orderResult" :isOrderSuccess="isOrderSuccess"></PayMethodC>
+				</view>
+				<OrderDetail @againBuy="buyAgain" v-if="isShowOrderDetail" :paramType="paramType" :initData="propsOrderDetail"></OrderDetail>
+				<!-- 提交信息后弹出卡片 -->
+				<popCard v-if="isShowPopupCard" @emitClose="closePopup" :submitState="submitState" :payType="payType"></popCard>
+			</view>
 			<view v-if="paramType == 15" class="introductions">
 				<block>
 					<view :key="index" class="img_wrapper" v-for="(item, index) in imgs.imgs" :style="{width: item.width + 'upx', height: item.height + 'upx'}">
@@ -108,8 +119,8 @@
 		<view class="submit-btn" @tap="submit" v-show="!isShowOrderDetail"  v-if="!IsSinglePage">
 			<image v-if="isShowBuyNow && isAB" src="../../static/images/icons/buy.jpg"></image>
 			<!-- <image v-if="isShowBuyNow && (isC || isMojo)" src="../../static/images/icons/red-buy.png"></image> -->
-			<view v-if="isShowBuyNow && (isC || isMojo || isD)" class="sub_order big active">{{buttonMsg}}</view>
-			<view v-if="!isShowBuyNow" class="sub_order" :class="{active:(isC || isMojo || isD)}">提交订单</view>
+			<view v-if="isShowBuyNow && (isC || isMojo || isD || isPickOne)" class="sub_order big active">{{buttonMsg}}</view>
+			<view v-if="!isShowBuyNow" class="sub_order" :class="{active:(isC || isMojo || isD || isPickOne)}">提交订单</view>
 		</view>
 
 		<poke v-if="IsSinglePage" :urlParams="urlParams"></poke>
@@ -133,7 +144,8 @@
 	import EditOrderForm from "./EditOrderForm.vue"
 	import EditOrderFormC from "./EditOrderFormC.vue"
 	import EditOrderFormMojo from "./EditOrderFormMojo.vue"
-	import EditOrderFormMojoDouble from "./EditOrderFormMojoDouble.vue"
+	import EditOrderFormMojoDouble from "./EditOrderFormMojoDouble.vue"//EditOrderFormPickOne
+	import EditOrderFormPickOne from "./EditOrderFormPickOne.vue"//EditOrderFormPickOne
 	import poke from "./poke.vue"
 	import SpuDesc from "./SpuDesc.vue"
 	import OrderDetail from "./OrderDetail.vue"
@@ -159,6 +171,7 @@
 			popCard,
 			EditOrderFormMojo,
 			EditOrderFormMojoDouble,
+			EditOrderFormPickOne,
 			SpuDesc,
 			poke
 		},
@@ -190,8 +203,11 @@
 			IsSinglePage(){
 				return this.pageConfigure.module == 'SinglePage'
 			},
+			isPickOne(){
+				return this.pageConfigure.module == 'EditOrderFormPickOne'
+			},
 			isOnShowOrderDetail() {
-				return this.isC || this.isMojo || this.isD
+				return this.isC || this.isMojo || this.isD || this.isPickOne
 			},
 			isShowDynamic() {
 				if (this.isC) return false
@@ -595,7 +611,8 @@
 				let tobaccoSkuSrc = ""
 				let totalPrice = 0
 				let cartridgesSkuSrc = ""
-				let curGoods = this.goodsInfo
+				let curGoods = this.$refs.EditOrderForm.goodsInfo
+				console.log(JSON.stringify(curGoods))
 
 				for (let item of curGoods.goods.taste) {
 

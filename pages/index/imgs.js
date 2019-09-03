@@ -2348,6 +2348,75 @@ export default {
 			},
 		]
 	},
+	imgs57:{
+		swipers: [
+			
+		],
+		imgs:[
+			
+			{
+				url: '../../static/type/57/1.jpg',
+				width: 750,
+				height: 750,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/57/2.jpg',
+				width: 750,
+				height: 360,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/57/3.jpg',
+				width: 750,
+				height: 1077,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/57/4.jpg',
+				width: 750,
+				height: 530,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/57/5.jpg',
+				width: 750,
+				height: 938,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/57/6.jpg',
+				width: 750,
+				height: 530,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/57/7.jpg',
+				width: 750,
+				height: 1001,
+				isLoaded: false
+			},
+			
+			{
+				url: '../../static/type/57/8.jpg',
+				width: 750,
+				height: 877,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/57/9.jpg',
+				width: 750,
+				height: 1230,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/57/10.jpg',
+				width: 750,
+				height: 1040,
+				isLoaded: false
+			},
+		]
+	},
     lastImgs: [
         'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_1/last.jpg',
         'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_2/last.jpg',
