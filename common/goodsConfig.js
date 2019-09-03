@@ -905,7 +905,7 @@ export default {
 	        taste: [
 
 	        ],
-			credible:['官方发货','消费者保障服务','包邮','假一赔三'],
+			credible:['官方发货','消费者保障服务','假一赔三'],
 			saleQty:93
 	    },
 	    backgrounds: [
