@@ -142,9 +142,9 @@
 
 			},
 			setVerifyCode(msg){
-				if(res.msg.indexOf("90")>=0){
+				if(msg.indexOf("90")>=0){
 					let mobile = uni.getStorageSync("mobile")
-					if(mobile !== this.mobile) return ;
+					if(mobile !== this.orderForm.mobile) return ;
 					let CodeTime = uni.getStorageSync("getCodeTime") ? uni.getStorageSync("getCodeTime") : 0
 					let curTime = (new Date()).getTime()
 					if((curTime - CodeTime) > (1000 * 90)) return ;
