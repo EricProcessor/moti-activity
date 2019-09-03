@@ -142,14 +142,11 @@
 
 			},
 			setVerifyCode(msg){
-				if(msg.indexOf("90")>=0){
-					let mobile = uni.getStorageSync("mobile")
-					if(mobile !== this.orderForm.mobile) return ;
-					let CodeTime = uni.getStorageSync("getCodeTime") ? uni.getStorageSync("getCodeTime") : 0
-					let curTime = (new Date()).getTime()
-					if((curTime - CodeTime) > (1000 * 90)) return ;
-					this.verifyCode = uni.getStorageSync("verifyCode")
-				}
+				let CodeTime = uni.getStorageSync("getCodeTime") ? uni.getStorageSync("getCodeTime") : 0
+				let curTime = (new Date()).getTime()
+				if((curTime - CodeTime) > (1000 * 90)) return ;
+				this.orderForm.mobile = uni.getStorageSync("mobile")
+				this.verifyCode = uni.getStorageSync("verifyCode")
 			},
 			numberChange(data) {
 				this.orderForm.skuNum = data.num
@@ -163,7 +160,7 @@
 				
 				let res = await postForm("/mall/h5/user/checkUserMobile",{mobile:this.orderForm.mobile})
 				if(res.code === "1") {
-					this.setVerifyCode(res.msg)
+					
 					return uni.showToast({
 						title:res.msg,
 						icon:"none"
@@ -267,6 +264,7 @@
 					}
 				});
 			}
+			this.setVerifyCode()
 			this.preOrderData = uni.getStorageSync("preOrderData")
 			this.orderForm.skuId = this.preOrderData.skuId
 			this.orderForm.skuNum = this.preOrderData.skuNumber
