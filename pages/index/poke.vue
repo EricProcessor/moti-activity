@@ -119,7 +119,10 @@
 				this.MonitorEvent(this.imgs[index].buryingPoint)
 			},
 			async getVerifyCode(){
-				
+				if(!checkMobile(this.form.mobile)) return uni.showToast({
+					title:"请输入正确的手机号",
+					icon:"none"
+				})
 				let res= await this.checkUserMobile(this.form.mobile)
 				if(res.data.code === "1") return uni.showToast({
 					title:res.msg,
@@ -164,6 +167,10 @@
 				//location.href = this.pokeUrl +  this.imgs[this.clickImgIndex].href + "&orderSource="+this.urlParams.orderSource +"&pokeCode=" + this.form.mobile + "-" + this.form.verifyCode
 				
 				//location.href = this.pokeUrl +  this.imgs[this.clickImgIndex].href +"&orderSource="+this.urlParams.orderSource
+				if(!this.codeType) return uni.showToast({
+					title:"请先获取验证码，在提交",
+					icon:"none"
+				})
 				let res = await  this.savePhoneNumber()
 				if(res.data.code !== "0") return uni.showToast({
 					title:res.data.msg,
