@@ -65,19 +65,19 @@
 					{
 						url:'../../static/type/56/3.png',
 						href:"/?type=7",
-						buryingPoint:""
+						buryingPoint:"welfare_activity_4"
 						
 					},
 					{
 						url:'../../static/type/56/4.png',
 						href:"/?type=10",
-						buryingPoint:""
+						buryingPoint:"welfare_activity_10"
 						
 					},
 					{
 						url:'../../static/type/56/5.png',
 						href:"/?type=9",
-						buryingPoint:""
+						buryingPoint:"welfare_activity_9"
 						
 					},
 					{
@@ -171,6 +171,11 @@
 				})
 				uni.setStorageSync("mobile",this.form.mobile)
 				this.isShowPop = false
+				this.MonitorEvent("welfare_activity_submit")
+				setTimeout(()=>{
+					location.href = this.pokeUrl +  this.imgs[this.clickImgIndex].href + "&orderSource="+this.urlParams.orderSource +"&pokeCode=" + this.form.mobile + "-" + this.form.verifyCode
+					
+				},100)
 				//console.log(this.imgs[this.clickImgIndex].href +"&orderSource="+this.urlParams.orderSource)
 				location.href = this.pokeUrl +  this.imgs[this.clickImgIndex].href + "&orderSource="+this.urlParams.orderSource +"&pokeCode=" + this.form.mobile + "-" + this.form.verifyCode
 			},
