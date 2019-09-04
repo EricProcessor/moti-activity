@@ -174,6 +174,9 @@
 			position: relative;
 			width: 750upx;
 			line-height: 0;
+			.cover-img{
+				display: block;
+			}
 
 			.warp-content {
 				position: absolute;
