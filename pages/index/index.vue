@@ -104,6 +104,19 @@
 				<!-- 提交信息后弹出卡片 -->
 				<popCard v-if="isShowPopupCard" @emitClose="closePopup" :submitState="submitState" :payType="payType"></popCard>
 			</view>
+			
+			<view v-if="isEditOrderFormPickOneTaste">
+				<view v-if="!isShowOrderDetail">
+					<EditOrderFormPickOneTaste ref="EditOrderForm" :orderScrollTop="scrollTop" :paramType="paramType" :initData="pageState.editOrderForm"
+					 :isClear="isClearForm"></EditOrderFormPickOneTaste>
+					<PayMethodC v-show="isShowPayMethod" @choicePay="choosePayWay" :ispolling="ispolling" :paramType="paramType"
+					 :payType="payType" @payCallBack="payCallBackFunc" :urlParams="urlParams" :orderInfo="orderResult" :isOrderSuccess="isOrderSuccess"></PayMethodC>
+				</view>
+				<OrderDetail @againBuy="buyAgain" v-if="isShowOrderDetail" :paramType="paramType" :initData="propsOrderDetail"></OrderDetail>
+				<!-- 提交信息后弹出卡片 -->
+				<popCard v-if="isShowPopupCard" @emitClose="closePopup" :submitState="submitState" :payType="payType"></popCard>
+			</view>
+			
 			<view v-if="paramType == 15" class="introductions">
 				<block>
 					<view :key="index" class="img_wrapper" v-for="(item, index) in imgs.imgs" :style="{width: item.width + 'upx', height: item.height + 'upx'}">
@@ -119,8 +132,8 @@
 		<view class="submit-btn" @tap="submit" v-show="!isShowOrderDetail"  v-if="!IsSinglePage">
 			<image v-if="isShowBuyNow && isAB" src="../../static/images/icons/buy.jpg"></image>
 			<!-- <image v-if="isShowBuyNow && (isC || isMojo)" src="../../static/images/icons/red-buy.png"></image> -->
-			<view v-if="isShowBuyNow && (isC || isMojo || isD || isPickOne)" class="sub_order big active">{{buttonMsg}}</view>
-			<view v-if="!isShowBuyNow" class="sub_order" :class="{active:(isC || isMojo || isD || isPickOne)}">提交订单</view>
+			<view v-if="isShowBuyNow && isRedBtn" class="sub_order big active">{{buttonMsg}}</view>
+			<view v-if="!isShowBuyNow" class="sub_order" :class="{active:isRedBtn}">提交订单</view>
 		</view>
 
 		<SinglePage v-if="IsSinglePage" :urlParams="urlParams"></SinglePage>
@@ -145,7 +158,8 @@
 	import EditOrderFormC from "./EditOrderFormC.vue"
 	import EditOrderFormMojo from "./EditOrderFormMojo.vue"
 	import EditOrderFormMojoDouble from "./EditOrderFormMojoDouble.vue"//EditOrderFormPickOne
-	import EditOrderFormPickOne from "./EditOrderFormPickOne.vue"//EditOrderFormPickOne
+	import EditOrderFormPickOne from "./EditOrderFormPickOne.vue"//EditOrderFormPickOne//EditOrderFormPickOneTaste
+	import EditOrderFormPickOneTaste from "./EditOrderFormPickOneTaste.vue"//EditOrderFormPickOne//EditOrderFormPickOneTaste
 	import SinglePage from "./SinglePage.vue"
 	import SpuDesc from "./SpuDesc.vue"
 	import OrderDetail from "./OrderDetail.vue"
@@ -172,6 +186,7 @@
 			EditOrderFormMojo,
 			EditOrderFormMojoDouble,
 			EditOrderFormPickOne,
+			EditOrderFormPickOneTaste,
 			SpuDesc,
 			SinglePage
 		},
@@ -206,8 +221,11 @@
 			isPickOne(){
 				return this.pageConfigure.module == 'EditOrderFormPickOne'
 			},
+			isEditOrderFormPickOneTaste(){
+				return this.pageConfigure.module == 'EditOrderFormPickOneTaste'
+			},
 			isOnShowOrderDetail() {
-				return this.isC || this.isMojo || this.isD || this.isPickOne
+				return this.isC || this.isMojo || this.isD || this.isPickOne || this.isEditOrderFormPickOneTaste
 			},
 			isShowDynamic() {
 				if (this.isC) return false
@@ -236,6 +254,9 @@
 				return this.pageConfigure.buttonMsg
 				/* if (this.paramType === 27) return "0元抢购"
 				return "立即抢购" */
+			},
+			isRedBtn(){
+				return (this.isC || this.isMojo || this.isD || this.isPickOne || this.isEditOrderFormPickOneTaste)
 			}
 		},
 		data() {
@@ -805,6 +826,7 @@
 </script>
 
 <style lang="scss">
+	
 	.introduction-wrapper {
 
 		.introductions {

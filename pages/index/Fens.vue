@@ -100,14 +100,13 @@
 </script>
 
 <style lang="scss" scoped>
-	page {
-		background-color: #070029;
-	}
-
+	
 	.fens-content {
 		font-size: 0;
 		line-height: 0;
-
+		margin: 0;
+		padding: 0;
+		background-color: #070029;
 		.play-music {
 			width: 195upx;
 			height: 44upx;
@@ -164,33 +163,6 @@
 					
 
 				}
-
-				// .scroll-left {
-				// 	position: relative;
-				// 	//display: inline-block;
-				// 	font-size: 20upx;
-				// 	width: 180upx;
-				// 	height: 44upx;
-				// 	line-height: 44upx;
-				// 	color: #FFFFFF;
-				// 	background-color: red;
-				// 	
-				// 	.left-title{
-				// 		display: inline-block;
-				// 		animation:5s move infinite linear;
-				// 		@keyframes move{
-				// 		  /* 原理 left值的变化 移动一个容器的宽度 */
-				// 		  0%{
-				// 		    left: 0;
-				// 		  }
-				// 		  100%{
-				// 		    left: -100%;
-				// 		  }
-				// 		}
-				// 	}
-				// 	
-				// 	
-				// }
 			}
 
 
