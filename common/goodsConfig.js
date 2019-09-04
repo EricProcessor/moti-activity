@@ -968,7 +968,42 @@ export default {
 	    ],
 	},
 	goodPickOne:[
-			{
+			
+		{
+		    goods: {
+		        imgUrl: "",
+		        price: 69.00,
+		        sourcePrice: 169,
+		        title: "MTGO电子烟套装换弹雾化烟",
+		        desc:"1 烟杆 + 1 个老冰棍儿烟弹",
+		        tastePrice:35,
+				promotionName:"入门套装:MTGO电子烟套装(1烟杆 + 1烟弹)",
+		        taste: [],
+				credible:['官方发货','消费者保障服务','包邮','假一赔三'],
+				saleQty:93
+		    },
+		    backgrounds: [
+		        "../../static/images/mojo/xbh.jpg",
+		        "../../static/images/mojo/jdh.jpg",
+				"../../static/images/mojo/chse.jpg",
+		    ],
+		    spec: [
+		
+		        {
+		            text: "雪狐白",
+		            sku: "112492575751"
+		        },
+		        {
+		            text: "极夜黑",
+		            sku: "112492575752"
+		        },
+				 {
+				    text: "珊瑚橙",
+				    sku: "112492575754"
+				}
+		    ],
+		},
+		{
 		    goods: {
 		        imgUrl: "",
 		        price: 199.00,
@@ -1004,40 +1039,6 @@ export default {
 		            sku: "586197169359"
 		        },
 		    ],
-		},
-		{
-		    goods: {
-		        imgUrl: "",
-		        price: 69.00,
-		        sourcePrice: 169,
-		        title: "MTGO电子烟套装换弹雾化烟",
-		        desc:"1 烟杆 + 1 个老冰棍儿烟弹",
-		        tastePrice:35,
-				promotionName:"入门套装:MTGO电子烟套装(1烟杆 + 1烟弹)",
-		        taste: [],
-				credible:['官方发货','消费者保障服务','包邮','假一赔三'],
-				saleQty:93
-		    },
-		    backgrounds: [
-		        "../../static/images/mojo/xbh.jpg",
-		        "../../static/images/mojo/jdh.jpg",
-				"../../static/images/mojo/chse.jpg",
-		    ],
-		    spec: [
-		
-		        {
-		            text: "雪狐白",
-		            sku: "112492575751"
-		        },
-		        {
-		            text: "极夜黑",
-		            sku: "112492575752"
-		        },
-				 {
-				    text: "珊瑚橙",
-				    sku: "112492575754"
-				}
-		    ],
-		},
+		}
 	],
 }

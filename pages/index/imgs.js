@@ -2350,16 +2350,12 @@ export default {
 	},
 	imgs57:{
 		swipers: [
-			
+			'../../static/type/57/swiper1.jpg',
+			'../../static/type/57/swiper2.jpg',
+			'../../static/type/57/swiper3.jpg'
 		],
 		imgs:[
-			
-			{
-				url: '../../static/type/57/1.jpg',
-				width: 750,
-				height: 750,
-				isLoaded: false
-			},
+		
 			{
 				url: '../../static/type/57/2.jpg',
 				width: 750,

@@ -354,6 +354,7 @@
 			choosePick(e){
 				this.currPickIndex = Number(e.currentTarget.dataset.index);
 				this.currentSpecIndex = 0
+				this.buyNumbersColor = 1
 				this.spec = this.goodsInfo.spec
 				this.backgrounds = this.goodsInfo.backgrounds
 				this.goods = this.goodsInfo.goods
