@@ -1011,7 +1011,7 @@ export default {
 		        title: "MOTI电子烟套装换弹雾化烟",
 		        desc:"1烟杆+1经典烟草烟弹",
 		        tastePrice:35,
-				promotionName:"进阶套装:MTTI电子烟套装(1烟杆 + 1烟弹)",
+				promotionName:"进阶套装:MOTI电子烟套装(1烟杆 + 1烟弹)",
 		        taste: [],
 		    },
 		    backgrounds: [

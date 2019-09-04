@@ -2411,6 +2411,12 @@ export default {
 				height: 1040,
 				isLoaded: false
 			},
+			{
+				url: '../../static/type/57/11.jpg',
+				width: 750,
+				height: 1330,
+				isLoaded: false
+			},
 		]
 	},
     lastImgs: [

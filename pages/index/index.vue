@@ -123,7 +123,7 @@
 			<view v-if="!isShowBuyNow" class="sub_order" :class="{active:(isC || isMojo || isD || isPickOne)}">提交订单</view>
 		</view>
 
-		<poke v-if="IsSinglePage" :urlParams="urlParams"></poke>
+		<SinglePage v-if="IsSinglePage" :urlParams="urlParams"></SinglePage>
 	</view>
 
 </template>
@@ -146,7 +146,7 @@
 	import EditOrderFormMojo from "./EditOrderFormMojo.vue"
 	import EditOrderFormMojoDouble from "./EditOrderFormMojoDouble.vue"//EditOrderFormPickOne
 	import EditOrderFormPickOne from "./EditOrderFormPickOne.vue"//EditOrderFormPickOne
-	import poke from "./poke.vue"
+	import SinglePage from "./SinglePage.vue"
 	import SpuDesc from "./SpuDesc.vue"
 	import OrderDetail from "./OrderDetail.vue"
 	import popCard from "./popCard.vue"
@@ -173,7 +173,7 @@
 			EditOrderFormMojoDouble,
 			EditOrderFormPickOne,
 			SpuDesc,
-			poke
+			SinglePage
 		},
 		computed: {
 
