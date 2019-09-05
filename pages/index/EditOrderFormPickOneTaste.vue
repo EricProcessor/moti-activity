@@ -273,7 +273,7 @@
 		computed: {
 
 			totalPrice() {
-				return this.buyNumbersColor * this.goods.price ;
+				return this.buyNumbersColor * this.goods.price + this.buyNumbersTaste * this.goods.tastePrice;
 			},
 			
 			goodsInfo(){

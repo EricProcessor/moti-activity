@@ -632,8 +632,7 @@
 				let tobaccoSkuSrc = ""
 				let totalPrice = 0
 				let cartridgesSkuSrc = ""
-				let curGoods = this.$refs.EditOrderForm.goodsInfo
-				console.log(JSON.stringify(curGoods))
+				let curGoods = this.$refs.EditOrderForm.goodsInfo	
 
 				for (let item of curGoods.goods.taste) {
 
@@ -730,7 +729,7 @@
 					"application/json;charset=utf-8"
 				);
 				if (res.data.code == 0) {
-					console.log(res.data)
+					
 					if (res.data.result.indexOf("已购买") > -1) return uni.showModal({
 						content: "您已经参与过一次活动了!",
 
@@ -795,9 +794,9 @@
 				this.provinceName = this.provinceData[this.provinceIndex].label;
 			},
 			cityChange(e) {
-				console.log(e);
-				console.log(this.provinceIndex);
-				console.log(this.cityData[this.cityIndex]);
+				//console.log(e);
+				//console.log(this.provinceIndex);
+				//console.log(this.cityData[this.cityIndex]);
 				this.cityIndex = e.detail.value;
 				this.cityName = this.cityData[this.provinceIndex][this.cityIndex].label;
 			},
