@@ -89,6 +89,9 @@
 				this.innerAudioContext.onPause(() => {
 					this.playState = 2
 				})
+				setTimeout(()=>{
+					if(!this.playState) this.playState = 2
+				}, 2000);
 			}
 		},
 		mounted() {
