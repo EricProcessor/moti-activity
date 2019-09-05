@@ -562,7 +562,7 @@
 					const orderRes = await this.submitOrder(data);
 				} else {
 					uni.showToast({
-						title: "身份信息提交失败",
+						title: regRes.data.msg,
 						icon: "none"
 					});
 				}
