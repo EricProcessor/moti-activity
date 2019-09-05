@@ -15,10 +15,10 @@ export default {
 				},
 
                 {
-                    text: "绿豆冰沙",
-                    sku: "112492581718",
+                    text: "蜂蜜柠檬",
+                    sku: "124865514577",
                     price:35,
-                    src:"../../static/images/icons/ldbs.jpg"
+                    src:"../../static/images/icons/fmlm.jpg"
                 },
                 {
                     text: "风情芒果",
@@ -75,12 +75,12 @@ export default {
                 src:"../../static/images/icons/jdyc.jpg"
             },
 
-                {
-                    text: "绿豆冰沙",
-                    sku: "112492581718",
-                    price:35,
-                    src:"../../static/images/icons/ldbs.jpg"
-                },
+               {
+                   text: "蜂蜜柠檬",
+                   sku: "124865514577",
+                   price:35,
+                   src:"../../static/images/icons/fmlm.jpg"
+               },
                 {
                     text: "风情芒果",
                     sku: "112492581686",
@@ -136,12 +136,12 @@ export default {
                 src:"../../static/images/icons/jdyc.jpg"
             },
 
-                {
-                    text: "绿豆冰沙",
-                    sku: "112492581718",
-                    price:18,
-                    src:"../../static/images/icons/ldbs.jpg"
-                },
+               {
+                   text: "蜂蜜柠檬",
+                   sku: "124865514577",
+                   price:35,
+                   src:"../../static/images/icons/fmlm.jpg"
+               },
                 {
                     text: "风情芒果",
                     sku: "112492581686",
@@ -645,12 +645,12 @@ export default {
                 src:"../../static/images/icons/jdyc.jpg"
             },
 
-                {
-                    text: "绿豆冰沙",
-                    sku: "112492581718",
-                    price:35,
-                    src:"../../static/images/icons/ldbs.jpg"
-                },
+               {
+                   text: "蜂蜜柠檬",
+                   sku: "124865514577",
+                   price:35,
+                   src:"../../static/images/icons/fmlm.jpg"
+               },
                 {
                     text: "风情芒果",
                     sku: "112492581686",
@@ -735,12 +735,12 @@ export default {
 	            src:"../../static/images/icons/jdyc.jpg"
 	        },
 	
-	            {
-	                text: "绿豆冰沙",
-	                sku: "112492581718",
-	                price:35,
-	                src:"../../static/images/icons/ldbs.jpg"
-	            },
+	           {
+	               text: "蜂蜜柠檬",
+	               sku: "124865514577",
+	               price:35,
+	               src:"../../static/images/icons/fmlm.jpg"
+	           },
 	            {
 	                text: "风情芒果",
 	                sku: "112492581686",
@@ -793,12 +793,12 @@ export default {
 	            src:"../../static/images/icons/jdyc.jpg"
 	        },
 
-	            {
-	                text: "绿豆冰沙",
-	                sku: "112492581718",
-	                price:35,
-	                src:"../../static/images/icons/ldbs.jpg"
-	            },
+	           {
+	               text: "蜂蜜柠檬",
+	               sku: "124865514577",
+	               price:35,
+	               src:"../../static/images/icons/fmlm.jpg"
+	           },
 	            {
 	                text: "风情芒果",
 	                sku: "112492581686",
@@ -851,12 +851,12 @@ export default {
 	            src:"../../static/images/icons/jdyc.jpg"
 	        },
 
-	            {
-	                text: "绿豆冰沙",
-	                sku: "112492581718",
-	                price:35,
-	                src:"../../static/images/icons/ldbs.jpg"
-	            },
+	           {
+	               text: "蜂蜜柠檬",
+	               sku: "124865514577",
+	               price:35,
+	               src:"../../static/images/icons/fmlm.jpg"
+	           },
 	            {
 	                text: "风情芒果",
 	                sku: "112492581686",
@@ -1060,12 +1060,12 @@ export default {
 					    src:"../../static/images/icons/jdyc.jpg"
 					},
 					
-					    {
-					        text: "绿豆冰沙",
-					        sku: "112492581718",
-					        price:35,
-					        src:"../../static/images/icons/ldbs.jpg"
-					    },
+					  {
+					      text: "蜂蜜柠檬",
+					      sku: "124865514577",
+					      price:35,
+					      src:"../../static/images/icons/fmlm.jpg"
+					  },
 					    {
 					        text: "风情芒果",
 					        sku: "112492581686",
@@ -1120,12 +1120,12 @@ export default {
 					    src:"../../static/images/icons/jdyc.jpg"
 					},
 					
-					    {
-					        text: "绿豆冰沙",
-					        sku: "112492581718",
-					        price:35,
-					        src:"../../static/images/icons/ldbs.jpg"
-					    },
+					   {
+					       text: "蜂蜜柠檬",
+					       sku: "124865514577",
+					       price:35,
+					       src:"../../static/images/icons/fmlm.jpg"
+					   },
 					    {
 					        text: "风情芒果",
 					        sku: "112492581686",
