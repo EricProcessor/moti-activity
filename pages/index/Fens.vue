@@ -19,7 +19,7 @@
 					<image src="../../static/type/58/play.png" @click="pause" v-if="playState === 1"></image>
 					<image src="../../static/type/58/stop.png" @click="play" v-if="playState === 2"></image>
 				</view>
-				<div class="wrap">
+				<div class="wrap" @tap="toggle">
 					<div class="cont">
 						<text class="txt">MOTI - 澄海伯伯&emsp;  </text><text class="txt">MOTI - 澄海伯伯&emsp;  </text>
 					</div>
@@ -65,6 +65,16 @@
 			pause() {
 				this.innerAudioContext.pause()
 
+			},
+			toggle(){
+				if(this.playState){
+					if(this.playState === 1){
+						this.pause()
+					}
+					if(this.playState === 2){
+						this.play()
+					}
+				}
 			},
 			createdHtmlAudio() {
 				this.innerAudioContext = document.createElement("audio")
@@ -121,6 +131,7 @@
 			.play-images {
 				.music-title {
 					image {
+					
 						width: 195upx;
 						height: 44upx;
 					}

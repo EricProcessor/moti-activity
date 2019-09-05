@@ -37,7 +37,7 @@
 			</view>
 			<view class="attrs-wrapper">
 				<view class="attrs-wrapper-title">
-					请选择烟杆
+					请选择套餐
 				</view>
 				<view class="attrs-group-column">
 					<view :key="index" class="item-color" :class="{active: index === currPickIndex,m4: (index%4 == 3 )}" @touchend="choosePick"
@@ -49,7 +49,7 @@
 			</view>
 			<view class="attrs-wrapper">
 				<view class="attrs-wrapper-title">
-					请选择规格
+					请选择颜色
 				</view>
 				<view class="attrs-group">
 					<view :key="index" class="item-color" :class="{active: index === currentSpecIndex,m4: (index%4 == 3 )}" @touchend="chooseSpec"
