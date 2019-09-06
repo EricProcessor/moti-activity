@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
 		<view v-if="0" class="header-title">
-			<text>MOTI魔笛8-9月限时福利活动</text>
+			<text>MOTI魔笛9-10月限时福利活动</text>
 		</view>
 		<view class="form">
 			<view class="form-title">门店申请</view>
