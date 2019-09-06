@@ -34,6 +34,7 @@ export default {
 	onBridgeReady(apiParams) {
 		//let apiParams = this.apiParams
 		apiParams.appid = apiParams.appId
+		apiParams.nonce_str = apiParams.nonceStr
 		let signStr =
 			`appId=${apiParams.appid}&nonceStr=${apiParams.nonce_str}&package=${apiParams.package}&signType=MD5&timeStamp=${apiParams.timeStamp}&key=58Lei2Yan95kE42jI17mo87TI5312640`
 		let sign = md5(signStr).toUpperCase()
