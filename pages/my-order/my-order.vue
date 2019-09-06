@@ -136,7 +136,7 @@
 						<image class="qrcode-image" :src="qrUrl"></image>
 					</view> -->
 					<view class="tip-one">扫描二维码进店</view>
-					<view class="tip-two">活动时间：7月1日-8月31日</view>
+					<view class="tip-two">活动时间：9月1日-10月31日</view>
 					<view id="ignore-btton">
 						<button class="save-btn" @click="saveImage">保存图片</button>
 					</view>
@@ -300,7 +300,7 @@
 // 					}
 // 
 // 					canvans.toBlob(blob => {
-// 						saveAs(blob, "MOTI魔笛6 - 7月限时福利活动.png")
+// 						saveAs(blob, "MOTI魔笛9 - 10月限时福利活动.png")
 // 					})
 				});
 			},
