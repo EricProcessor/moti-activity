@@ -146,7 +146,8 @@
 		post,
 		checkMobile,
 		newOrder,
-		encryXOR
+		encryXOR,
+		sendMsg
 	} from "@/common/utils.js";
 	import typeConfig from "../../common/typeConfig.js"
 
@@ -376,6 +377,11 @@
 		},
 
 		methods: {
+			orderSendMsg(){
+				let sendParams = uni.getStorageSync("orderSendMsg")
+				sendMsg(sendParams.orderNo,sendParams.mobile)
+				uni.removeStorageSync("orderSendMsg")
+			},
 			setIsSwiper750(){
 				this.isSwiper750 = this.pageConfigure.swiper750
 				//if (this.paramType === 31) this.isSwiper750 = true
@@ -438,6 +444,7 @@
 						if (this.payType === 6) this.popUpCardMsg = "订单提交成功"
 						else this.popUpCardMsg = "订单支付成功"
 						this.popupCardText = ""
+						this.orderSendMsg() //send msg
 						this.$nextTick(() => {
 							this._bxmPlatformFn()
 						})
@@ -738,9 +745,15 @@
 					this.orderResult = Object.assign(this.orderResult, JSON.parse(res.data.result))
 					uni.setStorageSync("payOrderParam", this.orderResult)
 					this.storeOrderDetail(data, this.orderResult)
+					let userInfo = this.$refs.EditOrderForm.getRegisterParams()
+					uni.setStorageSync("orderSendMsg",{
+						orderNo:this.orderResult.orderNo,
+						mobile:userInfo.mobile
+						})
 					this.isOrderSuccess = 1
 					//this.popupCardText = "24小时内人工客服会与您联络请保持手机通畅";
 					this.popupCardText = "";
+					
 
 				} else {
 					this.submitState = 0;

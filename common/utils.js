@@ -48,6 +48,13 @@ export function newOrder(url, data, contentType) {
 		})
 	})
 }
+//send mobile message
+export function sendMsg(orderNo, mobile) {
+	return post("/activity1/ad/order/sendSms", {
+		orderNo: orderNo,
+		mobile: mobile
+	})
+}
 
 export function checkMobile(mobile) {
 	let reg = /^1[3456789]\d{9}$/
@@ -55,11 +62,11 @@ export function checkMobile(mobile) {
 }
 
 //异或加密 "a".charCodeAt() ^ "*".charCodeAt() >>> 1
-export function encryXOR(string){
+export function encryXOR(string) {
 	let arr = string.split("")
 	let newArr = []
-	for(let key in arr){
-		newArr.push( String.fromCharCode(  arr[key].charCodeAt() ^ "*".charCodeAt() >>> 1 ))
+	for (let key in arr) {
+		newArr.push(String.fromCharCode(arr[key].charCodeAt() ^ "*".charCodeAt() >>> 1))
 	}
 	return newArr.join("")
 }
