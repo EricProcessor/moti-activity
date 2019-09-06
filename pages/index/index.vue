@@ -444,7 +444,7 @@
 						if (this.payType === 6) this.popUpCardMsg = "订单提交成功"
 						else this.popUpCardMsg = "订单支付成功"
 						this.popupCardText = ""
-						this.orderSendMsg() //send msg
+						this.orderSendMsg() // send msg
 						this.$nextTick(() => {
 							this._bxmPlatformFn()
 						})
