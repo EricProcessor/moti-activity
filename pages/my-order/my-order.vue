@@ -136,7 +136,7 @@
 						<image class="qrcode-image" :src="qrUrl"></image>
 					</view> -->
 					<view class="tip-one">扫描二维码进店</view>
-					<view class="tip-two">活动时间：9月1日-10月31日</view>
+					<view class="tip-two">活动时间：9月1日-10月30日</view>
 					<view id="ignore-btton">
 						<button class="save-btn" @click="saveImage">保存图片</button>
 					</view>
