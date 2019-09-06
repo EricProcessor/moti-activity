@@ -235,9 +235,10 @@
 		},
 		methods: {
 			defaultPayMethod(){
-				if(this.isShowWx) this.currentPay = 2
+				
 				if(this.isShowAlPay) this.currentPay = 3
 				if(this.isShowCashOnDelivery) this.currentPay = 6
+				if(this.isShowWx) this.currentPay = 2
 				this.$emit("choicePay", this.currentPay)
 			},
 			isPayTwo() {
