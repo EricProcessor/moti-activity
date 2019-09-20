@@ -19,12 +19,16 @@
 			</view>
 		</view>
 		<view class="">
+			<view class="goods-header">
+				商品信息
+			</view>
+			
 			<view class="goods_info_popup">
 				<view class="base_info">
 					<image class="poster" :src="backgrounds[currentSpecIndex]"></image>
 					<view class="info_text">
 						<view class="title">
-							<view class="title_text">{{goods.title}}<br> <text class="desc_text">( {{goods.desc}} )</text> </view>
+							<view class="title_text">{{goods.title}}<br><text class="desc_text">{{goods.desc}}</text></view>
 			
 						</view>
 						<view class="price">
@@ -35,21 +39,9 @@
 					</view>
 				</view>
 			</view>
-			<view class="attrs-wrapper">
+			<view class="attrs-wrapper" v-if="spec.length >=2">
 				<view class="attrs-wrapper-title">
-					请选择套餐
-				</view>
-				<view class="attrs-group-column">
-					<view :key="index" class="item-color" :class="{active: index === currPickIndex,m4: (index%4 == 3 )}" @touchend="choosePick"
-					 :data-index="index" v-for="(item,index) in goodsAll">
-						{{item.goods.promotionName}}
-					</view>
-			
-				</view>
-			</view>
-			<view class="attrs-wrapper">
-				<view class="attrs-wrapper-title">
-					请选择颜色
+					请选择规格
 				</view>
 				<view class="attrs-group">
 					<view :key="index" class="item-color" :class="{active: index === currentSpecIndex,m4: (index%4 == 3 )}" @touchend="chooseSpec"
@@ -76,7 +68,43 @@
 				</view>
 			</view>
 		</view>
-	
+		<view class="goods-list">
+			
+		</view>
+		<view class="brother" >
+			<view class="goods-header">
+				赠品信息
+			</view>
+			<view class="goods_info_popup">
+				<view class="base_info">
+					<image class="poster" :src="brother.backgrounds[currentBrotherIndex]"></image>
+					<view class="info_text">
+						<view class="title">
+							<view class="title_text">{{brother.title}}<br> <text class="desc_text">( {{brother.desc}} )</text> </view>
+			
+						</view>
+						<view class="price">
+							<text class="icon_rmb">¥</text>
+							<text class="number">{{brother.price}}</text>
+							<text class="source_price" v-if="brother.sourcePrice">原价 {{brother.sourcePrice}}</text>
+						</view>
+					</view>
+				</view>
+			</view>
+			
+			<view class="purchase-wrapper">
+				<view class="purchase-title">
+					购买数量
+				</view>
+				<view class="number-handle">
+					
+					<view class="number fix-qty">
+						×{{buyNumbersColor}}
+					</view>
+					
+				</view>
+			</view>
+		</view>
 		
 		<view class="total-price">
 			合计金额:<text class="price-type">￥</text><text class="price-number">{{totalPrice}}</text>
@@ -145,7 +173,6 @@
 				buyNumbersTaste: 0,
 				buyNumbersBrother:0,
 				isShowTastes: false,
-				currPickIndex:0,
 				spec: [],
 				backgrounds: [],
 				goods: {},
@@ -215,15 +242,16 @@
 		computed: {
 
 			totalPrice() {
-				return this.buyNumbersColor * this.goods.price ;
+				return this.buyNumbersColor * this.goods.price + this.buyNumbersBrother * this.brother.price;
 			},
 			
 			goodsInfo(){
 				console.log(typeConfig[this.paramType].goodsName)
-				return goodsConfig[typeConfig[this.paramType].goodsName][this.currPickIndex]
-			},
-			goodsAll(){
-				return goodsConfig[typeConfig[this.paramType].goodsName];
+				return goodsConfig[typeConfig[this.paramType].goodsName]
+				/*if(this.paramType == 24 || this.paramType == 29) return GoodsMojo24
+				if(this.paramType == 23) return Goods
+				if(this.paramType == 27 || this.paramType == 30) return GoodsMojoFree
+				return GoodsTwo*/
 			},
 			mobile(){
 				return this.userInfo[1].value
@@ -296,7 +324,7 @@
 			this.spec = this.goodsInfo.spec
 			this.backgrounds = this.goodsInfo.backgrounds
 			this.goods = this.goodsInfo.goods
-			
+			this.brother = this.goodsInfo.brother
 			if (!this.initData || JSON.stringify(this.initData) === '{}') return;
 			this.userInfo = Object.assign(this.userInfo, this.initData.userInfo)
 			this.buyNumbersColor = this.initData.buyNumbersColor
@@ -351,14 +379,7 @@
 				this.buyNumbersColor < 1 && (this.buyNumbersColor = 1) && this.sum()
 
 			},
-			choosePick(e){
-				this.currPickIndex = Number(e.currentTarget.dataset.index);
-				this.currentSpecIndex = 0
-				this.buyNumbersColor = 1
-				this.spec = this.goodsInfo.spec
-				this.backgrounds = this.goodsInfo.backgrounds
-				this.goods = this.goodsInfo.goods
-			},
+		
 			numsUpColor(e) {
 				if(this.buyNumbersColor>= 1 && (!typeConfig[this.paramType].isShowAgain)) return uni.showToast({
 					title:"每次只能限购一个哦",
@@ -371,7 +392,19 @@
 				this.buyNumbersColor > 0 && (this.buyNumbersColor -= 1);
 
 			},
-			
+			chooseBrother(e) {
+				let choicIndex = Number(e.currentTarget.dataset.index)
+				
+				this.currentBrotherIndex = Number(e.currentTarget.dataset.index);
+				if (this.buyNumbersBrother < 1) this.buyNumbersBrother = 1
+			},
+			numsUpBrother(e) {
+				
+				this.buyNumbersBrother += 1;
+			},
+			numsDownBrother() {
+				this.buyNumbersBrother > 0 && (this.buyNumbersBrother -= 1)
+			},
 			checkSubmit() {
 				let data = {code: 0, message: ""}
 				
@@ -467,7 +500,7 @@
 					tobaccoSkuNum: this.buyNumbersColor,
 					cartridgesSku: "",
 					cartridgesSkuNum: 0,
-					cartridgesSkuPrice:"",
+					cartridgesSkuPrice:0,
 					remark: this.userInfo[4].value,
 					provinceCode: this.areaObj.province.value,
 					provinceName: this.areaObj.province.label,
@@ -487,12 +520,43 @@
 					}
 					orderInfo.giftList = giftList
 				}
-				
+				console.log(orderInfo)
 				return orderInfo
 			},
 			getSrollHeight(){
 				
 				this.formScrolly = document.getElementsByClassName("form-wrapper")[0].offsetTop
+			},
+			setOrderDetail(result){
+				let OrderDetail = {
+					receiveAddress: this.areaObj.province.value + this.areaObj.city.value + this.areaObj.area.value + this.userInfo[3].value,
+					userName: this.userInfo[0].value,
+					mobile: this.userInfo[1].value,
+					id: result.id,
+					result: result,
+					totalPrice: this.totalPrice,
+					list: [
+						{
+							src: this.backgrounds[this.currentSpecIndex],
+							title: this.goods.title,
+							desc: this.goods.desc,
+							price: this.goods.price,
+							qty: this.buyNumbersColor,
+							id: this.spec[this.currentSpecIndex].value
+						}, 
+						{
+							src: this.brother.backgrounds[this.currentBrotherIndex],
+							title: this.brother.title,
+							desc: this.brother.desc ,
+							price: this.brother.price,
+							qty: this.buyNumbersColor,
+							id: ""
+						}, 
+					
+					],
+				}
+				uni.setStorageSync("OrderDetail", OrderDetail)
+				
 			}
 
 		},
@@ -511,7 +575,12 @@
 		
 		background-color: #FFFFFF;
 	}
-
+	.goods-header{
+		//line-height: 60upx;
+		font-size: 34upx;
+		font-weight: bold;
+		margin-bottom: 30upx;
+	}
 	.to-order {
 		text-align: center;
 		
@@ -569,8 +638,8 @@
 		}
 	}
 	.goods-list{
-		margin-top: 60upx;
-		margin-bottom: 60upx;
+		margin-top: 30upx;
+		margin-bottom: 30upx;
 		height: 2upx;
 		background-color: #C8C7CC;
 	}
@@ -644,19 +713,22 @@
 			margin-top: 50upx;
 			display: flex;
 			flex-wrap: wrap;
-		
 			//justify-content: space-between;
 
 			.item-color {
 				width: 145upx;
 				height: 60upx;
-				margin-bottom: 15upx;			
-				margin-right: 26upx;		
+				margin-bottom: 15upx;
+				
+				margin-right: 26upx;
+				
 				border: 1upx #333333 solid;
 				border-radius: 8upx;
 				text-align: center;
 				font-size: 26upx;
 				line-height: 60upx;
+
+
 				&.active {
 					border: 1upx #ff5041 solid;
 					background-color: #ff5041;
@@ -667,30 +739,6 @@
 				}
 			}
 			
-		}
-		.attrs-group-column{
-			margin-top: 50upx;
-			display: flex;
-			flex-direction: column;
-			justify-content: flex-start;
-			
-			.item-color {
-				width: 600upx;
-				height: 60upx;
-				margin-bottom: 15upx;			
-				margin-right: 26upx;		
-				border: 1upx #333333 solid;
-				border-radius: 8upx;
-				text-align: center;
-				font-size: 26upx;
-				line-height: 60upx;
-				&.active {
-					border: 1upx #ff5041 solid;
-					background-color: #ff5041;
-					color: #FFFFFF;
-				}
-			
-			}
 		}
 
 	}
@@ -729,6 +777,9 @@
 				width: 129upx;
 				height: 60upx;
 				color: #ff5041;
+				&.fix-qty{
+					border:none;
+				}
 			}
 
 			.add {

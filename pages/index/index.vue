@@ -116,7 +116,17 @@
 				<!-- 提交信息后弹出卡片 -->
 				<popCard v-if="isShowPopupCard" @emitClose="closePopup" :submitState="submitState" :payType="payType"></popCard>
 			</view>
-			
+			<view v-if="isGift">
+				<view v-if="!isShowOrderDetail">
+					<EditOrderFormGift ref="EditOrderForm" :orderScrollTop="scrollTop" :paramType="paramType" :initData="pageState.editOrderForm"
+					 :isClear="isClearForm" ></EditOrderFormGift>
+					<PayMethodC @choicePay="choosePayWay" :ispolling="ispolling" :paramType="paramType" :payType="payType"
+					 @payCallBack="payCallBackFunc" :urlParams="urlParams" :orderInfo="orderResult" :isOrderSuccess="isOrderSuccess"></PayMethodC>
+				</view>
+				<OrderDetail @againBuy="buyAgain" v-if="isShowOrderDetail" :paramType="paramType" :initData="propsOrderDetail"></OrderDetail>
+				<!-- 提交信息后弹出卡片 -->
+				<popCard v-if="isShowPopupCard" @emitClose="closePopup" :submitState="submitState" :payType="payType"></popCard>
+			</view>
 			<view v-if="paramType == 15" class="introductions">
 				<block>
 					<view :key="index" class="img_wrapper" v-for="(item, index) in imgs.imgs" :style="{width: item.width + 'upx', height: item.height + 'upx'}">
@@ -157,6 +167,7 @@
 	import PayMethodC from "./PayMethodC.vue"
 	import EditOrderForm from "./EditOrderForm.vue"
 	import EditOrderFormC from "./EditOrderFormC.vue"
+	import EditOrderFormGift from "./EditOrderFormGift.vue"
 	import EditOrderFormMojo from "./EditOrderFormMojo.vue"
 	import EditOrderFormMojoDouble from "./EditOrderFormMojoDouble.vue"//EditOrderFormPickOne
 	import EditOrderFormPickOne from "./EditOrderFormPickOne.vue"//EditOrderFormPickOne//EditOrderFormPickOneTaste
@@ -181,6 +192,7 @@
 			PayMethod,
 			EditOrderForm,
 			EditOrderFormC,
+			EditOrderFormGift,
 			PayMethodC,
 			OrderDetail,
 			popCard,
@@ -216,6 +228,9 @@
 			isD(){
 				return this.pageConfigure.module ===  "EditOrderFormMojoDouble"
 			},
+			isGift(){
+				return this.pageConfigure.module ===  "EditOrderFormGift"
+			},
 			IsSinglePage(){
 				return this.pageConfigure.module == 'SinglePage'
 			},
@@ -226,7 +241,7 @@
 				return this.pageConfigure.module == 'EditOrderFormPickOneTaste'
 			},
 			isOnShowOrderDetail() {
-				return this.isC || this.isMojo || this.isD || this.isPickOne || this.isEditOrderFormPickOneTaste
+				return this.isC || this.isMojo || this.isD || this.isPickOne || this.isEditOrderFormPickOneTaste || this.isGift
 			},
 			isShowDynamic() {
 				if (this.isC) return false
@@ -257,7 +272,7 @@
 				return "立即抢购" */
 			},
 			isRedBtn(){
-				return (this.isC || this.isMojo || this.isD || this.isPickOne || this.isEditOrderFormPickOneTaste)
+				return (this.isC || this.isMojo || this.isD || this.isPickOne || this.isEditOrderFormPickOneTaste || this.isGift)
 			}
 		},
 		data() {
@@ -634,13 +649,14 @@
 			// 	return res.code
 			// },
 			storeOrderDetail(data, result) {
+				if(this.isGift) return this.$refs.EditOrderForm.setOrderDetail(result)
 				let cartridgesSkuName = ""
 				let tobaccoSkuName = ""
 				let tobaccoSkuSrc = ""
 				let totalPrice = 0
 				let cartridgesSkuSrc = ""
 				let curGoods = this.$refs.EditOrderForm.goodsInfo	
-
+	
 				for (let item of curGoods.goods.taste) {
 
 					if (item.sku == data.pageOrder.cartridgesSku) {
@@ -686,7 +702,7 @@
 					list: [{
 						src: tobaccoSkuSrc,
 						title: curGoods.goods.title,
-						desc: curGoods.goods.desc + ":" + tobaccoSkuName,
+						desc: curGoods.goods.desc ,//+ ":" + tobaccoSkuName
 						price: curGoods.goods.price,
 						qty: data.pageOrder.tobaccoSkuNum,
 						id: data.pageOrder.tobaccoSku

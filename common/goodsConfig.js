@@ -1167,4 +1167,220 @@ export default {
 		    ],
 		}
 	],
+	goodsTZJZ:{//天之骄子
+		brother:{
+			imgUrl: "",
+			price: 0,
+			sourcePrice: 169,
+			title: "MTGO电子烟套装换弹雾化烟",
+			desc:"1烟杆+1烟弹",
+			backgrounds: [
+			     "../../static/images/mojo/xbh.jpg",  
+			],
+			spec: [
+				
+			   {
+			       text: "雪狐白",
+			       sku: "112492575751"
+			   },
+			   
+			],
+		},
+	    goods: {
+	        imgUrl: "",
+	        price: 436,
+	        sourcePrice: 999,
+	        title: "五粮液股份东方娇子精酿级浓香型白酒52度",
+	        desc:"500mL整箱装",
+	        tastePrice:0,
+	        taste: [],
+	    },
+	    backgrounds: [
+	        "../../static/images/jiu/22.jpg",    
+	    ],
+	    spec: [
+	        {
+	            text: "星辰银",
+	            sku: "112492577675"
+	        }  
+	    ]
+	},
+	goodsWWSJ:{//文武酒圣
+		brother:{
+			imgUrl: "",
+			price: 0,
+			sourcePrice: 169,
+			title: "MTGO电子烟套装换弹雾化烟",
+			desc:"1烟杆+1烟弹",
+			backgrounds: [
+			     "../../static/images/mojo/xbh.jpg",  
+			],
+			spec: [
+				
+			   {
+			       text: "雪狐白",
+			       sku: "112492575751"
+			   },
+			   
+			],
+		},
+	    goods: {
+	        imgUrl: "",
+	        price: 899,
+	        sourcePrice: 1399,
+	        title: "五粮液股份文武圣酒浓香型白酒礼盒装639ml*2武酒52度文酒45度",
+	        desc:"",
+	        tastePrice:0,
+	        taste: [],
+	    },
+	    backgrounds: [
+	       "../../static/images/jiu/11.jpg",   
+	    ],
+	    spec: [
+	        {
+	            text: "星辰银",
+	            sku: "112492577675"
+	        }  
+	    ],
+	},
+	goodsMFW:{//马蜂窝
+		brother:{
+			imgUrl: "",
+			price: 0,
+			sourcePrice: 169,
+			title: "MOTI电子烟果香口味烟弹2颗",
+			desc:"口味:清甜西瓜、冰镇菠萝",
+			backgrounds: [
+			    "../../static/images/icons/twoyantan.jpg",   
+			],
+			spec: [	
+				
+			],
+			
+		},
+		goods: {
+		    imgUrl: "",
+		    price: 199,
+		    sourcePrice: 299,
+		    title: "MOTI 电子烟套装",
+		    desc:"1烟杆+1经典烟草烟弹",
+		    tastePrice:0,
+		    taste: [],
+		},
+		backgrounds: [
+			"https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/1.jpg",
+		    "https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/2.jpg",
+			"https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/4.jpg",
+		],
+		spec: [
+		    {
+		        text: "燕尾黑",
+		        sku: "112492575139"
+		    },
+			{
+			    text: "极光色",
+			    sku: "586197169359"
+			},
+			{
+			    text: "星辰银",
+			    sku: "112492577675"
+			},
+		],
+		extraGifts:[
+			{
+				text:'冰镇菠萝',
+				value:"124865514575",
+				price:0
+			},
+			{
+				text:'清甜西瓜',
+				value:"112492580527",
+				price:0
+			}
+		],
+	},
+	goodPickOneQNER:[
+			
+		{
+		    goods: {
+		        imgUrl: "",
+		        price: 99.5,
+		        sourcePrice: 199,
+		        title: "MOTI套装:电子烟套装(1 烟杆 + 1 烟弹)",
+		        desc:"口味:经典口味",
+		        tastePrice:35,
+				promotionName:"MOTI套装:MOTI电子烟套装(1烟杆 + 1烟弹)",
+		        taste: [],
+				credible:['官方发货','消费者保障服务','包邮','假一赔三'],
+				saleQty:93
+		    },
+		    backgrounds: [
+		        "https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/4.jpg",
+		        "https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/1.jpg",
+		        "https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/2.jpg",
+		    ],
+		    spec: [
+		    		
+		        {
+		            text: "星辰银",
+		            sku: "112492577675"
+		        },
+		       
+		        {
+		            text: "燕尾黑",
+		            sku: "112492575139"
+		        },
+		        {
+		            text: "极光色",
+		            sku: "586197169359"
+		        },
+		    ],
+			extraGifts:[]
+		},
+		{
+		    goods: {
+		        imgUrl: "",
+		        price: 134.5,
+		        sourcePrice: 269,
+		        title: "MOTI礼盒:MOTI电子烟套装(1烟杆+3烟弹)",
+		        desc:"口味:经典口味、清甜西瓜、冰镇菠萝",
+		        tastePrice:35,
+				promotionName:"MOTI礼盒:MOTI电子烟套装(1烟杆+3烟弹)",
+		        taste: [],
+		    },
+		    backgrounds: [
+		         "../../static/images/mfw/xcy.jpg",
+				 "../../static/images/mfw/ywh.jpg",
+				 "../../static/images/mfw/jgs.jpg",
+		    ],
+		    spec: [
+		
+		        {
+		            text: "星辰银",
+		            sku: "112492577675"
+		        },
+		       
+		        {
+		            text: "燕尾黑",
+		            sku: "112492575139"
+		        },
+		        {
+		            text: "极光色",
+		            sku: "586197169359"
+		        },
+		    ],
+			extraGifts:[
+				{
+					text:'冰镇菠萝',
+					value:"124865514575",
+					price:0,
+				},
+				{
+					text:'清甜西瓜',
+					value:"112492580527",
+					price:0,
+				} 
+			],
+		}
+	],
 }

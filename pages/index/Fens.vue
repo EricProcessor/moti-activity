@@ -16,8 +16,8 @@
 		<view class="play-music" v-if="playState">
 			<view class="play-images">
 				<view class="music-title">
-					<image src="../../static/type/58/play.png" @click="pause" v-if="playState === 1"></image>
-					<image src="../../static/type/58/stop.png" @click="play" v-if="playState === 2"></image>
+					<image src="../../static/type/58/stop.png" @click="pause" v-if="playState === 1"></image>
+					<image src="../../static/type/58/play.png" @click="play" v-if="playState === 2"></image>
 				</view>
 				<div class="wrap" @tap="toggle">
 					<div class="cont">

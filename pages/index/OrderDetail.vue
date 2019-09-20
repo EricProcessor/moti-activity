@@ -40,7 +40,8 @@
 								{{item.title}}
 							</view>
 							<view class="good-right-spec">
-								( {{item.desc}} )
+								<text v-if="item.desc">( {{item.desc}} )</text>
+								
 							</view>
 							<view class="good-right-price">
 								<view class="price-left">
@@ -227,6 +228,7 @@
 						.good-left {
 							width: 120upx;
 							height: 120upx;
+							flex-shrink:0;
 
 							image {
 								width: 100%;

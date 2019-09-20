@@ -2419,6 +2419,228 @@ export default {
 			},
 		]
 	},
+	imgs62:{
+		swipers: [
+			'../../static/type/62/banner_01.png',
+			'../../static/type/62/banner_02.jpg',
+			'../../static/type/62/banner_03.jpg',
+		],
+		imgs:[
+			{
+				url: '../../static/type/62/1.jpg',
+				width: 750,
+				height: 942,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/62/2.jpg',
+				width: 750,
+				height: 1220,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/62/3.jpg',
+				width: 750,
+				height: 730,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/62/4.jpg',
+				width: 750,
+				height: 660,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/62/5.jpg',
+				width: 750,
+				height: 660,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/62/6.jpg',
+				width: 750,
+				height: 599,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/62/7.jpg',
+				width: 750,
+				height: 656,
+				isLoaded: false
+			},
+			
+			{
+				url: '../../static/type/62/8.jpg',
+				width: 750,
+				height: 1035,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/62/9.jpg',
+				width: 750,
+				height: 542,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/62/10.jpg',
+				width: 750,
+				height: 934,
+				isLoaded: false
+			}
+			
+		]
+	},
+	imgs63:{
+		swipers: [
+			'../../static/type/63/banner_01.jpg',
+			'../../static/type/63/banner_03.jpg',
+			'../../static/type/63/banner_03.jpg',
+		],
+		imgs:[
+			{
+				url: '../../static/type/63/1.jpg',
+				width: 750,
+				height: 910,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/63/2.jpg',
+				width: 750,
+				height: 1054,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/63/3.jpg',
+				width: 750,
+				height: 906,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/63/4.jpg',
+				width: 750,
+				height: 837,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/63/5.jpg',
+				width: 750,
+				height: 710,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/63/6.jpg',
+				width: 750,
+				height: 710,
+				isLoaded: false
+			},
+			
+			{
+				url: '../../static/type/63/9.jpg',
+				width: 750,
+				height: 928,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/63/7.jpg',
+				width: 750,
+				height: 943,
+				isLoaded: false
+			},
+			
+			{
+				url: '../../static/type/63/8.jpg',
+				width: 750,
+				height: 540,
+				isLoaded: false
+			}
+		]
+	},
+	imgs64:{
+		swipers: [
+			
+		],
+		imgs:[
+			{
+				url: '../../static/type/64/1.jpg',
+				width: 750,
+				height: 1074,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/64/2.jpg',
+				width: 750,
+				height: 930,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/64/3.jpg',
+				width: 750,
+				height: 1196,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/64/4.jpg',
+				width: 750,
+				height: 1070,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/64/5.jpg',
+				width: 750,
+				height: 874,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/64/6.jpg',
+				width: 750,
+				height: 1252,
+				isLoaded: false
+			}
+		]
+	},
+	imgs65:{
+		swipers: [
+			
+		],
+		imgs:[
+			{
+				url: '../../static/type/65/1.jpg',
+				width: 750,
+				height: 906,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/64/2.jpg',
+				width: 750,
+				height: 930,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/64/3.jpg',
+				width: 750,
+				height: 1196,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/64/4.jpg',
+				width: 750,
+				height: 1070,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/64/5.jpg',
+				width: 750,
+				height: 874,
+				isLoaded: false
+			},
+			{
+				url: '../../static/type/64/6.jpg',
+				width: 750,
+				height: 1252,
+				isLoaded: false
+			}
+		]
+	},
     lastImgs: [
         'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_1/last.jpg',
         'https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/imgs_2/last.jpg',
