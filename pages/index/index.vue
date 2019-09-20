@@ -581,6 +581,7 @@
 
 
 					this.orderResult.ip = regRes.data.result
+					console.log(JSON.stringify(data))
 					const orderRes = await this.submitOrder(data);
 				} else {
 					uni.showToast({

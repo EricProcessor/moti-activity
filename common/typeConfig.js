@@ -1087,12 +1087,13 @@ export default {
 		isEncrypted: true, // 是否对提交订单数据加密
 		isShowPayMethod: true, // 是否显示支付方式
 		buttonMsg: '立即抢购', //底部抢购提示
-		onWxPay: false, //开启微信支付
-		onAlipayPay: false, //开启支付宝支付
-		onArrivePay: true, //开始货到付款
+		onWxPay: true, //开启微信支付
+		onAlipayPay: true, //开启支付宝支付
+		onArrivePay: false, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:false,
 		isShowAgain:true,
+		hideSaleNums:true,
 	},
 	63: {//文武酒圣
 		module: 'EditOrderFormGift',
@@ -1106,10 +1107,11 @@ export default {
 		buttonMsg: '立即抢购', //底部抢购提示
 		onWxPay: true, //开启微信支付
 		onAlipayPay: true, //开启支付宝支付
-		onArrivePay: true, //开始货到付款
+		onArrivePay: false, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:false,
 		isShowAgain:true,
+		hideSaleNums:true,
 	},
 	64: {//去哪儿
 		module: 'EditOrderFormPickOne',
@@ -1117,13 +1119,13 @@ export default {
 		imgs: "imgs64", // 图片key
 		lastImg:6,
 		swiper750: true, // 轮播图片是否高度是否是750upx
-		submitApi: "/activity1/ad/order/bookingGghdOrder2c", //提交订单api
+		submitApi: "/activity1/ad/order/generateOrderForMafengwo", //提交订单api
 		isEncrypted: true, // 是否对提交订单数据加密
 		isShowPayMethod: true, // 是否显示支付方式
 		buttonMsg: '立即抢购', //底部抢购提示
 		onWxPay: true, //开启微信支付
 		onAlipayPay: true, //开启支付宝支付
-		onArrivePay: true, //开始货到付款
+		onArrivePay: false, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:false,
 		isShowAgain:true,
@@ -1134,13 +1136,30 @@ export default {
 		imgs: "imgs65", // 图片key
 		lastImg:6,
 		swiper750: true, // 轮播图片是否高度是否是750upx
-		submitApi: "/activity1/ad/order/bookingGghdOrder2c", //提交订单api
+		submitApi: "/activity1/ad/order/generateOrderForMafengwo", //提交订单api
 		isEncrypted: true, // 是否对提交订单数据加密
 		isShowPayMethod: true, // 是否显示支付方式
 		buttonMsg: '立即抢购', //底部抢购提示
 		onWxPay: true, //开启微信支付
 		onAlipayPay: true, //开启支付宝支付
-		onArrivePay: true, //开始货到付款
+		onArrivePay: false, //开始货到付款
+		bianXianMao:false,
+		isSpuDesc:false,
+		isShowAgain:true,
+	},
+	66: {//马蜂窝推广
+		module: 'SinglePage',
+		goodsName: "goodsMFW", // 商品key
+		imgs: "imgs65", // 图片key
+		lastImg:6,
+		swiper750: true, // 轮播图片是否高度是否是750upx
+		submitApi: "/activity1/ad/order/generateOrderForMafengwo", //提交订单api
+		isEncrypted: true, // 是否对提交订单数据加密
+		isShowPayMethod: true, // 是否显示支付方式
+		buttonMsg: '立即抢购', //底部抢购提示
+		onWxPay: true, //开启微信支付
+		onAlipayPay: true, //开启支付宝支付
+		onArrivePay: false, //开始货到付款
 		bianXianMao:false,
 		isSpuDesc:false,
 		isShowAgain:true,

@@ -1268,9 +1268,12 @@ export default {
 		    taste: [],
 		},
 		backgrounds: [
-			"https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/1.jpg",
-		    "https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/2.jpg",
-			"https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/4.jpg",
+			// "https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/1.jpg",
+		 //    "https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/2.jpg",
+			// "https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/4.jpg",
+			"../../static/images/taozhuang/ywh.jpg",
+			"../../static/images/taozhuang/jgs.jpg",
+			"../../static/images/taozhuang/xcy.jpg",
 		],
 		spec: [
 		    {
@@ -1315,9 +1318,10 @@ export default {
 				saleQty:93
 		    },
 		    backgrounds: [
-		        "https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/4.jpg",
-		        "https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/1.jpg",
-		        "https://moti-dev.oss-cn-beijing.aliyuncs.com/moti-activity/goods_imgs/2.jpg",
+				"../../static/images/taozhuang/xcy.jpg",
+		       "../../static/images/taozhuang/ywh.jpg",
+		       "../../static/images/taozhuang/jgs.jpg",
+		       
 		    ],
 		    spec: [
 		    		

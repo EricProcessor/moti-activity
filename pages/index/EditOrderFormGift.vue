@@ -1,6 +1,6 @@
 <template>
 	<view class="panel-body">
-		<view class="to-order">
+		<view class="to-order" v-if="!configType.hideSaleNums">
 			<view class="to-order-title">
 				<view class="title-en">
 					<image src="../../static/images/icons/place-an-order.png" mode=""></image>
@@ -244,7 +244,9 @@
 			totalPrice() {
 				return this.buyNumbersColor * this.goods.price + this.buyNumbersBrother * this.brother.price;
 			},
-			
+			configType(){
+				return typeConfig[this.paramType]
+			},
 			goodsInfo(){
 				console.log(typeConfig[this.paramType].goodsName)
 				return goodsConfig[typeConfig[this.paramType].goodsName]
