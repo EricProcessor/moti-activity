@@ -14,7 +14,7 @@
 		},
 		methods:{
 			jumpTo(){
-				location.href = location.origin
+				location.href = location.origin + "?type=65"
 			}
 		}
 	}
@@ -22,6 +22,7 @@
 
 <style lang="scss" scoped>
 	.mfw-fen{
+		
 		img{
 			display: block;
 			
