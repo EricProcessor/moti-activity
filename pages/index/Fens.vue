@@ -106,7 +106,11 @@
 				}, 2000);
 			},
 			touchstart(){
-				if(this.playState == 2 && !this.isZhuDongPause )this.innerAudioContext.play()
+				
+				if(this.playState == 2 && !this.isZhuDongPause ) {
+					this.innerAudioContext.play()
+					document.removeEventListener('touchstart', this.touchstart);
+				}
 			}
 		},
 		mounted() {
