@@ -103,14 +103,14 @@
 				})
 				setTimeout(()=>{
 					if(!this.playState) this.playState = 2
-				}, 2000);
+				}, 200);
 			},
 			touchstart(){
 				
 				if(this.playState == 2 && !this.isZhuDongPause ) {
 					this.innerAudioContext.play()
-					document.removeEventListener('touchstart', this.touchstart);
 				}
+				document.removeEventListener('touchstart', this.touchstart);
 			}
 		},
 		mounted() {
