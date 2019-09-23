@@ -49,7 +49,8 @@
 					method: "pause"
 				},
 				playState: 0, // 1 播放中 2 暂停中
-				innerAudioContext: {}
+				innerAudioContext: {},
+				isZhuDongPause:false,
 			}
 		},
 		methods: {
@@ -98,13 +99,18 @@
 
 				this.innerAudioContext.onPause(() => {
 					this.playState = 2
+					this.isZhuDongPause = true
 				})
 				setTimeout(()=>{
 					if(!this.playState) this.playState = 2
 				}, 2000);
+			},
+			touchstart(){
+				if(this.playState == 2 && !this.isZhuDongPause )this.innerAudioContext.play()
 			}
 		},
 		mounted() {
+			document.addEventListener('touchstart', this.touchstart, false);
 			this.$nextTick(() => {
 				this.createdAudio()
 			})
