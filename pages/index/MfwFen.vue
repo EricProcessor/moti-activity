@@ -14,7 +14,7 @@
 		},
 		methods:{
 			jumpTo(){
-				location.href = location.origin + "?type=65"
+				location.href = location.origin + "?type=65&orderSource=1002&channel=mafengwo&material=001"
 			}
 		}
 	}

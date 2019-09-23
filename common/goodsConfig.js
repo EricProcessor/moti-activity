@@ -1247,7 +1247,7 @@ export default {
 		brother:{
 			imgUrl: "",
 			price: 0,
-			sourcePrice: 169,
+			sourcePrice: 70,
 			title: "MOTI电子烟果香口味烟弹2颗",
 			desc:"口味:清甜西瓜、冰镇菠萝",
 			backgrounds: [
