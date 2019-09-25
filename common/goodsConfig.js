@@ -1292,12 +1292,12 @@ export default {
 		extraGifts:[
 			{
 				text:'冰镇菠萝',
-				value:"124865514575",
+				value:"112492582394",
 				price:0
 			},
 			{
 				text:'清甜西瓜',
-				value:"112492580527",
+				value:"112492577833",
 				price:0
 			}
 		],
@@ -1376,12 +1376,12 @@ export default {
 			extraGifts:[
 				{
 					text:'冰镇菠萝',
-					value:"124865514575",
+					value:"112492582394",
 					price:0,
 				},
 				{
 					text:'清甜西瓜',
-					value:"112492580527",
+					value:"112492577833",
 					price:0,
 				} 
 			],
